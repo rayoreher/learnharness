@@ -1,5 +1,24 @@
 # Course Studio verification record
 
+## v0.5 completed verification
+
+- All 52 automated checks pass. Added cases prove generation receipt replay
+  across restart, conflicting receipt refusal, additional-format attachment with
+  stable old IDs/history, atomic rejection of invalid practice, corruption
+  preservation, interrupted-job recovery and tab-receipt reuse.
+- The complete isolated real-browser journey passed. It deliberately lost an
+  accepted answer's HTTP response, reloaded, recovered feedback and verified
+  exactly one recorded attempt. It also reloaded an unrated flashcard and
+  resumed rating, created a source-based course via the form, and added three
+  missing quiz formats through lesson controls. Diagram/media/import/backup,
+  keyboard and mobile checks remained successful.
+- Source review covers the authored standard-library/browser closure. The saved
+  scanner recorded complete coverage with review-level process/environment/
+  network references: the explicit Codex/browser child processes, selected
+  runtime settings, localhost HTTP, same-origin browser requests and the SVG
+  namespace URI. These match the documented operations. No package or outside
+  executable plugin was added, and no inherited script was run.
+
 ## v0.4 completed verification
 
 - All 45 automated checks pass on Node 24.22.3. New cases cover source bounds,

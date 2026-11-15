@@ -8,6 +8,14 @@ they are imported into the trusted local app.
 
 ## Registration
 
+Add reviewed contributions inside `registerLocalPlugins(registry)` in
+`public/course-studio/extensions.js`, then restart the server and refresh the
+browser. This shared entry point ensures the same IDs exist before server
+validation and browser controls are created. Keep this module browser-safe;
+provider work goes through the passed core context. Review changed code and its
+dependencies using the owner's intake process before use. No restart-time
+package download or executable upload mechanism is provided.
+
 ```js
 registry.register({
   apiVersion: 1,

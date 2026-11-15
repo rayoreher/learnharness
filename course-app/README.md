@@ -80,6 +80,12 @@ an explicit explanation; source material and progress remain unchanged.
 
 The versioned extension contract is documented in `PLUGIN-CONTRACT.md`.
 
+Use **Formats for this lesson → Add new practice** to generate new questions
+in selected formats from the saved explanation. Existing questions and answers
+stay intact. Added questions reopen that lesson's coverage and join its exercise
+mix. Generation can make one bounded correction request when a model draft
+fails validation; invalid content is never saved as a successful course.
+
 ## Diagrams, source material and portable learning
 
 Semantic flow diagrams store nodes and relationships independently of their
@@ -123,6 +129,12 @@ attempts remain saved when you change policy.
 Default records: `data/course-studio/learning.json`, relative to the working
 directory. Atomic replacement and a single-writer process lease protect writes.
 An interrupted generation is recorded on restart and never silently replayed.
+Choose Retry generation to start it again explicitly. Browser requests use saved
+receipts to recover lost acknowledgements without duplicating accepted work.
+Pending receipts survive reloads in the current tab; pending self-assessments
+also resume from the server's saved history. Damaged stored references stop
+startup with the original file preserved. Workspace limits are 100 paths and
+64 MB of learning records.
 Copy learning records only after stopping the app. Keep the `codex/` profile
 private; it contains authentication managed by Codex.
 

@@ -15,7 +15,7 @@ function normalizedCourse(raw) {
   if (raw.source) c.source = prepareSource(raw.source);
   return c;
 }
-function restoredProgress(raw, course) {
+export function restoredProgress(raw, course) {
   check(raw && typeof raw === 'object', 'Backup progress is missing.');
   const base = emptyProgress(), lessons = new Map(course.lessons.map(l => [l.id, l])), exercises = new Map(course.lessons.flatMap(l => l.exercises.map(e => [e.id, { exercise: e, lesson: l }])));
   const finite = n => typeof n === 'number' && Number.isFinite(n) && n >= 0 && n <= 8640000000000000;
@@ -58,6 +58,18 @@ function restoredProgress(raw, course) {
   }
   return base;
 }
+export function validateStoredState(state) {
+  check(state && state.version === 1 && Array.isArray(state.courses) && state.courses.length <= 100 && state.progress && typeof state.progress === 'object' && !Array.isArray(state.progress) && Array.isArray(state.jobs) && state.settings && typeof state.settings === 'object', 'Unsupported or damaged learning data.', 500);
+  const ids = new Set();
+  for (const course of state.courses) {
+    check(typeof course.id === 'string' && /^[a-f0-9-]{36}$/.test(course.id) && !ids.has(course.id) && Number.isSafeInteger(course.version) && course.version >= 1, 'Saved course identities are damaged.', 500); ids.add(course.id);
+    normalizedCourse(course); restoredProgress(state.progress[course.id], course);
+  }
+  check(Object.keys(state.progress).every(id => ids.has(id)), 'Saved progress refers to a missing course.', 500);
+  const jobs = new Set();
+  for (const job of state.jobs) { check(job && typeof job.id === 'string' && !jobs.has(job.id) && typeof job.goal === 'string' && ['queued', 'running', 'succeeded', 'failed', 'interrupted'].includes(job.status), 'Saved generation records are damaged.', 500); jobs.add(job.id); }
+  check(state.settings.model === null || (typeof state.settings.model === 'string' && state.settings.model.length <= 200), 'Saved model setting is damaged.', 500);
+}
 export async function importLearning(app, input) {
   check(['course', 'mindspark', 'workspace'].includes(input.kind), 'Choose a supported import type.');
   if (input.kind === 'workspace') {
@@ -65,7 +77,7 @@ export async function importLearning(app, input) {
     // Validate the entire restore before committing any record. Import appends
     // independent course identities and never overwrites current learning.
     const prepared = data.courses.map(entry => { const course = normalizedCourse(entry.course); return { course, progress: restoredProgress(entry.progress, course) }; });
-    return app.store.transact(s => { for (const entry of prepared) { s.courses.push(entry.course); s.progress[entry.course.id] = entry.progress; } return { imported: prepared.length, courses: prepared.map(e => publicCourse(e.course)) }; });
+    return app.store.transact(s => { check(s.courses.length + prepared.length <= 100, 'This workspace supports up to 100 learning paths.'); for (const entry of prepared) { s.courses.push(entry.course); s.progress[entry.course.id] = entry.progress; } return { imported: prepared.length, courses: prepared.map(e => publicCourse(e.course)) }; });
   }
   let raw = input.data;
   if (input.kind === 'mindspark') {

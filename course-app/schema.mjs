@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { presentationSettings, registry } from '../public/course-studio/plugin-registry.js';
 import { validateDiagram } from '../public/course-studio/diagrams.js';
 
-export const VERSION = '0.4.0';
+export const VERSION = '0.5.0';
 export const TYPES = registry.list('exercise').map(entry => entry.manifest.id);
 export class Problem extends Error {
   constructor(message, status = 400) { super(message); this.status = status; }
@@ -83,3 +83,14 @@ export const COURSE_SCHEMA = object({
   }))
 });
 export const GRADE_SCHEMA = object({ result: { enum: ['correct', 'partial', 'incorrect'] }, feedback: string });
+export const EXERCISES_SCHEMA = object({ exercises: COURSE_SCHEMA.properties.lessons.items.properties.exercises });
+export function additionalExercises(course, lessonId, types, raw) {
+  exerciseTypes(types);
+  const lesson = course.lessons.find(l => l.id === lessonId); check(lesson, 'Lesson not found.', 404);
+  check(Array.isArray(raw?.exercises) && raw.exercises.length > 0 && raw.exercises.length <= 20, 'Expected 1–20 additional exercises.', 502);
+  check(raw.exercises.every(e => types.includes(e.type)) && types.every(type => raw.exercises.some(e => e.type === type)), 'Generated practice must include each requested format.', 502);
+  const added = raw.exercises.map(e => ({ ...e, id: `practice-${randomUUID()}` }));
+  // Reuse canonical validation without replacing any existing identity/content.
+  const validated = validateCourse({ ...course, lessons: course.lessons.map(l => l.id === lessonId ? { ...l, exercises: [...l.exercises, ...added] } : l) });
+  return validated.lessons.find(l => l.id === lessonId).exercises.slice(lesson.exercises.length);
+}

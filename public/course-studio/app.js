@@ -1,12 +1,14 @@
 import { registry } from './plugin-registry.js';
 import { mountLessonOutput } from './lesson-outputs.js';
 import { lessonMarkdown } from './exports.js';
+import { PendingReceipts } from './receipts.js';
 
 const root = document.querySelector('#app');
 const notice = document.querySelector('#notice');
 const names = Object.fromEntries(registry.list('exercise').map(entry => [entry.manifest.id, entry.manifest.label]));
 let state, connection = { connected: false }, route = { view: 'home' }, feedback = null, selected = '', answer = '', review = null, busy = false, noticeTimer, modelOptions = [], signInUrl = null, signInCode = null, lessonSurface = null;
 const polling = new Set();
+const receipts = new PendingReceipts(sessionStorage), practiceDrafts = new Map();
 const draft = { goal: '', level: 'beginner', types: Object.keys(names), presentation: { format: 'text', template: 'guided', workflow: 'lesson-quiz' }, source: null };
 let lastRenderedRoute = null, reviewRequest = 0;
 
@@ -32,9 +34,15 @@ async function readFile(file, max) {
 }
 async function api(path, input) {
   const response = await fetch(`/api/course-studio/${path}`, { method: input === undefined ? 'GET' : 'POST', headers: input === undefined ? {} : { 'Content-Type': 'application/json', 'X-Course-Token': state?.token ?? '' }, ...(input === undefined ? {} : { body: JSON.stringify(input) }), cache: 'no-store' });
-  const data = await response.json(); if (!response.ok) throw new Error(data.error || 'The request failed.'); return data;
+  const data = await response.json(); if (!response.ok) { const error = new Error(data.error || 'The request failed.'); error.status = response.status; throw error; } return data;
 }
 async function refresh() { state = await api('state'); }
+async function submitOnce(scope, path, input) { const receipt = receipts.prepare(scope, path, input); try { const result = await api(path, receipt.input); receipts.accept(scope); return result; } catch (error) { if (error.status >= 400 && error.status < 500) receipts.accept(scope); throw error; } }
+async function retryReceipt(entry) {
+  const result = await api(entry.path, entry.input); receipts.accept(entry.scope); await refresh();
+  if (entry.path === 'attempts') { go('course', entry.input.courseId, entry.input.lessonId); feedback = result; }
+  else { void watchJob(result.id); message('Generation request confirmed.'); }
+}
 async function action(work) { if (busy) return; busy = true; render(); try { await work(); } catch (error) { message(error.message); } finally { busy = false; render(); } }
 function button(text, work, className = '', attrs = {}) { return el('button', { type: 'button', class: className, disabled: busy, onClick: () => { void action(work); }, ...attrs }, text); }
 function go(view, courseId, lessonId) {
@@ -67,6 +75,8 @@ function lessonOutput(c, l, settings) {
 }
 function shell(body) {
   const c = course();
+  const unconfirmed = receipts.list().map(entry => el('div', { class: 'job', role: 'status' }, el('p', {}, 'A request has not been confirmed. Retrying uses the same receipt to avoid duplicate work.'), button('Retry unconfirmed request', () => retryReceipt(entry), 'quiet')));
+  body = el('div', {}, unconfirmed, body);
   return el('div', { class: 'shell' },
     el('aside', { class: 'sidebar' },
       el('button', { class: 'brand', onClick: () => go('home') }, el('span', { class: 'mark', 'aria-hidden': 'true' }, 'h'), el('span', {}, el('strong', {}, 'learnharness'), el('small', {}, 'COURSE STUDIO'))),
@@ -112,7 +122,7 @@ function homeView() {
       if (!goal.trim()) throw new Error('Describe what you want to learn.');
       if (!types.length) throw new Error('Choose at least one exercise format.');
       if (!connection.connected) { go('settings'); throw new Error('Connect Codex with ChatGPT to generate your course.'); }
-      const job = await api('generate', { goal, level, types, presentation, ...(draft.source ? { source: draft.source } : {}) }); draft.goal = ''; await refresh(); watchJob(job.id); message('Your course is being prepared. You can keep exploring.');
+      const job = await submitOnce('generate', 'generate', { goal, level, types, presentation, ...(draft.source ? { source: draft.source } : {}) }); draft.goal = ''; await refresh(); watchJob(job.id); message('Your course is being prepared. You can keep exploring.');
     });
   } }, el('label', { for: 'goal' }, 'What would you like to understand?'), goalInput,
   el('div', { class: 'goal-options' }, el('div', { class: 'field' }, el('label', { for: 'level' }, 'Starting level'), levelInput), el('span', { class: 'small' }, 'A focused course, one small lesson at a time.'), el('button', { type: 'submit', class: 'primary', disabled: busy }, 'Create my course →')),
@@ -135,6 +145,8 @@ function courseView(c) {
   const selectedTypes = p.lessonSettings[l.id]?.exerciseTypes ?? c.settings.exerciseTypes;
   const presentation = { format: 'text', template: 'guided', workflow: 'lesson-quiz', ...c.settings, ...p.lessonSettings[l.id] };
   const exercises = l.exercises.filter(e => selectedTypes.includes(e.type));
+  const pendingRating = [...p.attempts].reverse().find(a => a.lessonId === l.id && a.result === 'pending' && exercises.some(e => e.id === a.exerciseId));
+  if (!feedback && pendingRating) feedback = pendingRating;
   const unanswered = exercises.filter(e => !p.attempts.some(a => a.exerciseId === e.id));
   const current = feedback ? exercises.find(e => e.id === feedback.exerciseId) : unanswered[0];
   const settings = el('details', {}, el('summary', { class: 'small' }, 'Formats for this lesson'), presentationControls(presentation, (field, value) => { void action(async () => { await api(`courses/${c.id}/lessons/${l.id}/settings`, { [field]: value }); await refresh(); }); }, 'lesson'),
@@ -143,6 +155,13 @@ function courseView(c) {
     const container = event.target.closest('.types'); const values = [...container.querySelectorAll('input:checked')].map(x => x.value);
     await action(async () => { await api(`courses/${c.id}/lessons/${l.id}/settings`, { exerciseTypes: values }); feedback = null; await refresh(); });
   }));
+  const practiceKey = `${c.id}:${l.id}`, additionalTypes = practiceDrafts.get(practiceKey) ?? Object.keys(names).filter(type => !l.exercises.some(e => e.type === type));
+  settings.append(el('details', {}, el('summary', {}, 'Add new practice'), el('p', { class: 'small' }, 'Create more questions from this saved lesson. Existing answers stay saved. New practice reopens lesson coverage.'), typesControl(Object.keys(names), additionalTypes, event => { practiceDrafts.set(practiceKey, [...event.target.closest('.types').querySelectorAll('input:checked')].map(e => e.value)); }), button('Generate more exercises', async () => {
+    const types = practiceDrafts.get(practiceKey) ?? additionalTypes;
+    if (!types.length) throw new Error('Choose at least one practice format.');
+    if (!connection.connected) throw new Error('Connect ChatGPT in Connection to generate additional exercises.');
+    const job = await submitOnce(`practice:${practiceKey}`, `courses/${c.id}/lessons/${l.id}/exercises`, { types }); await refresh(); void watchJob(job.id); message('Additional practice is being prepared.');
+  }, 'primary')));
   return el('div', {}, el('div', { class: 'row spread' }, button('← All learning paths', () => go('home'), 'quiet'), button(`Review ${p.reviews.length} concept${p.reviews.length === 1 ? '' : 's'} ↺`, () => openReview(c.id), 'quiet')),
     el('header', { class: 'lesson-heading' }, el('p', { class: 'eyebrow' }, c.title), el('h1', {}, l.title), el('p', {}, l.summary), c.source && el('p', { class: 'small' }, `Based on ${c.source.name}`)),
     el('div', { class: 'row' }, button('Export lesson notes', () => download(lessonMarkdown(l), `lesson-${l.id}.md`, 'text/markdown'), 'quiet'), button('Export course', async () => download(await api('export', { courseId: c.id }), `course-${c.id}.json`), 'quiet')),
@@ -170,7 +189,7 @@ function questionView(c, l, q) {
   const readable = value => { if (mode !== 'ordered') return value; try { return JSON.parse(value).join(' → '); } catch { return value; } };
   async function submit(actionName) {
     if (mode === 'ordered' && !answer) answer = JSON.stringify(q.options);
-    const result = await api('attempts', { courseId: c.id, lessonId: l.id, exerciseId: q.id, requestId: crypto.randomUUID(), action: actionName, answer: mode === 'choice' ? selected : answer, assisted: false, context: ['review', 'review-all'].includes(route.view) ? 'review' : 'lesson' });
+    const result = await submitOnce(`attempt:${c.id}:${q.id}`, 'attempts', { courseId: c.id, lessonId: l.id, exerciseId: q.id, action: actionName, answer: mode === 'choice' ? selected : answer, assisted: false, context: ['review', 'review-all'].includes(route.view) ? 'review' : 'lesson' });
     feedback = result; await refresh();
   }
   const content = el('div', {}, el('h2', {}, names[q.type]), el('p', { class: 'question' }, q.question));
@@ -252,9 +271,16 @@ async function watchConnection() {
     catch (error) { message(error.message); break; }
   }
 }
-window.addEventListener('hashchange', () => { routeFromHash(); feedback = null; selected = ''; answer = ''; review = null; render(); });
+window.addEventListener('hashchange', () => { const previous = JSON.stringify(route); routeFromHash(); if (previous !== JSON.stringify(route)) { feedback = null; selected = ''; answer = ''; review = null; } render(); });
 try {
-  await refresh(); routeFromHash(); render();
+  await refresh(); routeFromHash();
+  for (const entry of receipts.list()) {
+    if (entry.path === 'attempts') {
+      const saved = state.progress[entry.input.courseId]?.attempts.find(a => a.requestId === entry.input.requestId);
+      if (saved) { receipts.accept(entry.scope); route = { view: 'course', courseId: entry.input.courseId, lessonId: entry.input.lessonId }; history.replaceState(null, '', `#course/${route.courseId}/${route.lessonId}`); feedback = saved; }
+    } else if (state.jobs.some(j => j.requestId === entry.input.requestId)) receipts.accept(entry.scope);
+  }
+  render();
   state.jobs.filter(j => ['queued', 'running'].includes(j.status)).forEach(j => { void watchJob(j.id); });
   connection = await api('connection'); render();
 } catch (error) { root.replaceChildren(el('main', { id: 'main', class: 'boot' }, el('h1', {}, 'Your workspace couldn’t open.'), el('p', {}, error.message), el('button', { onClick: () => location.reload() }, 'Try again'))); }

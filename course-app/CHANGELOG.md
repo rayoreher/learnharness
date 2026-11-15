@@ -1,5 +1,20 @@
 # Course Studio changes
 
+## 0.5.0 — lesson expansion and recovery
+
+- Add selected exercise formats to an existing lesson through Codex. Core
+  validation assigns fresh IDs, retains all previous content/history and reopens
+  coverage for the newly added questions. New formats join that lesson's mix.
+- Persist generation receipts and reuse uncertain browser requests across
+  reloads. Accepted answers recover their feedback without duplicate grading;
+  unrated flashcards resume their rating controls.
+- Validate saved course/progress references before rewriting records at startup.
+  Corrupt input stays untouched. Incomplete jobs become explicitly interrupted.
+- Bound model-content correction to one extra request, with invalid output still
+  rejected. Added the shared local-plugin registration entry point.
+- Passed 52 automated checks and the full isolated browser journey, including
+  simulated acknowledgement loss, source-based creation and added quiz formats.
+
 ## 0.4.0 — sources, diagrams and portability
 
 - Added validated semantic diagrams with SVG, robust plain-text relationships

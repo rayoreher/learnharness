@@ -57,6 +57,7 @@ export async function handleCourseRequest(request, suppliedApplication) {
         if (route[4] === 'visit') return json(await app.learning.visit(route[1], route[3]));
         if (route[4] === 'complete') return json(await app.learning.complete(route[1], route[3]));
         if (route[4] === 'settings') return json(await app.learning.settings(route[1], route[3], input));
+        if (route[4] === 'exercises') return json(await app.generate({ ...input, kind: 'exercises', courseId: route[1], lessonId: route[3] }), 202);
       }
     }
     return json({ error: 'Route not found.' }, 404);

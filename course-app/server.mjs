@@ -8,7 +8,7 @@ import { handleCourseRequest } from './http.mjs';
 export async function startServer({ port = Number(process.env.LH_COURSE_PORT || 3030), directory, codex } = {}) {
   const app = await createApplication({ directory, codex });
   const assets = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../public/course-studio');
-  const extraScripts = ['diagrams.js', 'diagram-view.js', 'sources.js', 'exports.js'];
+  const extraScripts = ['diagrams.js', 'diagram-view.js', 'sources.js', 'exports.js', 'receipts.js', 'extensions.js'];
   const files = new Map([['/', ['index.html', 'text/html']], ['/courses', ['index.html', 'text/html']], ['/course-studio/index.html', ['index.html', 'text/html']], ['/course-studio/app.js', ['app.js', 'text/javascript']], ['/course-studio/plugin-registry.js', ['plugin-registry.js', 'text/javascript']], ['/course-studio/lesson-outputs.js', ['lesson-outputs.js', 'text/javascript']], ['/course-studio/style.css', ['style.css', 'text/css']]]);
   for (const file of extraScripts) files.set(`/course-studio/${file}`, [file, 'text/javascript']);
   const server = http.createServer(async (req, res) => {

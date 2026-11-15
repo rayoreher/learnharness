@@ -1,6 +1,6 @@
-import { projectLesson } from './plugin-registry.js';
+import { projectLesson, registry } from './plugin-registry.js';
 import { mountDiagram } from './diagram-view.js';
-import { diagramLayout } from './diagrams.js';
+import { diagramLayout, diagramEdgePath } from './diagrams.js';
 import { slideDocument } from './exports.js';
 
 function node(tag, value, className) { const e = document.createElement(tag); if (value !== undefined) e.textContent = value; if (className) e.className = className; return e; }
@@ -66,11 +66,15 @@ export function mountLessonOutput(lesson, settings) {
       ctx.fillStyle = '#37463b'; ctx.font = '30px sans-serif'; y += 28;
       for (const line of lines(scene.text, 1100).slice(0, scene.diagram ? 2 : 9)) { ctx.fillText(line, 80, y); y += 44; }
       if (scene.diagram) {
+        const visual = registry.select('visual', settings.visual ?? 'svg', [], 'svg').implementation.project(scene.diagram);
+        if (visual.kind === 'text') { ctx.font = '21px monospace'; for (const line of lines(visual.source, 1100).slice(0, 7)) { ctx.fillText(line, 80, y); y += 30; } }
+        else {
         const layout = diagramLayout(scene.diagram), scale = Math.min(1100 / layout.width, Math.max(80, 610 - y) / layout.height);
         ctx.save(); ctx.translate(80, y + 8); ctx.scale(scale, scale); ctx.strokeStyle = '#446b50'; ctx.lineWidth = 2;
-        for (const edge of layout.edges) { const a = layout.nodes.find(n => n.id === edge.from), b = layout.nodes.find(n => n.id === edge.to); ctx.beginPath(); ctx.moveTo(a.x + a.width, a.y + a.height / 2); ctx.lineTo(b.x, b.y + b.height / 2); ctx.stroke(); ctx.beginPath(); ctx.moveTo(b.x, b.y + b.height / 2); ctx.lineTo(b.x - 8, b.y + b.height / 2 - 5); ctx.lineTo(b.x - 8, b.y + b.height / 2 + 5); ctx.closePath(); ctx.fillStyle = '#446b50'; ctx.fill(); }
+        for (const edge of layout.edges) { const a = layout.nodes.find(n => n.id === edge.from), b = layout.nodes.find(n => n.id === edge.to), back = a.x >= b.x, x = back ? b.x + b.width / 2 : b.x, edgeY = back ? b.y + b.height : b.y + b.height / 2; ctx.stroke(new Path2D(diagramEdgePath(layout, edge))); ctx.beginPath(); ctx.moveTo(x, edgeY); ctx.lineTo(x + (back ? -5 : -8), edgeY + (back ? 8 : -5)); ctx.lineTo(x + (back ? 5 : -8), edgeY + (back ? 8 : 5)); ctx.closePath(); ctx.fillStyle = '#446b50'; ctx.fill(); }
         for (const n of layout.nodes) { ctx.fillStyle = '#dfebd9'; ctx.fillRect(n.x, n.y, n.width, n.height); ctx.strokeRect(n.x, n.y, n.width, n.height); ctx.fillStyle = '#224f40'; ctx.font = '14px sans-serif'; const label = n.label.match(/.{1,21}/gu) ?? ['']; label.slice(0, 3).forEach((line, i) => ctx.fillText(line, n.x + 8, n.y + 24 + i * 18)); }
         ctx.restore();
+        }
       }
       ctx.fillStyle = '#cbd8c3'; ctx.fillRect(80, 650, 1120, 5); ctx.fillStyle = '#224f40'; ctx.fillRect(80, 650, 1120 * (index + fraction) / view.scenes.length, 5);
       ctx.font = '18px sans-serif'; ctx.fillText(`${index + 1} / ${view.scenes.length}`, 80, 690);

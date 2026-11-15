@@ -5,11 +5,16 @@ import { spawn } from 'node:child_process';
 import { mkdtemp, writeFile, access, mkdir, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { startServer } from '../server.mjs';
+import { sampleCourse } from '../sample.mjs';
 
 assert.equal(process.env.LH_COURSE_ISOLATED_BROWSER, '1', 'Use the reviewed isolated browser command.');
 for (const privatePath of ['/home', '/run', '/var/run']) await assert.rejects(access(privatePath), 'Host home and runtime directories must not be mounted.');
 const directory = await mkdtemp('/tmp/lh-browser-data-');
-const running = await startServer({ port: 0, directory, codex: { status: async () => ({ available: true, connected: false }), close: async () => {} } });
+let providerConnected = false;
+const running = await startServer({ port: 0, directory, codex: {
+  status: async () => ({ available: true, connected: providerConnected }), close: async () => {}, course: async () => sampleCourse(),
+  exercises: async (c, l, types) => ({ exercises: types.map(type => ({ id: 'new-' + type, type, conceptIds: [l.objectives[0].id], question: 'New practice for ' + type, answer: type === 'ordering' ? '["First","Then"]' : type === 'true-false' ? 'True' : 'recall', explanation: 'Recall retrieves an idea before feedback.', rubric: 'Recognize retrieval.', options: type === 'ordering' ? ['Then', 'First'] : type === 'true-false' ? ['True', 'False'] : [] })) })
+} });
 let chrome, socket;
 const pending = new Map(); let counter = 0;
 try {
@@ -43,7 +48,7 @@ try {
     while (Date.now() - start < timeout) { if (await evaluate(expression)) return; await new Promise(resolve => setTimeout(resolve, 100)); }
     throw new Error(`UI condition did not become true: ${expression}\n${await evaluate('document.body.innerText')}`);
   };
-  const click = async label => { await evaluate(`(() => { const b = [...document.querySelectorAll('button')].find(x => !x.disabled && x.textContent.includes(${JSON.stringify(label)})); if (!b) throw new Error('Button missing: '+${JSON.stringify(label)}); b.click(); })()`); };
+  const click = async label => { await wait(`[...document.querySelectorAll('button')].some(x => !x.disabled && x.textContent.includes(${JSON.stringify(label)}))`); await evaluate(`(() => { const b = [...document.querySelectorAll('button')].find(x => !x.disabled && x.textContent.includes(${JSON.stringify(label)})); b.click(); })()`); };
   const chooseFormat = async value => { await evaluate(`(() => { const s = document.querySelector('.practice select[aria-label="format"]'); if (!s) throw new Error('Format selector missing'); s.value=${JSON.stringify(value)}; s.dispatchEvent(new Event('change',{bubbles:true})); })()`); };
   const chooseVisual = async value => { await evaluate(`(() => { const s = document.querySelector('.practice select[aria-label="visual"]'); s.value=${JSON.stringify(value)}; s.dispatchEvent(new Event('change',{bubbles:true})); })()`); };
   const screenshot = async name => { const image = await command('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false }); await writeFile(path.join('/artifacts', name), Buffer.from(image.data, 'base64')); };
@@ -57,7 +62,11 @@ try {
   await command('Input.dispatchKeyEvent', { type: 'keyDown', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
   await command('Input.dispatchKeyEvent', { type: 'keyUp', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
   assert.ok(await evaluate('document.activeElement.textContent.includes("Highlighting an answer")'), 'Keyboard choice must retain focus after rendering.');
-  await click('Check my answer'); await wait('!!document.querySelector(".feedback.incorrect")');
+  await evaluate(`(() => { const original = window.fetch; let once = true; window.fetch = async (...args) => { const r = await original(...args); if (once && String(args[0]).endsWith('/attempts')) { once = false; throw new Error('Simulated acknowledgement loss'); } return r; }; })()`);
+  await click('Check my answer'); await wait('document.body.innerText.includes("Retry unconfirmed request")');
+  await command('Page.reload'); await wait('!!document.querySelector(".feedback.incorrect")');
+  assert.equal((await running.app.store.read()).progress[(await running.app.store.read()).courses[0].id].attempts.length, 1);
+  console.log('PASS: a lost answer acknowledgement recovers feedback after reload without duplicate grading');
   assert.match(await evaluate('document.querySelector(".feedback").innerText'), /Explaining the idea/);
   await click('Continue →'); await wait('!!document.querySelector("textarea#answer")');
   await evaluate('document.querySelector("#answer").value="Trying first shows what I remember.";document.querySelector("#answer").dispatchEvent(new Event("input",{bubbles:true}))');
@@ -65,6 +74,7 @@ try {
   await click('Needs practice'); await wait('!!document.querySelector(".feedback.incorrect")'); await click('Continue →');
   await wait('!![...document.querySelectorAll("button")].find(x=>x.textContent==="Reveal answer" && !x.disabled)');
   await click('Reveal answer'); await wait('!![...document.querySelectorAll("button")].find(x=>x.textContent==="I recalled it" && !x.disabled)');
+  await command('Page.reload'); await wait('!![...document.querySelectorAll("button")].find(x=>x.textContent==="I recalled it" && !x.disabled)');
   await click('I recalled it'); await wait('!!document.querySelector(".feedback.correct")'); await click('Continue →');
   await wait('!![...document.querySelectorAll("button")].find(x=>x.textContent.includes("Complete lesson") && !x.disabled)');
   await click('Complete lesson'); await wait('document.querySelector(".lesson-heading h1")?.textContent === "Leave room between attempts"');
@@ -153,6 +163,20 @@ try {
   await upload(backupFile); await wait(`document.querySelector('#notice').textContent.includes('Imported ${initialCount + 1}')`);
   assert.equal((await running.app.store.read()).courses.length, 2 * (initialCount + 1));
   console.log('PASS: native course import and workspace backup restore preserve existing learning');
+  providerConnected = true; await click('Refresh connection');
+  await click('My learning'); await wait('!!document.querySelector("#goal")');
+  await evaluate(`document.querySelector('#goal').value='Understand recall from my notes';document.querySelector('#goal').dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('#source-notes').value='Recall means retrieving an idea before checking feedback.';document.querySelector('#source-notes').dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('form').requestSubmit()`);
+  await wait(`document.querySelectorAll('.course-card').length === ${2 * (initialCount + 1) + 1}`);
+  assert.equal((await running.app.store.read()).courses.at(-1).source.name, 'Pasted notes');
+  await evaluate('document.querySelector(".course-card").click()'); await wait('!!document.querySelector(".practice")');
+  await click('Retrieve before you reveal'); await wait('document.querySelector(".lesson-heading h1")?.textContent === "Retrieve before you reveal"');
+  const originalExercises = (await running.app.store.read()).courses[0].lessons[0].exercises.length;
+  await click('Generate more exercises');
+  await wait('document.body.innerText.includes("Additional practice is being prepared") || document.body.innerText.includes("Your course is ready")');
+  for (let i = 0; i < 100 && (await running.app.store.read()).courses[0].lessons[0].exercises.length === originalExercises; i++) await new Promise(resolve => setTimeout(resolve, 100));
+  assert.equal((await running.app.store.read()).courses[0].lessons[0].exercises.length, originalExercises + 3);
+  await wait('document.querySelectorAll(".practice > details > .types input").length === 6');
+  console.log('PASS: source-note creation and additional quiz formats through the browser controls');
   console.log('Browser acceptance complete.');
 } finally {
   for (const p of pending.values()) { clearTimeout(p.timer); p.reject(new Error('Browser test finished.')); }

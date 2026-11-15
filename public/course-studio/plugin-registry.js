@@ -1,5 +1,6 @@
 import { diagramText, diagramMermaid, validateDiagram } from './diagrams.js';
 import { prepareTextSource, mindSparkCourse } from './sources.js';
+import { registerLocalPlugins } from './extensions.js';
 
 export const PLUGIN_API = 1;
 export const SLOTS = Object.freeze(['output', 'workflow', 'template', 'visual', 'exercise', 'grader', 'review', 'source']);
@@ -73,6 +74,7 @@ builtin('source', 'sample', 'Included sample', {});
 builtin('source', 'text', 'Text notes', { prepare: prepareTextSource });
 builtin('source', 'markdown', 'Markdown notes', { prepare: prepareTextSource });
 builtin('source', 'mindspark', 'MindSpark study records', { prepare: mindSparkCourse });
+registerLocalPlugins(registry);
 
 export function presentationSettings(input = {}, defaults = {}) {
   const settings = { format: input.format ?? defaults.format ?? 'text', workflow: input.workflow ?? defaults.workflow ?? 'lesson-quiz', template: input.template ?? defaults.template ?? 'guided', visual: input.visual ?? defaults.visual ?? 'svg', review: input.review ?? defaults.review ?? 'session' };

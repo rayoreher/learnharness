@@ -6,6 +6,7 @@ import { mkdtemp, rm } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import { Codex } from '../codex.mjs';
+import { sampleCourse } from '../sample.mjs';
 
 async function client(t, behavior = {}) {
   const directory = await mkdtemp(path.join(os.tmpdir(), 'lh-codex-test-'));
@@ -79,4 +80,12 @@ test('unexpected tool approval requests are refused', async t => {
   f.child().sendToClient({ id: 'server-request', method: 'item/commandExecution/requestApproval', params: {} });
   await new Promise(resolve => setTimeout(resolve, 10));
   assert.equal(f.messages.find(m => m.id === 'server-request').error.code, -32601);
+});
+test('course validation requests one correction and still refuses unresolved model errors', async () => {
+  const valid = sampleCourse(), bad = structuredClone(valid); bad.lessons[0].exercises[0].conceptIds = ['not-an-objective'];
+  const codex = new Codex(); let calls = 0;
+  codex.generate = async prompt => { calls++; if (calls === 2) assert.match(prompt, /Validation found/); return calls === 1 ? bad : valid; };
+  const result = await codex.course({ goal: 'Learn recall', types: ['multiple-choice'] }); assert.equal(result.title, valid.title); assert.equal(calls, 2);
+  calls = 0; codex.generate = async () => { calls++; return bad; };
+  await assert.rejects(codex.course({ goal: 'Learn recall', types: ['multiple-choice'] }), /invalid after correction/); assert.equal(calls, 2);
 });

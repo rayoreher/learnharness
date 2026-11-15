@@ -11,7 +11,7 @@ export class Learning {
     const exercise = exerciseId ? lesson.exercises.find(e => e.id === exerciseId) : null; if (exerciseId) check(exercise, 'Exercise not found.', 404);
     return { course, lesson, exercise, progress: state.progress[courseId] };
   }
-  async add(course) { return this.store.transact(s => { s.courses.push(course); s.progress[course.id] = emptyProgress(); return publicCourse(course); }); }
+  async add(course) { return this.store.transact(s => { check(s.courses.length < 100, 'This workspace supports up to 100 learning paths.'); s.courses.push(course); s.progress[course.id] = emptyProgress(); return publicCourse(course); }); }
   async courseSettings(courseId, value) {
     return this.store.transact(s => {
       const course = s.courses.find(c => c.id === courseId); check(course, 'Course not found.', 404);

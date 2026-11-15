@@ -1,7 +1,8 @@
-import { mkdir, readFile, writeFile, rename, open, rm } from 'node:fs/promises';
+import { mkdir, readFile, rename, open, rm, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { check } from './schema.mjs';
+import { validateStoredState } from './transfers.mjs';
 
 export class Store {
   constructor(directory) { this.directory = directory; this.file = path.join(directory, 'learning.json'); this.tail = Promise.resolve(); }
@@ -21,9 +22,9 @@ export class Store {
     }
     this.ownsLease = true;
     try {
-      try { this.state = JSON.parse(await readFile(this.file, 'utf8')); }
+      try { check((await stat(this.file)).size <= 64 * 1024 * 1024, 'Learning records exceed the 64 MB limit. The file has been preserved.', 500); this.state = JSON.parse(await readFile(this.file, 'utf8')); }
       catch (error) { if (error.code !== 'ENOENT') throw error; this.state = { version: 1, courses: [], progress: {}, jobs: [], settings: { model: null } }; }
-      check(this.state.version === 1 && Array.isArray(this.state.courses) && this.state.progress && Array.isArray(this.state.jobs), 'Unsupported or damaged learning data. Restore a backup; the file has been preserved.', 500);
+      validateStoredState(this.state);
       for (const job of this.state.jobs) if (['running', 'queued'].includes(job.status)) { job.status = 'interrupted'; job.error = 'The server restarted. Start a new generation when ready.'; }
       await this.persist(this.state);
       return this;
@@ -32,8 +33,9 @@ export class Store {
   async persist(state) {
     const temporary = `${this.file}.${randomUUID()}.tmp`;
     try {
+      const serialized = JSON.stringify(state); check(Buffer.byteLength(serialized) <= 64 * 1024 * 1024, 'Learning records exceed the 64 MB limit. Export a backup before adding more.');
       const handle = await open(temporary, 'wx', 0o600);
-      try { await handle.writeFile(JSON.stringify(state)); await handle.sync(); } finally { await handle.close(); }
+      try { await handle.writeFile(serialized); await handle.sync(); } finally { await handle.close(); }
       await rename(temporary, this.file);
       const directory = await open(this.directory, 'r');
       try { await directory.sync(); } finally { await directory.close(); }
