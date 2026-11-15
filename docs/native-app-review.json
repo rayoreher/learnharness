@@ -1159,7 +1159,7 @@
           }
         ],
         "source_scan_sha256": "67e6d9d678fea54b259478e99f807aae429a18d6bf4f2b7c21c849323864ff8e",
-        "status": "Artifacts acquired and signatures/coverage checked only. Hook/locale/dynamic-code/embedded-Wasm review and compatibility testing remain pending; not installed or executed."
+        "status": "Pristine artifact raw findings remain recorded. Explicit disposable remediation and scoped runtime tests are now recorded in docs/native-runtime-patch-review.json; the full original application remains unapproved/unverified."
       },
       {
         "name": "undici",
@@ -1183,7 +1183,7 @@
           }
         ],
         "source_scan_sha256": "2f424839258a714a1b8e8529805c37cce7136a1aa83b9deff8d9613cbb5da05a",
-        "status": "Artifacts acquired and signatures/coverage checked only. Hook/locale/dynamic-code/embedded-Wasm review and compatibility testing remain pending; not installed or executed."
+        "status": "Pristine artifact raw findings remain recorded. Explicit disposable remediation and scoped runtime tests are now recorded in docs/native-runtime-patch-review.json; the full original application remains unapproved/unverified."
       },
       {
         "name": "zod",
@@ -1263,15 +1263,238 @@
           }
         ],
         "source_scan_sha256": "6eab6aac2796818a23162f636485dfc2439da89fea7d57c7f3a93a3054a45a9d",
-        "status": "Artifacts acquired and signatures/coverage checked only. Hook/locale/dynamic-code/embedded-Wasm review and compatibility testing remain pending; not installed or executed."
+        "status": "Pristine artifact raw findings remain recorded. Explicit disposable remediation and scoped runtime tests are now recorded in docs/native-runtime-patch-review.json; the full original application remains unapproved/unverified."
       }
     ],
-    "status": "No lockfile or application dependency changed. Same-major candidates still need source and compatibility review; major changes need a compatibility plan."
+    "status": "Three compatible runtime candidates are now pinned after explicit source/remediation review and scoped isolated checks. Other candidates remain metadata-only and unadopted; major compatibility changes require caller evidence."
   },
   "remaining_gates": [
     "Required scanner cannot cover the existing 2.6 MB framework bundle at its current 1 MB per-file limit; permission question to raise it to 8 MB is still unanswered.",
     "Resolve inherited dependency advisories and finish exact artifact/runtime-closure review before installing or executing full application dependencies.",
     "Verify portable SDK declaration emission and refresh generated API reference, then run full original-app React/browser/model/restart/remediation journey.",
     "Clarify whether optional local Codex CLI should be added alongside the original unchanged ChatGPT connection."
-  ]
+  ],
+  "current_runtime_patches": {
+    "report": "docs/native-runtime-patch-review.json",
+    "findings": "docs/native-runtime-patch-findings.json",
+    "patched": [
+      "dompurify 3.4.17",
+      "undici 7.30.1",
+      "zod 4.6.6"
+    ],
+    "new_dependencies": 0,
+    "checks": "Scoped isolated browser/API/native-connector checks passed against reviewed runtime copies; full original-app, SDK and account/model verification remain pending.",
+    "current_advisory_lookup": {
+      "checked_at_utc": "2026-11-15T21:54:56.391138+00:00",
+      "source": "https://api.osv.dev/v1/querybatch",
+      "locks": [
+        {
+          "path": "package-lock.json",
+          "sha256": "3c5efc64f1c819d4ceea39685cdace85af528a4122468962d49c8b8e81568b1e"
+        },
+        {
+          "path": "plugins/lesson-practice/package-lock.json",
+          "sha256": "1ee1ac1e4e4ed9fba848b114899df17fbc964dce3cb19605b56898ca8a53b614"
+        },
+        {
+          "path": "plugins/flashcards/package-lock.json",
+          "sha256": "1308ec40463d79722c2726b64c341b2175dd9208a01eed96e521e2f8b2eaee12"
+        },
+        {
+          "path": "plugins/rich-code-blocks/package-lock.json",
+          "sha256": "55d10edaddbef7cea7ab4476aed01913a882e62908d02e877b24657e5209e433"
+        },
+        {
+          "path": "plugins/drawing-pad/package-lock.json",
+          "sha256": "3706bc4c5d16f7c8b5614d56c79dad10fae85fd77e8398beda7d31c71942e16b"
+        },
+        {
+          "path": "plugins/coding-questions/package-lock.json",
+          "sha256": "ef81df155caa09ae9c9bf21ea455bdcc9ee925e385b810ee4b603a834305ab5a"
+        },
+        {
+          "path": "plugins/ui-showcase/package-lock.json",
+          "sha256": "59123433534e3c329a04cf12964f0115d9cea7933e75bfc6e2e47d835dc52dd5"
+        }
+      ],
+      "registry_package_version_pairs": 1418,
+      "raw_report_sha256": "e9ee2cf66718fa7dfad1e85e86eb30cb7987211302b0bd769f8f459bb73e5f6c",
+      "remaining_flagged_pairs": 11,
+      "remaining_findings": [
+        {
+          "name": "@hono/node-server",
+          "version": "2.1.5",
+          "locations": [
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/@hono/node-server"
+            }
+          ],
+          "advisory_ids": [
+            "GHSA-jpvv-r467-5p4w",
+            "GHSA-qv5m-9pm6-hqp3"
+          ]
+        },
+        {
+          "name": "brace-expansion",
+          "version": "1.1.18",
+          "locations": [
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/@eslint/config-array/node_modules/brace-expansion"
+            },
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/@eslint/eslintrc/node_modules/brace-expansion"
+            },
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/eslint-plugin-import/node_modules/brace-expansion"
+            },
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/eslint/node_modules/brace-expansion"
+            }
+          ],
+          "advisory_ids": [
+            "GHSA-6j4f-fj2g-mc7p",
+            "GHSA-q2hr-2g5m-vwhr",
+            "GHSA-qhr7-859c-m2p7"
+          ]
+        },
+        {
+          "name": "brace-expansion",
+          "version": "5.0.9",
+          "locations": [
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/brace-expansion"
+            }
+          ],
+          "advisory_ids": [
+            "GHSA-6j4f-fj2g-mc7p",
+            "GHSA-q2hr-2g5m-vwhr",
+            "GHSA-qhr7-859c-m2p7"
+          ]
+        },
+        {
+          "name": "fast-uri",
+          "version": "3.1.8",
+          "locations": [
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/fast-uri"
+            }
+          ],
+          "advisory_ids": [
+            "GHSA-333x-w4r6-6crp",
+            "GHSA-w74x-v6f9-j3xg",
+            "GHSA-wjr9-j795-jxcr",
+            "GHSA-xhq7-xmqj-769h"
+          ]
+        },
+        {
+          "name": "hono",
+          "version": "4.13.13",
+          "locations": [
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/hono"
+            }
+          ],
+          "advisory_ids": [
+            "GHSA-3gg2-335m-rxc6",
+            "GHSA-46wx-v44x-9hh2",
+            "GHSA-4h7h-rv7c-7m2v",
+            "GHSA-4m76-xfj5-7975",
+            "GHSA-h7mg-cq63-vhpq"
+          ]
+        },
+        {
+          "name": "linkify-it",
+          "version": "3.0.3",
+          "locations": [
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/linkify-it"
+            }
+          ],
+          "advisory_ids": [
+            "GHSA-22p9-wv53-3rq4",
+            "GHSA-v245-v573-v5vm"
+          ]
+        },
+        {
+          "name": "minimatch",
+          "version": "10.2.6",
+          "locations": [
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/minimatch"
+            }
+          ],
+          "advisory_ids": [
+            "GHSA-g3hv-75wg-m249"
+          ]
+        },
+        {
+          "name": "minimatch",
+          "version": "9.0.9",
+          "locations": [
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/@electron/universal/node_modules/minimatch"
+            }
+          ],
+          "advisory_ids": [
+            "GHSA-g3hv-75wg-m249"
+          ]
+        },
+        {
+          "name": "shell-quote",
+          "version": "1.9.0",
+          "locations": [
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/shell-quote"
+            }
+          ],
+          "advisory_ids": [
+            "GHSA-pqg4-j6r4-53mv"
+          ]
+        },
+        {
+          "name": "source-map-js",
+          "version": "1.2.1",
+          "locations": [
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/source-map-js"
+            }
+          ],
+          "advisory_ids": [
+            "GHSA-68fv-2mgg-jv7q"
+          ]
+        },
+        {
+          "name": "zod",
+          "version": "3.25.76",
+          "locations": [
+            {
+              "lock": "package-lock.json",
+              "path": "node_modules/chromium-bidi/node_modules/zod"
+            },
+            {
+              "lock": "plugins/ui-showcase/package-lock.json",
+              "path": "node_modules/zod"
+            }
+          ],
+          "advisory_ids": [
+            "GHSA-mrhx-c7xc-m3w5"
+          ]
+        }
+      ],
+      "limitation": "Exact-version advisory lookup only, not exploitability analysis or execution approval."
+    }
+  }
 }

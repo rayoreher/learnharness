@@ -106,3 +106,10 @@ dependency metadata and learner-data directories stay outside the staged package
 It does not run the other Core packages or the complete application. Portable SDK
 declaration emission and generated API reference refresh remain part of full-host
 verification.
+
+Three compatible inherited runtime dependency patches are pinned separately:
+DOMPurify 3.4.17, Undici 7.30.1 and Zod 4.6.6. Their scoped isolated checks pass,
+including the original native connector tests. No dependency is added and the
+lesson/plugin implementation is unchanged. Remaining advisory applicability,
+framework intake, SDK generation and full browser/model checks stay open; see
+the [current application review](native-app-review.md).

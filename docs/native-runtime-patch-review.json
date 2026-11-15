@@ -1,0 +1,1408 @@
+{
+  "status": "Three compatible inherited runtime dependency patches are pinned and have scoped isolated checks. No new dependency was added. Full original-app approval/testing remains pending.",
+  "source_base_commit": "6d79703c9e4928224ff0757295f42f1ba31c4e1c",
+  "changed_locked_packages": [
+    "dompurify 3.4.14 -> 3.4.17",
+    "undici 7.29.0 -> 7.30.1",
+    "zod 4.4.3 -> 4.6.6"
+  ],
+  "package_graph_change": "No package added/removed; only three version/resolved/integrity entries plus two existing direct dependency minimums changed. Optional/runtime dependency edges and other metadata are unchanged.",
+  "package_json_sha256": "15693631fa8b914137c22015ddd5ea484ae70792389e86540194df25be3a92c3",
+  "package_lock_sha256": "3c5efc64f1c819d4ceea39685cdace85af528a4122468962d49c8b8e81568b1e",
+  "reviews": [
+    {
+      "name": "dompurify",
+      "version": "3.4.17",
+      "checked_at_utc": "2026-11-15T21:27:40.253227+00:00",
+      "provenance": {
+        "resolved": "https://registry.npmjs.org/dompurify/-/dompurify-3.4.17.tgz",
+        "integrity": "sha512-B/pSlYVHQ58kqISD/yDjuJ1yfzI34m1gF4lAod2bwSRhiN4K5Cl3H8Af7hqB2PmTL911tdEudnnXn5FnhRoz0w==",
+        "tar_sha256": "056cbdae276897208b88c21d1d779adfa09ad7be488a2f510a28e900d3bbffe7",
+        "repository": {
+          "type": "git",
+          "url": "git://github.com/cure53/DOMPurify.git"
+        },
+        "registry_signatures_verified": 2
+      },
+      "raw_artifact_scan_sha256": "67e6d9d678fea54b259478e99f807aae429a18d6bf4f2b7c21c849323864ff8e",
+      "remediation": {
+        "file": "package.json",
+        "original_sha256": "e6235e2a233d3f5550e2be3bf826a39f4ff5180a710779c1e16dcdf4b9eb20b9",
+        "reviewed_sha256": "b2266d5ca50250105547fba102c21343facef39194f319f4b896fd5b747f32ee",
+        "change": "Removed only scripts.prepare=husky from the disposable experiment copy after reviewing that development hook. No hook, build, install or package script is executed. Pristine archive/package remain unchanged; all runtime JS bytes, exports and optional dependency metadata are unchanged."
+      },
+      "reviewed_scan": {
+        "scanner_version": "1.0.0",
+        "disposition": "manual_review_required",
+        "complete": true,
+        "tree_sha256": "676b9ea70cb06856d259ede6504b8fea1a11737410a0adeb5da39c59ac313e88",
+        "files_recorded": 26,
+        "text_files_scanned": 24,
+        "bytes_read": 1615488,
+        "findings_truncated": false,
+        "git_metadata_excluded": false,
+        "findings": [
+          {
+            "path": "src/config.ts",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 68
+          },
+          {
+            "path": "src/purify.ts",
+            "rule": "dynamic-execution",
+            "severity": "review",
+            "message": "Dynamic execution or unsafe deserialization needs review.",
+            "line": 102
+          },
+          {
+            "path": "src/purify.ts",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 57
+          },
+          {
+            "path": "README.md",
+            "rule": "dynamic-execution",
+            "severity": "review",
+            "message": "Dynamic execution or unsafe deserialization needs review.",
+            "line": 510
+          },
+          {
+            "path": "README.md",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 3
+          },
+          {
+            "path": "LICENSE",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 4
+          },
+          {
+            "path": "dist/purify.cov.cjs.js",
+            "rule": "dynamic-execution",
+            "severity": "review",
+            "message": "Dynamic execution or unsafe deserialization needs review.",
+            "line": 6
+          },
+          {
+            "path": "dist/purify.cov.cjs.js",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 23218
+          },
+          {
+            "path": "dist/purify.js",
+            "rule": "dynamic-execution",
+            "severity": "review",
+            "message": "Dynamic execution or unsafe deserialization needs review.",
+            "line": 2
+          },
+          {
+            "path": "dist/purify.js",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 41
+          },
+          {
+            "path": "dist/purify.cjs.d.ts",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 55
+          },
+          {
+            "path": "dist/purify.cjs.js",
+            "rule": "dynamic-execution",
+            "severity": "review",
+            "message": "Dynamic execution or unsafe deserialization needs review.",
+            "line": 54
+          },
+          {
+            "path": "dist/purify.cjs.js",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 38
+          },
+          {
+            "path": "dist/purify.es.d.mts",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 55
+          },
+          {
+            "path": "dist/purify.es.mjs",
+            "rule": "dynamic-execution",
+            "severity": "review",
+            "message": "Dynamic execution or unsafe deserialization needs review.",
+            "line": 53
+          },
+          {
+            "path": "dist/purify.es.mjs",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 37
+          },
+          {
+            "path": "dist/purify.cov.cjs.js.map",
+            "rule": "dynamic-execution",
+            "severity": "review",
+            "message": "Dynamic execution or unsafe deserialization needs review.",
+            "line": 1
+          },
+          {
+            "path": "dist/purify.cov.cjs.js.map",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 1
+          },
+          {
+            "path": "dist/purify.min.js",
+            "rule": "dynamic-execution",
+            "severity": "review",
+            "message": "Dynamic execution or unsafe deserialization needs review.",
+            "line": 2
+          },
+          {
+            "path": "dist/purify.min.js",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 4
+          },
+          {
+            "path": "LICENSE-MPL",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 360
+          },
+          {
+            "path": "package.json",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 174
+          }
+        ],
+        "limits": {
+          "files": 10000,
+          "file_bytes": 1048576,
+          "total_bytes": 16777216
+        },
+        "requires": [
+          "manual_source_and_provenance_review",
+          "dependency_and_advisory_review",
+          "isolated_execution_only"
+        ],
+        "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+      },
+      "current_advisories": {},
+      "dependency_closure": "dist/purify.es.mjs is a self-contained browser ESM module with no runtime imports. @types/trusted-types is an unchanged optional declaration dependency, not loaded by the browser experiment.",
+      "dispositions": [
+        "dist JS/source dynamic-execution matches are ordinary function declarations/prototype wrappers; no eval or new Function constructor is used.",
+        "dist/source namespace and protocol strings configure DOM/URI validation. There is no explicit HTTP/socket, child-process, filesystem, cookie or browser-storage API in the purification module. DOM parsing still needs behavior verification.",
+        "License/README/package URLs are metadata/examples; these files are not adopted as instructions or executed.",
+        "The Husky prepare hook installs development Git hooks; it is unnecessary for consuming the published browser bundle and is removed only in this disposable reviewed copy.",
+        "No opaque/native executable assets occur in this package. Source maps and declarations are inventoried/scanned but not imported by the browser experiment."
+      ],
+      "intended_command": "Node 24 tests/sanitizer-browser.mjs and existing Chromium in credential-free bubblewrap --unshare-all, no home/data/runtime sockets/external network. Read-only reviewed sanitizer package /candidate, exact root lock /lock.json, pinned provenance /proof.json and own test /check.mjs. Run both ESM dist/purify.es.mjs and browser UMD dist/purify.js; no installers/hooks/builds. Loopback HTTP/CDP only inside isolated namespace.",
+      "verification": "Passed exact artifact/version/hash checks and scoped isolated regression/compatibility tests. Full original-app/SDK/model verification is still required.",
+      "test_source": {
+        "path": "tests/sanitizer-browser.mjs",
+        "sha256": "dc09d83f59bd448de2f404017a1ec5dcbd0bc56e23d734cbbd2e5a5f286027ce",
+        "scan": {
+          "scanner_version": "1.0.0",
+          "disposition": "manual_review_required",
+          "complete": true,
+          "tree_sha256": "d8286a75d5a8ef7afd958449ea08e03bcebe8d01d0bb7e20de0c205d1d4f53d7",
+          "files_recorded": 1,
+          "text_files_scanned": 1,
+          "bytes_read": 7221,
+          "findings_truncated": false,
+          "git_metadata_excluded": false,
+          "findings": [
+            {
+              "path": "tests/sanitizer-browser.mjs",
+              "rule": "network-operation",
+              "severity": "review",
+              "message": "Network destinations and transmitted data need review.",
+              "line": 30
+            },
+            {
+              "path": "tests/sanitizer-browser.mjs",
+              "rule": "process-execution",
+              "severity": "review",
+              "message": "Child process execution needs review.",
+              "line": 7
+            },
+            {
+              "path": "tests/sanitizer-browser.mjs",
+              "rule": "environment-access",
+              "severity": "review",
+              "message": "Environment access may expose injected credentials.",
+              "line": 9
+            }
+          ],
+          "limits": {
+            "files": 10000,
+            "file_bytes": 1048576,
+            "total_bytes": 16777216
+          },
+          "requires": [
+            "manual_source_and_provenance_review",
+            "dependency_and_advisory_review",
+            "isolated_execution_only"
+          ],
+          "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+        }
+      },
+      "selected_lock_sha256": "1e77ab0bd6782fe5f6ff2db6d1f46404fb1d368fdf9abfa27398807948bec6e8",
+      "original_high_findings": [
+        {
+          "path": "package.json",
+          "rule": "install-hook",
+          "severity": "high",
+          "message": "Package lifecycle hook can execute during dependency installation."
+        }
+      ],
+      "reviewed_finding_counts": {
+        "high": 0,
+        "review": 22
+      },
+      "reviewed_complete_files": 24,
+      "findings_record": "native-runtime-patch-findings.json",
+      "browser_results": [
+        "ESM and browser UMD: lesson markup/code retained and unsafe markup/URLs removed",
+        "ESM and browser UMD: SVG labels/shapes/arrow markers preserved",
+        "ESM and browser UMD: sanitizer hook lifecycle preserved",
+        "ESM and browser UMD: removed rawtext root cannot reintroduce markup through serialization"
+      ]
+    },
+    {
+      "name": "undici",
+      "version": "7.30.1",
+      "provenance": {
+        "resolved": "https://registry.npmjs.org/undici/-/undici-7.30.1.tgz",
+        "integrity": "sha512-03KrMbjIFDWQR5RNPrSw3bd1r12JpyFQl9/yxjUbJtqkjmllqC5lFjZh6ujeuJCKr8EOQvRW872Oy/az+nLYxg==",
+        "tar_sha256": "c98bd3881137c11341e8be8d2ec509ebf973b6f8b36d0a4c6d2afcda15e0d712",
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/nodejs/undici.git"
+        },
+        "registry_signatures_verified": 2
+      },
+      "raw_source_scan_sha256": "2f424839258a714a1b8e8529805c37cce7136a1aa83b9deff8d9613cbb5da05a",
+      "reviewed_bundle_scan_sha256": "b4457bc6bfcb9f3a45403b563db455be95666dcd1b851d79d9c5206a3a1fe809",
+      "reviewed_complete_files": 210,
+      "remediation": {
+        "file": "package.json",
+        "original_sha256": "0e62f63508558cd8bc44dbf61baee562907ff4bbd147bf837ded998c2bf62a28",
+        "reviewed_sha256": "6440fd358266f8dd72b72af4ccd58d3d5eb73d8e397781621573db1cf45995d5",
+        "change": "Removed only prepare=husky && node ./scripts/platform-shell.js in the disposable experiment copy. No runtime JS or exports changed; all 209 other files are byte-identical to the verified archive. No installer, hook or build runs."
+      },
+      "dependency_closure": "No external runtime packages. Node builtins plus included JS/deps and the separately inspected embedded llhttp Wasm parser.",
+      "embedded_wasm": {
+        "modules": [
+          {
+            "path": "lib/llhttp/llhttp-wasm.js",
+            "source_sha256": "344f7ae80c983694372d9234584a1261ef5492ab219d6e573e933f5d1c715b00",
+            "wasm_sha256": "57184a16144b5bc880e29105fa35d75c93dd318563e1b743e110de845e2ab661",
+            "wasm_bytes": 54013,
+            "imports": [
+              {
+                "module": "env",
+                "name": "wasm_on_headers_complete",
+                "kind": 0,
+                "type": 4
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_message_begin",
+                "kind": 0,
+                "type": 0
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_url",
+                "kind": 0,
+                "type": 1
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_status",
+                "kind": 0,
+                "type": 1
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_header_field",
+                "kind": 0,
+                "type": 1
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_header_value",
+                "kind": 0,
+                "type": 1
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_body",
+                "kind": 0,
+                "type": 1
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_message_complete",
+                "kind": 0,
+                "type": 0
+              }
+            ],
+            "memory": [
+              {
+                "flags": 0,
+                "minimum": 2,
+                "maximum": null
+              }
+            ],
+            "exports": [
+              {
+                "name": "memory",
+                "kind": 2,
+                "index": 0
+              },
+              {
+                "name": "_initialize",
+                "kind": 0,
+                "index": 8
+              },
+              {
+                "name": "__indirect_function_table",
+                "kind": 1,
+                "index": 0
+              },
+              {
+                "name": "llhttp_init",
+                "kind": 0,
+                "index": 9
+              },
+              {
+                "name": "llhttp_should_keep_alive",
+                "kind": 0,
+                "index": 55
+              },
+              {
+                "name": "llhttp_alloc",
+                "kind": 0,
+                "index": 11
+              },
+              {
+                "name": "malloc",
+                "kind": 0,
+                "index": 57
+              },
+              {
+                "name": "llhttp_free",
+                "kind": 0,
+                "index": 12
+              },
+              {
+                "name": "free",
+                "kind": 0,
+                "index": 12
+              },
+              {
+                "name": "llhttp_get_type",
+                "kind": 0,
+                "index": 13
+              },
+              {
+                "name": "llhttp_get_http_major",
+                "kind": 0,
+                "index": 14
+              },
+              {
+                "name": "llhttp_get_http_minor",
+                "kind": 0,
+                "index": 15
+              },
+              {
+                "name": "llhttp_get_method",
+                "kind": 0,
+                "index": 16
+              },
+              {
+                "name": "llhttp_get_status_code",
+                "kind": 0,
+                "index": 17
+              },
+              {
+                "name": "llhttp_get_upgrade",
+                "kind": 0,
+                "index": 18
+              },
+              {
+                "name": "llhttp_reset",
+                "kind": 0,
+                "index": 19
+              },
+              {
+                "name": "llhttp_execute",
+                "kind": 0,
+                "index": 20
+              },
+              {
+                "name": "llhttp_settings_init",
+                "kind": 0,
+                "index": 21
+              },
+              {
+                "name": "llhttp_finish",
+                "kind": 0,
+                "index": 22
+              },
+              {
+                "name": "llhttp_pause",
+                "kind": 0,
+                "index": 23
+              },
+              {
+                "name": "llhttp_resume",
+                "kind": 0,
+                "index": 24
+              },
+              {
+                "name": "llhttp_resume_after_upgrade",
+                "kind": 0,
+                "index": 25
+              },
+              {
+                "name": "llhttp_get_errno",
+                "kind": 0,
+                "index": 26
+              },
+              {
+                "name": "llhttp_get_error_reason",
+                "kind": 0,
+                "index": 27
+              },
+              {
+                "name": "llhttp_set_error_reason",
+                "kind": 0,
+                "index": 28
+              },
+              {
+                "name": "llhttp_get_error_pos",
+                "kind": 0,
+                "index": 29
+              },
+              {
+                "name": "llhttp_errno_name",
+                "kind": 0,
+                "index": 30
+              },
+              {
+                "name": "llhttp_method_name",
+                "kind": 0,
+                "index": 31
+              },
+              {
+                "name": "llhttp_status_name",
+                "kind": 0,
+                "index": 32
+              },
+              {
+                "name": "llhttp_set_lenient_headers",
+                "kind": 0,
+                "index": 33
+              },
+              {
+                "name": "llhttp_set_lenient_chunked_length",
+                "kind": 0,
+                "index": 34
+              },
+              {
+                "name": "llhttp_set_lenient_keep_alive",
+                "kind": 0,
+                "index": 35
+              },
+              {
+                "name": "llhttp_set_lenient_transfer_encoding",
+                "kind": 0,
+                "index": 36
+              },
+              {
+                "name": "llhttp_set_lenient_version",
+                "kind": 0,
+                "index": 37
+              },
+              {
+                "name": "llhttp_set_lenient_data_after_close",
+                "kind": 0,
+                "index": 38
+              },
+              {
+                "name": "llhttp_set_lenient_optional_lf_after_cr",
+                "kind": 0,
+                "index": 39
+              },
+              {
+                "name": "llhttp_set_lenient_optional_crlf_after_chunk",
+                "kind": 0,
+                "index": 40
+              },
+              {
+                "name": "llhttp_set_lenient_optional_cr_before_lf",
+                "kind": 0,
+                "index": 41
+              },
+              {
+                "name": "llhttp_set_lenient_spaces_after_chunk_size",
+                "kind": 0,
+                "index": 42
+              },
+              {
+                "name": "llhttp_message_needs_eof",
+                "kind": 0,
+                "index": 54
+              }
+            ]
+          },
+          {
+            "path": "lib/llhttp/llhttp_simd-wasm.js",
+            "source_sha256": "52c16227482700834512f2c2257eb44652f39b11f868600562274f476025e4bd",
+            "wasm_sha256": "2434215e1f7fa0163f22ce895ddbeb83984fa0aa51e123164e053213e5aca028",
+            "wasm_bytes": 54202,
+            "imports": [
+              {
+                "module": "env",
+                "name": "wasm_on_headers_complete",
+                "kind": 0,
+                "type": 4
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_message_begin",
+                "kind": 0,
+                "type": 0
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_url",
+                "kind": 0,
+                "type": 1
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_status",
+                "kind": 0,
+                "type": 1
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_header_field",
+                "kind": 0,
+                "type": 1
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_header_value",
+                "kind": 0,
+                "type": 1
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_body",
+                "kind": 0,
+                "type": 1
+              },
+              {
+                "module": "env",
+                "name": "wasm_on_message_complete",
+                "kind": 0,
+                "type": 0
+              }
+            ],
+            "memory": [
+              {
+                "flags": 0,
+                "minimum": 2,
+                "maximum": null
+              }
+            ],
+            "exports": [
+              {
+                "name": "memory",
+                "kind": 2,
+                "index": 0
+              },
+              {
+                "name": "_initialize",
+                "kind": 0,
+                "index": 8
+              },
+              {
+                "name": "__indirect_function_table",
+                "kind": 1,
+                "index": 0
+              },
+              {
+                "name": "llhttp_init",
+                "kind": 0,
+                "index": 9
+              },
+              {
+                "name": "llhttp_should_keep_alive",
+                "kind": 0,
+                "index": 55
+              },
+              {
+                "name": "llhttp_alloc",
+                "kind": 0,
+                "index": 11
+              },
+              {
+                "name": "malloc",
+                "kind": 0,
+                "index": 57
+              },
+              {
+                "name": "llhttp_free",
+                "kind": 0,
+                "index": 12
+              },
+              {
+                "name": "free",
+                "kind": 0,
+                "index": 12
+              },
+              {
+                "name": "llhttp_get_type",
+                "kind": 0,
+                "index": 13
+              },
+              {
+                "name": "llhttp_get_http_major",
+                "kind": 0,
+                "index": 14
+              },
+              {
+                "name": "llhttp_get_http_minor",
+                "kind": 0,
+                "index": 15
+              },
+              {
+                "name": "llhttp_get_method",
+                "kind": 0,
+                "index": 16
+              },
+              {
+                "name": "llhttp_get_status_code",
+                "kind": 0,
+                "index": 17
+              },
+              {
+                "name": "llhttp_get_upgrade",
+                "kind": 0,
+                "index": 18
+              },
+              {
+                "name": "llhttp_reset",
+                "kind": 0,
+                "index": 19
+              },
+              {
+                "name": "llhttp_execute",
+                "kind": 0,
+                "index": 20
+              },
+              {
+                "name": "llhttp_settings_init",
+                "kind": 0,
+                "index": 21
+              },
+              {
+                "name": "llhttp_finish",
+                "kind": 0,
+                "index": 22
+              },
+              {
+                "name": "llhttp_pause",
+                "kind": 0,
+                "index": 23
+              },
+              {
+                "name": "llhttp_resume",
+                "kind": 0,
+                "index": 24
+              },
+              {
+                "name": "llhttp_resume_after_upgrade",
+                "kind": 0,
+                "index": 25
+              },
+              {
+                "name": "llhttp_get_errno",
+                "kind": 0,
+                "index": 26
+              },
+              {
+                "name": "llhttp_get_error_reason",
+                "kind": 0,
+                "index": 27
+              },
+              {
+                "name": "llhttp_set_error_reason",
+                "kind": 0,
+                "index": 28
+              },
+              {
+                "name": "llhttp_get_error_pos",
+                "kind": 0,
+                "index": 29
+              },
+              {
+                "name": "llhttp_errno_name",
+                "kind": 0,
+                "index": 30
+              },
+              {
+                "name": "llhttp_method_name",
+                "kind": 0,
+                "index": 31
+              },
+              {
+                "name": "llhttp_status_name",
+                "kind": 0,
+                "index": 32
+              },
+              {
+                "name": "llhttp_set_lenient_headers",
+                "kind": 0,
+                "index": 33
+              },
+              {
+                "name": "llhttp_set_lenient_chunked_length",
+                "kind": 0,
+                "index": 34
+              },
+              {
+                "name": "llhttp_set_lenient_keep_alive",
+                "kind": 0,
+                "index": 35
+              },
+              {
+                "name": "llhttp_set_lenient_transfer_encoding",
+                "kind": 0,
+                "index": 36
+              },
+              {
+                "name": "llhttp_set_lenient_version",
+                "kind": 0,
+                "index": 37
+              },
+              {
+                "name": "llhttp_set_lenient_data_after_close",
+                "kind": 0,
+                "index": 38
+              },
+              {
+                "name": "llhttp_set_lenient_optional_lf_after_cr",
+                "kind": 0,
+                "index": 39
+              },
+              {
+                "name": "llhttp_set_lenient_optional_crlf_after_chunk",
+                "kind": 0,
+                "index": 40
+              },
+              {
+                "name": "llhttp_set_lenient_optional_cr_before_lf",
+                "kind": 0,
+                "index": 41
+              },
+              {
+                "name": "llhttp_set_lenient_spaces_after_chunk_size",
+                "kind": 0,
+                "index": 42
+              },
+              {
+                "name": "llhttp_message_needs_eof",
+                "kind": 0,
+                "index": 54
+              }
+            ]
+          }
+        ],
+        "disposition": "llhttp parser bytecode: imported capabilities are only env wasm_on_* parser callbacks supplied by client-h1.js; no WASI/filesystem/socket/process imports. Package signatures/integrity are recorded. Module import/memory inspection is not a safety certificate or execution by itself."
+      },
+      "current_advisories": {},
+      "dispositions": [
+        "Actual HTTP/socket/TLS operations are the intended client API. The native source uses Agent/buildConnector/fetch, with actual peer checks preserved. This experiment has only owned local listeners and deterministic DNS inside an unshared network namespace.",
+        "Network findings in API documentation are examples/links; no repository instructions are adopted or run.",
+        "Dynamic-execution findings are ordinary function declarations/RegExp processing; the real Wasm compilation is separately inventoried and capability-inspected.",
+        "HTTP_PROXY environment reads belong to the optional EnvHttpProxyAgent; the native source uses an explicit checked Agent. Experiment environment is cleared. JEST_WORKER_ID selects a parser variant; CI controls terminal styling; SNAPSHOT_MODE is a documentation example.",
+        "Embedded parser modules import only eight env wasm_on_* callbacks from client-h1.js; no WASI/filesystem/socket/process imports. Their linear memory starts at two pages with no declared maximum; only bounded owned test messages are used. This is not a safety certificate.",
+        "Original safe-fetch.ts has a scanner high match in its protective comment. Keep that raw blocked report; trusted parser/Node compiler lower the full module after AST-verified comment removal. The compiled complete file has no high finding. Original repository source stays unchanged.",
+        "The original connector tests are unchanged and scanned. Instead of loading the external static test key, the experiment generates a fresh self-signed research.invalid certificate/key inside its temporary namespace. No user account/private profile or production certificate is mounted."
+      ],
+      "test_source": {
+        "sha256": "7c7ea2c9ef5e2b2374c55a201008259a3db46c327979b2176b63c18957d51d88",
+        "scan": {
+          "scanner_version": "1.0.0",
+          "disposition": "manual_review_required",
+          "complete": true,
+          "tree_sha256": "62264b6b3e99f7ad9824cda9317ad43bc68c0cc7ec43535e211b159d43d65d24",
+          "files_recorded": 1,
+          "text_files_scanned": 1,
+          "bytes_read": 3211,
+          "findings_truncated": false,
+          "git_metadata_excluded": false,
+          "findings": [
+            {
+              "path": "tests/http-client-patch.mjs",
+              "rule": "network-operation",
+              "severity": "review",
+              "message": "Network destinations and transmitted data need review.",
+              "line": 25
+            },
+            {
+              "path": "tests/http-client-patch.mjs",
+              "rule": "process-execution",
+              "severity": "review",
+              "message": "Child process execution needs review.",
+              "line": 6
+            },
+            {
+              "path": "tests/http-client-patch.mjs",
+              "rule": "environment-access",
+              "severity": "review",
+              "message": "Environment access may expose injected credentials.",
+              "line": 10
+            }
+          ],
+          "limits": {
+            "files": 10000,
+            "file_bytes": 1048576,
+            "total_bytes": 16777216
+          },
+          "requires": [
+            "manual_source_and_provenance_review",
+            "dependency_and_advisory_review",
+            "isolated_execution_only"
+          ],
+          "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+        }
+      },
+      "intended_command": "Node 24 tests/http-client-patch.mjs inside credential-free bubblewrap --unshare-all; read-only reviewed /candidate, provenance and lock, compiled native helper/proof and pinned original test. Fresh key/data files only in tmpfs; no external network/home/accounts/sockets; original two DNS-peer and HTTPS/SNI tests use owned loopback listeners.",
+      "verification": "Passed exact artifact/version/hash checks and scoped isolated regression/compatibility tests. Full original-app/SDK/model verification is still required.",
+      "original_high_findings": [
+        {
+          "path": "package.json",
+          "rule": "install-hook",
+          "severity": "high",
+          "message": "Package lifecycle hook can execute during dependency installation."
+        }
+      ],
+      "reviewed_finding_counts": {
+        "high": 0,
+        "review": 136
+      },
+      "findings_record": "native-runtime-patch-findings.json",
+      "native_test_results": {
+        "file": "tests/safe-fetch-connector.test.ts",
+        "passed": 2,
+        "failed": 0,
+        "scope": [
+          "Actual peer rechecked after DNS changes",
+          "HTTPS certificate/SNI validation and private-peer refusal before HTTP dispatch"
+        ]
+      },
+      "native_compilation": {
+        "path": "compiled/safe-fetch.ts",
+        "sha256": "1fcc4171e3a5078feec5bec3be341945a6fb727cbab43de834145ddd6673cc53",
+        "original_source_sha256": "c46c414ccac04c629aa26faec6a1e83b5fa1bcffe5114a62fd716ce3a0915092",
+        "scan": {
+          "scanner_version": "1.0.0",
+          "disposition": "manual_review_required",
+          "complete": true,
+          "tree_sha256": "aee4e906c4dba915eaa1daf335c93f0bc45726a6a291c0a30724e8ab0d74e837",
+          "files_recorded": 1,
+          "text_files_scanned": 1,
+          "bytes_read": 3189,
+          "findings_truncated": false,
+          "git_metadata_excluded": false,
+          "findings": [
+            {
+              "path": "compiled/safe-fetch.ts",
+              "rule": "network-operation",
+              "severity": "review",
+              "message": "Network destinations and transmitted data need review.",
+              "line": 2
+            }
+          ],
+          "limits": {
+            "files": 10000,
+            "file_bytes": 1048576,
+            "total_bytes": 16777216
+          },
+          "requires": [
+            "manual_source_and_provenance_review",
+            "dependency_and_advisory_review",
+            "isolated_execution_only"
+          ],
+          "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+        },
+        "transformation": "Trusted Node TypeScript lowering after AST-verified ordinary comment removal; full module preserved, original source unchanged."
+      },
+      "compiler_review": {
+        "checked_at_utc": "2026-11-15T21:39:16.032214+00:00",
+        "parser_sha256": "3d772729da6b89361d16c6f2ff9b8ebad77eb3799699f5ffab14141aae6c522e",
+        "advisories": {
+          "results": [
+            {},
+            {}
+          ]
+        },
+        "operation": "Pure parsing/TypeScript lowering only, no native app or Undici code execution. Bubblewrap --unshare-all, no home/data/network/sockets. Input is one pinned public TypeScript module; output is only the new compiled directory under /tmp.",
+        "original_source_finding": "The original safe-fetch.ts scanner high match is its comment describing refusal of cloud metadata access. Preserve the raw blocked report; do not treat it as a pass. The known module is parsed as data, comments are removed by exact AST ranges with AST-equivalence asserted, then trusted Node TypeScript lowering emits normal JS. Compile output must be scanned before execution.",
+        "intended_command": "Node /compile.cjs using reviewed Babel parser, read-only public source and one empty writable /output directory."
+      },
+      "reproduction_compiler_source": "const fs=require('node:fs'),assert=require('node:assert/strict'),{stripTypeScriptTypes}=require('node:module'),{parse}=require('/parser/lib/index.js');const text=fs.readFileSync('/source/src/agent/tools/safe-fetch.ts','utf8');const ast=parse(text,{sourceType:'module',plugins:['typescript']});let neutral=text;for(const comment of [...ast.comments].reverse())neutral=neutral.slice(0,comment.start)+neutral.slice(comment.start,comment.end).replace(/[^\\r\\n]/g,' ')+neutral.slice(comment.end);function normalized(node){if(Array.isArray(node))return node.map(normalized);if(node&&typeof node==='object')return Object.fromEntries(Object.entries(node).filter(([key])=>!['start','end','loc','extra','comments','leadingComments','innerComments','trailingComments'].includes(key)).map(([key,value])=>[key,normalized(value)]));return node}assert.deepEqual(normalized(ast),normalized(parse(neutral,{sourceType:'module',plugins:['typescript']})));const code=stripTypeScriptTypes(neutral,{mode:'transform'});fs.writeFileSync('/output/safe-fetch.ts',code);console.log('PASS native TypeScript compilation preserves the full module AST after ordinary comment removal; no candidate module was imported or executed.');\n",
+      "directory_scan_limitation": "The whole-directory attempt reached the 60-finding cap and remains recorded as incomplete. Separate saved-scanner full-file bundles subsequently scanned all 210 complete files with all findings retained."
+    },
+    {
+      "name": "zod",
+      "version": "4.6.6",
+      "checked_at_utc": "2026-11-15T21:50:44.108175+00:00",
+      "provenance": {
+        "resolved": "https://registry.npmjs.org/zod/-/zod-4.6.6.tgz",
+        "integrity": "sha512-4UmzQUF5fxvfcYHlbjBmejU+w+hbDnWFx4aS8kBx7nPBHcO2SqPbpAG8snbdg+Xse4pRefR98hgjFgIMCI/UhA==",
+        "tar_sha256": "312553620ac82cbb25d505100fbb41c1e219b3cd6979cf93c3a1b4dd5b79e039",
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/colinhacks/zod.git"
+        },
+        "registry_signatures_verified": 1
+      },
+      "raw_source_scan_sha256": "6eab6aac2796818a23162f636485dfc2439da89fea7d57c7f3a93a3054a45a9d",
+      "reviewed_bundle_scan_sha256": "d49202f06493a561672a56d36131f2e9af9b3e4354612a88c079ece4bee93c5d",
+      "complete_reviewed_files": 840,
+      "current_advisories": {},
+      "remediation": [
+        "Removed only scripts.prepublishOnly=nub ../../scripts/check-versions.ts in disposable runtime manifest; no package script/build/installer executes.",
+        "Escaped only literal U+200C/U+200D in eight explicitly flagged translation/emoji-test files. The reviewed parser proves full-file executable AST and literal/cooked-value equivalence, preserving raw values for tagged templates. The pristine archive/package remain untouched."
+      ],
+      "unicode_proof": [
+        {
+          "path": "src/v3/tests/string.test.ts",
+          "replacements": 1387,
+          "original_sha256": "70dd4d5052952443065227d19f51f536b2ea30d51e8bc25624582789a2fe0fc3",
+          "reviewed_sha256": "e9394c0322eae4529de43b2e67fb11b59ab2f09b0f986e8441ada9ff89266806",
+          "equivalence": "Parsed full-file ASTs retain all executable structure, literal values, cooked untagged templates and raw tagged-template values; comments/locations/raw spelling only excluded."
+        },
+        {
+          "path": "src/v4/classic/tests/string.test.ts",
+          "replacements": 1387,
+          "original_sha256": "04f902a3638ff3c33f78ee3dacba72a1a9e87034f00d8eded5f65acf2adc0f3a",
+          "reviewed_sha256": "fcaccd8de4b15a755d2ca1b2b157fdb6f10571b647285115ea24bd40eb571ffc",
+          "equivalence": "Parsed full-file ASTs retain all executable structure, literal values, cooked untagged templates and raw tagged-template values; comments/locations/raw spelling only excluded."
+        },
+        {
+          "path": "src/v4/locales/fa.ts",
+          "replacements": 8,
+          "original_sha256": "3e71eb8724f50669209c0ca0397fab49c1622a99849a9a5f992c09282e7a8495",
+          "reviewed_sha256": "57bbd3a23fc79cfaa919247b738e7c72cf1cf8a37f8fb5f0ef3a05f5b0d61f7e",
+          "equivalence": "Parsed full-file ASTs retain all executable structure, literal values, cooked untagged templates and raw tagged-template values; comments/locations/raw spelling only excluded."
+        },
+        {
+          "path": "src/v4/locales/kn.ts",
+          "replacements": 5,
+          "original_sha256": "a45c7d27167c5c9000a8161d3bd5945703dca14ce928b1f625b5b36c071dc966",
+          "reviewed_sha256": "137daa92d0bd460e7a392c61e7a375fea50b8c1547888701899810a7c69b02af",
+          "equivalence": "Parsed full-file ASTs retain all executable structure, literal values, cooked untagged templates and raw tagged-template values; comments/locations/raw spelling only excluded."
+        },
+        {
+          "path": "v4/locales/fa.cjs",
+          "replacements": 8,
+          "original_sha256": "9003c50e0b26fe1aa62ba1ecb4bb2eda7f09218e303eb3fb7691bdbb7306710e",
+          "reviewed_sha256": "0e18d9a00f0b36dac6f6a6d89f824746a62693cce3edb4a85ed655b8ed51c206",
+          "equivalence": "Parsed full-file ASTs retain all executable structure, literal values, cooked untagged templates and raw tagged-template values; comments/locations/raw spelling only excluded."
+        },
+        {
+          "path": "v4/locales/fa.js",
+          "replacements": 8,
+          "original_sha256": "60e7eeff4c000c85f8420168374344305d3c2110a5f91a2fb672b2a2381eeddf",
+          "reviewed_sha256": "f826077b4423015cdd615343c29fb6e2dd7dd965302b7355e0dae871793161bf",
+          "equivalence": "Parsed full-file ASTs retain all executable structure, literal values, cooked untagged templates and raw tagged-template values; comments/locations/raw spelling only excluded."
+        },
+        {
+          "path": "v4/locales/kn.cjs",
+          "replacements": 5,
+          "original_sha256": "1c05195a8a6e803ea732990c7cae61dd0d8162cf58dc0129d00de4f629798be2",
+          "reviewed_sha256": "4ffcdb80e4c7c34cc849b95c72e1456b14bdad0270a2f5300a1c4cf6f1923042",
+          "equivalence": "Parsed full-file ASTs retain all executable structure, literal values, cooked untagged templates and raw tagged-template values; comments/locations/raw spelling only excluded."
+        },
+        {
+          "path": "v4/locales/kn.js",
+          "replacements": 5,
+          "original_sha256": "884b1b68a1ca02fe9a774b8de9cbfa3486892eea36192699120f57b31f0a1f42",
+          "reviewed_sha256": "495f0fec24179aad593548dad583a39944b48b1a9b4b6416a7ed56836b1cead5",
+          "equivalence": "Parsed full-file ASTs retain all executable structure, literal values, cooked untagged templates and raw tagged-template values; comments/locations/raw spelling only excluded."
+        }
+      ],
+      "dependency_closure": "No external runtime packages, opaque/native executables or network/filesystem imports in selected root CJS/ESM APIs. Included v3 sources/tests are inventoried but not the unchanged separately locked legacy Zod 3 dependency.",
+      "dispositions": [
+        "The real Function constructors in v4/core/doc and compile generate parsers from schema definitions, with constant closures and JSON-quoted property names (compile.js lines 469\u2013479; util.esc uses JSON.stringify). This is executable code generation, not dismissed as a false match; bounded tests include quoted property data and both jitless modes.",
+        "Other dynamic-execution matches include ordinary function declarations/RegExp parsing; URI references and large encoded-payload matches belong to format/regex validators or source documentation, not downloaded/evaluated payloads.",
+        "U+200C translation characters and U+200D emoji joins are legitimate string/template data. Explicit visible escapes preserve values; full-file AST equivalence was checked before any package module executed.",
+        "The publish-only version-check hook is unnecessary for consuming the published library; it is removed only in the test copy and is never executed.",
+        "Tests use small owned values, including an oversized four-element array with a getter to prove size rejection precedes element traversal; no memory-exhaustion workload or external/user input is executed."
+      ],
+      "test_source": {
+        "sha256": "9ef9f1003438a165ffe8b4a39db9d835f01b712e8edad88b498d7e542239b96f",
+        "scan": {
+          "scanner_version": "1.0.0",
+          "disposition": "manual_review_required",
+          "complete": true,
+          "tree_sha256": "9c3a82c44efbef217a206313690081233abdbf6ccb2d4787b73dcba7275c9dd9",
+          "files_recorded": 1,
+          "text_files_scanned": 1,
+          "bytes_read": 3847,
+          "findings_truncated": false,
+          "git_metadata_excluded": false,
+          "findings": [
+            {
+              "path": "tests/schema-patch.mjs",
+              "rule": "environment-access",
+              "severity": "review",
+              "message": "Environment access may expose injected credentials.",
+              "line": 8
+            }
+          ],
+          "limits": {
+            "files": 10000,
+            "file_bytes": 1048576,
+            "total_bytes": 16777216
+          },
+          "requires": [
+            "manual_source_and_provenance_review",
+            "dependency_and_advisory_review",
+            "isolated_execution_only"
+          ],
+          "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+        }
+      },
+      "intended_command": "Node 24 tests/schema-patch.mjs inside bubblewrap --unshare-all with read-only reviewed package/provenance/Unicode proof/lock/test; no home/accounts/runtime sockets/data/external network. Run root ESM/CJS APIs only, with no installer or lifecycle hook.",
+      "verification": "Passed exact artifact/version/hash checks and scoped isolated regression/compatibility tests. Full original-app/SDK/model verification is still required.",
+      "original_high_findings": [
+        {
+          "path": "package.json",
+          "rule": "install-hook",
+          "severity": "high",
+          "message": "Package lifecycle hook can execute during dependency installation."
+        },
+        {
+          "path": "src/v3/tests/string.test.ts",
+          "rule": "invisible-controls",
+          "severity": "high",
+          "message": "Invisible or bidirectional controls can conceal content.",
+          "line": 328
+        },
+        {
+          "path": "src/v4/classic/tests/string.test.ts",
+          "rule": "invisible-controls",
+          "severity": "high",
+          "message": "Invisible or bidirectional controls can conceal content.",
+          "line": 614
+        },
+        {
+          "path": "src/v4/locales/fa.ts",
+          "rule": "invisible-controls",
+          "severity": "high",
+          "message": "Invisible or bidirectional controls can conceal content.",
+          "line": 70
+        },
+        {
+          "path": "src/v4/locales/kn.ts",
+          "rule": "invisible-controls",
+          "severity": "high",
+          "message": "Invisible or bidirectional controls can conceal content.",
+          "line": 8
+        },
+        {
+          "path": "v4/locales/fa.cjs",
+          "rule": "invisible-controls",
+          "severity": "high",
+          "message": "Invisible or bidirectional controls can conceal content.",
+          "line": 85
+        },
+        {
+          "path": "v4/locales/fa.js",
+          "rule": "invisible-controls",
+          "severity": "high",
+          "message": "Invisible or bidirectional controls can conceal content.",
+          "line": 59
+        },
+        {
+          "path": "v4/locales/kn.cjs",
+          "rule": "invisible-controls",
+          "severity": "high",
+          "message": "Invisible or bidirectional controls can conceal content.",
+          "line": 31
+        },
+        {
+          "path": "v4/locales/kn.js",
+          "rule": "invisible-controls",
+          "severity": "high",
+          "message": "Invisible or bidirectional controls can conceal content.",
+          "line": 5
+        }
+      ],
+      "reviewed_finding_counts": {
+        "high": 0,
+        "review": 423
+      },
+      "reviewed_complete_files": 840,
+      "findings_record": "native-runtime-patch-findings.json",
+      "runtime_results": [
+        "ESM/CJS, jitless=true/false: strict object, number, enum, array and JSON-schema API contracts",
+        "Four-element oversized array rejected before any element getter, in sync and async parsing",
+        "Quoted property names remain data and cannot affect generated code",
+        "Reviewed Persian/Kannada locale callbacks retain runtime error strings"
+      ],
+      "reproduction_unicode_transform_source": "const fs=require('node:fs'),assert=require('node:assert/strict'),crypto=require('node:crypto'),{parse}=require('/parser/lib/index.js');const files=JSON.parse(fs.readFileSync('/paths.json'));function normalize(node,tagged=false){if(Array.isArray(node))return node.map(v=>normalize(v,tagged));if(node&&typeof node==='object'){tagged=tagged||node.type==='TaggedTemplateExpression';const result={};for(const [key,value]of Object.entries(node)){if(['start','end','loc','extra','comments','leadingComments','innerComments','trailingComments'].includes(key))continue;if(node.type==='TemplateElement'&&key==='value'&&!tagged)result[key]={cooked:value.cooked};else result[key]=normalize(value,tagged)}return result}return node}const proof=[];for(const name of files){const source=fs.readFileSync('/original/'+name,'utf8'),reviewed=source.replace(/[\\u200c\\u200d]/g,c=>'\\\\u'+c.charCodeAt(0).toString(16).padStart(4,'0'));const options={sourceType:'unambiguous',plugins:['typescript','regexpUnicodeSets']};assert.deepEqual(normalize(parse(source,options)),normalize(parse(reviewed,options)),name);fs.writeFileSync('/reviewed/'+name,reviewed);proof.push({path:name,replacements:[...source.matchAll(/[\\u200c\\u200d]/g)].length,original_sha256:crypto.createHash('sha256').update(source).digest('hex'),reviewed_sha256:crypto.createHash('sha256').update(reviewed).digest('hex'),equivalence:'Parsed full-file ASTs retain all executable structure, literal values, cooked untagged templates and raw tagged-template values; comments/locations/raw spelling only excluded.'})}fs.writeFileSync('/reviewed/unicode-remediation-proof.json',JSON.stringify(proof,null,2)+'\\n');console.log('PASS full-file AST/value equivalence for '+proof.length+' explicit locale/emoji-test Unicode escape changes; no candidate module executed.');\n"
+    }
+  ],
+  "current_advisory_lookup": {
+    "checked_at_utc": "2026-11-15T21:54:56.391138+00:00",
+    "source": "https://api.osv.dev/v1/querybatch",
+    "locks": [
+      {
+        "path": "package-lock.json",
+        "sha256": "3c5efc64f1c819d4ceea39685cdace85af528a4122468962d49c8b8e81568b1e"
+      },
+      {
+        "path": "plugins/lesson-practice/package-lock.json",
+        "sha256": "1ee1ac1e4e4ed9fba848b114899df17fbc964dce3cb19605b56898ca8a53b614"
+      },
+      {
+        "path": "plugins/flashcards/package-lock.json",
+        "sha256": "1308ec40463d79722c2726b64c341b2175dd9208a01eed96e521e2f8b2eaee12"
+      },
+      {
+        "path": "plugins/rich-code-blocks/package-lock.json",
+        "sha256": "55d10edaddbef7cea7ab4476aed01913a882e62908d02e877b24657e5209e433"
+      },
+      {
+        "path": "plugins/drawing-pad/package-lock.json",
+        "sha256": "3706bc4c5d16f7c8b5614d56c79dad10fae85fd77e8398beda7d31c71942e16b"
+      },
+      {
+        "path": "plugins/coding-questions/package-lock.json",
+        "sha256": "ef81df155caa09ae9c9bf21ea455bdcc9ee925e385b810ee4b603a834305ab5a"
+      },
+      {
+        "path": "plugins/ui-showcase/package-lock.json",
+        "sha256": "59123433534e3c329a04cf12964f0115d9cea7933e75bfc6e2e47d835dc52dd5"
+      }
+    ],
+    "registry_package_version_pairs": 1418,
+    "raw_report_sha256": "e9ee2cf66718fa7dfad1e85e86eb30cb7987211302b0bd769f8f459bb73e5f6c",
+    "remaining_flagged_pairs": 11,
+    "remaining_findings": [
+      {
+        "name": "@hono/node-server",
+        "version": "2.1.5",
+        "locations": [
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/@hono/node-server"
+          }
+        ],
+        "advisory_ids": [
+          "GHSA-jpvv-r467-5p4w",
+          "GHSA-qv5m-9pm6-hqp3"
+        ]
+      },
+      {
+        "name": "brace-expansion",
+        "version": "1.1.18",
+        "locations": [
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/@eslint/config-array/node_modules/brace-expansion"
+          },
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/@eslint/eslintrc/node_modules/brace-expansion"
+          },
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/eslint-plugin-import/node_modules/brace-expansion"
+          },
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/eslint/node_modules/brace-expansion"
+          }
+        ],
+        "advisory_ids": [
+          "GHSA-6j4f-fj2g-mc7p",
+          "GHSA-q2hr-2g5m-vwhr",
+          "GHSA-qhr7-859c-m2p7"
+        ]
+      },
+      {
+        "name": "brace-expansion",
+        "version": "5.0.9",
+        "locations": [
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/brace-expansion"
+          }
+        ],
+        "advisory_ids": [
+          "GHSA-6j4f-fj2g-mc7p",
+          "GHSA-q2hr-2g5m-vwhr",
+          "GHSA-qhr7-859c-m2p7"
+        ]
+      },
+      {
+        "name": "fast-uri",
+        "version": "3.1.8",
+        "locations": [
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/fast-uri"
+          }
+        ],
+        "advisory_ids": [
+          "GHSA-333x-w4r6-6crp",
+          "GHSA-w74x-v6f9-j3xg",
+          "GHSA-wjr9-j795-jxcr",
+          "GHSA-xhq7-xmqj-769h"
+        ]
+      },
+      {
+        "name": "hono",
+        "version": "4.13.13",
+        "locations": [
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/hono"
+          }
+        ],
+        "advisory_ids": [
+          "GHSA-3gg2-335m-rxc6",
+          "GHSA-46wx-v44x-9hh2",
+          "GHSA-4h7h-rv7c-7m2v",
+          "GHSA-4m76-xfj5-7975",
+          "GHSA-h7mg-cq63-vhpq"
+        ]
+      },
+      {
+        "name": "linkify-it",
+        "version": "3.0.3",
+        "locations": [
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/linkify-it"
+          }
+        ],
+        "advisory_ids": [
+          "GHSA-22p9-wv53-3rq4",
+          "GHSA-v245-v573-v5vm"
+        ]
+      },
+      {
+        "name": "minimatch",
+        "version": "10.2.6",
+        "locations": [
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/minimatch"
+          }
+        ],
+        "advisory_ids": [
+          "GHSA-g3hv-75wg-m249"
+        ]
+      },
+      {
+        "name": "minimatch",
+        "version": "9.0.9",
+        "locations": [
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/@electron/universal/node_modules/minimatch"
+          }
+        ],
+        "advisory_ids": [
+          "GHSA-g3hv-75wg-m249"
+        ]
+      },
+      {
+        "name": "shell-quote",
+        "version": "1.9.0",
+        "locations": [
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/shell-quote"
+          }
+        ],
+        "advisory_ids": [
+          "GHSA-pqg4-j6r4-53mv"
+        ]
+      },
+      {
+        "name": "source-map-js",
+        "version": "1.2.1",
+        "locations": [
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/source-map-js"
+          }
+        ],
+        "advisory_ids": [
+          "GHSA-68fv-2mgg-jv7q"
+        ]
+      },
+      {
+        "name": "zod",
+        "version": "3.25.76",
+        "locations": [
+          {
+            "lock": "package-lock.json",
+            "path": "node_modules/chromium-bidi/node_modules/zod"
+          },
+          {
+            "lock": "plugins/ui-showcase/package-lock.json",
+            "path": "node_modules/zod"
+          }
+        ],
+        "advisory_ids": [
+          "GHSA-mrhx-c7xc-m3w5"
+        ]
+      }
+    ],
+    "limitation": "Exact-version advisory lookup only, not exploitability analysis or execution approval."
+  },
+  "remaining_verification": [
+    "Resolve remaining advisory applicability/compatible updates (#8). Do not force major dependency changes without caller compatibility evidence.",
+    "Complete full framework/dependency intake; trusted scanner file-size change remains unanswered.",
+    "Emit updated portable SDK, refresh generated API references and run complete original React/browser/model/restart/remediation journey (#6).",
+    "Clarify optional local Codex alongside the original preserved ChatGPT connection."
+  ]
+}

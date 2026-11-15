@@ -32,24 +32,40 @@ The exact-version lookup across six existing lockfiles found advisories for
 time, lock hashes, affected locations, advisory identifiers and fixed-version
 candidates. A database hit alone does not establish exploitability in this app.
 
-The first runtime candidates are:
+The first compatible runtime patches are now pinned:
 
-| Library | Locked version | Candidate | Status |
+| Library | Previous lock | Updated lock | Scoped checks passed |
 | --- | --- | --- | --- |
-| DOMPurify | 3.4.14 | 3.4.17 | Archive integrity/signatures and text coverage checked; manual review/testing pending |
-| Undici | 7.29.0 | 7.30.1 | Archive integrity/signatures and text coverage checked; embedded parser/hook review and testing pending |
-| Zod | 4.4.3 | 4.6.6 | Archive integrity/signatures and text coverage checked; locale/hook review and testing pending |
+| DOMPurify | 3.4.14 | 3.4.17 | Browser ESM/UMD formatting, SVG arrows, hooks and rawtext-root regression |
+| Undici | 7.29.0 | 7.30.1 | Original native DNS-peer and HTTPS/SNI tests with fresh local TLS fixtures |
+| Zod | 4.4.3 | 4.6.6 | ESM/CJS validation, JSON schema, early size rejection, quoted keys and locales |
 
-The candidate exact versions returned no advisories in the recorded query. They
-are **not installed or adopted**. Their raw scans retain lifecycle warnings;
-Zod also retains flags for Unicode characters in locale strings and tests.
-Those findings must be resolved for the exact intended operation before use.
+The exact patch versions returned no advisories in the recorded query. No package
+was added or removed. Only three version/integrity entries and two existing direct
+dependency minimums changed. The experiments execute reviewed disposable copies,
+with their development/publish hooks removed; Zod's locale/emoji controls are
+visible escapes with full-file AST/value equivalence proved. Pristine artifacts
+and raw findings remain recorded. No installer or package hook was run.
+
+The refreshed lookup covers 1,418 registry package/version pairs across seven
+lockfiles and still flags 11 combinations across nine packages. The original
+lookup also included one generated local SDK pair, which is now explicitly
+excluded from registry coverage. Full evidence, source remediations and exact
+test boundaries: [runtime patch review](native-runtime-patch-review.json) and
+[finding locations](native-runtime-patch-findings.json).
+
+The standalone checks are [sanitizer browser verification](../tests/sanitizer-browser.mjs),
+[native connector verification](../tests/http-client-patch.mjs) and
+[schema verification](../tests/schema-patch.mjs). They require the reviewed,
+credential-free experiment inputs recorded in the review; they do not start the
+application or use existing account/profile data.
 
 Other hits include Hono, brace-expansion, fast-uri, linkify-it, minimatch,
 shell-quote, source-map-js and legacy Zod 3. Some fixed versions cross a major
 version boundary. Review each dependency's actual caller and compatibility;
-do not force a blanket major upgrade. No application dependency changed during
-this review. Primary examples: [DOMPurify](https://github.com/advisories/GHSA-6688-9rhm-gjv2),
+do not force a blanket major upgrade. The remaining findings require caller and
+compatibility analysis before full-app verification. Primary examples:
+[DOMPurify](https://github.com/advisories/GHSA-6688-9rhm-gjv2),
 [Zod](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5),
 [minimatch](https://github.com/advisories/GHSA-g3hv-75wg-m249).
 

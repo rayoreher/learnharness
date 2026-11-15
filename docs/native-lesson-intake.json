@@ -1844,5 +1844,15 @@
     "limitation": "Tests this package against original helpers, not the other Core packages or complete original web app.",
     "npm_tool_version": "9.2.0",
     "result": "Passed missing-lock rejection, offline empty-lock setup, original Core package staging and safe output validation. No other Core package or web app was run."
+  },
+  "inherited_runtime_patch_review": {
+    "report": "docs/native-runtime-patch-review.json",
+    "changed_packages": [
+      "dompurify 3.4.17",
+      "undici 7.30.1",
+      "zod 4.6.6"
+    ],
+    "new_dependencies": 0,
+    "status": "Scoped checks passed; remaining source/dependency/SDK/full-app/model gates are open."
   }
 }
