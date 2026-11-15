@@ -45,6 +45,7 @@ try {
   };
   const click = async label => { await evaluate(`(() => { const b = [...document.querySelectorAll('button')].find(x => !x.disabled && x.textContent.includes(${JSON.stringify(label)})); if (!b) throw new Error('Button missing: '+${JSON.stringify(label)}); b.click(); })()`); };
   const chooseFormat = async value => { await evaluate(`(() => { const s = document.querySelector('.practice select[aria-label="format"]'); if (!s) throw new Error('Format selector missing'); s.value=${JSON.stringify(value)}; s.dispatchEvent(new Event('change',{bubbles:true})); })()`); };
+  const chooseVisual = async value => { await evaluate(`(() => { const s = document.querySelector('.practice select[aria-label="visual"]'); s.value=${JSON.stringify(value)}; s.dispatchEvent(new Event('change',{bubbles:true})); })()`); };
   const screenshot = async name => { const image = await command('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false }); await writeFile(path.join('/artifacts', name), Buffer.from(image.data, 'base64')); };
   await command('Page.enable'); await command('Runtime.enable');
   await command('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
@@ -74,9 +75,25 @@ try {
   await command('Page.reload'); await wait('document.body.innerText.includes("Your queue is clear.")');
   console.log('PASS: missed concepts return, clear after correct recall, and survive reload');
   await click('Back to your lessons'); await wait('!!document.querySelector(".reading")');
+  await wait('!!document.querySelector(".diagram svg")');
+  await chooseVisual('ascii'); await wait('!!document.querySelector(".diagram pre") && !document.querySelector(".diagram svg")');
+  assert.match(await evaluate('document.querySelector(".diagram pre").textContent'), /->/);
+  await chooseVisual('mermaid'); await wait('!!document.querySelector(".diagram svg") && document.querySelector(".diagram pre")?.textContent.includes("flowchart LR")');
+  await chooseVisual('svg'); await wait('!!document.querySelector(".diagram svg") && !document.querySelector(".diagram pre")');
+  console.log('PASS: semantic diagram renders as SVG, plain text, and Mermaid source');
   const before = await evaluate('fetch("/api/course-studio/state").then(r=>r.json()).then(s=>Object.values(s.progress).map(p=>({attempts:p.attempts.length,completed:p.completedLessons.length,reviews:p.reviews.length})))');
   await chooseFormat('slides'); await wait('!!document.querySelector(".output-slides .slide")');
   await screenshot('course-slides.png');
+  await mkdir('/tmp/document-exports');
+  await rpc('Browser.setDownloadBehavior', { behavior: 'allow', downloadPath: '/tmp/document-exports' });
+  await click('Download slide deck'); await click('Export lesson notes'); await click('Export course');
+  for (let i = 0; i < 100 && (await readdir('/tmp/document-exports')).filter(n => /\.(html|md|json)$/.test(n)).length < 3; i++) await new Promise(resolve => setTimeout(resolve, 100));
+  const files = await readdir('/tmp/document-exports'); assert.equal(files.length, 3);
+  const html = await readFile(path.join('/tmp/document-exports', files.find(f => f.endsWith('.html'))), 'utf8'); assert.match(html, /<svg/); assert.doesNotMatch(html, /<script/);
+  const markdown = await readFile(path.join('/tmp/document-exports', files.find(f => f.endsWith('.md'))), 'utf8'); assert.match(markdown, /flowchart LR/);
+  const courseFile = path.join('/tmp/document-exports', files.find(f => f.endsWith('.json')));
+  const exported = JSON.parse(await readFile(courseFile, 'utf8')); assert.ok(exported.course.lessons[0].exercises[0].answer);
+  console.log('PASS: slide HTML, Markdown notes, and portable course download');
   const firstScene = await evaluate('document.querySelector(".slide").innerText'); await click('Next →');
   assert.notEqual(await evaluate('document.querySelector(".slide").innerText'), firstScene);
   await chooseFormat('interactive'); await wait('!!document.querySelector(".output-interactive .slide")');
@@ -124,6 +141,18 @@ try {
   assert.ok(await evaluate('document.documentElement.scrollWidth <= window.innerWidth'), 'Mobile layout must not overflow horizontally.');
   assert.ok(await evaluate('[...document.querySelectorAll("nav[aria-label=\\"Main navigation\\"] button")].every(b=>b.getBoundingClientRect().right <= innerWidth)'), 'Main navigation should fit on mobile.');
   console.log('PASS: output switches preserve all learning records; mobile width fits');
+  await click('Connection'); await wait('!!document.querySelector("#learning-import")');
+  const initialCount = (await running.app.store.read()).courses.length;
+  const upload = async filename => { const { root } = await command('DOM.getDocument'); const { nodeId } = await command('DOM.querySelector', { nodeId: root.nodeId, selector: '#learning-import' }); await command('DOM.setFileInputFiles', { nodeId, files: [filename] }); };
+  await upload(courseFile); await wait(`document.querySelector('#notice').textContent.includes('Imported 1')`);
+  assert.equal((await running.app.store.read()).courses.length, initialCount + 1);
+  await click('Export workspace backup');
+  for (let i = 0; i < 100 && !(await readdir('/tmp/video-exports')).includes('learnharness-workspace.json'); i++) await new Promise(resolve => setTimeout(resolve, 100));
+  const backupFile = '/tmp/video-exports/learnharness-workspace.json';
+  const backup = JSON.parse(await readFile(backupFile, 'utf8')); assert.equal(backup.courses.length, initialCount + 1); assert.equal(backup.settings, undefined);
+  await upload(backupFile); await wait(`document.querySelector('#notice').textContent.includes('Imported ${initialCount + 1}')`);
+  assert.equal((await running.app.store.read()).courses.length, 2 * (initialCount + 1));
+  console.log('PASS: native course import and workspace backup restore preserve existing learning');
   console.log('Browser acceptance complete.');
 } finally {
   for (const p of pending.values()) { clearTimeout(p.timer); p.reject(new Error('Browser test finished.')); }

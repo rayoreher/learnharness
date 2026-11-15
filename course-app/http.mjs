@@ -1,6 +1,7 @@
 import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { Problem, check, VERSION } from './schema.mjs';
 import { getApplication } from './application.mjs';
+import { importLearning, exportLearning } from './transfers.mjs';
 
 const tokens = new WeakMap();
 function token(app) { if (!tokens.has(app)) tokens.set(app, randomBytes(32).toString('hex')); return tokens.get(app); }
@@ -8,6 +9,14 @@ const headers = { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Cont
 const json = (value, status = 200) => new Response(JSON.stringify(value), { status, headers });
 function local(url) { return ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname); }
 function sameToken(a, b) { return typeof a === 'string' && a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b)); }
+async function readBody(request, limit) {
+  check(!request.headers.has('content-length') || Number(request.headers.get('content-length')) <= limit, 'Request is too large.', 413);
+  const reader = request.body?.getReader(); if (!reader) return '';
+  const chunks = []; let size = 0;
+  for (;;) { const { value, done } = await reader.read(); if (done) break; size += value.byteLength; if (size > limit) { await reader.cancel(); throw new Problem('Request is too large.', 413); } chunks.push(value); }
+  const bytes = new Uint8Array(size); let offset = 0; for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+  try { return new TextDecoder('utf-8', { fatal: true }).decode(bytes); } catch { throw new Problem('Request must contain valid UTF-8 text.'); }
+}
 
 export async function handleCourseRequest(request, suppliedApplication) {
   try {
@@ -23,7 +32,7 @@ export async function handleCourseRequest(request, suppliedApplication) {
     if (method === 'POST') {
       check(sameToken(request.headers.get('x-course-token'), token(app)), 'Refresh the page before submitting.', 403);
       check(request.headers.get('content-type')?.split(';')[0] === 'application/json', 'Send JSON content.', 415);
-      const raw = await request.text(); check(Buffer.byteLength(raw) <= 65536, 'Request is too large.', 413);
+      const raw = await readBody(request, route[0] === 'import' ? 9 * 1024 * 1024 : 65536);
       try { input = JSON.parse(raw); } catch { throw new Problem('Request contains invalid JSON.'); }
       check(input && typeof input === 'object' && !Array.isArray(input), 'Send a JSON object.');
     }
@@ -34,6 +43,9 @@ export async function handleCourseRequest(request, suppliedApplication) {
     if (method === 'POST' && route.join('/') === 'settings') return json(await app.setModel(input.model));
     if (method === 'POST' && route.join('/') === 'sample') return json(await app.sample(), 201);
     if (method === 'POST' && route.join('/') === 'generate') return json(await app.generate(input), 202);
+    if (method === 'POST' && route.join('/') === 'import') return json(await importLearning(app, input), 201);
+    if (method === 'POST' && route.join('/') === 'export') return json(await exportLearning(app, input.courseId));
+    if (method === 'POST' && route[0] === 'jobs' && route.length === 3 && route[2] === 'retry') { const s = await app.store.read(); const job = s.jobs.find(j => j.id === route[1]); check(job?.input && ['failed', 'interrupted'].includes(job.status), 'This generation cannot be retried.', 409); return json(await app.generate(job.input), 202); }
     if (method === 'GET' && route[0] === 'jobs' && route.length === 2) { const state = await app.store.read(); const job = state.jobs.find(j => j.id === route[1]); check(job, 'Generation not found.', 404); return json(job); }
     if (method === 'POST' && route.join('/') === 'attempts') return json(await app.learning.attempt(input), 201);
     if (method === 'GET' && route.join('/') === 'review') return json(await app.learning.nextGlobalReview());

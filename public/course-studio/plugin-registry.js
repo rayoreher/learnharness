@@ -1,3 +1,6 @@
+import { diagramText, diagramMermaid, validateDiagram } from './diagrams.js';
+import { prepareTextSource, mindSparkCourse } from './sources.js';
+
 export const PLUGIN_API = 1;
 export const SLOTS = Object.freeze(['output', 'workflow', 'template', 'visual', 'exercise', 'grader', 'review', 'source']);
 const idPattern = /^[a-z][a-z0-9.-]{0,79}$/;
@@ -32,6 +35,7 @@ export function lessonScenes(lesson) {
   let heading = lesson.title;
   for (const block of lesson.blocks) {
     if (block.type === 'heading') { heading = block.text; continue; }
+    if (block.type === 'diagram') { scenes.push({ title: heading, text: block.text, diagram: block.diagram }); continue; }
     const text = block.type === 'bullets' ? block.items.map(item => `• ${item}`).join('\n') : block.text;
     // Bounded scenes remain readable in slides and captioned video.
     const chunks = String(text).match(/[\s\S]{1,360}(?:\s|$)|[\s\S]{1,360}/g) ?? [];
@@ -48,8 +52,9 @@ builtin('workflow', 'practice-first', 'Try, then explore', { practiceFirst: true
 builtin('template', 'guided', 'Guided explanation', { arrange: lesson => lesson });
 builtin('template', 'example-first', 'Example first', { arrange: lesson => ({ ...lesson, blocks: [...lesson.blocks.filter(b => b.role === 'example'), ...lesson.blocks.filter(b => b.role !== 'example')] }) });
 builtin('template', 'reference', 'Reference sheet', { arrange: lesson => ({ ...lesson, blocks: [{ type: 'bullets', items: lesson.objectives.map(o => o.title) }, ...lesson.blocks] }) });
-builtin('visual', 'svg', 'SVG flow diagrams', {});
-builtin('visual', 'ascii', 'Plain-text diagrams', {});
+builtin('visual', 'svg', 'Flow diagram', { project: diagram => ({ kind: 'svg', diagram: validateDiagram(diagram) }) });
+builtin('visual', 'ascii', 'Plain-text diagram', { project: diagram => ({ kind: 'text', source: diagramText(diagram) }) });
+builtin('visual', 'mermaid', 'Diagram + Mermaid source', { project: diagram => ({ kind: 'mermaid', diagram: validateDiagram(diagram), source: diagramMermaid(diagram) }) });
 for (const [id, label, input, grader] of [
   ['multiple-choice', 'Multiple choice', 'choice', 'answer-key'], ['open', 'Open question', 'text', 'codex-rubric'],
   ['fill-blank', 'Fill in the blank', 'text', 'answer-key'], ['flashcard', 'Flashcards', 'recall', 'self-assessment'],
@@ -65,6 +70,9 @@ builtin('review', 'reinforced', 'Two successful returns', { delayAttempts: 2, de
 builtin('review', 'spaced', 'Session review + spaced recall', { delayAttempts: 2, delayMs: 30000, requiredCorrect: 1, spacedDays: [1, 3, 7, 14, 30] });
 builtin('source', 'goal', 'Learning goal', {});
 builtin('source', 'sample', 'Included sample', {});
+builtin('source', 'text', 'Text notes', { prepare: prepareTextSource });
+builtin('source', 'markdown', 'Markdown notes', { prepare: prepareTextSource });
+builtin('source', 'mindspark', 'MindSpark study records', { prepare: mindSparkCourse });
 
 export function presentationSettings(input = {}, defaults = {}) {
   const settings = { format: input.format ?? defaults.format ?? 'text', workflow: input.workflow ?? defaults.workflow ?? 'lesson-quiz', template: input.template ?? defaults.template ?? 'guided', visual: input.visual ?? defaults.visual ?? 'svg', review: input.review ?? defaults.review ?? 'session' };

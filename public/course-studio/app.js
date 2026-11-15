@@ -1,12 +1,13 @@
 import { registry } from './plugin-registry.js';
 import { mountLessonOutput } from './lesson-outputs.js';
+import { lessonMarkdown } from './exports.js';
 
 const root = document.querySelector('#app');
 const notice = document.querySelector('#notice');
 const names = Object.fromEntries(registry.list('exercise').map(entry => [entry.manifest.id, entry.manifest.label]));
 let state, connection = { connected: false }, route = { view: 'home' }, feedback = null, selected = '', answer = '', review = null, busy = false, noticeTimer, modelOptions = [], signInUrl = null, signInCode = null, lessonSurface = null;
 const polling = new Set();
-const draft = { goal: '', level: 'beginner', types: Object.keys(names), presentation: { format: 'text', template: 'guided', workflow: 'lesson-quiz' } };
+const draft = { goal: '', level: 'beginner', types: Object.keys(names), presentation: { format: 'text', template: 'guided', workflow: 'lesson-quiz' }, source: null };
 let lastRenderedRoute = null, reviewRequest = 0;
 
 function el(tag, attrs = {}, ...children) {
@@ -21,6 +22,14 @@ function el(tag, attrs = {}, ...children) {
   return node;
 }
 function message(text) { notice.textContent = text; clearTimeout(noticeTimer); noticeTimer = setTimeout(() => { notice.textContent = ''; }, 7000); }
+function download(value, filename, mime = 'application/json') {
+  const blob = new Blob([typeof value === 'string' ? value : JSON.stringify(value, null, 2)], { type: mime });
+  const url = URL.createObjectURL(blob), link = el('a', { href: url, download: filename }); document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 30000);
+}
+async function readFile(file, max) {
+  if (!file || file.size > max) throw new Error(`Choose a file smaller than ${Math.round(max / 1024)} KB.`);
+  try { return new TextDecoder('utf-8', { fatal: true }).decode(await file.arrayBuffer()); } catch { throw new Error('This file is not UTF-8 text.'); }
+}
 async function api(path, input) {
   const response = await fetch(`/api/course-studio/${path}`, { method: input === undefined ? 'GET' : 'POST', headers: input === undefined ? {} : { 'Content-Type': 'application/json', 'X-Course-Token': state?.token ?? '' }, ...(input === undefined ? {} : { body: JSON.stringify(input) }), cache: 'no-store' });
   const data = await response.json(); if (!response.ok) throw new Error(data.error || 'The request failed.'); return data;
@@ -49,10 +58,10 @@ function pluginSelect(slot, field, value, callback, scope) {
   return el('div', { class: 'field' }, el('label', { for: id }, field[0].toUpperCase() + field.slice(1)), select);
 }
 function presentationControls(settings, onChange, scope = 'create') {
-  return el('div', { class: 'presentation-controls' }, [['output', 'format', 'text'], ['template', 'template', 'guided'], ['workflow', 'workflow', 'lesson-quiz'], ['review', 'review', 'session']].map(([slot, field, fallback]) => pluginSelect(slot, field, settings[field] ?? fallback, event => { onChange(field, event.target.value); }, scope)));
+  return el('div', { class: 'presentation-controls' }, [['output', 'format', 'text'], ['template', 'template', 'guided'], ['workflow', 'workflow', 'lesson-quiz'], ['review', 'review', 'session'], ['visual', 'visual', 'svg']].map(([slot, field, fallback]) => pluginSelect(slot, field, settings[field] ?? fallback, event => { onChange(field, event.target.value); }, scope)));
 }
 function lessonOutput(c, l, settings) {
-  const key = [c.id, c.version, l.id, settings.format, settings.template].join(':');
+  const key = [c.id, c.version, l.id, settings.format, settings.template, settings.visual].join(':');
   if (lessonSurface?.key !== key) { lessonSurface?.dispose(); lessonSurface = { key, ...mountLessonOutput(l, settings) }; }
   return lessonSurface.element;
 }
@@ -94,6 +103,8 @@ function homeView() {
   const levelInput = el('select', { id: 'level', onChange: event => { draft.level = event.target.value; } }, ['beginner', 'intermediate', 'advanced'].map(v => el('option', { value: v, selected: v === draft.level }, v[0].toUpperCase() + v.slice(1))));
   const typeInputs = typesControl(Object.keys(names), draft.types, event => { draft.types = [...event.target.closest('.types').querySelectorAll('input:checked')].map(x => x.value); });
   const presentation = draft.presentation;
+  const sourceArea = el('textarea', { id: 'source-notes', placeholder: 'Paste a short excerpt, or choose a text/Markdown file…', maxLength: '24000', onInput: event => { draft.source = event.target.value.trim() ? { kind: 'text', name: draft.source?.name || 'Pasted notes', content: event.target.value } : null; } }, draft.source?.content ?? '');
+  const sourceFile = el('input', { type: 'file', accept: '.txt,.md,.markdown', 'aria-label': 'Choose source notes', onChange: event => { const file = event.target.files[0]; void action(async () => { const content = await readFile(file, 24000); draft.source = { kind: /\.md|\.markdown$/i.test(file.name) ? 'markdown' : 'text', name: file.name, content }; message('Source notes added. They will be used when you create the course.'); }); } });
   const form = el('form', { class: 'goalbox', onSubmit: event => {
     event.preventDefault(); const goal = goalInput.value, level = levelInput.value;
     const types = [...typeInputs.querySelectorAll('input:checked')].map(x => x.value);
@@ -101,13 +112,14 @@ function homeView() {
       if (!goal.trim()) throw new Error('Describe what you want to learn.');
       if (!types.length) throw new Error('Choose at least one exercise format.');
       if (!connection.connected) { go('settings'); throw new Error('Connect Codex with ChatGPT to generate your course.'); }
-      const job = await api('generate', { goal, level, types, presentation }); draft.goal = ''; await refresh(); watchJob(job.id); message('Your course is being prepared. You can keep exploring.');
+      const job = await api('generate', { goal, level, types, presentation, ...(draft.source ? { source: draft.source } : {}) }); draft.goal = ''; await refresh(); watchJob(job.id); message('Your course is being prepared. You can keep exploring.');
     });
   } }, el('label', { for: 'goal' }, 'What would you like to understand?'), goalInput,
   el('div', { class: 'goal-options' }, el('div', { class: 'field' }, el('label', { for: 'level' }, 'Starting level'), levelInput), el('span', { class: 'small' }, 'A focused course, one small lesson at a time.'), el('button', { type: 'submit', class: 'primary', disabled: busy }, 'Create my course →')),
-  el('details', {}, el('summary', { class: 'small' }, 'Choose practice and lesson formats'), typeInputs, presentationControls(presentation, (field, value) => { presentation[field] = value; })));
+  el('details', {}, el('summary', { class: 'small' }, 'Choose practice and lesson formats'), typeInputs, presentationControls(presentation, (field, value) => { presentation[field] = value; })),
+  el('details', {}, el('summary', { class: 'small' }, draft.source ? `Source: ${draft.source.name}` : 'Add source notes'), el('label', { for: 'source-notes' }, 'Study material'), sourceArea, sourceFile, el('p', { class: 'small' }, 'Use a short excerpt, up to 24 KB. These notes are included in the course-generation request.'), draft.source && button('Remove source', () => { draft.source = null; }, 'quiet')));
   return el('div', {}, el('section', { class: 'hero' }, el('p', { class: 'eyebrow' }, 'Learn with intention'), el('h1', {}, 'Make it make sense.'), el('p', {}, 'Start with a question. Build understanding through small lessons, varied practice, and another chance at the ideas that need it.')), form,
-    state.jobs.filter(j => ['running', 'queued', 'interrupted', 'failed'].includes(j.status)).map(j => el('div', { class: 'job', role: 'status' }, el('strong', {}, j.goal), el('p', { class: 'small' }, ['running', 'queued'].includes(j.status) ? 'Preparing your lessons and exercises…' : j.error))),
+    state.jobs.filter(j => ['running', 'queued', 'interrupted', 'failed'].includes(j.status)).map(j => el('div', { class: 'job', role: 'status' }, el('strong', {}, j.goal), el('p', { class: 'small' }, ['running', 'queued'].includes(j.status) ? 'Preparing your lessons and exercises…' : j.error), ['failed', 'interrupted'].includes(j.status) && j.input && button('Retry generation', async () => { const retry = await api(`jobs/${j.id}/retry`, {}); await refresh(); void watchJob(retry.id); }))),
     el('div', { class: 'sectionhead' }, el('h2', {}, 'Your learning paths'), button('Explore a sample ↗', async () => { const c = await api('sample', {}); await refresh(); openCourse(c); }, 'quiet')),
     state.courses.length ? el('div', { class: 'cards' }, state.courses.map(c => {
       const p = progress(c), done = p.completedLessons.length;
@@ -132,7 +144,8 @@ function courseView(c) {
     await action(async () => { await api(`courses/${c.id}/lessons/${l.id}/settings`, { exerciseTypes: values }); feedback = null; await refresh(); });
   }));
   return el('div', {}, el('div', { class: 'row spread' }, button('← All learning paths', () => go('home'), 'quiet'), button(`Review ${p.reviews.length} concept${p.reviews.length === 1 ? '' : 's'} ↺`, () => openReview(c.id), 'quiet')),
-    el('header', { class: 'lesson-heading' }, el('p', { class: 'eyebrow' }, c.title), el('h1', {}, l.title), el('p', {}, l.summary)),
+    el('header', { class: 'lesson-heading' }, el('p', { class: 'eyebrow' }, c.title), el('h1', {}, l.title), el('p', {}, l.summary), c.source && el('p', { class: 'small' }, `Based on ${c.source.name}`)),
+    el('div', { class: 'row' }, button('Export lesson notes', () => download(lessonMarkdown(l), `lesson-${l.id}.md`, 'text/markdown'), 'quiet'), button('Export course', async () => download(await api('export', { courseId: c.id }), `course-${c.id}.json`), 'quiet')),
     el('details', {}, el('summary', { class: 'small' }, 'Default formats for this course'), presentationControls(c.settings, (field, value) => { void action(async () => { await api(`courses/${c.id}/settings`, { [field]: value }); await refresh(); }); }, 'course')),
     el('nav', { class: 'lesson-nav', 'aria-label': 'Course lessons' }, c.lessons.map((item, i) => button(`${p.completedLessons.includes(item.id) ? '✓' : i + 1}  ${item.title}`, () => openCourse(c, item.id), item.id === l.id ? 'active' : ''))),
     el('div', { class: 'lesson-layout' }, el('article', { class: 'reading' }, el('span', { class: 'eyebrow' }, 'The lesson'), el('div', { class: 'objectives' }, l.objectives.map(o => el('p', {}, o.title))),
@@ -204,6 +217,13 @@ function reviewView(c) {
 function settingsView() {
   const model = el('select', { id: 'model' }, ...(modelOptions.length ? modelOptions.map(m => el('option', { value: m.id, selected: m.id === state.settings.model }, m.name)) : [el('option', { value: '' }, state.settings.model || 'Codex default model')]));
   const loadModels = async () => { const data = await api('models'); modelOptions = data.models; };
+  const importFile = el('input', { type: 'file', accept: '.json', id: 'learning-import', onChange: event => {
+    const file = event.target.files[0]; void action(async () => {
+      const raw = await readFile(file, 8 * 1024 * 1024); let data; try { data = JSON.parse(raw); } catch { throw new Error('Choose a valid JSON course, MindSpark record, or workspace backup.'); }
+      const kind = data.format === 'learnharness-workspace' ? 'workspace' : data.format === 'learnharness-course' || data.lessons ? 'course' : 'mindspark';
+      const result = await api('import', { kind, data }); await refresh(); message(`Imported ${result.imported} learning path${result.imported === 1 ? '' : 's'}. Existing learning was preserved.`);
+    });
+  } });
   return el('div', {}, el('section', { class: 'hero' }, el('p', { class: 'eyebrow' }, 'Your local connection'), el('h1', {}, 'A teacher on your terms.'), el('p', {}, 'Course Studio runs locally and connects to the installed Codex CLI. ChatGPT powers generation and open-answer feedback.')),
     el('section', { class: 'panel' }, el('h2', {}, 'Codex & ChatGPT'), el('p', {}, connection.connected ? 'Your ChatGPT account is connected through Codex.' : 'Sign in to ChatGPT through Codex to create a course.'), connection.error && el('p', { class: 'error' }, connection.error),
       el('div', { class: 'row' }, button(connection.pending ? 'Sign-in in progress…' : 'Sign in with ChatGPT ↗', async () => {
@@ -212,7 +232,8 @@ function settingsView() {
       el('div', { id: 'signin-link' }, signInUrl && !connection.connected && el('div', {}, signInCode && el('p', {}, 'Enter this code: ', el('strong', { class: 'device-code' }, signInCode)), el('a', { href: signInUrl, target: '_blank', rel: 'noopener noreferrer' }, 'Open ChatGPT sign-in ↗'))), el('p', { class: 'small' }, 'Credentials stay with Codex on the server. You can complete device sign-in from another machine. No API-key billing fallback is used.')),
     el('section', { class: 'panel' }, el('h2', {}, 'Generation model'), el('label', { for: 'model' }, 'Available through your Codex account'), model,
       el('div', { class: 'row' }, button('Load available models', loadModels), button('Save model', async () => { if (!model.value) throw new Error('Load and choose a model first.'); await api('settings', { model: model.value }); await refresh(); message('Model preference saved.'); }, 'primary'))),
-    el('section', { class: 'panel' }, el('h2', {}, 'Your learning records'), el('p', {}, 'Lessons, attempts, completion, and the review queue are saved on this machine. Refreshing the browser or restarting the app preserves them.'), el('p', { class: 'small' }, 'Model requests send the relevant learning content to the connected service. Local storage does not mean offline inference.')));
+    el('section', { class: 'panel' }, el('h2', {}, 'Your learning records'), el('p', {}, 'Lessons, attempts, completion, and the review queue are saved on this machine. Refreshing the browser or restarting the app preserves them.'), button('Export workspace backup', async () => download(await api('export', {}), 'learnharness-workspace.json'), 'primary'), el('label', { for: 'learning-import' }, 'Import a course, MindSpark record, or workspace backup'), importFile, el('p', { class: 'small' }, 'Imports add independent learning paths and preserve your existing records. Backups include learning history and exclude Codex credentials. Model requests send the relevant learning content to the connected service.')),
+    el('section', { class: 'panel' }, el('h2', {}, 'Available plugins'), el('p', { class: 'small' }, 'Choose lesson and review contributions in course defaults or lesson settings. Plugin code is reviewed local application code.'), [...new Set(registry.list().map(e => e.manifest.slot))].map(slot => el('details', {}, el('summary', {}, `${slot[0].toUpperCase() + slot.slice(1)} · ${registry.list(slot).length}`), el('ul', {}, registry.list(slot).map(entry => el('li', {}, `${entry.manifest.label} · ${entry.manifest.version}${entry.manifest.requires.length ? ` · needs ${entry.manifest.requires.join(', ')}` : ''}`)))))));
 }
 async function watchJob(id) {
   if (polling.has(id)) return; polling.add(id);

@@ -6,6 +6,7 @@ import { Learning, emptyProgress } from './learning.mjs';
 import { sampleCourse } from './sample.mjs';
 import { check, text, exerciseTypes, publicCourse } from './schema.mjs';
 import { presentationSettings } from '../public/course-studio/plugin-registry.js';
+import { prepareSource } from './transfers.mjs';
 
 export async function createApplication({ directory = process.env.LH_COURSE_DATA_DIR || path.resolve('data/course-studio'), codex } = {}) {
   const store = await new Store(directory).initialize();
@@ -21,8 +22,9 @@ export async function createApplication({ directory = process.env.LH_COURSE_DATA
       check(!closing, 'Course Studio is shutting down.', 503);
       const goal = text(input.goal, 'Learning goal', 2000), level = text(input.level ?? 'beginner', 'Level', 100);
       const types = exerciseTypes(input.types);
+      const source = input.source ? prepareSource(input.source) : null;
       let presentation; try { presentation = presentationSettings(input.presentation); } catch (e) { check(false, e.message); }
-      const job = { id: randomUUID(), goal, status: 'queued', createdAt: Date.now() };
+      const job = { id: randomUUID(), goal, status: 'queued', createdAt: Date.now(), input: { goal, level, types, presentation, ...(source ? { source } : {}) } };
       // Claim the slot before the first await to fence simultaneous requests.
       activeJob = job.id;
       let state;
@@ -32,7 +34,8 @@ export async function createApplication({ directory = process.env.LH_COURSE_DATA
         try {
           await store.transact(s => { s.jobs.find(j => j.id === job.id).status = 'running'; });
           check(!closing, 'Generation was interrupted by shutdown.', 503);
-          const course = await codex.course({ goal, level, types, presentation }, state.settings.model);
+          const course = await codex.course({ goal, level, types, presentation, source }, state.settings.model);
+          if (source) course.source = source;
           // Save course and terminal job status in one durable transaction.
           await store.transact(s => { s.courses.push(course); s.progress[course.id] = emptyProgress(); Object.assign(s.jobs.find(j => j.id === job.id), { status: 'succeeded', courseId: course.id }); });
         } catch (e) { await store.transact(s => { Object.assign(s.jobs.find(j => j.id === job.id), { status: 'failed', error: e.status ? e.message : 'Generation failed. No incomplete course was saved.' }); }); }

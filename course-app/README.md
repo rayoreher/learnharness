@@ -34,9 +34,8 @@ dependencies; those dependencies have a separate verification boundary.
    correctness and outstanding review.
 5. Review after two other attempts, after 30 seconds, or after completing the
    lesson. The review may use a different exercise about the same objective.
-   A later unassisted correct answer clears an outstanding concept. This is
-   session remediation; long-term spaced repetition is a separate next-version
-   policy, rather than a claim that a cleared concept is permanently learned.
+   A later unassisted correct answer clears an outstanding concept under the
+   default policy. Other policies require two returns or schedule spaced recall.
 
 Multiple choice, true/false and fill-blank use answer keys; ordering checks the
 submitted sequence. Open answers use Codex and a
@@ -66,7 +65,8 @@ future changes to the course's template or workflow. **Use course defaults**
 removes the lesson override without removing attempts or review history.
 
 - Text: complete saved explanatory content.
-- Slides: paged scenes derived from that content.
+- Slides: paged scenes derived from that content, with a downloadable,
+  self-contained HTML deck suitable for printing.
 - Captioned video: browser-local encoding of the lesson scenes, with playback
   and a downloadable WebM/MP4 artifact where supported. It has no narration and
   uses no external video service. Keep the tab open during recording.
@@ -79,6 +79,29 @@ If a browser lacks video capabilities, a readable text lesson appears with
 an explicit explanation; source material and progress remain unchanged.
 
 The versioned extension contract is documented in `PLUGIN-CONTRACT.md`.
+
+## Diagrams, source material and portable learning
+
+Semantic flow diagrams store nodes and relationships independently of their
+presentation. Choose Flow diagram for graphical SVG, Plain-text diagram for one
+relationship per line, or Diagram + Mermaid source for a graphic with copyable
+Mermaid syntax. The app does not install or execute a Mermaid parser. Diagrams
+also appear in slides and captioned video.
+
+Add pasted notes or a UTF-8 text/Markdown excerpt up to 24 KB before generating
+a course. The chosen source is retained with a digest and included in the model
+request as study material. Source text never becomes executable lesson markup.
+
+Export lesson notes as Markdown, a complete course as JSON, or the whole
+workspace as a JSON backup from Connection. Workspace backups contain answer
+history and review schedules; they exclude the Codex profile and account
+configuration. Use Connection to import course JSON, a workspace backup, or old
+MindSpark study records. Imports add independent learning paths. Workspace
+restore validates every record before adding any, and never overwrites existing
+paths. Course imports start with fresh progress. MindSpark's open questions,
+multiple choice, fill-blank and flashcards are mapped to supported mechanics;
+short readings become lesson content. Questions with several correct choices
+become open questions with all reference choices retained.
 
 ## Review policies
 
@@ -132,9 +155,9 @@ checks performed and remaining live-provider/browser verification.
 
 The full acceptance checklist is [issue #1](https://github.com/rayoreher/learnharness/issues/1).
 The first-version implementation is tracked in [issue #2](https://github.com/rayoreher/learnharness/issues/2).
-Next: versioned plugin contracts; lesson workflows and templates; text, slides,
-video and interactive outputs; visual renderers; review policies; imports and
-exports; wider browser and failure-recovery verification.
+The versioned checkpoints include output, exercise, grading, review, visual and
+source contributions. Remaining acceptance work is tracked in the issue,
+including adding new formats to an existing lesson and broader recovery checks.
 
 AGPL-3.0-only, matching the upstream project. The parent repository's license
 and copyright notices remain authoritative for reused material.

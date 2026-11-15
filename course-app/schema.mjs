@@ -1,7 +1,8 @@
 import { randomUUID } from 'node:crypto';
 import { presentationSettings, registry } from '../public/course-studio/plugin-registry.js';
+import { validateDiagram } from '../public/course-studio/diagrams.js';
 
-export const VERSION = '0.3.0';
+export const VERSION = '0.4.0';
 export const TYPES = registry.list('exercise').map(entry => entry.manifest.id);
 export class Problem extends Error {
   constructor(message, status = 400) { super(message); this.status = status; }
@@ -33,7 +34,8 @@ export function validateCourse(input) {
     const concepts = new Set(objectives.map(o => o.id));
     check(Array.isArray(l.blocks) && l.blocks.length > 0 && l.blocks.length <= 40, 'Each lesson needs explanatory content.');
     const blocks = l.blocks.map(b => {
-      check(['paragraph', 'heading', 'bullets', 'code'].includes(b.type), 'Unsupported lesson block.');
+      check(['paragraph', 'heading', 'bullets', 'code', 'diagram'].includes(b.type), 'Unsupported lesson block.');
+      if (b.type === 'diagram') { let diagram; try { diagram = validateDiagram(b.diagram); } catch (e) { check(false, e.message); } return { type: 'diagram', text: text(typeof b.text === 'string' && !b.text.trim() ? 'Flow diagram' : b.text, 'Diagram caption', 1000), diagram }; }
       if (b.type === 'bullets') {
         check(Array.isArray(b.items) && b.items.length > 0 && b.items.length <= 20, 'A list needs items.');
         return { type: b.type, items: b.items.map(x => text(x, 'List item', 2000)) };
@@ -76,7 +78,7 @@ export const COURSE_SCHEMA = object({
   title: string, summary: string, goal: string, level: string,
   lessons: array(object({ id: string, title: string, summary: string,
     objectives: array(object({ id: string, title: string })),
-    blocks: array(object({ type: { enum: ['paragraph', 'heading', 'bullets', 'code'] }, role: { enum: ['explanation', 'example', 'takeaway'] }, text: string, items: array(string) })),
+    blocks: array(object({ type: { enum: ['paragraph', 'heading', 'bullets', 'code', 'diagram'] }, role: { enum: ['explanation', 'example', 'takeaway'] }, text: string, items: array(string), diagram: { anyOf: [object({ nodes: array(object({ id: string, label: string })), edges: array(object({ from: string, to: string })) }), { type: 'null' }] } })),
     exercises: array(object({ id: string, type: { enum: TYPES }, conceptIds: array(string), question: string, answer: string, explanation: string, rubric: string, options: array(string) }))
   }))
 });

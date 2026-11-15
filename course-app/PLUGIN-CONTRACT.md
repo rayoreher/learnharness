@@ -39,14 +39,16 @@ registration. Manifest records and capability arrays are frozen.
 | `output` | `project(lesson)` returns text blocks, slide/video scenes or interactive scenes; all four renderers work |
 | `template` | `arrange(lesson)` returns a lesson projection; guided/example-first/reference are supplied |
 | `workflow` | `practiceFirst` selects the supported lesson-first or attempt-first sequencing |
-| `visual` | Reserved catalog entries for SVG and plain text; semantic diagram support is the next iteration |
+| `visual` | `project(diagram)` returns validated SVG graph data, plain text or graph plus Mermaid source; all three supplied |
 | `exercise` | `input` selects choice/text/recall/ordered controls; `grader` names an assessor; optional `validate(exercise)` adds content checks; six mechanics are supplied |
 | `grader` | `grade({exercise, answer}, context)` returns a validated correct/partial/incorrect result and bounded feedback; Codex calls use `context.assess`; capability requirements are checked |
 | `review` | Delay/required-success policy, with optional spaced-day intervals; session/reinforced/spaced are supplied |
-| `source` | Goal-generated and included sample content; imports remain on the checklist |
+| `source` | `prepare(input)` normalizes bounded UTF-8 notes or converts imported study records; text/Markdown/MindSpark supplied |
 
-The catalog declares future seams explicitly. Catalog presence alone does not
-claim that arbitrary custom implementations of every slot are already runnable.
+Contributions run through the supported shared primitives. A new input control
+or output primitive requires a corresponding trusted renderer. Source adapters
+return data to core validation; they never write learning records directly.
+Goal and sample entries identify the two built-in course origins.
 
 Exercise plugins use the shared question/reference-answer/explanation/concept
 shape, with an options array for choice or ordering. Custom graders cannot

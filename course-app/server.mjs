@@ -8,7 +8,9 @@ import { handleCourseRequest } from './http.mjs';
 export async function startServer({ port = Number(process.env.LH_COURSE_PORT || 3030), directory, codex } = {}) {
   const app = await createApplication({ directory, codex });
   const assets = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../public/course-studio');
+  const extraScripts = ['diagrams.js', 'diagram-view.js', 'sources.js', 'exports.js'];
   const files = new Map([['/', ['index.html', 'text/html']], ['/courses', ['index.html', 'text/html']], ['/course-studio/index.html', ['index.html', 'text/html']], ['/course-studio/app.js', ['app.js', 'text/javascript']], ['/course-studio/plugin-registry.js', ['plugin-registry.js', 'text/javascript']], ['/course-studio/lesson-outputs.js', ['lesson-outputs.js', 'text/javascript']], ['/course-studio/style.css', ['style.css', 'text/css']]]);
+  for (const file of extraScripts) files.set(`/course-studio/${file}`, [file, 'text/javascript']);
   const server = http.createServer(async (req, res) => {
     try {
       const host = req.headers.host || '';
@@ -16,8 +18,10 @@ export async function startServer({ port = Number(process.env.LH_COURSE_PORT || 
       if (!['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)) { res.writeHead(403); res.end('Local connections only.'); return; }
       const common = { 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-store', 'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; frame-ancestors 'self'; base-uri 'none'; form-action 'self'" };
       if (url.pathname.startsWith('/api/course-studio/')) {
+        if ((req.headers.origin && req.headers.origin !== url.origin) || req.headers['sec-fetch-site'] === 'cross-site') { res.writeHead(403, { ...common, 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Cross-site requests are refused.' })); return; }
         const chunks = []; let size = 0;
-        for await (const chunk of req) { size += chunk.length; if (size > 65536) { res.writeHead(413, common); res.end('Request is too large.'); return; } chunks.push(chunk); }
+        const limit = url.pathname === '/api/course-studio/import' ? 9 * 1024 * 1024 : 65536;
+        for await (const chunk of req) { size += chunk.length; if (size > limit) { res.writeHead(413, { ...common, 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Request is too large.' })); return; } chunks.push(chunk); }
         const request = new Request(url, { method: req.method, headers: req.headers, ...(!['GET', 'HEAD'].includes(req.method) ? { body: Buffer.concat(chunks), duplex: 'half' } : {}) });
         const response = await handleCourseRequest(request, app);
         res.writeHead(response.status, { ...common, ...Object.fromEntries(response.headers) }); res.end(Buffer.from(await response.arrayBuffer())); return;

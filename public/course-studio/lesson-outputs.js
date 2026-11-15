@@ -1,8 +1,12 @@
 import { projectLesson } from './plugin-registry.js';
+import { mountDiagram } from './diagram-view.js';
+import { diagramLayout } from './diagrams.js';
+import { slideDocument } from './exports.js';
 
 function node(tag, value, className) { const e = document.createElement(tag); if (value !== undefined) e.textContent = value; if (className) e.className = className; return e; }
 function control(label, work) { const b = node('button', label); b.type = 'button'; b.addEventListener('click', work); return b; }
-function block(b) {
+function block(b, settings) {
+  if (b.type === 'diagram') { const figure = mountDiagram(b.diagram, settings.visual); figure.append(node('figcaption', b.text)); return figure; }
   if (b.type === 'heading') return node('h3', b.text);
   if (b.type === 'code') { const p = node('pre'); p.append(node('code', b.text)); return p; }
   if (b.type === 'bullets') { const list = node('ul'); for (const item of b.items) list.append(node('li', item)); return list; }
@@ -17,7 +21,7 @@ export function mountLessonOutput(lesson, settings) {
   const container = node('div', undefined, `lesson-output output-${view.type}`);
   const cleanup = [];
   if (view.warning) { const warning = node('p', view.warning, 'small'); warning.setAttribute('role', 'status'); container.append(warning); }
-  if (view.type === 'text') container.append(...view.blocks.map(block));
+  if (view.type === 'text') container.append(...view.blocks.map(b => block(b, settings)));
   if (view.type === 'slides' || view.type === 'interactive') {
     let index = 0, revealed = view.type !== 'interactive';
     const scene = node('section', undefined, 'slide'); scene.setAttribute('aria-live', 'polite');
@@ -27,12 +31,16 @@ export function mountLessonOutput(lesson, settings) {
     const next = control('Next →', () => { index++; revealed = view.type !== 'interactive'; draw(); });
     const draw = () => {
       const item = view.scenes[index]; scene.replaceChildren(node('p', `Scene ${index + 1}`, 'eyebrow'), node('h3', item.title));
-      if (revealed) scene.append(node('p', item.text));
+      if (revealed) { scene.append(node('p', item.text)); if (item.diagram) scene.append(mountDiagram(item.diagram, settings.visual)); }
       else scene.append(node('p', 'Before revealing this step, consider what you already know and what you expect to learn.', 'small'), control('Explore this step', () => { revealed = true; draw(); }));
       previous.disabled = index === 0; next.disabled = index === view.scenes.length - 1 || !revealed;
       counter.textContent = `${index + 1} / ${view.scenes.length}`;
     };
     controls.append(previous, counter, next); container.append(scene, controls); draw();
+    if (view.type === 'slides') {
+      const exportDeck = control('Download slide deck', () => { const blob = new Blob([slideDocument(lesson)], { type: 'text/html' }), url = URL.createObjectURL(blob), link = document.createElement('a'); link.href = url; link.download = `lesson-${lesson.id}-slides.html`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 30000); });
+      container.append(exportDeck);
+    }
   }
   if (view.type === 'video') {
     const canvas = node('canvas'); canvas.width = 1280; canvas.height = 720; canvas.setAttribute('aria-label', 'Captioned lesson video preview');
@@ -56,7 +64,14 @@ export function mountLessonOutput(lesson, settings) {
       ctx.font = '42px Georgia'; let y = 170;
       for (const line of lines(scene.title, 1100)) { ctx.fillText(line, 80, y); y += 52; }
       ctx.fillStyle = '#37463b'; ctx.font = '30px sans-serif'; y += 28;
-      for (const line of lines(scene.text, 1100).slice(0, 9)) { ctx.fillText(line, 80, y); y += 44; }
+      for (const line of lines(scene.text, 1100).slice(0, scene.diagram ? 2 : 9)) { ctx.fillText(line, 80, y); y += 44; }
+      if (scene.diagram) {
+        const layout = diagramLayout(scene.diagram), scale = Math.min(1100 / layout.width, Math.max(80, 610 - y) / layout.height);
+        ctx.save(); ctx.translate(80, y + 8); ctx.scale(scale, scale); ctx.strokeStyle = '#446b50'; ctx.lineWidth = 2;
+        for (const edge of layout.edges) { const a = layout.nodes.find(n => n.id === edge.from), b = layout.nodes.find(n => n.id === edge.to); ctx.beginPath(); ctx.moveTo(a.x + a.width, a.y + a.height / 2); ctx.lineTo(b.x, b.y + b.height / 2); ctx.stroke(); ctx.beginPath(); ctx.moveTo(b.x, b.y + b.height / 2); ctx.lineTo(b.x - 8, b.y + b.height / 2 - 5); ctx.lineTo(b.x - 8, b.y + b.height / 2 + 5); ctx.closePath(); ctx.fillStyle = '#446b50'; ctx.fill(); }
+        for (const n of layout.nodes) { ctx.fillStyle = '#dfebd9'; ctx.fillRect(n.x, n.y, n.width, n.height); ctx.strokeRect(n.x, n.y, n.width, n.height); ctx.fillStyle = '#224f40'; ctx.font = '14px sans-serif'; const label = n.label.match(/.{1,21}/gu) ?? ['']; label.slice(0, 3).forEach((line, i) => ctx.fillText(line, n.x + 8, n.y + 24 + i * 18)); }
+        ctx.restore();
+      }
       ctx.fillStyle = '#cbd8c3'; ctx.fillRect(80, 650, 1120, 5); ctx.fillStyle = '#224f40'; ctx.fillRect(80, 650, 1120 * (index + fraction) / view.scenes.length, 5);
       ctx.font = '18px sans-serif'; ctx.fillText(`${index + 1} / ${view.scenes.length}`, 80, 690);
     };

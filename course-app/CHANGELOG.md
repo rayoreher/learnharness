@@ -1,5 +1,18 @@
 # Course Studio changes
 
+## 0.4.0 — sources, diagrams and portability
+
+- Added validated semantic diagrams with SVG, robust plain-text relationships
+  and Mermaid source, including slide and video presentation.
+- Added source-based generation from pasted notes or UTF-8 text/Markdown, with
+  stored source provenance and explicit retry of failed/interrupted generation.
+- Added course JSON, workspace backup, Markdown notes and self-contained slide
+  HTML exports. Backups exclude account configuration and Codex credentials.
+- Added atomic append-only backup restore, fresh-progress course imports and
+  a MindSpark adapter for all four original exercise mechanics.
+- Passed 45 automated tests and expanded real-browser checks for diagram
+  switching, native downloads, course import and workspace restore.
+
 ## 0.3.0 — exercise and review plugins
 
 - Generalized exercise/assessor dispatch through validated registry interfaces.

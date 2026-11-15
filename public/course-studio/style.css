@@ -3,3 +3,4 @@
 .lesson-nav{flex-direction:row}
 @media(max-width:680px){.sidebar nav button{font-size:.82rem;padding:8px 9px}}
 .ordering{padding-left:24px;margin:15px 0 22px}.ordering li{padding:12px 0;border-bottom:1px solid var(--line)}.ordering li>span{display:block;margin-bottom:8px}.ordering button{padding:4px 12px}.ordering .row{gap:6px}
+.diagram{margin:24px 0;max-width:100%;min-width:0}.diagram-scroll{overflow:auto;max-width:100%;padding:10px 0}.diagram svg{display:block;max-width:none}.diagram figcaption{font-size:.8rem;color:var(--muted);margin-top:10px}.diagram details{font-size:.8rem}.diagram pre{font-size:.75rem}.lesson-output{min-width:0}.reading{min-width:0}.sectionhead{flex-wrap:wrap}.panel details{margin:12px 0}.panel details li{font-size:.85rem}

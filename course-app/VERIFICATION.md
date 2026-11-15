@@ -1,5 +1,20 @@
 # Course Studio verification record
 
+## v0.4 completed verification
+
+- All 45 automated checks pass on Node 24.22.3. New cases cover source bounds,
+  source-aware generation/retry, fresh-identity course import, atomic backup
+  restore with retained progress, MindSpark conversion, cyclic diagram layout,
+  safe SVG/HTML exports and Markdown code fences.
+- The isolated real-browser journey passed SVG/plain-text/Mermaid-source
+  switching, actual HTML/Markdown/JSON downloads, course import and workspace
+  restore. A new captioned video with a diagram scene was decoded at 1280×720
+  and downloaded (771,162 bytes). Earlier learning, review, focus and mobile
+  acceptance checks also passed.
+- The browser sees no model-generated executable markup. Slide export is
+  script-free and self-contained; Mermaid output is source plus our own SVG,
+  rather than a claim that a third-party Mermaid runtime was executed.
+
 ## v0.3 completed verification
 
 - 35 automated tests pass on Node 24.22.3. Additional cases run a registered
