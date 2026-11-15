@@ -700,6 +700,10 @@ function SessionsSidebar() {
 
 				{/* Core doors always lead explicit plugin sidebar placements. */}
 				<PluginSidebarActions>
+					<Link href="/courses" className="flex min-w-0 w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+						<PlusIcon className="size-3 shrink-0" />
+						<span className="min-w-0 truncate">Courses</span>
+					</Link>
 					<button
 						type="button"
 						data-testid="new-session"
