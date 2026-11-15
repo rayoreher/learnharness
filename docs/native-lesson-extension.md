@@ -55,10 +55,11 @@ prove that the full application runs.
 
 ## Checks completed for the first native draft
 
-- Ten isolated backend tests cover accepted-answer authority, cancelled/forged
+- Eleven isolated backend tests cover accepted-answer authority, cancelled/forged
   answers, ordinary teacher feedback, separate coverage/remediation, delay,
   settings inheritance, restart/idempotency and multiple micro-lessons under a
-  single native plan landmark.
+  single native plan landmark. A correct first-pass answer cannot clear an
+  earlier mistake before the concept returns for review.
 - Original pinned LearnHarness helpers validate the added question definitions,
   saved answer schemas, refinements, manifest and tool parameters. Its original
   `question-core` supplies real shuffled-quiz/confidence/grading and committed
@@ -70,7 +71,20 @@ prove that the full application runs.
 - The plugin's dependency-free package build passes in isolation. No packages
   are added to the application, no new routes/UI shell/provider are introduced,
   and existing data/deployments are untouched.
+- The original pinned backend plugin host and sidecar loader discover the built
+  Core package and admit its teacher tools and question types. Disabling aborts
+  the saved live registration and invalidates stale tools; re-enabling restores
+  per-lesson options. This uses a fresh isolated profile and inert model services.
+- Browser fixtures select any saved lesson and verify delayed saves and quick
+  quiz-mix changes retain the intended target and values.
 
 Full native application activation/browser QA and model-driven sequencing remain
 required. This draft is not a replacement completion claim for the rejected
 standalone prototype.
+
+The initial four quiz types and three output choices are currently explicit
+options. Wiring additional plugin-contributed formats into those lesson choices
+is still required; the underlying host registration APIs alone do not establish
+that integration. Mermaid is built into the host, while host-only Markdown
+intentionally excludes other plugins' code-fence renderers. Custom diagrams in
+saved lesson cards therefore also need an explicit extension path.

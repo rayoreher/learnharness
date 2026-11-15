@@ -84,7 +84,7 @@ function reconcile(session, record, now = Date.now()) {
     session.attempts.push(attempt); previous.set(attempt.questionId, attempt);
     const queued = session.reviews.find(r => r.conceptId === attempt.conceptId);
     if (attempt.result === 'correct' && !attempt.assisted) {
-      if (queued && (attempt.sequence >= queued.dueAfter || Date.parse(attempt.answeredAt) >= queued.dueAt || (response.review === true && session.completed.includes(queued.lessonId)))) session.reviews = session.reviews.filter(r => r !== queued);
+      if (queued && response.review === true && (attempt.sequence >= queued.dueAfter || Date.parse(attempt.answeredAt) >= queued.dueAt || session.completed.includes(queued.lessonId))) session.reviews = session.reviews.filter(r => r !== queued);
     } else {
       const next = { conceptId: attempt.conceptId, lessonId: attempt.lessonId, nodeId: attempt.nodeId, questionId: attempt.questionId, dueAfter: attempt.sequence + 2, dueAt: Date.parse(attempt.answeredAt) + 30000 };
       if (queued) Object.assign(queued, next); else session.reviews.push(next);

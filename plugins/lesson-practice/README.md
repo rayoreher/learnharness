@@ -11,7 +11,7 @@ response, fill-blank and flashcard questions. Existing native `quiz` and
 `explain` supply multiple choice and open responses, preserving their original
 controls, confidence, answer commitment and feedback. Only fill-blank and
 flashcard editors are added. **Lesson options** in a teaching
-session changes the current lesson's quiz mix/presentation. Its ordinary plugin
+session selects a saved lesson and changes its quiz mix/presentation. Its ordinary plugin
 settings set defaults for future lessons.
 
 The normal prober and `plan_init` still establish the goal and plan. Additional
@@ -28,7 +28,8 @@ with no additional model call or alternate authentication route.
 After feedback the first pass continues even after a mistake. Completion records
 coverage of the selected formats; missed concepts remain in a separate queue.
 They return after other practice, a short retrieval delay or a lesson boundary,
-until a later unassisted correct answer clears them. Flashcards explicitly record
+until a later unassisted correct review answer clears them. Correct answers during
+the first pass cannot clear an earlier mistake before it returns. Flashcards explicitly record
 self-assessment. Displaying a reference alone never clears a concept.
 
 Text remains the default. Slides and browser-local captioned video render inside
@@ -49,3 +50,6 @@ course database or UI is imported.
 
 Native runtime verification is required before calling this implementation
 complete. Unit fixtures alone do not establish full LearnHarness compatibility.
+The original backend plugin host has also been checked for discovery, activation,
+disable, expired registrations and settings restoration in an isolated empty
+profile. Its model services were inert; this does not verify the complete web app.

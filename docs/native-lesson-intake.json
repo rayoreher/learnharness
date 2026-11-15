@@ -9,7 +9,12 @@
     "src/core/plugins.ts": "8758010e4d6b6fb51f18f2b0c6b010b293d7f351901dd0563c046eae0d7a70f6",
     "src/core/question-core.ts": "ece72fd84c49f8380a8e0c12661abfa97f8a1bead61f27fc8eb97b5e8933a633",
     "src/core/value-debris.ts": "3b42df41a221ff5e27339424675d3f4e9c92e1b6ed300f6e3f0d863dbe9ce476",
-    "src/core/citations.ts": "a41b1379eeef3a35f4ed079e7c6ec37477dcc627e02e54e4dc5a3a0b54835ab8"
+    "src/core/citations.ts": "a41b1379eeef3a35f4ed079e7c6ec37477dcc627e02e54e4dc5a3a0b54835ab8",
+    "src/server/plugin-host.ts": "c53e6b1a686af39ce5ddbca39d097977b4193cfdd506b359bea115c85771e987",
+    "src/store/plugin-data-paths.ts": "f25133b1c7ef2c028b578502bb21be256ace198d640093d069c1447e609417c4",
+    "src/core/plugin-problems.ts": "9129a23fdc1d764546568012dcd573cc75d379babb4aba5c0f156a114655ca52",
+    "src/core/practice-problems.ts": "887695430902807a5fca9e751efeec2057f6c3f197c8d744197c94635a115fdb",
+    "scripts/plugin-loader.cjs": "a2d0953dcc6b8f7bfd085ec8eeedb49e680eca6f485c8ed4255f42e391e01252"
   },
   "dependency": {
     "name": "typebox",
@@ -31,7 +36,8 @@
     "Format/schema URI references are comments or local reference processing; no network or child-process API exists in this dependency closure.",
     "README encoded string is a badge/image link, never decoded/evaluated.",
     "Original native helpers validate schemas/immutable JSON/accepted question authority; no provider connection, credential, package installer or inherited agent instructions are imported.",
-    "Original question-core adds only pure native option normalization/shuffle/answer creation; its two imports are pure value-debris and citation-string helpers. No I/O or model dispatch added."
+    "Original question-core adds only pure native option normalization/shuffle/answer creation; its two imports are pure value-debris and citation-string helpers. No I/O or model dispatch added.",
+    "Native host lifecycle test reads only explicit isolation flags and reviewed source paths. It runs the original loader against one freshly built package in a temporary empty profile. Model and account services are inert; no full-app claim is made."
   ],
   "intended_command": "Node 24 native contract fixture inside existing credential-free bubblewrap isolation, with no host home, account files or external network.",
   "limitation": "Does not approve or execute the full inherited Next/Pi/Electron application.",
@@ -420,10 +426,10 @@
     "scanner_version": "1.0.0",
     "disposition": "manual_review_required",
     "complete": true,
-    "tree_sha256": "5f5af14c108d0fd0146909584660b7d2c362251993b98f04ae469b1151501fa5",
-    "files_recorded": 17,
-    "text_files_scanned": 14,
-    "bytes_read": 109481,
+    "tree_sha256": "cfd1787ef6743ba329655f3e1aaaa7f9889cbb9963c5dcfcac1029fdb27a0f3c",
+    "files_recorded": 19,
+    "text_files_scanned": 16,
+    "bytes_read": 119765,
     "findings_truncated": false,
     "git_metadata_excluded": false,
     "findings": [
@@ -433,6 +439,13 @@
         "severity": "review",
         "message": "Network destinations and transmitted data need review.",
         "line": 4
+      },
+      {
+        "path": "tests/host-lifecycle.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 9
       },
       {
         "path": "tests/host-contract.mjs",
@@ -446,7 +459,7 @@
         "rule": "network-operation",
         "severity": "review",
         "message": "Network destinations and transmitted data need review.",
-        "line": 35
+        "line": 36
       },
       {
         "path": "tests/browser.mjs",
@@ -506,5 +519,165 @@
     "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
   },
   "user_scope": "Keep original LearnHarness application, rules and plugin lifecycle. Use MindSpark as quiz-format reference only.",
-  "applied_rules": "Native AGENTS.md reviewed after source intake; no Next route/API code is authored. Plugin/teaching contracts govern implementation. The user has explicitly authorized the additive lesson/quiz/plugin scope; no UI or model-connection redesign is introduced."
+  "applied_rules": "Native AGENTS.md reviewed after source intake; no Next route/API code is authored. Plugin/teaching contracts govern implementation. The user has explicitly authorized the additive lesson/quiz/plugin scope; no UI or model-connection redesign is introduced.",
+  "host_activation_review": {
+    "commit": "cb25c8e49b85eed9e78315584731cad73a0118a6",
+    "source": [
+      {
+        "path": "src/server/plugin-host.ts",
+        "sha256": "c53e6b1a686af39ce5ddbca39d097977b4193cfdd506b359bea115c85771e987",
+        "report": {
+          "scanner_version": "1.0.0",
+          "disposition": "manual_review_required",
+          "complete": true,
+          "tree_sha256": "d5f7c95c754000e2208b422fca3e12908261f95402ea9e7eb455280c24737fe0",
+          "files_recorded": 1,
+          "text_files_scanned": 1,
+          "bytes_read": 36961,
+          "findings_truncated": false,
+          "git_metadata_excluded": false,
+          "findings": [],
+          "limits": {
+            "files": 10000,
+            "file_bytes": 1048576,
+            "total_bytes": 16777216
+          },
+          "requires": [
+            "manual_source_and_provenance_review",
+            "dependency_and_advisory_review",
+            "isolated_execution_only"
+          ],
+          "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+        }
+      },
+      {
+        "path": "src/store/plugin-data-paths.ts",
+        "sha256": "f25133b1c7ef2c028b578502bb21be256ace198d640093d069c1447e609417c4",
+        "report": {
+          "scanner_version": "1.0.0",
+          "disposition": "manual_review_required",
+          "complete": true,
+          "tree_sha256": "ad35e15dd16e341604358f9ad09c46f63fc720e60480bec65235061c5039cbfe",
+          "files_recorded": 1,
+          "text_files_scanned": 1,
+          "bytes_read": 1709,
+          "findings_truncated": false,
+          "git_metadata_excluded": false,
+          "findings": [],
+          "limits": {
+            "files": 10000,
+            "file_bytes": 1048576,
+            "total_bytes": 16777216
+          },
+          "requires": [
+            "manual_source_and_provenance_review",
+            "dependency_and_advisory_review",
+            "isolated_execution_only"
+          ],
+          "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+        }
+      },
+      {
+        "path": "src/core/plugin-problems.ts",
+        "sha256": "9129a23fdc1d764546568012dcd573cc75d379babb4aba5c0f156a114655ca52",
+        "report": {
+          "scanner_version": "1.0.0",
+          "disposition": "manual_review_required",
+          "complete": true,
+          "tree_sha256": "24a0654ade2cd59c78d992ca69ef62d558f28863f4b44b739b599651f0602448",
+          "files_recorded": 1,
+          "text_files_scanned": 1,
+          "bytes_read": 16304,
+          "findings_truncated": false,
+          "git_metadata_excluded": false,
+          "findings": [],
+          "limits": {
+            "files": 10000,
+            "file_bytes": 1048576,
+            "total_bytes": 16777216
+          },
+          "requires": [
+            "manual_source_and_provenance_review",
+            "dependency_and_advisory_review",
+            "isolated_execution_only"
+          ],
+          "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+        }
+      },
+      {
+        "path": "src/core/practice-problems.ts",
+        "sha256": "887695430902807a5fca9e751efeec2057f6c3f197c8d744197c94635a115fdb",
+        "report": {
+          "scanner_version": "1.0.0",
+          "disposition": "manual_review_required",
+          "complete": true,
+          "tree_sha256": "216e30c3fd8c0629e1d2834502f396e711a63c75d69e88378381b78f364b77aa",
+          "files_recorded": 1,
+          "text_files_scanned": 1,
+          "bytes_read": 1248,
+          "findings_truncated": false,
+          "git_metadata_excluded": false,
+          "findings": [],
+          "limits": {
+            "files": 10000,
+            "file_bytes": 1048576,
+            "total_bytes": 16777216
+          },
+          "requires": [
+            "manual_source_and_provenance_review",
+            "dependency_and_advisory_review",
+            "isolated_execution_only"
+          ],
+          "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+        }
+      },
+      {
+        "path": "scripts/plugin-loader.cjs",
+        "sha256": "a2d0953dcc6b8f7bfd085ec8eeedb49e680eca6f485c8ed4255f42e391e01252",
+        "report": {
+          "scanner_version": "1.0.0",
+          "disposition": "manual_review_required",
+          "complete": true,
+          "tree_sha256": "3b952c2000adb2c11eb81ce7f6593fd357acce29e5623a99f3a6bb19db62f771",
+          "files_recorded": 1,
+          "text_files_scanned": 1,
+          "bytes_read": 514,
+          "findings_truncated": false,
+          "git_metadata_excluded": false,
+          "findings": [],
+          "limits": {
+            "files": 10000,
+            "file_bytes": 1048576,
+            "total_bytes": 16777216
+          },
+          "requires": [
+            "manual_source_and_provenance_review",
+            "dependency_and_advisory_review",
+            "isolated_execution_only"
+          ],
+          "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+        }
+      }
+    ],
+    "dependency_closure": "Previously reviewed exact TypeBox 1.3.27 plus pinned native question helpers; no new package dependency. New host modules import only Node standard library and those pure helpers. Type-only Pi imports are stripped; neither Pi nor Next executes.",
+    "dependency_advisories": {},
+    "dispositions": [
+      "plugin-host validates package paths, symlinks, schemas, scope and saved state; it intentionally loads a reviewed absolute local backend via the pinned plugin-loader sidecar. Only the freshly built lesson-practice package is mounted.",
+      "plugin-data-paths restricts per-plugin writable data to the fresh temporary profile.",
+      "plugin-problems and practice-problems supply pure JSON schema/immutable submission validation; no file, network, credential or process operations.",
+      "The test supplies read-only synthetic native learning records and inert model/account/task services; it verifies the real host lifecycle, not model execution."
+    ],
+    "intended_command": "Node 24 --experimental-transform-types /plugin/tests/host-lifecycle.mjs with native source /host, built package /tmp/plugin/dist, cwd /host, LH_NATIVE_HOST_CORE=/host/src/core and LH_NATIVE_HOST_ISOLATED=1. Existing bubblewrap --unshare-all; no home, runtime sockets, credentials, external network or deployed data mounted."
+  },
+  "verification_0_1_1": {
+    "backend_tests": 11,
+    "original_helper_contract": "passed",
+    "original_backend_host_lifecycle": "passed in credential-free bubblewrap with inert model services",
+    "browser_fixture": "passed including delayed saves, switching lessons, quiz mix concurrency, slides and real video encoding/decoding",
+    "full_original_application": "pending complete source/dependency review and browser/model QA",
+    "remaining_extension_wiring": [
+      "Select question/output/structure formats contributed by other enabled plugins",
+      "Render contributed diagram formats in saved lesson content without replacing native Markdown controls"
+    ]
+  }
 }

@@ -77,17 +77,29 @@ function mountExplanation(container, lesson, ctx, signal) {
 
 async function mountSettings(container, ctx, signal, chatId) {
   const snapshot = await ctx.call(chatId ? 'session' : 'get-settings', chatId ? { chatId } : {}); if (signal.aborted) return;
-  const lesson = chatId ? snapshot.session.lessons.at(-1) : null; let value = structuredClone(lesson?.settings ?? snapshot.settings ?? snapshot);
-  const save = async patch => {
-    const result = await ctx.call(lesson ? 'lesson-settings' : 'save-settings', lesson ? { chatId, lessonId: lesson.id, settings: patch } : patch);
-    if (signal.aborted) return; value = lesson ? result.settings : result; handle.update({ rows: rows() });
+  let defaults = structuredClone(snapshot.settings ?? snapshot), lesson = chatId ? snapshot.session.lessons.at(-1) : null, value = structuredClone(lesson?.settings ?? defaults), pendingSave = Promise.resolve();
+  const save = update => {
+    const target = lesson;
+    const operation = pendingSave.catch(() => {}).then(async () => {
+      if (signal.aborted) return;
+      const patch = typeof update === 'function' ? update(target?.settings ?? defaults) : update;
+      const result = await ctx.call(target ? 'lesson-settings' : 'save-settings', target ? { chatId, lessonId: target.id, settings: patch } : patch);
+      const accepted = target ? result.settings : result;
+      if (target) target.settings = accepted; else defaults = accepted;
+      if (signal.aborted || lesson !== target) return; value = accepted; handle.update({ rows: rows() });
+    });
+    pendingSave = operation; return operation;
   };
   const options = entries => entries.map(([value, label]) => ({ value, label }));
   const rows = () => [
+    ...(chatId ? [{ key: 'lesson', type: 'dropdown', label: 'Apply to', value: lesson?.id ?? '', options: [{ value: '', label: 'Defaults for new lessons' }, ...snapshot.session.lessons.map(item => ({ value: item.id, label: item.title }))], onChange: id => {
+      lesson = snapshot.session.lessons.find(item => item.id === id) ?? null;
+      value = structuredClone(lesson?.settings ?? defaults); handle.update({ rows: rows() });
+    } }] : []),
     { key: 'workflow', type: 'dropdown', label: 'Lesson structure', value: value.workflow, options: options([['lesson-quiz', 'Lesson, then quizzes'], ['practice-first', 'Question, then lesson']]), onChange: workflow => save({ workflow }) },
     { key: 'output', type: 'dropdown', label: 'Lesson output', value: value.output, options: options([['text', 'Text'], ['slides', 'Slides'], ['video', 'Captioned video']]), onChange: output => save({ output }) },
     { key: 'visual', type: 'dropdown', label: 'Diagrams', value: value.visual, options: options([['mermaid', 'Native Mermaid diagrams'], ['ascii', 'Plain text']]), onChange: visual => save({ visual }) },
-    ...Object.entries(names).map(([type, label]) => ({ key: type, type: 'toggle', label, value: value.quizTypes.includes(type), onChange: selected => save({ quizTypes: selected ? [...value.quizTypes, type] : value.quizTypes.filter(t => t !== type) }) }))
+    ...Object.entries(names).map(([type, label]) => ({ key: type, type: 'toggle', label, value: value.quizTypes.includes(type), onChange: selected => save(current => ({ quizTypes: selected ? [...new Set([...current.quizTypes, type])] : current.quizTypes.filter(t => t !== type) })) }))
   ];
   const handle = ctx.ui.mountSettingsRows(container, { rows: rows() }, { signal });
   return () => handle.dispose();

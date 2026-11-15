@@ -93,6 +93,19 @@ test('a copied immediate answer does not clear a recent mistake before retrieval
   await f.call('session', { chatId: f.native.id }); f.accept(f.pose('fill-blank', { review: true }), { value: 'Recall', known: true, assisted: false });
   assert.equal((await f.call('session', { chatId: f.native.id })).session.reviews.length, 1);
 });
+test('correct first-pass questions cannot clear a mistake before the missed concept returns', async t => {
+  const f = await fixture(t); await f.begin();
+  f.accept(f.pose('multiple-choice'), unknown);
+  const open = f.pose('open'); f.accept(open, { value: 'Recall', known: true, assisted: false });
+  await f.tool('lesson_feedback', { questionId: open.questionId, result: 'correct', explanation: 'Retrieval comes first.' });
+  f.accept(f.pose('fill-blank'), { value: 'Recall', known: true, assisted: false });
+  f.accept(f.pose('flashcard'), { value: 'good', known: true, assisted: false });
+  await f.tool('lesson_finish', { lessonId: 'recall-step' });
+  const before = (await f.call('session', { chatId: f.native.id })).session;
+  assert.equal(before.reviews.length, 1); assert.equal(before.attempts.length, 4);
+  f.accept(f.pose('fill-blank', { review: true }), { value: 'Recall', known: true, assisted: false });
+  assert.equal((await f.call('session', { chatId: f.native.id })).session.reviews.length, 0);
+});
 test('lesson settings reopen coverage when newly selected formats have not been attempted', async t => {
   const f = await fixture(t); await f.begin('recall', ['multiple-choice']); f.accept(f.pose('multiple-choice'), unknown); await f.tool('lesson_finish', { lessonId: 'recall-step' });
   await f.call('lesson-settings', { chatId: f.native.id, lessonId: 'recall-step', settings: { quizTypes: ['multiple-choice', 'open'], output: 'slides' } });
