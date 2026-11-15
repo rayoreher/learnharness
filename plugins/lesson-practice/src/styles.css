@@ -1,0 +1,4 @@
+.lh-lesson-practice{color:var(--foreground);max-width:100%;min-width:0}
+.lh-lesson-practice textarea{width:100%;min-height:6rem;color:inherit;background:var(--background);border:1px solid var(--border);border-radius:.4rem;padding:.6rem}
+.lh-lesson-practice>span{display:inline-block;margin:.3rem .4rem .3rem 0}
+.lh-lesson-practice canvas,.lh-lesson-practice video{display:block;max-width:100%;height:auto}

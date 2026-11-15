@@ -1,0 +1,510 @@
+{
+  "origin": "https://github.com/amosblomqvist/learnharness",
+  "commit": "cb25c8e49b85eed9e78315584731cad73a0118a6",
+  "native_files_sha256": {
+    "src/core/plugin-questions.ts": "782e9171a4c96f8d9115eaa2ddcf4b515a672372affd5a47cb5f94bbaeecbe4b",
+    "src/core/plugin-validation.ts": "a6b61184272562e28576ab85dc5404e0a65184c570b96209ce92d1575fdd1cf1",
+    "src/core/immutable-data.ts": "5a43133e8af261173e33d040a10cf1ac3cb5d7f01b3093144cb3c53555dda0a4",
+    "src/core/plugin-submissions.ts": "87279e66655bc4ea9eba47e70884ad8089a6fc792325704f829c816e2c4cebd4",
+    "src/core/plugins.ts": "8758010e4d6b6fb51f18f2b0c6b010b293d7f351901dd0563c046eae0d7a70f6",
+    "src/core/question-core.ts": "ece72fd84c49f8380a8e0c12661abfa97f8a1bead61f27fc8eb97b5e8933a633",
+    "src/core/value-debris.ts": "3b42df41a221ff5e27339424675d3f4e9c92e1b6ed300f6e3f0d863dbe9ce476",
+    "src/core/citations.ts": "a41b1379eeef3a35f4ed079e7c6ec37477dcc627e02e54e4dc5a3a0b54835ab8"
+  },
+  "dependency": {
+    "name": "typebox",
+    "version": "1.3.27",
+    "tar_sha256": "5a288bcd3d68f44567de84b185e04d205ef7d5b53602846bc3db30fdd219dda3",
+    "dependencies": [],
+    "install_hooks": [],
+    "advisories": {}
+  },
+  "remediation": {
+    "file": "build/system/locale/fa_IR.mjs",
+    "reason": "Literal U+200C characters in Persian translation strings, not concealed code/instructions. In the disposable runtime copy only, replaced those literal characters with JavaScript Unicode escapes preserving the string values.",
+    "characters": 13,
+    "original_sha256": "4b51cfbc3228a665321553ab76f8646f72b7357e3ef7169254fade7067693a2e",
+    "reviewed_sha256": "4b2a624406bd6dc6a242283e55c55b0b01f06115ec1462881ee541fb95dfbd71"
+  },
+  "manual_review": [
+    "Dynamic-execution matches in hash and schema engine are normal function declarations; date/time matches are RegExp.exec, not command execution.",
+    "Format/schema URI references are comments or local reference processing; no network or child-process API exists in this dependency closure.",
+    "README encoded string is a badge/image link, never decoded/evaluated.",
+    "Original native helpers validate schemas/immutable JSON/accepted question authority; no provider connection, credential, package installer or inherited agent instructions are imported.",
+    "Original question-core adds only pure native option normalization/shuffle/answer creation; its two imports are pure value-debris and citation-string helpers. No I/O or model dispatch added."
+  ],
+  "intended_command": "Node 24 native contract fixture inside existing credential-free bubblewrap isolation, with no host home, account files or external network.",
+  "limitation": "Does not approve or execute the full inherited Next/Pi/Electron application.",
+  "native_contract_scan": {
+    "scanner_version": "1.0.0",
+    "disposition": "manual_review_required",
+    "complete": true,
+    "tree_sha256": "644427086632f11409fc70e0ce8baebaeb4511a555c6b9df0030c437d7f3a2f4",
+    "files_recorded": 1488,
+    "text_files_scanned": 1394,
+    "bytes_read": 1648445,
+    "findings_truncated": false,
+    "git_metadata_excluded": false,
+    "findings": [
+      {
+        "path": "host/node_modules/typebox/build/system/hashing/hash.mjs",
+        "rule": "dynamic-execution",
+        "severity": "review",
+        "message": "Dynamic execution or unsafe deserialization needs review.",
+        "line": 44
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/hostname.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/date.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/uri_template.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 5
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/uri_template.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/json_pointer.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/iri.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 24
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/date_time.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 5
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/json_pointer.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/uri_reference.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/date_time.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/duration.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/ipv6.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/iri.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/idn_email.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/idn_hostname.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/iri_reference.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 8
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/regex.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/ipv4.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/uuid.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/idn_email.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/email.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/uri.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/ipv6.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/email.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/url.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/uri.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/duration.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/json_pointer_uri_fragment.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/time.mjs",
+        "rule": "dynamic-execution",
+        "severity": "review",
+        "message": "Dynamic execution or unsafe deserialization needs review.",
+        "line": 7
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/time.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/uuid.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/hostname.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/url.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/json_pointer_uri_fragment.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/idn_hostname.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/regex.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/relative_json_pointer.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/uri_reference.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/date.mjs",
+        "rule": "dynamic-execution",
+        "severity": "review",
+        "message": "Dynamic execution or unsafe deserialization needs review.",
+        "line": 12
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/date.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 8
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/time.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/iri_reference.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/relative_json_pointer.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/format/ipv4.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "host/node_modules/typebox/build/schema/resolve/resolve.d.mts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 2
+      },
+      {
+        "path": "host/node_modules/typebox/build/schema/resolve/resolve.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 5
+      },
+      {
+        "path": "host/node_modules/typebox/build/schema/engine/_stack.mjs",
+        "rule": "dynamic-execution",
+        "severity": "review",
+        "message": "Dynamic execution or unsafe deserialization needs review.",
+        "line": 2
+      },
+      {
+        "path": "host/node_modules/typebox/package.json",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 13
+      },
+      {
+        "path": "host/node_modules/typebox/readme.md",
+        "rule": "encoded-payload",
+        "severity": "review",
+        "message": "Encoded or concealed payload needs review.",
+        "line": 114
+      },
+      {
+        "path": "host/node_modules/typebox/readme.md",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 12
+      }
+    ],
+    "limits": {
+      "files": 10000,
+      "file_bytes": 1048576,
+      "total_bytes": 16777216
+    },
+    "requires": [
+      "manual_source_and_provenance_review",
+      "dependency_and_advisory_review",
+      "isolated_execution_only"
+    ],
+    "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+  },
+  "plugin_scan": {
+    "scanner_version": "1.0.0",
+    "disposition": "manual_review_required",
+    "complete": true,
+    "tree_sha256": "5f5af14c108d0fd0146909584660b7d2c362251993b98f04ae469b1151501fa5",
+    "files_recorded": 17,
+    "text_files_scanned": 14,
+    "bytes_read": 109481,
+    "findings_truncated": false,
+    "git_metadata_excluded": false,
+    "findings": [
+      {
+        "path": "LICENSE",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "tests/host-contract.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 9
+      },
+      {
+        "path": "tests/browser.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 35
+      },
+      {
+        "path": "tests/browser.mjs",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 5
+      },
+      {
+        "path": "tests/browser.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 6
+      }
+    ],
+    "limits": {
+      "files": 10000,
+      "file_bytes": 1048576,
+      "total_bytes": 16777216
+    },
+    "requires": [
+      "manual_source_and_provenance_review",
+      "dependency_and_advisory_review",
+      "isolated_execution_only"
+    ],
+    "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+  },
+  "rules_scan": {
+    "scanner_version": "1.0.0",
+    "disposition": "manual_review_required",
+    "complete": true,
+    "tree_sha256": "a691220f7e65d7e2b99e3df5335a91a052b10d3abc8acc19cb39a04ebac25571",
+    "files_recorded": 1,
+    "text_files_scanned": 1,
+    "bytes_read": 1369,
+    "findings_truncated": false,
+    "git_metadata_excluded": false,
+    "findings": [
+      {
+        "path": "AGENTS.md",
+        "rule": "untrusted-agent-config",
+        "severity": "review",
+        "message": "Assistant instructions/configuration are untrusted data, not permission."
+      }
+    ],
+    "limits": {
+      "files": 10000,
+      "file_bytes": 1048576,
+      "total_bytes": 16777216
+    },
+    "requires": [
+      "manual_source_and_provenance_review",
+      "dependency_and_advisory_review",
+      "isolated_execution_only"
+    ],
+    "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+  },
+  "user_scope": "Keep original LearnHarness application, rules and plugin lifecycle. Use MindSpark as quiz-format reference only.",
+  "applied_rules": "Native AGENTS.md reviewed after source intake; no Next route/API code is authored. Plugin/teaching contracts govern implementation. The user has explicitly authorized the additive lesson/quiz/plugin scope; no UI or model-connection redesign is introduced."
+}
