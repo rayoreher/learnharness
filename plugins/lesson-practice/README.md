@@ -36,8 +36,12 @@ Text remains the default. Slides and browser-local captioned video render inside
 the same native lesson tool card, using host Markdown/buttons and inherited theme
 colors. Video has no narration or external service. Unsupported video leaves the
 lesson readable. Diagram preference asks the original teacher to use the host's
-existing Mermaid rendering; ASCII remains available. Other plugins can extend
-quiz types, instructions and renderers using LearnHarness's existing APIs.
+existing Mermaid rendering; ASCII remains available. Other enabled plugins add
+selectable quiz/structure/output/diagram choices with `registerLessonFormat`,
+alongside their normal native question types and code-fence renderers. Chosen
+metadata stays with saved lessons. Output changes apply when the lesson is next
+presented; accepted transcript cards are not rewritten. See the optional
+`examples/plugins/lesson-formats` package and `docs/plugin-api/lesson-formats.md`.
 
 Build this plugin alone with `node scripts/build.mjs`; it only copies reviewed
 source files and installs no dependencies. The host's existing Core plugin build

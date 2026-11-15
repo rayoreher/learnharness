@@ -42,6 +42,17 @@ async function withHost(run: (fixture: {
 	}
 }
 
+it("public Markdown keeps plugin rendering opt-in and rejects invalid options without replacing accepted props", async () => withHost(async ({ ui, store, target }) => {
+	const scope = new AbortController();
+	const handle = ui.mountMarkdown(target, { text: "Saved lesson", allowPluginFences: true }, { signal: scope.signal });
+	assert.equal((store.getSnapshot()[0]!.props as { allowPluginFences?: boolean }).allowPluginFences, true);
+	assert.throws(() => handle.update({ allowPluginFences: "yes" as unknown as boolean }), /boolean/);
+	assert.equal((store.getSnapshot()[0]!.props as { allowPluginFences?: boolean }).allowPluginFences, true);
+	handle.update({ allowPluginFences: false });
+	assert.equal((store.getSnapshot()[0]!.props as { allowPluginFences?: boolean }).allowPluginFences, false);
+	handle.dispose(); scope.abort();
+}));
+
 it("public Markdown mount uses host formatting, updates in place and disposes only its owned DOM", async () => withHost(async ({ ui, store, target }) => {
 	const scope = new AbortController();
 	let handle!: ReturnType<PluginUi["mountMarkdown"]>;

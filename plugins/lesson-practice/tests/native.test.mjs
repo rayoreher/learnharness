@@ -6,12 +6,13 @@ import os from 'node:os';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url), { activate } = require('../src/backend.cjs');
 
-async function fixture(t) {
+async function fixture(t, formats = []) {
   const directory = await mkdtemp(path.join(os.tmpdir(), 'lh-native-lessons-')), controller = new AbortController();
   const native = { id: 'native-session', kind: 'teach', tree: { nodes: [{ id: 'recall' }, { id: 'spacing' }] }, messages: [] };
   const questions = new Map(), handlers = new Map(), instructions = [], factories = [], events = new Set();
   const register = (map, key, value) => { map.set(key, value); return () => map.delete(key); };
   const context = { dataDirectory: directory, signal: controller.signal,
+    listLessonFormats() { return structuredClone(formats); },
     learning: { getSession(id) { assert.equal(id, native.id); return structuredClone(native); } },
     registerInstructions(value) { instructions.push(value); return () => {}; },
     registerTools(value) { factories.push(value); return () => {}; },
@@ -53,7 +54,7 @@ async function fixture(t) {
     if (accepted) native.messages.push(message); return { result, message };
   }
   t.after(async () => { controller.abort(); stop(); await rm(directory, { recursive: true, force: true }); });
-  return { directory, native, questions, handlers, instructions, factories, controller, stop, tool, call, begin, pose, accept };
+  return { directory, native, questions, handlers, instructions, factories, controller, stop, tool, call, begin, pose, accept, formats };
 }
 const unknown = { value: '', known: false, assisted: false };
 test('extension registers with the original host and creates no replacement engine or transport', async t => {
@@ -128,4 +129,35 @@ test('single-step lessons can share a coarse native plan node without sharing co
   const state = (await f.call('session', { chatId: f.native.id })).session;
   assert.equal(state.lessons.length, 2); assert.deepEqual(state.completed, ['recall-step']); assert.equal(state.attempts[1].lessonId, 'recall-second-step'); assert.equal(state.reviews[0].lessonId, 'recall-step');
   assert.equal(f.native.tree.nodes.length, 2);
+});
+test('contributed choices are validated, snapshotted and retained when their plugin is disabled', async t => {
+  const formats = [{ pluginId: 'example', key: 'example:reflection', format: { kind: 'workflow', id: 'reflection', label: 'Reflect', instructions: 'Try before reading.', explanation: 'after-first-answer' } }];
+  const f = await fixture(t, formats);
+  await f.call('save-settings', { workflow: 'example:reflection' });
+  const result = await f.begin('recall', ['fill-blank']); assert.equal(result.showExplanation, false);
+  assert.equal(result.lesson.formats[0].key, 'example:reflection'); formats.length = 0;
+  await f.call('lesson-settings', { chatId: f.native.id, lessonId: 'recall-step', settings: { output: 'slides' } });
+  const saved = (await f.call('session', { chatId: f.native.id })).session.lessons[0];
+  assert.equal(saved.settings.workflow, 'example:reflection'); assert.equal(saved.formats[0].format.explanation, 'after-first-answer');
+  await assert.rejects(f.begin('spacing'), /unavailable/);
+  await assert.rejects(async () => f.call('save-settings', { output: 'example:reflection' }), /output plugin is unavailable/);
+});
+test('an already posed contributed quiz survives deselection and uses its committed reference for ordinary teacher feedback', async t => {
+  const formats = [{ pluginId: 'example', key: 'example:custom', format: { kind: 'quiz', id: 'custom', label: 'Custom', questionTypeId: 'custom', instructions: 'Use the committed reference.' } }];
+  const f = await fixture(t, formats); await f.begin('recall', ['example:custom']);
+  const input = { type: 'check', nodeId: 'recall', question: 'What should happen first?', payload: { lessonId: 'recall-step', lessonFormat: 'example:custom', reference: 'Recall', explanation: 'Try retrieval first.', review: false } };
+  const occurrence = { messageId: 'custom-assistant', contentIndex: 0, toolCallId: 'custom-call', toolName: 'custom_question' };
+  const snapshot = { protocolVersion: 2, pluginId: 'example', typeId: 'custom', contractVersion: 3, questionId: 'custom-question', occurrence, input };
+  const result = { role: 'toolResult', id: 'custom-result', toolCallId: occurrence.toolCallId, toolName: occurrence.toolName, isError: false, lhQuestionOccurrence: occurrence, details: { kind: 'plugin-question', pluginId: 'example', typeId: 'custom', contractVersion: 3, questionId: 'custom-question', answer: { value: 'Look at the answer.', known: true, assisted: false }, grading: { result: { score: 0.2, reference: 'An uncommitted replacement' } }, answeredAt: new Date().toISOString() } };
+  f.native.messages.push({ role: 'assistant', id: occurrence.messageId, content: [{ type: 'toolCall', id: occurrence.toolCallId, name: occurrence.toolName, arguments: input }], lhQuestions: { 0: snapshot } });
+  await f.call('lesson-settings', { chatId: f.native.id, lessonId: 'recall-step', settings: { quizTypes: ['fill-blank'] } });
+  f.native.messages.push({ ...result, lhQuestionOccurrence: { ...occurrence, messageId: 'another-assistant' } });
+  assert.equal((await f.call('session', { chatId: f.native.id })).pendingFeedback.length, 0);
+  f.native.messages.push(result);
+  const waiting = await f.call('session', { chatId: f.native.id }); assert.equal(waiting.pendingFeedback.length, 1); assert.equal(waiting.pendingFeedback[0].reference, 'Recall');
+  await f.tool('lesson_feedback', { questionId: 'custom-question', result: 'incorrect', explanation: 'Recall before looking.' });
+  f.accept(f.pose('fill-blank'), { value: 'Recall', known: true, assisted: false });
+  await f.tool('lesson_finish', { lessonId: 'recall-step' });
+  const assessed = (await f.call('session', { chatId: f.native.id })).session;
+  assert.equal(assessed.attempts[0].provenance, 'teacher'); assert.equal(assessed.reviews.length, 1);
 });

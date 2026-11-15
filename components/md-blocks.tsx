@@ -48,6 +48,8 @@ import { BUILTIN_MERMAID_LANGUAGE, PluginCodeBlock } from "@/components/plugin-r
 /** Local rendering profile for host-mounted, display-only Markdown. Ordinary
  * transcript rendering (including SSR/static Streamdown) stays interactive. */
 export const MarkdownDisplayOnlyContext = createContext(false);
+/** Explicit opt-in for lesson content; display-only controls remain unchanged. */
+export const MarkdownPluginFencesContext = createContext(false);
 
 // ─── The one affordance: the hover-reveal corner copy ────────────────────────
 
@@ -243,6 +245,7 @@ function MermaidInline({ chart }: { chart: string }) {
  *  (data-streamdown="code-block"…). */
 export function MarkdownCode(props: ComponentProps<"code"> & ExtraProps) {
 	const displayOnly = useContext(MarkdownDisplayOnlyContext);
+	const allowPluginFences = useContext(MarkdownPluginFencesContext);
 	const incomplete = useIsCodeFenceIncomplete();
 	const { children, className, node, ...rest } = props;
 
@@ -277,7 +280,7 @@ export function MarkdownCode(props: ComponentProps<"code"> & ExtraProps) {
 			/>
 		</div>
 	);
-	return displayOnly ? fallback : <PluginCodeBlock language={language} source={source} meta={meta} incomplete={incomplete} fallback={fallback} />;
+	return displayOnly && !allowPluginFences ? fallback : <PluginCodeBlock language={language} source={source} meta={meta} incomplete={incomplete} fallback={fallback} />;
 }
 
 // ─── Key-idea callouts (the Streamdown `blockquote` override) ────────────────

@@ -20,6 +20,8 @@ import type { PluginProblemTypeDefinition, PluginProblemRenderer } from "./plugi
 export type * from "./plugin-problems.ts";
 import type { PluginSubmissionInterceptor } from "./plugin-submissions.ts";
 export type * from "./plugin-submissions.ts";
+import type { PluginLessonFormat, PluginLessonFormatInfo } from "./plugin-lessons.ts";
+export type * from "./plugin-lessons.ts";
 
 export const PLUGIN_API_VERSION = 1 as const;
 export const PLUGIN_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -169,6 +171,13 @@ export interface PluginBackendContext {
 	 * plugin validation/grading. Invalid/duplicate definitions throw; returned
 	 * unregister removes availability and aborts this definition's scope. */
 	registerQuestionType<Q extends TSchema, A extends TSchema>(definition: PluginQuestionTypeDefinition<Q, A>): () => void;
+	/** Add a selectable lesson choice. Quiz choices reference this activation's
+	 * native question type; output/diagram choices use existing code-fence renderers.
+	 * This registers metadata, not another loader or model service. */
+	registerLessonFormat?(format: PluginLessonFormat): () => void;
+	/** Fresh detached metadata from enabled, ready native plugin activations.
+	 * Quiz formats without an available teaching question type are omitted. */
+	listLessonFormats?(): PluginLessonFormatInfo[];
 	/** Register alternative practice poses sharing the native active-problem/conclude
 	 * lifecycle. Invalid/duplicate definitions throw; returned unregister removes
 	 * availability and aborts this definition's scope, not saved history. */

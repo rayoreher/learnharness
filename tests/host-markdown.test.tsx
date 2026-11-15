@@ -170,6 +170,21 @@ it("static and interactive instances isolate registered code renderers, controls
 	} finally { await f.close(); }
 });
 
+it("lesson Markdown explicitly opts into existing plugin fences and retires them when opt-in is removed", async () => {
+	let mounted = 0, cleaned = 0;
+	const f = await fixture({ activate(ctx) { return ctx.registerCodeBlock({ language: "lesson", mount(container) { mounted++; container.textContent = "Contributed lesson presentation"; return () => { cleaned++; }; } }); } });
+	const text = "```lesson\nsaved lesson source\n```";
+	try {
+		await f.render(<HostMarkdown text={text} />);
+		assert.equal(mounted, 0); assert.ok(document.body.textContent?.includes("saved lesson source"));
+		await f.render(<HostMarkdown text={text} allowPluginFences />);
+		assert.equal(mounted, 1); assert.ok(document.body.textContent?.includes("Contributed lesson presentation"));
+		assert.equal(document.querySelector("[data-testid='md-copy'], [data-streamdown='code-block-actions']"), null);
+		await f.render(<HostMarkdown text={text} />);
+		assert.equal(cleaned, 1); assert.ok(document.body.textContent?.includes("saved lesson source"));
+	} finally { await f.close(); }
+});
+
 it("static Mermaid uses the shared renderer, suppresses overlay/copy controls and shows invalid source without retry", async t => {
 	t.mock.method(mermaid, "initialize", () => {});
 	t.mock.method(mermaid, "render", async (_id: string, chart: string) => {

@@ -1,3 +1,20 @@
+# 0.2.0
+
+- Add selectable quiz, workflow, output and diagram contributions from other
+  enabled plugins through the existing native activation and renderer APIs.
+- Snapshot chosen contributions with each lesson. Preserve content, grading
+  bindings and pending answers through deselection or plugin disable.
+- Let custom quiz grading use the ordinary teacher continuation when needed.
+- Add an optional dependency-free example plugin with numeric questions,
+  reflection-first lessons, a slide deck and SVG flow diagrams.
+- Preserve complete code/diagram fences when splitting built-in slides.
+- Opt lesson Markdown into existing plugin fence renderers; existing host-only
+  Markdown calls retain their original behavior.
+
+Backend/native-loader and browser-widget checks cover these additions. The new
+React host integration tests still need the complete app's reviewed dependencies;
+full-app browser/model verification remains required.
+
 # 0.1.1
 
 - Select any saved lesson in Lesson options, or change defaults for new lessons.

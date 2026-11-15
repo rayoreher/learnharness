@@ -53,9 +53,9 @@ claiming completion. Original dependencies and scripts remain subject to the
 owner's outside-code intake requirement; isolated plugin fixtures alone do not
 prove that the full application runs.
 
-## Checks completed for the first native draft
+## Checks completed through development version 0.2.0
 
-- Eleven isolated backend tests cover accepted-answer authority, cancelled/forged
+- Thirteen isolated backend tests cover accepted-answer authority, cancelled/forged
   answers, ordinary teacher feedback, separate coverage/remediation, delay,
   settings inheritance, restart/idempotency and multiple micro-lessons under a
   single native plan landmark. A correct first-pass answer cannot clear an
@@ -82,9 +82,18 @@ Full native application activation/browser QA and model-driven sequencing remain
 required. This draft is not a replacement completion claim for the rejected
 standalone prototype.
 
-The initial four quiz types and three output choices are currently explicit
-options. Wiring additional plugin-contributed formats into those lesson choices
-is still required; the underlying host registration APIs alone do not establish
-that integration. Mermaid is built into the host, while host-only Markdown
-intentionally excludes other plugins' code-fence renderers. Custom diagrams in
-saved lesson cards therefore also need an explicit extension path.
+Version 0.2.0 adds a metadata hook to the existing native plugin activation, so
+other enabled plugins contribute selectable quiz, workflow, output and diagram
+formats. It reuses native question types and the existing code-fence renderer
+registry. Lesson Markdown explicitly opts into those renderers; other Markdown
+widgets retain their original host-only behavior. This requires small additive
+host API/Markdown changes alongside the Core plugin catalog entry; no routes,
+screens, teaching engine or connection implementation are replaced.
+
+The optional `examples/plugins/lesson-formats` package demonstrates all four
+categories. Native-loader checks prove its numeric questions enter and clear
+the lesson review queue, and saved metadata survives plugin disable. Browser
+fixtures verify its choices, slide controls, SVG arrows and fence preservation.
+Full React host integration tests are added but remain unrun behind the complete
+application's dependency/coverage gate. These fixtures do not establish full-app
+rendering or model-driven sequencing.

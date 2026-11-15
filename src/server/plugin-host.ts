@@ -15,6 +15,7 @@ import type { PluginAgentService } from "../core/plugin-agents.ts";
 import type { PluginWorkerService } from "../core/plugin-workers.ts";
 import type { ServerEvent } from "../core/events.ts";
 import { safePluginDataDirectory } from "../store/plugin-data-paths.ts";
+import { preparePluginLessonFormat, type PluginLessonFormat, type PluginLessonFormatInfo } from "../core/plugin-lessons.ts";
 
 /** Expected host/transport failure. Exceptions thrown by plugin handlers stay ordinary 500 errors. */
 export class PluginHostError extends Error {
@@ -77,6 +78,7 @@ interface Activation {
 	instructions: Set<Instructions>;
 	tools: Set<Tools>;
 	questions: Map<string, QuestionDefinition>;
+	lessonFormats: Map<string, PluginLessonFormat>;
 	problems: Map<string, NativePluginProblemDefinition>;
 	ready: boolean;
 }
@@ -215,6 +217,7 @@ export function createPluginHost(deps: PluginHostDependencies) {
 		activation.instructions.clear();
 		activation.tools.clear();
 		activation.questions.clear();
+		activation.lessonFormats.clear();
 		activation.problems.clear();
 		activation.controller.abort();
 		const failures: string[] = [];
@@ -230,7 +233,7 @@ export function createPluginHost(deps: PluginHostDependencies) {
 			return;
 		}
 		const manifest = pkg.info.manifest;
-		const activation: Activation = { controller: new AbortController(), cleanups: [], handlers: new Map(), instructions: new Set(), tools: new Set(), questions: new Map(), problems: new Map(), ready: false };
+		const activation: Activation = { controller: new AbortController(), cleanups: [], handlers: new Map(), instructions: new Set(), tools: new Set(), questions: new Map(), lessonFormats: new Map(), problems: new Map(), ready: false };
 		pkg.activation = activation;
 		const requireLive = () => { if (!live(pkg, activation)) throw new Error("Plugin activation is no longer active"); };
 		const cleanup = (fn: PluginCleanup) => {
@@ -279,6 +282,19 @@ export function createPluginHost(deps: PluginHostDependencies) {
 							if (activation.ready && live(pkg, activation)) change();
 						};
 					},
+					registerLessonFormat(format) {
+						requireLive();
+						const registered = preparePluginLessonFormat(format);
+						if (activation.lessonFormats.has(registered.id)) throw new Error(`Duplicate lesson format: ${registered.id}`);
+						activation.lessonFormats.set(registered.id, registered);
+						if (activation.ready) change();
+						return () => {
+							if (activation.lessonFormats.get(registered.id) !== registered) return;
+							activation.lessonFormats.delete(registered.id);
+							if (activation.ready && live(pkg, activation)) change();
+						};
+					},
+					listLessonFormats() { requireLive(); return listLessonFormats(); },
 					registerProblemType(definition) {
 						requireLive();
 						const registered = preparePluginProblemType(definition);
@@ -507,8 +523,21 @@ export function createPluginHost(deps: PluginHostDependencies) {
 		return result;
 	}
 
+	function listLessonFormats(): PluginLessonFormatInfo[] {
+		assertOpen();
+		return [...packages.values()].sort((a, b) => a.info.id.localeCompare(b.info.id)).flatMap(pkg => {
+			const activation = pkg.activation;
+			if (!pkg.info.enabled || !activation?.ready || !live(pkg, activation)) return [];
+			return [...activation.lessonFormats.values()].flatMap(format => {
+				const question = format.kind === "quiz" ? activation.questions.get(format.questionTypeId) : undefined;
+				if (format.kind === "quiz" && !question?.teach) return [];
+				return [{ pluginId: pkg.info.id, key: `${pkg.info.id}:${format.id}`, format: { ...format }, ...(question?.teach ? { questionToolName: question.teach.toolName } : {}) }];
+			});
+		});
+	}
 	return {
 		initialize: () => enqueue(initializeInternal),
+		listLessonFormats,
 		agentContributions,
 		resolveQuestionType(pluginId: string, typeId: string, contractVersion: number): PluginQuestionResolution {
 			assertOpen();

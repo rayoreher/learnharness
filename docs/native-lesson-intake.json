@@ -426,10 +426,10 @@
     "scanner_version": "1.0.0",
     "disposition": "manual_review_required",
     "complete": true,
-    "tree_sha256": "cfd1787ef6743ba329655f3e1aaaa7f9889cbb9963c5dcfcac1029fdb27a0f3c",
-    "files_recorded": 19,
-    "text_files_scanned": 16,
-    "bytes_read": 119765,
+    "tree_sha256": "56d0992fc4b718528c581533947ce778ababef73870ad732696e2338da841745",
+    "files_recorded": 20,
+    "text_files_scanned": 17,
+    "bytes_read": 140481,
     "findings_truncated": false,
     "git_metadata_excluded": false,
     "findings": [
@@ -459,7 +459,7 @@
         "rule": "network-operation",
         "severity": "review",
         "message": "Network destinations and transmitted data need review.",
-        "line": 36
+        "line": 41
       },
       {
         "path": "tests/browser.mjs",
@@ -473,7 +473,7 @@
         "rule": "environment-access",
         "severity": "review",
         "message": "Environment access may expose injected credentials.",
-        "line": 6
+        "line": 7
       }
     ],
     "limits": {
@@ -718,5 +718,937 @@
     },
     "evidence_directory": "/tmp/learnharness-native-full-intake",
     "execution": "No framework/dependency installer/build/runtime executed as part of this intake. Existing deployed prototype remains untouched."
+  },
+  "lesson_formats_0_2_0": {
+    "version": "0.2.0",
+    "review": {
+      "base": "amosblomqvist/learnharness@cb25c8e49b85eed9e78315584731cad73a0118a6, native changes based on 2f7a345",
+      "source_reports": [
+        {
+          "path": "components/host-markdown.tsx",
+          "sha256": "9a81c240116fdf44c22d2f5f1a6a7f0775c1eab0c385e717446e76b974b803bc",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "3a603032ffdc398b439b33de4bf6054f893edfe9602be68504854db70325d0d3",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 2964,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "components/md-blocks.tsx",
+          "sha256": "a587c279850567fcbd82e27f6ff4630f70362bf6ca2141b699a062af9c669cda",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "aa95fb0befeebd2f80bc1244154c126f376fdf08441794a17213bf64263151f4",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 21369,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [
+              {
+                "path": "components/md-blocks.tsx",
+                "rule": "dynamic-execution",
+                "severity": "review",
+                "message": "Dynamic execution or unsafe deserialization needs review.",
+                "line": 261
+              }
+            ],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "components/plugin-ui-host.tsx",
+          "sha256": "82b54f5b93027b414f4fb9324cf256ab763e869631f5366f583b0ae1e792279e",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "f6a6f487d44c5b441372b5eab48d9687173633a5dafd3ef25ba5faff10f476b1",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 21494,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "docs/native-lesson-extension.md",
+          "sha256": "d054f60909348727bf94e1ebe225ad340c32e5e5ea98ac1f04340c358e2e0b4e",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "b2e04586ef22f05e735a660ebdcbc5d2175b33fb7efa64fc990ed4b5b6395977",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 6093,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "docs/plugin-api/lesson-formats.md",
+          "sha256": "4d0dfd11b858d993162fa4a71edb9cc748ca1acf9e8fc1aea6d8634f6c0f3565",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "d7e44a7f4a659cae18c005bde4347b06c376e65fa07be78b0abde53c42cdc47a",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 3830,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "examples/plugins/lesson-formats/README.md",
+          "sha256": "89ce7829903950b7315745b81162c93b08716f9f865b17cfbbfe53cb0424f4b3",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "e7358aa95de8b1712fcc3faaf2308d63235ad020d3ef29e3eae3c50a46393931",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 1377,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "examples/plugins/lesson-formats/dist/backend.cjs",
+          "sha256": "67b38f16cb5d598c744feb1b51117481d5489cefc2e690248a7e77d971e62c20",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "74235e5d1af06f3db968b0ef65d8861793a1d0fbcaa8a94eda54e15caad01742",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 3248,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "examples/plugins/lesson-formats/dist/main.js",
+          "sha256": "d834d46657bf9ec99245648e0667b81ea5d9252419235f72b03faccde06cec9b",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "6d76f9995b4e30f8eaa68b35aa381327703c4dab678b6efdf629a447e25bff21",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 6172,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [
+              {
+                "path": "examples/plugins/lesson-formats/dist/main.js",
+                "rule": "network-operation",
+                "severity": "review",
+                "message": "Network destinations and transmitted data need review.",
+                "line": 35
+              }
+            ],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "examples/plugins/lesson-formats/dist/manifest.json",
+          "sha256": "fa8b065ab683bef415278301fc6170313ab5361a2c656993f78517c367b9a67e",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "4abd9fc93e761fbf4f24521d1614055d2d73f5db2ac9395df0a7acc335a6bb94",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 306,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/CHANGELOG.md",
+          "sha256": "1bf9f1387f60fe7ddb79e61f8c1a7bf2dd6e76d617447ac39a1d27bc58d85faf",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "8df321ff139aa68d617ab63f23f5f21ed7bd514830f6b99cf347bffdf19fe110",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 1542,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/README.md",
+          "sha256": "58220d75dc296238022df9a404917baf07389158b54ebc5e1f2cf03e8175d657",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "5ff94a1ae299faea8fe87329aac7af28f9afccd780dfe7af0bb609c8aff625fc",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 3784,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/manifest.json",
+          "sha256": "f1e5ff7d9dfac9fe82d032b14f27d9b70163f422e70c103e4e592e6ad730e8db",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "5ce694dc87fd680578e6dd545802f3e79000b38b440380e193bbf4c110bb2094",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 356,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/package.json",
+          "sha256": "094f3b4a633317fbcb1b3b31540f71d2f8914b23c4dd1f5284cf24248e9ec905",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "ff6c76925c2975971eb012d1331f29afb7c89c8578bc7a209d3419365ba5b6cc",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 228,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/scripts/build.mjs",
+          "sha256": "93ac8b9087021daba248e17c7d6e15c4c466732199b92116c3c7b3ef84f64afa",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "8ae4a077036b83108b28125eaac93e8b79362c19cf1105a660a72a786a2bb9e3",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 1396,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/src/backend.cjs",
+          "sha256": "14fb83f50b88bd3c377850a1b0e800713c379c01456a0944e399017e47215ab3",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "443b750cffb7169c0b3620199aa85598bafa6e7c9a3cb83e5217d3e307727160",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 14463,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/src/domain.cjs",
+          "sha256": "109dac15cd443b5a82b02f627013a125c889d64f74a2c2415f04597d8e6bd549",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "e3f25cb77ba5b471d69334a86739d473a20d9c4c49c01c07a6106f73996701c9",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 12910,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/src/formats.cjs",
+          "sha256": "326c2832640eda80dd31437fd34c368ad65c6507af3596d18c8c66ef49c3477e",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "4bd164b7ec627905e1d0a9419989cad4a6876ab438e549d75f72e6ae49d7be15",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 1390,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/src/main.js",
+          "sha256": "2d43233e7a336bd79d51a22c15c8af2b07ccd0882523c80d57aedc2d4294d336",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "906442912b878989a99deec68c87c7215ff1c2b979a4d77ce150b31afed7591a",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 15941,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/src/schemas.cjs",
+          "sha256": "0c433bba75c00343b2d95278ff1b235821bac749f8f045db96825dadaf56979f",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "3f74684b6280cae5a9c1ea6cfb2729abf0891339e5b3f35a36f3fc07f7641b29",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 1213,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/tests/browser.mjs",
+          "sha256": "d0dd6ad055e84613179f80aa4cee38bab7dd4e7403755449c5907dca6e8e7b45",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "77034c42df321115d3e0886ca1a102c4567936a6e78f5bc2ed6882751741c1d9",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 17006,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [
+              {
+                "path": "plugins/lesson-practice/tests/browser.mjs",
+                "rule": "network-operation",
+                "severity": "review",
+                "message": "Network destinations and transmitted data need review.",
+                "line": 41
+              },
+              {
+                "path": "plugins/lesson-practice/tests/browser.mjs",
+                "rule": "process-execution",
+                "severity": "review",
+                "message": "Child process execution needs review.",
+                "line": 5
+              },
+              {
+                "path": "plugins/lesson-practice/tests/browser.mjs",
+                "rule": "environment-access",
+                "severity": "review",
+                "message": "Environment access may expose injected credentials.",
+                "line": 7
+              }
+            ],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/tests/host-lifecycle.mjs",
+          "sha256": "1eeefc77fe478ad4eb2394ec717bdb7bc3bedcfa54d35be6e1fd48d2824a4d09",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "3d5bb36f1d920b84a6c2ddfb7e3a7d3453812f5d143b0c2d7044fbf49487eca3",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 9134,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [
+              {
+                "path": "plugins/lesson-practice/tests/host-lifecycle.mjs",
+                "rule": "environment-access",
+                "severity": "review",
+                "message": "Environment access may expose injected credentials.",
+                "line": 9
+              }
+            ],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "plugins/lesson-practice/tests/native.test.mjs",
+          "sha256": "46fab5d4993117d7a0ceb128ca5d86a1fcc8ca311dd6f0c9a6b91a2cf10bfecb",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "63d0ac9c40e80e749bc8dc91640a47ff7cad98f925cc0250de15fbb0b4656d40",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 17553,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "src/core/plugin-lessons.ts",
+          "sha256": "04f00bb07025db834bf061005575d2ab0f01b94ce911df3dad0e16d24d4154a5",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "7625518b9bca2e4a72a9b455b91a70da98eb69ebbb5f11ed33e9a2c4d62b6897",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 2306,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "src/core/plugin-ui.ts",
+          "sha256": "48fd6d5c26044bbd63a6698080940426a403105f9e2ff578977bd1f8683fea28",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "959c3d5ac9e488bec28f3d553821e6d955a15546eca3b36562230f516e85388b",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 13407,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "src/core/plugins.ts",
+          "sha256": "aa803c312a6d73fd6ec91df3d60a3b6e16dbc453e5774b951a9191196aa3ac71",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "1b309e4f46ece8bb0edf19427477b21b5257f6b59015ad02532dbb1c639ee120",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 25041,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "src/server/plugin-host.ts",
+          "sha256": "bd953ab944352a6ce5ecad2d889b869526a6362e5b58324156275b1593f7c496",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "1cec21c4a8f29733c5e323675b1f0b88756eff102dad26376c36142b0c1d6245",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 38588,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "tests/host-markdown.test.tsx",
+          "sha256": "ae5492bb0f7d0696e365d60e1fa8c021aa1824cabe0af6d135ebef76d47f894f",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "7b3761641b0dacd42c896e17220777f777c8a0424048c50ec1c468d4e685df84",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 18029,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [
+              {
+                "path": "tests/host-markdown.test.tsx",
+                "rule": "network-operation",
+                "severity": "review",
+                "message": "Network destinations and transmitted data need review.",
+                "line": 22
+              }
+            ],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        },
+        {
+          "path": "tests/plugin-markdown.test.tsx",
+          "sha256": "470e5dfd358b10b1eb5457e4a161486758c3c0247f0f46d3942c907ff7d966cd",
+          "report": {
+            "scanner_version": "1.0.0",
+            "disposition": "manual_review_required",
+            "complete": true,
+            "tree_sha256": "cd2e30260479d52405b2844b6d4941aa675e75003fb5f3129b29feaa8ff05664",
+            "files_recorded": 1,
+            "text_files_scanned": 1,
+            "bytes_read": 10857,
+            "findings_truncated": false,
+            "git_metadata_excluded": false,
+            "findings": [
+              {
+                "path": "tests/plugin-markdown.test.tsx",
+                "rule": "network-operation",
+                "severity": "review",
+                "message": "Network destinations and transmitted data need review.",
+                "line": 67
+              }
+            ],
+            "limits": {
+              "files": 10000,
+              "file_bytes": 1048576,
+              "total_bytes": 16777216
+            },
+            "requires": [
+              "manual_source_and_provenance_review",
+              "dependency_and_advisory_review",
+              "isolated_execution_only"
+            ],
+            "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+          }
+        }
+      ],
+      "dependency": "Exact previously reviewed TypeBox 1.3.27 artifact and pinned host/helper closure. No new package.",
+      "advisories": {},
+      "dispositions": [
+        "md-blocks RegExp.exec extracts a fence language; no dynamic code evaluation.",
+        "SVG URL is the XML namespace passed to createElementNS, not a network operation. Labels use textContent, not HTML.",
+        "Browser fixture opens only temporary loopback HTTP/CDP inside unshared network isolation and launches the existing Chromium; environment reads are explicit isolation flags and reviewed source paths.",
+        "New lesson API stores plain namespaced metadata in existing native activations; only ready/enabled plugins appear; no alternative loader, file acquisition, credential path or model dispatch.",
+        "Custom quizzes derive review only from canonical accepted native snapshots/results and precommitted payload references.",
+        "Frontend host-context changes are source-reviewed but not executed; full React/Next application review is still pending."
+      ],
+      "intended_commands": [
+        "Node 24 --test /plugin/tests/*.test.mjs",
+        "Node 24 /plugin/tests/host-contract.mjs against pinned original question helpers",
+        "Node 24 --experimental-transform-types /plugin/tests/host-lifecycle.mjs against reviewed fork host; /example supplies our dependency-free optional native plugin",
+        "Node 24 /plugin/tests/browser.mjs with existing Chromium and explicit /example mount; widget fixture only"
+      ],
+      "isolation": "Existing bubblewrap --unshare-all, no home/accounts/runtime sockets/external network/user data; writes only to fresh tmpfs. Read-only /plugin, /host and /example code mounts.",
+      "additional_syntax_checks": "Node 24 --experimental-transform-types --check on reviewed core/plugins.ts, core/plugin-lessons.ts and server/plugin-host.ts. Reviewed installed parser for five-file TSX snapshot; see syntax-parser-review.json."
+    },
+    "syntax_review": {
+      "origin": "Installed Debian node-babel7 package, Babel parser 7.20.15; official Babel package metadata repository https://github.com/babel/babel",
+      "debian_version": "7.20.15+ds1+~cs214.269.168-6build1",
+      "installed_file_md5_matches_dpkg_manifest": true,
+      "runtime_sha256": "3d772729da6b89361d16c6f2ff9b8ebad77eb3799699f5ffab14141aae6c522e",
+      "scan": {
+        "scanner_version": "1.0.0",
+        "disposition": "manual_review_required",
+        "complete": true,
+        "tree_sha256": "f60f62834f87f5694ec67875be2ab42687cad47cf8fab4596ce304ed04c61efc",
+        "files_recorded": 3,
+        "text_files_scanned": 3,
+        "bytes_read": 487563,
+        "findings_truncated": false,
+        "git_metadata_excluded": false,
+        "findings": [
+          {
+            "path": "package.json",
+            "rule": "network-operation",
+            "severity": "review",
+            "message": "Network destinations and transmitted data need review.",
+            "line": 5
+          },
+          {
+            "path": "lib/index.js",
+            "rule": "dynamic-execution",
+            "severity": "review",
+            "message": "Dynamic execution or unsafe deserialization needs review.",
+            "line": 3824
+          }
+        ],
+        "limits": {
+          "files": 10000,
+          "file_bytes": 1048576,
+          "total_bytes": 16777216
+        },
+        "requires": [
+          "manual_source_and_provenance_review",
+          "dependency_and_advisory_review",
+          "isolated_execution_only"
+        ],
+        "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+      },
+      "advisories": {},
+      "runtime_dependencies": [],
+      "dispositions": [
+        "Manifest URLs identify Babel publisher/documentation; not runtime network operations.",
+        "Runtime match at line 3824 is an ordinary function declaration (the scanner matches Function case-insensitively). The parser also uses RegExp.exec for lexical analysis. It imports no runtime module, accesses no process/environment/network/filesystem API, returns AST data and does not execute parsed source.",
+        "Only lib/index.js and its CommonJS package scopes are used. No package build, hook, bin, source transform or dependency install occurs."
+      ],
+      "intended_command": "Node 24 parse changed TSX components and their tests with sourceType=module, plugins=[typescript,jsx] in existing credential-free bubblewrap; parser and source mounts read-only; no network/home/data/sockets.",
+      "corrected_isolation": "Mount only the five inventoried source files under the credential-free /tmp syntax-source snapshot, not the working tree. No .git, data, profile or account files are included.",
+      "initial_run_limitation": "Initial syntax-only command mistakenly mounted the entire working tree read-only. Do not count that run as credential-free validation. The reviewed parser was called only on the five source files, external network was disabled, and no private content was printed. Replaced with a five-file snapshot for the authoritative rerun.",
+      "source_snapshot": [
+        {
+          "path": "components/host-markdown.tsx",
+          "sha256": "9a81c240116fdf44c22d2f5f1a6a7f0775c1eab0c385e717446e76b974b803bc"
+        },
+        {
+          "path": "components/md-blocks.tsx",
+          "sha256": "a587c279850567fcbd82e27f6ff4630f70362bf6ca2141b699a062af9c669cda"
+        },
+        {
+          "path": "components/plugin-ui-host.tsx",
+          "sha256": "82b54f5b93027b414f4fb9324cf256ab763e869631f5366f583b0ae1e792279e"
+        },
+        {
+          "path": "tests/host-markdown.test.tsx",
+          "sha256": "ae5492bb0f7d0696e365d60e1fa8c021aa1824cabe0af6d135ebef76d47f894f"
+        },
+        {
+          "path": "tests/plugin-markdown.test.tsx",
+          "sha256": "470e5dfd358b10b1eb5457e4a161486758c3c0247f0f46d3942c907ff7d966cd"
+        }
+      ]
+    },
+    "verification": {
+      "backend_tests": 13,
+      "native_host": "Passed on the reviewed native host with additive metadata APIs; a separate optional native plugin registers quiz/workflow/output/diagram formats. Its canonical accepted numeric responses enter and clear review. Disable/unregister availability and saved metadata retention pass. Model/account services are inert.",
+      "browser": "Passed Chromium fixture for selectable contributions, controlled settings, delayed/concurrent saves, slides with intact diagram fences, custom-output fence opt-in, actual SVG arrows and captioned-video encoding/decoding. This is a widget fixture, not the complete original React app.",
+      "syntax": "Node 24 checks for CJS/ESM/native TS; reviewed Babel parser checks five-file TSX snapshot. Parsing does not establish React behavior or type compatibility.",
+      "added_but_not_run": [
+        "tests/host-markdown.test.tsx: explicit plugin fence opt-in and retirement",
+        "tests/plugin-markdown.test.tsx: option validation and atomic updates"
+      ],
+      "full_original_application": "Still pending complete framework/dependency intake and native browser/model QA. Scanner file-size approval remains unanswered.",
+      "connection_clarification": "Original pinned LearnHarness uses its own ChatGPT OAuth/transport, not local Codex CLI. Preserve it; clarification requested about adding an optional local Codex provider alongside it."
+    }
   }
 }

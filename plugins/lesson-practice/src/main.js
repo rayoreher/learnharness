@@ -1,5 +1,16 @@
 const names = { 'multiple-choice': 'Multiple choice', open: 'Open response', 'fill-blank': 'Fill in the blank', flashcard: 'Flashcards' };
 const node = (document, tag, text) => { const value = document.createElement(tag); if (text !== undefined) value.textContent = text; return value; };
+const fence = (language, text) => { const marker = '`'.repeat(Math.max(3, ...[...text.matchAll(/`+/g)].map(match => match[0].length + 1))); return `${marker}${language}\n${text}\n${marker}`; };
+function slideScenes(text) {
+  const scenes = []; let lines = [], code = null, math = false;
+  for (const line of text.split('\n')) {
+    const marker = line.match(/^\s{0,3}(`{3,}|~{3,})(.*)$/);
+    if (marker) { if (!code) code = marker[1]; else if (marker[1][0] === code[0] && marker[1].length >= code.length && !marker[2].trim()) code = null; }
+    if (!code && line.trim() === '$$') math = !math;
+    if (!line.trim() && !code && !math) { if (lines.length) scenes.push(lines.join('\n')); lines = []; } else lines.push(line);
+  }
+  if (lines.length) scenes.push(lines.join('\n')); return scenes.length ? scenes : [text];
+}
 
 function editor(type, container, props, ui) {
   const document = container.ownerDocument, root = node(document, 'div'); root.className = 'lh-lesson-practice'; container.append(root);
@@ -34,12 +45,17 @@ function editor(type, container, props, ui) {
 function mountExplanation(container, lesson, ctx, signal) {
   const document = container.ownerDocument, root = node(document, 'section'); root.className = 'lh-lesson-practice'; container.append(root);
   const handles = [], releases = []; let stopped = false;
-  const markdown = (parent, text) => { const handle = ctx.ui.mountMarkdown(parent, { text }, { signal }); handles.push(handle); return handle; };
+  const markdown = (parent, text) => { const handle = ctx.ui.mountMarkdown(parent, { text, allowPluginFences: true }, { signal }); handles.push(handle); return handle; };
   const control = (label, work) => { const span = node(document, 'span'); root.append(span); const h = ctx.ui.mountButton(span, { label, size: 'sm', variant: 'outline', onClick: work }, { signal }); handles.push(h); return h; };
   root.append(node(document, 'h3', lesson.title));
   if (lesson.settings.output === 'text') markdown(root, lesson.text);
+  else if (!['slides', 'video'].includes(lesson.settings.output)) {
+    const format = lesson.formats?.find(f => f.key === lesson.settings.output && f.format.kind === 'output');
+    if (format) markdown(root, fence(format.format.language, lesson.text));
+    else { root.append(node(document, 'p', 'This presentation plugin is unavailable. Your saved lesson remains readable.')); markdown(root, lesson.text); }
+  }
   else {
-    const scenes = lesson.settings.output === 'video' ? (lesson.text.match(/[\s\S]{1,500}(?:\s|$)|[\s\S]{1,500}/g) ?? [lesson.text]) : lesson.text.split(/\n\s*\n/).filter(Boolean), page = node(document, 'div'), count = node(document, 'p'); let index = 0;
+    const scenes = lesson.settings.output === 'video' ? (lesson.text.match(/[\s\S]{1,500}(?:\s|$)|[\s\S]{1,500}/g) ?? [lesson.text]) : slideScenes(lesson.text), page = node(document, 'div'), count = node(document, 'p'); let index = 0;
     root.append(page, count); const content = markdown(page, scenes[0] ?? lesson.text);
     let previous, next;
     const draw = () => { content.update({ text: scenes[index] }); count.textContent = `${index + 1} / ${scenes.length}`; previous.update({ disabled: index === 0 }); next.update({ disabled: index === scenes.length - 1 }); };
@@ -76,7 +92,7 @@ function mountExplanation(container, lesson, ctx, signal) {
 }
 
 async function mountSettings(container, ctx, signal, chatId) {
-  const snapshot = await ctx.call(chatId ? 'session' : 'get-settings', chatId ? { chatId } : {}); if (signal.aborted) return;
+  const [snapshot, catalog] = await Promise.all([ctx.call(chatId ? 'session' : 'get-settings', chatId ? { chatId } : {}), ctx.call('formats', {})]); if (signal.aborted) return;
   let defaults = structuredClone(snapshot.settings ?? snapshot), lesson = chatId ? snapshot.session.lessons.at(-1) : null, value = structuredClone(lesson?.settings ?? defaults), pendingSave = Promise.resolve();
   const save = update => {
     const target = lesson;
@@ -91,15 +107,20 @@ async function mountSettings(container, ctx, signal, chatId) {
     pendingSave = operation; return operation;
   };
   const options = entries => entries.map(([value, label]) => ({ value, label }));
+  const choices = (kind, builtins, selected) => {
+    const entries = [...builtins, ...catalog.filter(f => f.format.kind === kind).map(f => [f.key, f.format.label])];
+    for (const key of selected) if (!entries.some(([id]) => id === key)) entries.push([key, `${lesson?.formats?.find(f => f.key === key)?.format.label ?? key.split(':').at(-1).replaceAll('-', ' ')} (unavailable)`]);
+    return entries;
+  };
   const rows = () => [
     ...(chatId ? [{ key: 'lesson', type: 'dropdown', label: 'Apply to', value: lesson?.id ?? '', options: [{ value: '', label: 'Defaults for new lessons' }, ...snapshot.session.lessons.map(item => ({ value: item.id, label: item.title }))], onChange: id => {
       lesson = snapshot.session.lessons.find(item => item.id === id) ?? null;
       value = structuredClone(lesson?.settings ?? defaults); handle.update({ rows: rows() });
     } }] : []),
-    { key: 'workflow', type: 'dropdown', label: 'Lesson structure', value: value.workflow, options: options([['lesson-quiz', 'Lesson, then quizzes'], ['practice-first', 'Question, then lesson']]), onChange: workflow => save({ workflow }) },
-    { key: 'output', type: 'dropdown', label: 'Lesson output', value: value.output, options: options([['text', 'Text'], ['slides', 'Slides'], ['video', 'Captioned video']]), onChange: output => save({ output }) },
-    { key: 'visual', type: 'dropdown', label: 'Diagrams', value: value.visual, options: options([['mermaid', 'Native Mermaid diagrams'], ['ascii', 'Plain text']]), onChange: visual => save({ visual }) },
-    ...Object.entries(names).map(([type, label]) => ({ key: type, type: 'toggle', label, value: value.quizTypes.includes(type), onChange: selected => save(current => ({ quizTypes: selected ? [...new Set([...current.quizTypes, type])] : current.quizTypes.filter(t => t !== type) })) }))
+    { key: 'workflow', type: 'dropdown', label: 'Lesson structure', value: value.workflow, options: options(choices('workflow', [['lesson-quiz', 'Lesson, then quizzes'], ['practice-first', 'Question, then lesson']], [value.workflow])), onChange: workflow => save({ workflow }) },
+    { key: 'output', type: 'dropdown', label: 'Lesson output', value: value.output, options: options(choices('output', [['text', 'Text'], ['slides', 'Slides'], ['video', 'Captioned video']], [value.output])), onChange: output => save({ output }) },
+    { key: 'visual', type: 'dropdown', label: 'Diagrams', value: value.visual, options: options(choices('diagram', [['mermaid', 'Native Mermaid diagrams'], ['ascii', 'Plain text']], [value.visual])), onChange: visual => save({ visual }) },
+    ...choices('quiz', Object.entries(names), value.quizTypes).map(([type, label]) => ({ key: type, type: 'toggle', label, value: value.quizTypes.includes(type), onChange: selected => save(current => ({ quizTypes: selected ? [...new Set([...current.quizTypes, type])] : current.quizTypes.filter(t => t !== type) })) }))
   ];
   const handle = ctx.ui.mountSettingsRows(container, { rows: rows() }, { signal });
   return () => handle.dispose();
