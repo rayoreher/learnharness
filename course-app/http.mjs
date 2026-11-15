@@ -32,7 +32,7 @@ export async function handleCourseRequest(request, suppliedApplication) {
     if (method === 'POST') {
       check(sameToken(request.headers.get('x-course-token'), token(app)), 'Refresh the page before submitting.', 403);
       check(request.headers.get('content-type')?.split(';')[0] === 'application/json', 'Send JSON content.', 415);
-      const raw = await readBody(request, route[0] === 'import' ? 9 * 1024 * 1024 : 65536);
+      const raw = await readBody(request, route[0] === 'import' ? 72 * 1024 * 1024 : 65536);
       try { input = JSON.parse(raw); } catch { throw new Problem('Request contains invalid JSON.'); }
       check(input && typeof input === 'object' && !Array.isArray(input), 'Send a JSON object.');
     }

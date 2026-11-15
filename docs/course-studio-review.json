@@ -1,0 +1,205 @@
+{
+  "product": "LearnHarness Course Studio",
+  "version": "1.0.0",
+  "reviewed_at": "2026-11-15",
+  "upstream": {
+    "repository": "https://github.com/amosblomqvist/learnharness",
+    "commit": "cb25c8e49b85eed9e78315584731cad73a0118a6",
+    "archive_sha256": "e57d01a57d7826ad34d6278cf274b860c838ceafba98204e1bc43e42bb1d7258",
+    "inherited_dependency_execution": "not approved; unresolved intake findings and bounded coverage; no inherited installer, script, module or workflow executed"
+  },
+  "authored_closure": {
+    "course": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "feaa32a5942338559b53e1312d1ffd43c4d17b2b6837ad403404624ff3987bd4",
+      "files_recorded": 25,
+      "text_files_scanned": 24,
+      "bytes_read": 175583,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [
+        {
+          "path": "application.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 11
+        },
+        {
+          "path": "http.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 27
+        },
+        {
+          "path": "README.md",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 16
+        },
+        {
+          "path": "tests/codex.test.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 24
+        },
+        {
+          "path": "tests/http.test.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 15
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 65
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 4
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 10
+        },
+        {
+          "path": "VERIFICATION.md",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 35
+        },
+        {
+          "path": "server.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 17
+        },
+        {
+          "path": "server.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 8
+        },
+        {
+          "path": "codex.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 1
+        },
+        {
+          "path": "codex.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 10
+        },
+        {
+          "path": "PLUGIN-CONTRACT.md",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 5
+        }
+      ],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 1048576,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    },
+    "browser": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "fe8fd4f2284ecf0bccfd9862129e43573af2e6d0f83d1c34135fd010bf6ef0e9",
+      "files_recorded": 11,
+      "text_files_scanned": 11,
+      "bytes_read": 80245,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [
+        {
+          "path": "diagrams.js",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 40
+        },
+        {
+          "path": "diagram-view.js",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 9
+        },
+        {
+          "path": "app.js",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 36
+        }
+      ],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 1048576,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    }
+  },
+  "manual_dispositions": {
+    "environment-access": "Selected local runtime settings and dedicated app data directory; Codex receives a filtered environment and an app-owned profile. No API-key fallback.",
+    "process-execution": "Only the existing installed Codex app-server for requested model operations, and the existing Chromium inside explicit credential-free bubblewrap isolation. No package installation or arbitrary uploaded code.",
+    "network-operation": "Loopback HTTP server, same-origin browser API requests, official Codex service/authentication through its installed CLI, and inert SVG namespace strings. Browser verification has no external network."
+  },
+  "dependencies": {
+    "application": "Only Node standard library and authored browser/server modules; no third-party package added.",
+    "existing_tools_tested": {
+      "node": "24.22.3",
+      "codex": "0.166.0",
+      "chromium_bundle": "1254"
+    },
+    "advisory_coverage": "No new package dependency closure. Existing installed tool runtimes were reused; their supply chains and current advisories were not independently re-audited. No approval claimed for inherited dependencies."
+  },
+  "operations": [
+    "Node automated tests with temporary data and simulated Codex",
+    "Credential-free isolated Chromium acceptance with authored server, read-only code and a writable artifact directory",
+    "Authorized live ChatGPT sign-in, course generation, additional practice and rubric grading via codex app-server",
+    "Node standalone local server; optional inherited Next bridge excluded from runtime acceptance"
+  ],
+  "limitations": [
+    "Saved scanner is heuristic triage, not a safety certificate or enforced execution gate.",
+    "Executable plugins require fresh source/dependency review before registration.",
+    "Changed bytes, dependencies or commands invalidate this record and require recheck."
+  ]
+}

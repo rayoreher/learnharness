@@ -20,7 +20,7 @@ export async function startServer({ port = Number(process.env.LH_COURSE_PORT || 
       if (url.pathname.startsWith('/api/course-studio/')) {
         if ((req.headers.origin && req.headers.origin !== url.origin) || req.headers['sec-fetch-site'] === 'cross-site') { res.writeHead(403, { ...common, 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Cross-site requests are refused.' })); return; }
         const chunks = []; let size = 0;
-        const limit = url.pathname === '/api/course-studio/import' ? 9 * 1024 * 1024 : 65536;
+        const limit = url.pathname === '/api/course-studio/import' ? 72 * 1024 * 1024 : 65536;
         for await (const chunk of req) { size += chunk.length; if (size > limit) { res.writeHead(413, { ...common, 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Request is too large.' })); return; } chunks.push(chunk); }
         const request = new Request(url, { method: req.method, headers: req.headers, ...(!['GET', 'HEAD'].includes(req.method) ? { body: Buffer.concat(chunks), duplex: 'half' } : {}) });
         const response = await handleCourseRequest(request, app);

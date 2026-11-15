@@ -1,5 +1,53 @@
 # Course Studio verification record
 
+## v1.0 acceptance
+
+The complete standalone local-app scope is implemented. The final live account
+check used the installed Codex 0.166.0 with ChatGPT authentication:
+
+- A source-based course, **The HTTP Request–Response Cycle**, generated four
+  lessons with all six selected mechanics and one validated semantic diagram.
+  Its source name and digest were retained. Generation job:
+  `f9034d3f-2138-4349-9a02-e865b767df8d`.
+- The first lesson initially had choice, fill-blank and flashcards. A real request
+  attached open-answer and ordering exercises with fresh IDs to that same
+  course/lesson. Job `b8f39c8b-3bcb-47c3-9dc5-af93150466c7` succeeded with two
+  added questions.
+- A learner explanation of HTTP status, Content-Type and response body received
+  `correct` from `codex-rubric`, with specific, appropriate feedback. No sample
+  content substituted for failed inference.
+- A deliberately wrong explanation received `incorrect` and queued two missed
+  objectives. After the retrieval delay, a correct review response received
+  appropriate rubric feedback and cleared both queued objectives.
+- The exported real course was imported in the credential-free browser test.
+  Its generated diagram rendered and its actual multiple-choice question graded
+  correctly. The reusable `tests/run-browser.sh` command also passed the full
+  acceptance journey, producing screenshots and a decoded/downloaded video.
+- Validation failures during development were preserved as failed jobs. The
+  optional-caption mismatch was fixed; the concept-reference case led to
+  stronger instructions and one bounded model correction. Unresolved invalid
+  content remains rejected, as proved by the automated protocol test.
+
+The 52 automated cases and isolated real-browser journey cover the remaining
+learning, plugin, media, import/export, accessibility and recovery behavior
+listed below. The inherited Next bridge is an optional follow-up and carries
+no runtime verification claim.
+The separate follow-up is [issue #6](https://github.com/rayoreher/learnharness/issues/6).
+
+To repeat the browser checks on Linux, use an existing reviewed Node 22.13+
+and Chromium installation with working bubblewrap isolation:
+
+```sh
+LH_COURSE_NODE=/absolute/path/to/node \
+LH_COURSE_CHROME=/absolute/path/to/chrome \
+bash course-app/tests/run-browser.sh
+```
+
+The runner installs nothing and exposes only its artifact folder for writes.
+An optional `LH_COURSE_LIVE_FIXTURE` points to an exported course JSON file;
+that extra check imports and exercises real generated content without exposing
+account files or calling a model from inside the browser isolation.
+
 ## v0.5 completed verification
 
 - All 52 automated checks pass. Added cases prove generation receipt replay
@@ -96,13 +144,15 @@ home and runtime directories are absent, rather than checking one endpoint.
 The complete authored directories were rescanned after this change. Raw reports
 are retained in the task's temporary intake location; no detector was disabled.
 
-## Remaining before complete delivery
+## Optional inherited interface
 
-- Finish the generalized plugin implementations and remaining acceptance items
-  in GitHub issue #1. Slot declarations alone are not complete implementations.
-- Verify the optional Next route/sidebar bridge with the inherited application's
-  independently reviewed dependencies. The standalone application has the
-  verified learning, media and signed-in inference path.
+The Next route is a thin Node-runtime wrapper around the same request handler;
+its page embeds the authored static UI and its sidebar links to that page.
+These files were reviewed statically. Running the original Next dependency tree
+is a separate follow-up: inherited intake findings/coverage remain unresolved.
+The standalone application supplies the verified learning, media and signed-in
+inference path without loading that tree. Preview-version references to Next
+verification do not imply that this optional interface passed runtime checks.
 
 ## Historical v0.1 verification
 
@@ -158,8 +208,8 @@ advisory-closure approval is claimed for the inherited application.
 Existing installed Node and Codex executables were used as local runtime tools.
 Tests used isolated temporary learning directories and fake model responses;
 the real Codex handshake used an empty temporary profile without credentials.
-Browser verification awaits usable existing isolation. Original source review
-records remain in the task's temporary intake directory.
+The real browser verification described above used existing isolation. Original
+source review records remain in the task's temporary intake directory.
 
 The authored server and browser closures were also scanned with the saved
 outside-code scanner. Its first pass flagged README lines 28–29, a negative

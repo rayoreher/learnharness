@@ -1,5 +1,20 @@
 # Course Studio changes
 
+## 1.0.0 — complete standalone Course Studio
+
+- Completed the agreed goal → small lessons → selected mixed practice →
+  immediate feedback → durable missed-concept review journey, with all eight
+  plugin contribution slots, four lesson outputs and six exercise mechanics.
+- Verified live ChatGPT generation of a source-based four-lesson HTTP course
+  with all six mechanics and a semantic flow diagram. Live additional-practice
+  generation attached two exercises to the original lesson. An actual open
+  response received correct, appropriate Codex rubric feedback.
+- Added a fork quickstart and a standalone release package. No inherited package
+  installation is required. Kept the inherited Next bridge explicitly optional
+  and outside the verified runtime.
+- Aligned backup download/import bounds with the 64 MB record limit so a full
+  compact workspace export fits the restore input budget.
+
 ## 0.5.0 — lesson expansion and recovery
 
 - Add selected exercise formats to an existing lesson through Codex. Core

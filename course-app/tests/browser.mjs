@@ -177,6 +177,22 @@ try {
   assert.equal((await running.app.store.read()).courses[0].lessons[0].exercises.length, originalExercises + 3);
   await wait('document.querySelectorAll(".practice > details > .types input").length === 6');
   console.log('PASS: source-note creation and additional quiz formats through the browser controls');
+  if (process.env.LH_COURSE_LIVE_FIXTURE) {
+    const file = process.env.LH_COURSE_LIVE_FIXTURE, content = JSON.parse(await readFile(file, 'utf8'));
+    await click('Connection'); await wait('!!document.querySelector("#learning-import")'); await upload(file);
+    await wait('document.querySelector("#notice").textContent.includes("Imported 1")');
+    await click('My learning'); await click(content.course.title); await wait('!!document.querySelector(".reading")');
+    const diagramLesson = content.course.lessons.find(l => l.blocks.some(b => b.type === 'diagram'));
+    await click(diagramLesson.title); await wait('!!document.querySelector(".diagram svg")');
+    assert.equal(await evaluate('document.querySelectorAll(".diagram svg g").length'), diagramLesson.blocks.find(b => b.type === 'diagram').diagram.nodes.length);
+    await command('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
+    await screenshot('course-live-diagram.png');
+    const first = content.course.lessons[0], q = first.exercises[0]; assert.equal(q.type, 'multiple-choice');
+    await click(first.title); await wait(`document.querySelector('.question')?.textContent === ${JSON.stringify(q.question)}`);
+    await evaluate(`[...document.querySelectorAll('.option')].find(b=>b.querySelector('span:last-child').textContent===${JSON.stringify(q.answer)}).click()`);
+    await click('Check my answer'); await wait('!!document.querySelector(".feedback.correct")');
+    console.log('PASS: real ChatGPT-generated course imports, diagram renders, and its actual exercise grades correctly');
+  }
   console.log('Browser acceptance complete.');
 } finally {
   for (const p of pending.values()) { clearTimeout(p.timer); p.reject(new Error('Browser test finished.')); }

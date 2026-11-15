@@ -25,7 +25,7 @@ function el(tag, attrs = {}, ...children) {
 }
 function message(text) { notice.textContent = text; clearTimeout(noticeTimer); noticeTimer = setTimeout(() => { notice.textContent = ''; }, 7000); }
 function download(value, filename, mime = 'application/json') {
-  const blob = new Blob([typeof value === 'string' ? value : JSON.stringify(value, null, 2)], { type: mime });
+  const blob = new Blob([typeof value === 'string' ? value : JSON.stringify(value, null, value.format === 'learnharness-workspace' ? 0 : 2)], { type: mime });
   const url = URL.createObjectURL(blob), link = el('a', { href: url, download: filename }); document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
 async function readFile(file, max) {
@@ -238,7 +238,7 @@ function settingsView() {
   const loadModels = async () => { const data = await api('models'); modelOptions = data.models; };
   const importFile = el('input', { type: 'file', accept: '.json', id: 'learning-import', onChange: event => {
     const file = event.target.files[0]; void action(async () => {
-      const raw = await readFile(file, 8 * 1024 * 1024); let data; try { data = JSON.parse(raw); } catch { throw new Error('Choose a valid JSON course, MindSpark record, or workspace backup.'); }
+      const raw = await readFile(file, 70 * 1024 * 1024); let data; try { data = JSON.parse(raw); } catch { throw new Error('Choose a valid JSON course, MindSpark record, or workspace backup.'); }
       const kind = data.format === 'learnharness-workspace' ? 'workspace' : data.format === 'learnharness-course' || data.lessons ? 'course' : 'mindspark';
       const result = await api('import', { kind, data }); await refresh(); message(`Imported ${result.imported} learning path${result.imported === 1 ? '' : 's'}. Existing learning was preserved.`);
     });

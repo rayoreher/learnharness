@@ -1,3 +1,34 @@
+# LearnHarness — Course Studio fork
+
+This fork adds a complete local learning web app: choose a goal, study small
+lessons, practice with six exercise formats, and revisit missed concepts until
+you recall them correctly. Text, slides, captioned video, interactive lessons,
+diagram renderers, review policies and source adapters use plugin API 1.
+Generation and open-answer assessment use the installed Codex CLI with ChatGPT
+sign-in. No API key or new package installation is required for Course Studio.
+
+With Node.js 22.13 or later, run from this repository:
+
+```sh
+node course-app/server.mjs
+```
+
+Open **http://127.0.0.1:3030**, try the sample, then connect ChatGPT in Connection.
+Use `LH_COURSE_PORT` to choose another local port and `LH_COURSE_DATA_DIR` to
+choose a persistent records/profile directory. For another computer, forward
+the local port through a secure tunnel. Keep the data directory private.
+
+Read the [Course Studio guide](course-app/README.md),
+[plugin contract](course-app/PLUGIN-CONTRACT.md),
+[verification record](course-app/VERIFICATION.md) and
+[version history](course-app/CHANGELOG.md).
+The verified runtime is the dependency-free Course Studio runner. The optional
+bridge into the inherited Next interface has not been runtime-verified; its
+dependencies require separate review. Original LearnHarness documentation and
+features are preserved below.
+
+---
+
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/lh_banner_dark.png">

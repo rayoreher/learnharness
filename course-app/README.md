@@ -168,8 +168,10 @@ checks performed and remaining live-provider/browser verification.
 The full acceptance checklist is [issue #1](https://github.com/rayoreher/learnharness/issues/1).
 The first-version implementation is tracked in [issue #2](https://github.com/rayoreher/learnharness/issues/2).
 The versioned checkpoints include output, exercise, grading, review, visual and
-source contributions. Remaining acceptance work is tracked in the issue,
-including adding new formats to an existing lesson and broader recovery checks.
+source contributions, additions to saved lessons, and recovery checks. Version
+1.0 delivers the complete standalone local-app scope. The optional inherited
+Next bridge remains experimental and requires separate dependency/runtime
+verification. It is not required to run Course Studio.
 
 AGPL-3.0-only, matching the upstream project. The parent repository's license
 and copyright notices remain authoritative for reused material.

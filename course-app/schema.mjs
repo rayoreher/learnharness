@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { presentationSettings, registry } from '../public/course-studio/plugin-registry.js';
 import { validateDiagram } from '../public/course-studio/diagrams.js';
 
-export const VERSION = '0.5.0';
+export const VERSION = '1.0.0';
 export const TYPES = registry.list('exercise').map(entry => entry.manifest.id);
 export class Problem extends Error {
   constructor(message, status = 400) { super(message); this.status = status; }
