@@ -679,5 +679,44 @@
       "Select question/output/structure formats contributed by other enabled plugins",
       "Render contributed diagram formats in saved lesson content without replacing native Markdown controls"
     ]
+  },
+  "full_application_intake_pending": {
+    "status": "Not approved for execution; source dispositions, dependency closure and complete large-file scanner coverage remain required.",
+    "upstream_commit": "cb25c8e49b85eed9e78315584731cad73a0118a6",
+    "source_scan": {
+      "report_sha256": "48bdee2b7c7afd436a9009c4771aa62a161d3fc636cabb3fd399ae36b62a5f82",
+      "tracked_files": 1257,
+      "complete_text_files": 1246,
+      "binary_assets": 11,
+      "all_text_bundle_coverage_complete": true,
+      "findings": 660,
+      "high_findings_pending_disposition": 30
+    },
+    "next": {
+      "name": "next",
+      "version": "16.4.3",
+      "resolved": "https://registry.npmjs.org/next/-/next-16.4.3.tgz",
+      "lockfile_and_registry_integrity": "sha512-OqxKTGi9u80FydydsMNYNjnuje9Au+kvHlt2GZ//ftdpDHm1dxKqAaENoOOTX5wKzn+9vaKUNIfZeyZUuLhCnA==",
+      "tar_sha256": "d37409b7530c4873cd14c0619a7b8734777fd0dc2cae627bb592e5a82f74f8f4",
+      "publisher_repository": "https://github.com/vercel/next.js",
+      "registry_ecdsa_signatures": {
+        "verified": 2,
+        "algorithm": "ECDSA SHA256",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+        "key_source": "https://registry.npmjs.org/-/npm/v1/keys",
+        "method": "OpenSSL dgst -sha256 against name@version:dist.integrity using public registry key; both signatures returned Verified OK. This is provenance evidence only."
+      },
+      "advisory_query": {},
+      "scan_complete": false,
+      "coverage_blocker": {
+        "path": "dist/compiled/webpack/bundle5.js",
+        "bytes": 2582707,
+        "scanner_per_file_limit_bytes": 1048576,
+        "proposed_limit_bytes": 8388608,
+        "approval": "Pending human answer; trusted scanner and detection rules have not been modified."
+      }
+    },
+    "evidence_directory": "/tmp/learnharness-native-full-intake",
+    "execution": "No framework/dependency installer/build/runtime executed as part of this intake. Existing deployed prototype remains untouched."
   }
 }
