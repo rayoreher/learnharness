@@ -426,10 +426,10 @@
     "scanner_version": "1.0.0",
     "disposition": "manual_review_required",
     "complete": true,
-    "tree_sha256": "56d0992fc4b718528c581533947ce778ababef73870ad732696e2338da841745",
-    "files_recorded": 20,
-    "text_files_scanned": 17,
-    "bytes_read": 140481,
+    "tree_sha256": "adacc12fd0492785dcac9bdd5414df231fbef30b0a830e5ede7b0971e57d1941",
+    "files_recorded": 22,
+    "text_files_scanned": 19,
+    "bytes_read": 144380,
     "findings_truncated": false,
     "git_metadata_excluded": false,
     "findings": [
@@ -439,6 +439,20 @@
         "severity": "review",
         "message": "Network destinations and transmitted data need review.",
         "line": 4
+      },
+      {
+        "path": "tests/native-setup.mjs",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 5
+      },
+      {
+        "path": "tests/native-setup.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 10
       },
       {
         "path": "tests/host-lifecycle.mjs",
@@ -681,7 +695,7 @@
     ]
   },
   "full_application_intake_pending": {
-    "status": "Not approved for execution; source dispositions, dependency closure and complete large-file scanner coverage remain required.",
+    "status": "Not approved for execution: framework scanner coverage, inherited dependency advisories/artifact review, SDK generation and full browser/model QA remain required.",
     "upstream_commit": "cb25c8e49b85eed9e78315584731cad73a0118a6",
     "source_scan": {
       "report_sha256": "48bdee2b7c7afd436a9009c4771aa62a161d3fc636cabb3fd399ae36b62a5f82",
@@ -690,7 +704,8 @@
       "binary_assets": 11,
       "all_text_bundle_coverage_complete": true,
       "findings": 660,
-      "high_findings_pending_disposition": 30
+      "high_findings_pending_disposition": 6,
+      "disposition_note": "All 30 raw high findings have exact source/line dispositions; six lifecycle-declaring lockfiles still require separate package-hook artifact review. Original raw report remains unchanged. The control-bearing test fixture has a separately scanned equivalent disposable copy."
     },
     "next": {
       "name": "next",
@@ -717,7 +732,8 @@
       }
     },
     "evidence_directory": "/tmp/learnharness-native-full-intake",
-    "execution": "No framework/dependency installer/build/runtime executed as part of this intake. Existing deployed prototype remains untouched."
+    "execution": "No framework/dependency installer/build/runtime executed as part of this intake. Existing deployed prototype remains untouched.",
+    "additional_review": "docs/native-app-review.md and docs/native-app-review.json"
   },
   "lesson_formats_0_2_0": {
     "version": "0.2.0",
@@ -1650,5 +1666,183 @@
       "full_original_application": "Still pending complete framework/dependency intake and native browser/model QA. Scanner file-size approval remains unanswered.",
       "connection_clarification": "Original pinned LearnHarness uses its own ChatGPT OAuth/transport, not local Codex CLI. Preserve it; clarification requested about adding an optional local Codex provider alongside it."
     }
+  },
+  "native_setup_0_2_1": {
+    "upstream_commit": "cb25c8e49b85eed9e78315584731cad73a0118a6",
+    "helper_sources": [
+      {
+        "path": "scripts/setup-plugins.mjs",
+        "sha256": "fc1ed1a8e21248f1002718c0849058fef9b6c1b005ce8c38b331e5dc4910c39c",
+        "scan": {
+          "scanner_version": "1.0.0",
+          "disposition": "manual_review_required",
+          "complete": true,
+          "tree_sha256": "c2c2bf6513fba8758a61fb8f1f81737ff966c87bc20839f451c4fb39edf1b976",
+          "files_recorded": 1,
+          "text_files_scanned": 1,
+          "bytes_read": 1864,
+          "findings_truncated": false,
+          "git_metadata_excluded": false,
+          "findings": [
+            {
+              "path": "scripts/setup-plugins.mjs",
+              "rule": "process-execution",
+              "severity": "review",
+              "message": "Child process execution needs review.",
+              "line": 3
+            },
+            {
+              "path": "scripts/setup-plugins.mjs",
+              "rule": "environment-access",
+              "severity": "review",
+              "message": "Environment access may expose injected credentials.",
+              "line": 9
+            }
+          ],
+          "limits": {
+            "files": 10000,
+            "file_bytes": 1048576,
+            "total_bytes": 16777216
+          },
+          "requires": [
+            "manual_source_and_provenance_review",
+            "dependency_and_advisory_review",
+            "isolated_execution_only"
+          ],
+          "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+        }
+      },
+      {
+        "path": "scripts/build-core-plugins.mjs",
+        "sha256": "f17b7279b9456066eb148dc9f207aeee4ec606b668e65a89a5d2a5e4238ec282",
+        "scan": {
+          "scanner_version": "1.0.0",
+          "disposition": "manual_review_required",
+          "complete": true,
+          "tree_sha256": "3b11c1fe01c48fb2f132c92d503dc40ade30a5a839ab04e68d5d9e4f81782f7f",
+          "files_recorded": 1,
+          "text_files_scanned": 1,
+          "bytes_read": 5147,
+          "findings_truncated": false,
+          "git_metadata_excluded": false,
+          "findings": [
+            {
+              "path": "scripts/build-core-plugins.mjs",
+              "rule": "process-execution",
+              "severity": "review",
+              "message": "Child process execution needs review.",
+              "line": 5
+            },
+            {
+              "path": "scripts/build-core-plugins.mjs",
+              "rule": "environment-access",
+              "severity": "review",
+              "message": "Environment access may expose injected credentials.",
+              "line": 58
+            }
+          ],
+          "limits": {
+            "files": 10000,
+            "file_bytes": 1048576,
+            "total_bytes": 16777216
+          },
+          "requires": [
+            "manual_source_and_provenance_review",
+            "dependency_and_advisory_review",
+            "isolated_execution_only"
+          ],
+          "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+        }
+      }
+    ],
+    "plugin_scan": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "adacc12fd0492785dcac9bdd5414df231fbef30b0a830e5ede7b0971e57d1941",
+      "files_recorded": 22,
+      "text_files_scanned": 19,
+      "bytes_read": 144380,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [
+        {
+          "path": "LICENSE",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "tests/native-setup.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 5
+        },
+        {
+          "path": "tests/native-setup.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 10
+        },
+        {
+          "path": "tests/host-lifecycle.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 9
+        },
+        {
+          "path": "tests/host-contract.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 9
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 41
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 5
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 7
+        }
+      ],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 1048576,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    },
+    "dispositions": [
+      "setup helper enumerates source packages and requires a lock before running commands. This experiment supplies only the reviewed dependency-free lesson plugin, no other Core source packages.",
+      "Core helper stages code under a fresh temporary project, validates safe flat output, swaps only that project output and removes its own temporary directories. No real checkout data/output/profile is writable in the experiment.",
+      "Injected command runner invokes the already-installed npm tool via Node 24, offline, with lifecycle hooks/audit/fund/update notices disabled and explicit empty user/global configs; its sole package has no dependencies. The explicit reviewed build script still runs."
+    ],
+    "intended_command": "Credential-free bubblewrap with read-only /plugin and reviewed /host; Node 24 also bound as /opt/bin/node, PATH=/opt/bin:/usr/bin:/bin; /bin is a symlink to usr/bin for npm script shells. No home/runtime sockets/data/external network. LH_NATIVE_SETUP_ISOLATED=1; run Node /plugin/tests/native-setup.mjs.",
+    "limitation": "Tests this package against original helpers, not the other Core packages or complete original web app.",
+    "npm_tool_version": "9.2.0",
+    "result": "Passed missing-lock rejection, offline empty-lock setup, original Core package staging and safe output validation. No other Core package or web app was run."
   }
 }

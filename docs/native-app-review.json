@@ -1,0 +1,1277 @@
+{
+  "upstream_commit": "cb25c8e49b85eed9e78315584731cad73a0118a6",
+  "native_implementation_commit": "53b1256b4e08965d5c39aebd6e6a0cb4d764798a",
+  "status": "Mandatory intake is unfinished. This records triage evidence, not a clean scan or execution approval.",
+  "source": {
+    "raw_report_sha256": "48bdee2b7c7afd436a9009c4771aa62a161d3fc636cabb3fd399ae36b62a5f82",
+    "tracked_files": 1257,
+    "original_text_files_scanned": 1246,
+    "additional_control_bearing_test": {
+      "path": "tests/tool-parts.test.ts",
+      "origin_commit": "cb25c8e49b85eed9e78315584731cad73a0118a6",
+      "original_sha256": "1969104e41e77f14e5617c85fc28b79c6405a035b39c58642dbefa3c9aeab0e0",
+      "original_scan": {
+        "scanner_version": "1.0.0",
+        "disposition": "incomplete",
+        "complete": false,
+        "tree_sha256": "f1cb24aa8133c7bb224ba79d291fa6ccda64d0ff5f146b8e9efa9cae1571158a",
+        "files_recorded": 1,
+        "text_files_scanned": 0,
+        "bytes_read": 21329,
+        "findings_truncated": false,
+        "git_metadata_excluded": false,
+        "findings": [
+          {
+            "path": "tests/tool-parts.test.ts",
+            "rule": "binary-content",
+            "severity": "review",
+            "message": "Binary or control-bearing content was not text-scanned."
+          }
+        ],
+        "limits": {
+          "files": 10000,
+          "file_bytes": 1048576,
+          "total_bytes": 16777216
+        },
+        "requires": [
+          "manual_source_and_provenance_review",
+          "dependency_and_advisory_review",
+          "isolated_execution_only"
+        ],
+        "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+      },
+      "reviewed_sha256": "eb13b7bfeabea7e49700ac104cb2932240ef422299873448a0680e11f9e12548",
+      "remediation": "In disposable source copy only, replaced one literal U+000C form-feed inside a JavaScript string at line 390 with Unicode escape \\u000c. The fixture tests lenient LaTeX argument repair; runtime string value is unchanged. Repository source remains untouched.",
+      "reviewed_scan": {
+        "scanner_version": "1.0.0",
+        "disposition": "manual_review_required",
+        "complete": true,
+        "tree_sha256": "99509d9c56303a13e75477be863b1dc70afefd25e60662333b7a9520417b4df9",
+        "files_recorded": 1,
+        "text_files_scanned": 1,
+        "bytes_read": 21334,
+        "findings_truncated": false,
+        "git_metadata_excluded": false,
+        "findings": [],
+        "limits": {
+          "files": 10000,
+          "file_bytes": 1048576,
+          "total_bytes": 16777216
+        },
+        "requires": [
+          "manual_source_and_provenance_review",
+          "dependency_and_advisory_review",
+          "isolated_execution_only"
+        ],
+        "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+      }
+    },
+    "remaining_binary_asset_inventory": [
+      {
+        "path": "build/background.png",
+        "git_blob": "93bc6dae7ca1d01753efd4873c048ab869408059",
+        "sha256": "c0a8c27f40d0e28b72ef4a5048fca23b21e0d8bd128c238ae8546d3730a96ac6",
+        "bytes": 4785,
+        "mode": "100644",
+        "magic": "89504e470d0a1a0a0000000d49484452"
+      },
+      {
+        "path": "build/background@2x.png",
+        "git_blob": "6a74d4c55d14177fedc0d2e3623a2a15dbdb6acb",
+        "sha256": "8c266dd7ab4b9656ed3b84f916a8b384098a2ddd9b810a133bfd28180f30d030",
+        "bytes": 8925,
+        "mode": "100644",
+        "magic": "89504e470d0a1a0a0000000d49484452"
+      },
+      {
+        "path": "build/icon.icns",
+        "git_blob": "acca254f30313d458292dded1daee7cbbcb8cff7",
+        "sha256": "77020f530b9143146e4595b3a520cbbdc669cdc0a5d7956b09f7a9321adc436a",
+        "bytes": 1496623,
+        "mode": "100644",
+        "magic": "69636e730016d62f6963313200001db2"
+      },
+      {
+        "path": "build/icon.ico",
+        "git_blob": "7b0f23011997564f0ef93fab17cb87579dfe037d",
+        "sha256": "04313fce83c5c1e9c34eb66f3396b1a63285f275f5dae83ab185eeb85dabdbb9",
+        "bytes": 18529,
+        "mode": "100644",
+        "magic": "00000100070010100000010020002602"
+      },
+      {
+        "path": "build/icon.png",
+        "git_blob": "315d202239f908a92332358c5d8167b983e5c3b1",
+        "sha256": "ef60ea4fdf20b4210a087e1856bb532a6fc4b5468296838018d45ef6210bbaf9",
+        "bytes": 18074,
+        "mode": "100644",
+        "magic": "89504e470d0a1a0a0000000d49484452"
+      },
+      {
+        "path": "docs/assets/knowledge-graph.png",
+        "git_blob": "24711470e3a26bda77e38d8ea38c4e7f866ba436",
+        "sha256": "4b0cf326cf01e073c2cc2d641838b0b5c57ca7af3f0695612871799772e79b21",
+        "bytes": 1563536,
+        "mode": "100644",
+        "magic": "89504e470d0a1a0a0000000d49484452"
+      },
+      {
+        "path": "docs/assets/lh_banner_dark.png",
+        "git_blob": "98d085fd2888a5c457f7d60edb93894dc7375c9a",
+        "sha256": "bf9af2ec09d14b194d0ee2c2e1f502c7edfb3ef5e126b7cd5e82182a76608bc1",
+        "bytes": 56876,
+        "mode": "100644",
+        "magic": "89504e470d0a1a0a0000000d49484452"
+      },
+      {
+        "path": "docs/assets/lh_banner_light.png",
+        "git_blob": "49f63803da57d8ec77049ad011af6f5d5a1dff2a",
+        "sha256": "70e3680196686130eae782610ee06b94ac836e5666784e452d3580bfc7be13d7",
+        "bytes": 65536,
+        "mode": "100644",
+        "magic": "89504e470d0a1a0a0000000d49484452"
+      },
+      {
+        "path": "docs/assets/teaching-session.png",
+        "git_blob": "b9f639915b2ed6b6bbadab39c647095332a35e60",
+        "sha256": "6d816a1a0eab19b0d978970f39100ba517940cb6e44010256120a3fd0ea8de62",
+        "bytes": 757503,
+        "mode": "100644",
+        "magic": "89504e470d0a1a0a0000000d49484452"
+      },
+      {
+        "path": "public/fonts/cmunbx.ttf",
+        "git_blob": "9a42c0ef0f86b3fb61cd43bae7d7551d265a8b8c",
+        "sha256": "643afcc8fc9a526cd060f37459f050f03156f0a593779d87b8ad21f937757a31",
+        "bytes": 221904,
+        "mode": "100644",
+        "magic": "0001000000130100000400304646544d"
+      }
+    ],
+    "high_findings": [
+      {
+        "path": "docs/archive/vision.md",
+        "rule": "agent-injection",
+        "severity": "high",
+        "message": "Possible instructions aimed at hijacking an assistant.",
+        "line": 49,
+        "sha256": "acb101b2b831497dea90f3043789af6a290f1b3b3fed1d1151875110e972c73c",
+        "classification": "design_document_data",
+        "evidence": "Line 49 describes token-budgeted extraction coverage; it does not request credentials or authorize reviewer actions. Archive prose is not adopted as agent instructions.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "docs/custom-providers.md",
+        "rule": "agent-injection",
+        "severity": "high",
+        "message": "Possible instructions aimed at hijacking an assistant.",
+        "line": 41,
+        "sha256": "3ac1666f6f1479115e13f6a10de32e7c6b20535277c4c502b278a78b5f5f64b7",
+        "classification": "protective_documentation",
+        "evidence": "Line 41 documents private credential storage and fail-closed endpoint/key binding. It prohibits sending a key to a mismatched endpoint; it is not a request to reveal keys.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "electron-builder.yml",
+        "rule": "agent-injection",
+        "severity": "high",
+        "message": "Possible instructions aimed at hijacking an assistant.",
+        "line": 189,
+        "sha256": "150eb1339c83276bfb1eaec96d59b9874d090888cdb964259752ad28525626e6",
+        "classification": "packaging_comment",
+        "evidence": "Lines 187\u2013189 warn against baking a token into a public desktop release. Publishing/signing is outside the intended web verification operation.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "package-lock.json",
+        "rule": "install-hook",
+        "severity": "high",
+        "message": "Package lifecycle hook can execute during dependency installation.",
+        "sha256": "03c79ad889905709bccea916f291fead87cde6ffa36b1114ffa2bf15c7fb2006",
+        "classification": "lifecycle_artifact_review_pending",
+        "evidence": "This lockfile declares hasInstallScript packages. The exact package hook sources still require separate artifact review; no repository install or inherited lifecycle hook has been run.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "package.json",
+        "rule": "destructive-operation",
+        "severity": "high",
+        "message": "Potentially destructive command needs review.",
+        "line": 27,
+        "sha256": "726343a87707f64230e3327481e67f7c2270004a9a8c10402148f598b2d868e6",
+        "classification": "unexecuted_desktop_cleanup",
+        "evidence": "desktop:dist removes only dist and .next/standalone before desktop packaging. That command also invokes signing-related tooling; it will not be run for isolated web/plugin verification.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "plugins/coding-questions/package-lock.json",
+        "rule": "install-hook",
+        "severity": "high",
+        "message": "Package lifecycle hook can execute during dependency installation.",
+        "sha256": "ef81df155caa09ae9c9bf21ea455bdcc9ee925e385b810ee4b603a834305ab5a",
+        "classification": "lifecycle_artifact_review_pending",
+        "evidence": "This lockfile declares hasInstallScript packages. The exact package hook sources still require separate artifact review; no repository install or inherited lifecycle hook has been run.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "plugins/drawing-pad/package-lock.json",
+        "rule": "install-hook",
+        "severity": "high",
+        "message": "Package lifecycle hook can execute during dependency installation.",
+        "sha256": "3706bc4c5d16f7c8b5614d56c79dad10fae85fd77e8398beda7d31c71942e16b",
+        "classification": "lifecycle_artifact_review_pending",
+        "evidence": "This lockfile declares hasInstallScript packages. The exact package hook sources still require separate artifact review; no repository install or inherited lifecycle hook has been run.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "plugins/flashcards/package-lock.json",
+        "rule": "install-hook",
+        "severity": "high",
+        "message": "Package lifecycle hook can execute during dependency installation.",
+        "sha256": "1308ec40463d79722c2726b64c341b2175dd9208a01eed96e521e2f8b2eaee12",
+        "classification": "lifecycle_artifact_review_pending",
+        "evidence": "This lockfile declares hasInstallScript packages. The exact package hook sources still require separate artifact review; no repository install or inherited lifecycle hook has been run.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "plugins/flashcards/tests/file-generation.test.cjs",
+        "rule": "agent-injection",
+        "severity": "high",
+        "message": "Possible instructions aimed at hijacking an assistant.",
+        "line": 105,
+        "sha256": "7fd354fa864cac3670546bc62a3fb568b18249060ee47c5902008c34b49a9d7a",
+        "classification": "negative_security_test_data",
+        "evidence": "Line 105 is an adversarial Markdown fixture in a test verifying that source instructions remain data; it is not adopted or executed as an agent directive.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "plugins/flashcards/tests/frontend.test.cjs",
+        "rule": "agent-injection",
+        "severity": "high",
+        "message": "Possible instructions aimed at hijacking an assistant.",
+        "line": 662,
+        "sha256": "587a24082b32276020168af98946da711966f07db0e9669881dd353349a56c1d",
+        "classification": "answer_reveal_fixture",
+        "evidence": "Line 662 resolves a mock flashcard reveal with a dummy answer. Nearby assertions verify the title stays hidden until reveal; this is no account secret.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "plugins/flashcards/tests/generation-prompts.test.cjs",
+        "rule": "agent-injection",
+        "severity": "high",
+        "message": "Possible instructions aimed at hijacking an assistant.",
+        "line": 93,
+        "sha256": "02833d310dd7bbfe143b2e697c13f89a90dfc3366e221bf3976af1c6e88e420d",
+        "classification": "negative_security_test_data",
+        "evidence": "Line 93 is a deliberately adversarial input string. The following test builds graph/card prompts to verify data isolation.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "plugins/flashcards/tests/review.test.cjs",
+        "rule": "agent-injection",
+        "severity": "high",
+        "message": "Possible instructions aimed at hijacking an assistant.",
+        "line": 31,
+        "sha256": "497a9e6ddab0a914b9ca5b9ac2cf0a01f54631ca831960b04b0316433d68a320",
+        "classification": "answer_reveal_fixture",
+        "evidence": "Line 31 returns a fixed mock answer for reveal-review. It is test data, not a credential lookup or reviewer instruction.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "plugins/flashcards/tests/ui-fixture.cjs",
+        "rule": "agent-injection",
+        "severity": "high",
+        "message": "Possible instructions aimed at hijacking an assistant.",
+        "line": 113,
+        "sha256": "7e2672d4fed9375f05baacff5d87c3004972c8cde62ed5f17ed6ed3b44181ea2",
+        "classification": "answer_reveal_fixture",
+        "evidence": "Line 113 returns a mock review answer in the browser fixture; no production account value is read.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "plugins/rich-code-blocks/package-lock.json",
+        "rule": "install-hook",
+        "severity": "high",
+        "message": "Package lifecycle hook can execute during dependency installation.",
+        "sha256": "55d10edaddbef7cea7ab4476aed01913a882e62908d02e877b24657e5209e433",
+        "classification": "lifecycle_artifact_review_pending",
+        "evidence": "This lockfile declares hasInstallScript packages. The exact package hook sources still require separate artifact review; no repository install or inherited lifecycle hook has been run.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "plugins/ui-showcase/package-lock.json",
+        "rule": "install-hook",
+        "severity": "high",
+        "message": "Package lifecycle hook can execute during dependency installation.",
+        "sha256": "59123433534e3c329a04cf12964f0115d9cea7933e75bfc6e2e47d835dc52dd5",
+        "classification": "lifecycle_artifact_review_pending",
+        "evidence": "This lockfile declares hasInstallScript packages. The exact package hook sources still require separate artifact review; no repository install or inherited lifecycle hook has been run.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "scripts/dev-fresh.sh",
+        "rule": "destructive-operation",
+        "severity": "high",
+        "message": "Potentially destructive command needs review.",
+        "line": 79,
+        "sha256": "9d6f7b3a7255d040d4b084fdce215b53ca199141bfe14bcebefb12ceef86f0e1",
+        "classification": "unexecuted_scratch_cleanup",
+        "evidence": "Line 79 deletes DATA_DIR, assigned at line 32 to ROOT/.fresh-data; --keep bypasses deletion. This helper is not used on the shared checkout or deployed records.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "src/agent/tools/fs-shared.ts",
+        "rule": "credential-access",
+        "severity": "high",
+        "message": "Code mentions credential stores or cloud metadata.",
+        "line": 61,
+        "sha256": "60cbe9b1467fceb12367042dd6e4b767230e1d1fad2903f0eb8bff1579ad6a8f",
+        "classification": "protective_denylist",
+        "evidence": "Lines 52\u201385 enumerate sensitive home directories denied to agent file tools, including cloud/SSH/browser stores. Preserve this protection; it is not credential acquisition.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "src/agent/tools/safe-fetch.ts",
+        "rule": "credential-access",
+        "severity": "high",
+        "message": "Code mentions credential stores or cloud metadata.",
+        "line": 8,
+        "sha256": "c46c414ccac04c629aa26faec6a1e83b5fa1bcffe5114a62fd716ce3a0915092",
+        "classification": "protective_network_boundary",
+        "evidence": "Lines 4\u201312 explain blocking private/cloud metadata endpoints. NON_PUBLIC BlockList plus isPublicAddress rejects those addresses before connecting; the comment is not a fetch request.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/chatgpt-dev-ipc.test.ts",
+        "rule": "secret-material",
+        "severity": "high",
+        "message": "Possible credential material; its value is withheld.",
+        "line": 10,
+        "sha256": "f93efc153548cad0423c1e7a086533c56fca0b0c25f42150c37690c095f3f750",
+        "classification": "synthetic_account_fixture",
+        "evidence": "Line 10 sets a named fake API-key fixture in a temporary auth/data profile. The test replaces global fetch with a function rejecting provider/network calls; values were not printed.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/chatgpt-stream.test.ts",
+        "rule": "secret-material",
+        "severity": "high",
+        "message": "Possible credential material; its value is withheld.",
+        "line": 27,
+        "sha256": "e490180796013b5daf527703b109fa0479f13adbc4ae476361703d3e9462dff8",
+        "classification": "synthetic_account_fixture",
+        "evidence": "Line 27 uses a short human-readable hyphenated sentinel to detect unintended fallback. The file captures/replaces global fetch in its mocked transport tests; no production key was read.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/coverage.test.ts",
+        "rule": "agent-injection",
+        "severity": "high",
+        "message": "Possible instructions aimed at hijacking an assistant.",
+        "line": 22,
+        "sha256": "84cc88e5ca9095bc59bbaee240cdb55531497448edcf65d605939ec5028fc1ca",
+        "classification": "token_accounting_comment",
+        "evidence": "Lines 20\u201324 describe extraction token/fingerprint batching, not auth tokens or credentials.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/fixtures/security-tls/key.pem",
+        "rule": "secret-material",
+        "severity": "high",
+        "message": "Possible credential material; its value is withheld.",
+        "line": 1,
+        "sha256": "325d5a2add1145a97a32bd96cb433c511c25cd653d104700661c7437ce4aeb52",
+        "classification": "public_tls_test_fixture",
+        "evidence": "This pinned public test key matches tests/fixtures/security-tls/cert.pem, a self-signed certificate for research.invalid. safe-fetch-connector.test.ts lines 45\u201346 load it for controlled local TLS tests. Private bytes were not printed; never reuse it for production.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/fs-tools.test.ts",
+        "rule": "credential-access",
+        "severity": "high",
+        "message": "Code mentions credential stores or cloud metadata.",
+        "line": 200,
+        "sha256": "2f7afc6b9cb86a66f1f13ca36b4a8bffeae8c045a80e288626412501f76252c7",
+        "classification": "negative_access_fixture",
+        "evidence": "Lines 191\u2013210 create a synthetic home with dummy SSH/env/transcript values, temporarily set HOME/USERPROFILE to it and assert sensitive-path refusal.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/headless-isolation.test.ts",
+        "rule": "credential-access",
+        "severity": "high",
+        "message": "Code mentions credential stores or cloud metadata.",
+        "line": 73,
+        "sha256": "6ffeee88c03c19c53a5532b0dd4d484d68d46eecfdaf4acb9ada98fde606a8a9",
+        "classification": "negative_access_fixture",
+        "evidence": "Lines 71\u201375 are a list of disallowed file/private URLs used to test headless isolation, not code reading a real SSH directory.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/path-input.test.tsx",
+        "rule": "invisible-controls",
+        "severity": "high",
+        "message": "Invisible or bidirectional controls can conceal content.",
+        "line": 23,
+        "sha256": "d916dd8323a5d8d42a26e69a5beab0ba9ddcfc419e1a1b09a52fc779709c331d",
+        "classification": "unicode_path_fixture",
+        "evidence": "Line 23 tests lossless DOM projection of file paths. U+200D joins a woman/skin-tone/laptop emoji sequence; it is not a bidi instruction or concealed command. Preserve the test input.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/safe-fetch.test.ts",
+        "rule": "credential-access",
+        "severity": "high",
+        "message": "Code mentions credential stores or cloud metadata.",
+        "line": 42,
+        "sha256": "d8c4b20dffa7df3ced6e2d3beb6d6a57ea408da187db99eaad27df836e5412cf",
+        "classification": "negative_network_fixture",
+        "evidence": "Lines 40\u201344 list private/metadata/reserved addresses in a test asserting isPublicAddress refuses them; no outbound request is made by those literals.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/server-keys.test.ts",
+        "rule": "secret-material",
+        "severity": "high",
+        "message": "Possible credential material; its value is withheld.",
+        "line": 170,
+        "sha256": "29e73e331aae9773150e88a949eb3bd96af8197368989528b79e2b248a88fea6",
+        "classification": "synthetic_account_fixture",
+        "evidence": "Line 170 explicitly labels the value as never a real secret; the test checks key storage behavior with a sentinel.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/source-access.test.ts",
+        "rule": "credential-access",
+        "severity": "high",
+        "message": "Code mentions credential stores or cloud metadata.",
+        "line": 40,
+        "sha256": "0f4f9642b5d6638583254cfe893222b933568e76b7cac3580e8b72e2bd2a9aaa",
+        "classification": "negative_access_fixture",
+        "evidence": "Lines 37\u201344 create dummy notes, key-file paths and transcript files under a synthetic test tree to verify source-access boundaries.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/verify-release.test.ts",
+        "rule": "destructive-operation",
+        "severity": "high",
+        "message": "Potentially destructive command needs review.",
+        "line": 87,
+        "sha256": "9281904fabed1b1358bd4a90ee158bb3589a1cf871cc8ce68952aa8d4180bcd8",
+        "classification": "negative_version_fixture",
+        "evidence": "Line 87 is inside an assertion rejecting invalid/command-like version data; it does not invoke that shell string.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      },
+      {
+        "path": "tests/web-search.test.ts",
+        "rule": "agent-injection",
+        "severity": "high",
+        "message": "Possible instructions aimed at hijacking an assistant.",
+        "line": 112,
+        "sha256": "7f02072381fa505fdbc6033f69aeeaadcfc673831f8ba126e61b83c907ff6a36",
+        "classification": "prompt_contract_assertion",
+        "evidence": "Line 112 names a test that checks the researcher sends the exact approved prompt with missing-credentials guidance; the fixture uses createFauxCore.",
+        "execution_admission": "Not an execution authorization. Retain raw scanner finding; use only the eventual reviewed operation and isolated profile."
+      }
+    ]
+  },
+  "dependency_advisories": {
+    "source": "https://api.osv.dev/v1/querybatch",
+    "checked_at_utc": "2026-11-15T20:54:28.872439+00:00",
+    "lookup_pairs": 1419,
+    "local_sdk_pair_in_lookup": "learnharness-plugin-api@1.0.0 is a generated local SDK, not a registry dependency.",
+    "lockfiles": [
+      {
+        "path": "package-lock.json",
+        "sha256": "03c79ad889905709bccea916f291fead87cde6ffa36b1114ffa2bf15c7fb2006",
+        "entries": 1258
+      },
+      {
+        "path": "plugins/flashcards/package-lock.json",
+        "sha256": "1308ec40463d79722c2726b64c341b2175dd9208a01eed96e521e2f8b2eaee12",
+        "entries": 28
+      },
+      {
+        "path": "plugins/rich-code-blocks/package-lock.json",
+        "sha256": "55d10edaddbef7cea7ab4476aed01913a882e62908d02e877b24657e5209e433",
+        "entries": 284
+      },
+      {
+        "path": "plugins/drawing-pad/package-lock.json",
+        "sha256": "3706bc4c5d16f7c8b5614d56c79dad10fae85fd77e8398beda7d31c71942e16b",
+        "entries": 148
+      },
+      {
+        "path": "plugins/coding-questions/package-lock.json",
+        "sha256": "ef81df155caa09ae9c9bf21ea455bdcc9ee925e385b810ee4b603a834305ab5a",
+        "entries": 199
+      },
+      {
+        "path": "plugins/ui-showcase/package-lock.json",
+        "sha256": "59123433534e3c329a04cf12964f0115d9cea7933e75bfc6e2e47d835dc52dd5",
+        "entries": 167
+      }
+    ],
+    "raw_report_sha256": "4ad1b2342f96ac6993e6fce5da98132ccbe5ca1c090cc04318356413af05c1b8",
+    "advisory_details_sha256": "d91a8ae59715a4938b7aa9bf0e47f70f2ea0b14fe65f1df094131a919694b480",
+    "flagged_package_version_pairs": 14,
+    "distinct_flagged_packages": 11,
+    "findings": [
+      {
+        "name": "@hono/node-server",
+        "current": "2.1.5",
+        "highest_matching_fix": "2.1.6",
+        "same_major_fix": true,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-jpvv-r467-5p4w",
+            "severity": "MODERATE",
+            "summary": "@hono/node-server: Backslash in the request path is parsed as a path separator, bypassing path-based access control at a reverse proxy",
+            "matching_fixes": [
+              "2.1.6"
+            ]
+          },
+          {
+            "id": "GHSA-qv5m-9pm6-hqp3",
+            "severity": "MODERATE",
+            "summary": "@hono/node-server: Unhandled `ECONNRESET` on the socket during an asynchronous WebSocket upgrade crashes the process",
+            "matching_fixes": [
+              "2.1.6"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "brace-expansion",
+        "current": "1.1.18",
+        "highest_matching_fix": "1.1.21",
+        "same_major_fix": true,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-6j4f-fj2g-mc7p",
+            "severity": "HIGH",
+            "summary": "brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion",
+            "matching_fixes": [
+              "1.1.19"
+            ]
+          },
+          {
+            "id": "GHSA-q2hr-2g5m-vwhr",
+            "severity": "MODERATE",
+            "summary": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service",
+            "matching_fixes": [
+              "1.1.21"
+            ]
+          },
+          {
+            "id": "GHSA-qhr7-859c-m2p7",
+            "severity": "HIGH",
+            "summary": "brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion",
+            "matching_fixes": [
+              "1.1.20"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "brace-expansion",
+        "current": "5.0.9",
+        "highest_matching_fix": "5.0.12",
+        "same_major_fix": true,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-6j4f-fj2g-mc7p",
+            "severity": "HIGH",
+            "summary": "brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion",
+            "matching_fixes": [
+              "5.0.10"
+            ]
+          },
+          {
+            "id": "GHSA-q2hr-2g5m-vwhr",
+            "severity": "MODERATE",
+            "summary": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service",
+            "matching_fixes": [
+              "5.0.12"
+            ]
+          },
+          {
+            "id": "GHSA-qhr7-859c-m2p7",
+            "severity": "HIGH",
+            "summary": "brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion",
+            "matching_fixes": [
+              "5.0.11"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "dompurify",
+        "current": "3.4.14",
+        "highest_matching_fix": "3.4.17",
+        "same_major_fix": true,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-6688-9rhm-gjv2",
+            "severity": "LOW",
+            "summary": "DOMPurify: IN_PLACE returns a force-removed rawtext root whose text carries attacker markup \u2014 pure HTML reparse executes",
+            "matching_fixes": [
+              "3.4.16"
+            ]
+          },
+          {
+            "id": "GHSA-c6gr-qvv4-5v3f",
+            "severity": "LOW",
+            "summary": "DOMPurify: SMIL attributeName=href guard is skipped when PARSER_MEDIA_TYPE is application/xhtml+xml",
+            "matching_fixes": [
+              "3.4.17"
+            ]
+          },
+          {
+            "id": "GHSA-cg2g-xh64-v4q7",
+            "severity": "CRITICAL",
+            "summary": "DOMPurify SAFE_FOR_TEMPLATES bypass: split template expressions survive in attached shadow root content on DOM output modes",
+            "matching_fixes": [
+              "3.4.17"
+            ]
+          },
+          {
+            "id": "GHSA-mrv2-3pqr-j5jr",
+            "severity": "HIGH",
+            "summary": "DOMPurify IN_PLACE: hook that removes a parent or sibling leaves the detached subtree's event handlers armed (incomplete fix for GHSA-p98j-92pf-mc4p)",
+            "matching_fixes": [
+              "3.4.17"
+            ]
+          },
+          {
+            "id": "GHSA-p98j-92pf-mc4p",
+            "severity": "LOW",
+            "summary": "DOMPurify: IN_PLACE: node-removing afterSanitize hook leaves detached subtree event handlers armed, causing DOM XSS",
+            "matching_fixes": [
+              "3.4.16"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "fast-uri",
+        "current": "3.1.8",
+        "highest_matching_fix": "3.1.9",
+        "same_major_fix": true,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-333x-w4r6-6crp",
+            "severity": "LOW",
+            "summary": "fast-uri vulnerable to scheme injection via an unescaped first-segment colon in suffix references",
+            "matching_fixes": [
+              "3.1.9"
+            ]
+          },
+          {
+            "id": "GHSA-w74x-v6f9-j3xg",
+            "severity": "MODERATE",
+            "summary": "fast-uri vulnerable to URI scheme spoofing via percent-encoded scheme decoding",
+            "matching_fixes": [
+              "3.1.9"
+            ]
+          },
+          {
+            "id": "GHSA-wjr9-j795-jxcr",
+            "severity": "MODERATE",
+            "summary": "fast-uri vulnerable to host confusion via unchecked WHATWG host canonicalization",
+            "matching_fixes": [
+              "3.1.9"
+            ]
+          },
+          {
+            "id": "GHSA-xhq7-xmqj-769h",
+            "severity": "LOW",
+            "summary": "fast-uri vulnerable to improper path equivalence in relative reference normalization",
+            "matching_fixes": [
+              "3.1.9"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "hono",
+        "current": "4.13.13",
+        "highest_matching_fix": "4.13.16",
+        "same_major_fix": true,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-3gg2-335m-rxc6",
+            "severity": "LOW",
+            "summary": "Hono: `css` helper does not escape a closing tag split between the template and an interpolated value, allowing HTML injection",
+            "matching_fixes": [
+              "4.13.16"
+            ]
+          },
+          {
+            "id": "GHSA-46wx-v44x-9hh2",
+            "severity": "MODERATE",
+            "summary": "Hono: `csrf()` does not check requests sent by hyperlink auditing (`text/ping`)",
+            "matching_fixes": [
+              "4.13.16"
+            ]
+          },
+          {
+            "id": "GHSA-4h7h-rv7c-7m2v",
+            "severity": "MODERATE",
+            "summary": "Hono: `validator('form')` skips validation for `multipart/form-data` requests with extra parameters",
+            "matching_fixes": [
+              "4.13.16"
+            ]
+          },
+          {
+            "id": "GHSA-4m76-xfj5-7975",
+            "severity": "MODERATE",
+            "summary": "Hono: `mount()` and `app.mount()` can forward a path that bypasses middleware scoped inside the mount prefix",
+            "matching_fixes": [
+              "4.13.16"
+            ]
+          },
+          {
+            "id": "GHSA-h7mg-cq63-vhpq",
+            "severity": "MODERATE",
+            "summary": "Hono: RegExpRouter skips wildcard middleware for some route sets and for paths with an encoded line terminator",
+            "matching_fixes": [
+              "4.13.16"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "linkify-it",
+        "current": "3.0.3",
+        "highest_matching_fix": "5.0.2",
+        "same_major_fix": false,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-22p9-wv53-3rq4",
+            "severity": "HIGH",
+            "summary": "LinkifyIt#match scan loop has quadratic algorithmic complexity",
+            "matching_fixes": [
+              "5.0.1"
+            ]
+          },
+          {
+            "id": "GHSA-v245-v573-v5vm",
+            "severity": "HIGH",
+            "summary": "linkify-it: Quadratic-complexity DoS via the `mailto:` validator scan-loop on attacker text",
+            "matching_fixes": [
+              "5.0.2"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "minimatch",
+        "current": "10.2.6",
+        "highest_matching_fix": "11.0.1",
+        "same_major_fix": false,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-g3hv-75wg-m249",
+            "severity": "MODERATE",
+            "summary": "minimatch has potential denial of service via globparts amplification",
+            "matching_fixes": [
+              "11.0.1"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "minimatch",
+        "current": "9.0.9",
+        "highest_matching_fix": "11.0.1",
+        "same_major_fix": false,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-g3hv-75wg-m249",
+            "severity": "MODERATE",
+            "summary": "minimatch has potential denial of service via globparts amplification",
+            "matching_fixes": [
+              "11.0.1"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "shell-quote",
+        "current": "1.9.0",
+        "highest_matching_fix": "1.11.0",
+        "same_major_fix": true,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-pqg4-j6r4-53mv",
+            "severity": "CRITICAL",
+            "summary": "shell-quote: `quote()` command injection via a line terminator in a token after a `{ comment }` token",
+            "matching_fixes": [
+              "1.11.0"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "source-map-js",
+        "current": "1.2.1",
+        "highest_matching_fix": "1.2.2",
+        "same_major_fix": true,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-68fv-2mgg-jv7q",
+            "severity": "HIGH",
+            "summary": "source-map-js allows event-loop denial of service through indexed source-map section offsets",
+            "matching_fixes": [
+              "1.2.2"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "undici",
+        "current": "7.29.0",
+        "highest_matching_fix": "7.30.1",
+        "same_major_fix": true,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-2gqq-gqf2-x968",
+            "severity": "LOW",
+            "summary": "undici vulnerable to response truncation via oversized chunked responses in the dump interceptor",
+            "matching_fixes": [
+              "7.29.1"
+            ]
+          },
+          {
+            "id": "GHSA-2jfj-6hjv-fm6j",
+            "severity": "MODERATE",
+            "summary": "undici vulnerable to cross-user cookie disclosure via Set-Cookie caching in shared caches",
+            "matching_fixes": [
+              "7.29.1"
+            ]
+          },
+          {
+            "id": "GHSA-2m5v-pch6-74hx",
+            "severity": "HIGH",
+            "summary": "undici vulnerable to TLS certificate validation bypass via dropped tls options in Agent",
+            "matching_fixes": [
+              "7.30.1"
+            ]
+          },
+          {
+            "id": "GHSA-3wwx-pv8p-q78v",
+            "severity": "MODERATE",
+            "summary": "undici vulnerable to Denial of Service via unhandled error in WebSocket permessage-deflate decompression",
+            "matching_fixes": [
+              "7.29.1"
+            ]
+          },
+          {
+            "id": "GHSA-3xpg-4rpp-hhhm",
+            "severity": "MODERATE",
+            "summary": "undici vulnerable to Denial of Service via unbounded decompression of compressed responses",
+            "matching_fixes": [
+              "7.29.1"
+            ]
+          },
+          {
+            "id": "GHSA-4qv8-2p9j-2685",
+            "severity": "MODERATE",
+            "summary": "undici vulnerable to Denial of Service via unbounded memory in the EventSource parser",
+            "matching_fixes": [
+              "7.30.1"
+            ]
+          },
+          {
+            "id": "GHSA-4w7w-5xrc-9h26",
+            "severity": "HIGH",
+            "summary": "undici vulnerable to cache poisoning and cross-user disclosure via cross-origin redirects",
+            "matching_fixes": [
+              "7.30.1"
+            ]
+          },
+          {
+            "id": "GHSA-55wc-3pg8-jfw6",
+            "severity": "MODERATE",
+            "summary": "undici vulnerable to Denial of Service via unhandled exception in the decompress interceptor",
+            "matching_fixes": [
+              "7.30.1"
+            ]
+          },
+          {
+            "id": "GHSA-8436-99hf-9mmv",
+            "severity": "LOW",
+            "summary": "undici vulnerable to caching and replay of unsafe HTTP method responses",
+            "matching_fixes": [
+              "7.29.1"
+            ]
+          },
+          {
+            "id": "GHSA-9fm3-97px-rjf6",
+            "severity": "MODERATE",
+            "summary": "undici WebSocket client vulnerable to Denial of Service via unbounded automatic PONG buffering",
+            "matching_fixes": [
+              "7.30.1"
+            ]
+          },
+          {
+            "id": "GHSA-f72v-6w45-q472",
+            "severity": "MODERATE",
+            "summary": "undici vulnerable to Subresource Integrity bypass via non-lowercase algorithm tokens",
+            "matching_fixes": [
+              "7.30.1"
+            ]
+          },
+          {
+            "id": "GHSA-pmjh-fq2x-6v4x",
+            "severity": "MODERATE",
+            "summary": "undici vulnerable to Denial of Service via orphaned RetryHandler response body",
+            "matching_fixes": [
+              "7.29.1"
+            ]
+          },
+          {
+            "id": "GHSA-qrxm-fqhp-jwvm",
+            "severity": "HIGH",
+            "summary": "undici vulnerable to Denial of Service via TLS 1.2 certificate-changing renegotiation",
+            "matching_fixes": [
+              "7.30.1"
+            ]
+          },
+          {
+            "id": "GHSA-r53p-7pc4-xj5r",
+            "severity": "LOW",
+            "summary": "undici vulnerable to downstream response splitting via retry interceptor",
+            "matching_fixes": [
+              "7.29.1"
+            ]
+          },
+          {
+            "id": "GHSA-rfgv-xxqx-mfg5",
+            "severity": "HIGH",
+            "summary": "undici vulnerable to Denial of Service via unrequested WebSocket subprotocol",
+            "matching_fixes": [
+              "7.29.1"
+            ]
+          },
+          {
+            "id": "GHSA-rx4f-c7p8-82vq",
+            "severity": "MODERATE",
+            "summary": "undici vulnerable to Denial of Service via WebSocketStream unclean close",
+            "matching_fixes": [
+              "7.29.1"
+            ]
+          },
+          {
+            "id": "GHSA-w293-vg96-wgc3",
+            "severity": "HIGH",
+            "summary": "undici vulnerable to TLS certificate validation bypass via dropped connect options in BalancedPool",
+            "matching_fixes": [
+              "7.29.1"
+            ]
+          },
+          {
+            "id": "GHSA-xjj6-f33q-929c",
+            "severity": "HIGH",
+            "summary": "undici vulnerable to Denial of Service via unhandled error on excessive content-encodings",
+            "matching_fixes": [
+              "7.30.1"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "zod",
+        "current": "3.25.76",
+        "highest_matching_fix": "4.6.6",
+        "same_major_fix": false,
+        "locks": [
+          "package-lock.json",
+          "plugins/ui-showcase/package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-mrhx-c7xc-m3w5",
+            "severity": "HIGH",
+            "summary": "Zod can exhaust memory while validating oversized constrained collections",
+            "matching_fixes": [
+              "4.6.6"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "zod",
+        "current": "4.4.3",
+        "highest_matching_fix": "4.6.6",
+        "same_major_fix": true,
+        "locks": [
+          "package-lock.json"
+        ],
+        "advisories": [
+          {
+            "id": "GHSA-mrhx-c7xc-m3w5",
+            "severity": "HIGH",
+            "summary": "Zod can exhaust memory while validating oversized constrained collections",
+            "matching_fixes": [
+              "4.6.6"
+            ]
+          }
+        ]
+      }
+    ],
+    "unversioned_links_disposition": "All four entries are link:true references to generated .sdk trees under the original plugin source projects. Their declarations derive from pinned public source, not an unpinned registry install. SDK emission still requires verification.",
+    "bundled_integrity_disposition": "The six Tailwind WASI child packages without per-child resolved/integrity fields are versioned inBundle:true entries covered by their parent archive integrity. The optional parent cpu=wasm32 is outside the planned linux/x64 native build; never execute an unreviewed fallback."
+  },
+  "patch_candidates": {
+    "checked_at_utc": "2026-11-15T21:00:36.259665+00:00",
+    "candidates": [
+      {
+        "name": "@hono/node-server",
+        "version": "2.1.6",
+        "registry_http_status": 200,
+        "advisories": {}
+      },
+      {
+        "name": "brace-expansion",
+        "version": "1.1.21",
+        "registry_http_status": 200,
+        "advisories": {}
+      },
+      {
+        "name": "brace-expansion",
+        "version": "5.0.12",
+        "registry_http_status": 200,
+        "advisories": {}
+      },
+      {
+        "name": "dompurify",
+        "version": "3.4.17",
+        "registry_http_status": 200,
+        "advisories": {}
+      },
+      {
+        "name": "fast-uri",
+        "version": "3.1.9",
+        "registry_http_status": 200,
+        "advisories": {}
+      },
+      {
+        "name": "hono",
+        "version": "4.13.16",
+        "registry_http_status": 200,
+        "advisories": {}
+      },
+      {
+        "name": "linkify-it",
+        "version": "5.0.2",
+        "registry_http_status": 200,
+        "advisories": {}
+      },
+      {
+        "name": "minimatch",
+        "version": "11.0.1",
+        "registry_http_status": 200,
+        "advisories": {}
+      },
+      {
+        "name": "shell-quote",
+        "version": "1.11.0",
+        "registry_http_status": 200,
+        "advisories": {}
+      },
+      {
+        "name": "source-map-js",
+        "version": "1.2.2",
+        "registry_http_status": 200,
+        "advisories": {}
+      },
+      {
+        "name": "undici",
+        "version": "7.30.1",
+        "registry_http_status": 200,
+        "advisories": {}
+      },
+      {
+        "name": "zod",
+        "version": "4.6.6",
+        "registry_http_status": 200,
+        "advisories": {}
+      }
+    ],
+    "runtime_artifacts": [
+      {
+        "name": "dompurify",
+        "version": "3.4.17",
+        "resolved": "https://registry.npmjs.org/dompurify/-/dompurify-3.4.17.tgz",
+        "integrity": "sha512-B/pSlYVHQ58kqISD/yDjuJ1yfzI34m1gF4lAod2bwSRhiN4K5Cl3H8Af7hqB2PmTL911tdEudnnXn5FnhRoz0w==",
+        "tar_sha256": "056cbdae276897208b88c21d1d779adfa09ad7be488a2f510a28e900d3bbffe7",
+        "repository": {
+          "type": "git",
+          "url": "git://github.com/cure53/DOMPurify.git"
+        },
+        "registry_signatures_verified": 2,
+        "text_bundle_coverage_complete": true,
+        "source_files": 24,
+        "raw_high_findings": [
+          {
+            "path": "package.json",
+            "rule": "install-hook",
+            "severity": "high",
+            "message": "Package lifecycle hook can execute during dependency installation."
+          }
+        ],
+        "source_scan_sha256": "67e6d9d678fea54b259478e99f807aae429a18d6bf4f2b7c21c849323864ff8e",
+        "status": "Artifacts acquired and signatures/coverage checked only. Hook/locale/dynamic-code/embedded-Wasm review and compatibility testing remain pending; not installed or executed."
+      },
+      {
+        "name": "undici",
+        "version": "7.30.1",
+        "resolved": "https://registry.npmjs.org/undici/-/undici-7.30.1.tgz",
+        "integrity": "sha512-03KrMbjIFDWQR5RNPrSw3bd1r12JpyFQl9/yxjUbJtqkjmllqC5lFjZh6ujeuJCKr8EOQvRW872Oy/az+nLYxg==",
+        "tar_sha256": "c98bd3881137c11341e8be8d2ec509ebf973b6f8b36d0a4c6d2afcda15e0d712",
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/nodejs/undici.git"
+        },
+        "registry_signatures_verified": 2,
+        "text_bundle_coverage_complete": true,
+        "source_files": 210,
+        "raw_high_findings": [
+          {
+            "path": "package.json",
+            "rule": "install-hook",
+            "severity": "high",
+            "message": "Package lifecycle hook can execute during dependency installation."
+          }
+        ],
+        "source_scan_sha256": "2f424839258a714a1b8e8529805c37cce7136a1aa83b9deff8d9613cbb5da05a",
+        "status": "Artifacts acquired and signatures/coverage checked only. Hook/locale/dynamic-code/embedded-Wasm review and compatibility testing remain pending; not installed or executed."
+      },
+      {
+        "name": "zod",
+        "version": "4.6.6",
+        "resolved": "https://registry.npmjs.org/zod/-/zod-4.6.6.tgz",
+        "integrity": "sha512-4UmzQUF5fxvfcYHlbjBmejU+w+hbDnWFx4aS8kBx7nPBHcO2SqPbpAG8snbdg+Xse4pRefR98hgjFgIMCI/UhA==",
+        "tar_sha256": "312553620ac82cbb25d505100fbb41c1e219b3cd6979cf93c3a1b4dd5b79e039",
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/colinhacks/zod.git"
+        },
+        "registry_signatures_verified": 1,
+        "text_bundle_coverage_complete": true,
+        "source_files": 840,
+        "raw_high_findings": [
+          {
+            "path": "package.json",
+            "rule": "install-hook",
+            "severity": "high",
+            "message": "Package lifecycle hook can execute during dependency installation."
+          },
+          {
+            "path": "src/v3/tests/string.test.ts",
+            "rule": "invisible-controls",
+            "severity": "high",
+            "message": "Invisible or bidirectional controls can conceal content.",
+            "line": 328
+          },
+          {
+            "path": "src/v4/classic/tests/string.test.ts",
+            "rule": "invisible-controls",
+            "severity": "high",
+            "message": "Invisible or bidirectional controls can conceal content.",
+            "line": 614
+          },
+          {
+            "path": "src/v4/locales/fa.ts",
+            "rule": "invisible-controls",
+            "severity": "high",
+            "message": "Invisible or bidirectional controls can conceal content.",
+            "line": 70
+          },
+          {
+            "path": "src/v4/locales/kn.ts",
+            "rule": "invisible-controls",
+            "severity": "high",
+            "message": "Invisible or bidirectional controls can conceal content.",
+            "line": 8
+          },
+          {
+            "path": "v4/locales/fa.cjs",
+            "rule": "invisible-controls",
+            "severity": "high",
+            "message": "Invisible or bidirectional controls can conceal content.",
+            "line": 85
+          },
+          {
+            "path": "v4/locales/fa.js",
+            "rule": "invisible-controls",
+            "severity": "high",
+            "message": "Invisible or bidirectional controls can conceal content.",
+            "line": 59
+          },
+          {
+            "path": "v4/locales/kn.cjs",
+            "rule": "invisible-controls",
+            "severity": "high",
+            "message": "Invisible or bidirectional controls can conceal content.",
+            "line": 31
+          },
+          {
+            "path": "v4/locales/kn.js",
+            "rule": "invisible-controls",
+            "severity": "high",
+            "message": "Invisible or bidirectional controls can conceal content.",
+            "line": 5
+          }
+        ],
+        "source_scan_sha256": "6eab6aac2796818a23162f636485dfc2439da89fea7d57c7f3a93a3054a45a9d",
+        "status": "Artifacts acquired and signatures/coverage checked only. Hook/locale/dynamic-code/embedded-Wasm review and compatibility testing remain pending; not installed or executed."
+      }
+    ],
+    "status": "No lockfile or application dependency changed. Same-major candidates still need source and compatibility review; major changes need a compatibility plan."
+  },
+  "remaining_gates": [
+    "Required scanner cannot cover the existing 2.6 MB framework bundle at its current 1 MB per-file limit; permission question to raise it to 8 MB is still unanswered.",
+    "Resolve inherited dependency advisories and finish exact artifact/runtime-closure review before installing or executing full application dependencies.",
+    "Verify portable SDK declaration emission and refresh generated API reference, then run full original-app React/browser/model/restart/remediation journey.",
+    "Clarify whether optional local Codex CLI should be added alongside the original unchanged ChatGPT connection."
+  ]
+}

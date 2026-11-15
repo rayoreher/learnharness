@@ -2,7 +2,7 @@
   "apiVersion": 1,
   "id": "lesson-practice",
   "name": "Lessons and mixed practice",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "minAppVersion": "0.6.1",
   "description": "Small lessons, selectable quiz formats and persistent missed-concept review inside native LearnHarness teaching sessions.",
   "main": "main.js",

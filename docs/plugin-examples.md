@@ -13,6 +13,7 @@ building or exercising it: plugins are trusted local code, not sandboxed extensi
 | [UI Showcase](../plugins/ui-showcase/README.md) | Runnable Community developer gallery | All 15 public UI methods, controlled values, family-local Reset and overlay ownership |
 | [Flashcards](../plugins/flashcards/README.md) | Core source reference | A complete feature: knowledge/document input, durable worker outcomes, plugin-owned storage, tree, review surfaces and settings |
 | [Coding questions](../plugins/coding-questions/README.md) | Core source reference | Teaching questions and repeated practice submissions, controlled editors, processing observations and saved-result rendering |
+| [Lesson formats](../examples/plugins/lesson-formats/README.md) | Optional example for this fork | Selectable numeric quizzes, reflection-first lessons, slide output and SVG diagrams through the existing plugin host |
 | [Drawing Pad](../plugins/drawing-pad/README.md) | Core source reference | Session-context actions, shortcuts, surfaces, learner-submission image attachment and acknowledgment-aware draft consumption |
 | [Rich code blocks](../plugins/rich-code-blocks/README.md) | Core source reference | Conditional fence renderers, additive instructions, settings synchronization, local assets and bounded rendering |
 

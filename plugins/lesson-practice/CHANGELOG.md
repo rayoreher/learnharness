@@ -1,3 +1,10 @@
+# 0.2.1
+
+- Include the empty dependency lockfile required by LearnHarness's original
+  plugin setup helper. No packages are added.
+- Verify offline setup and package staging through the original native setup
+  and Core packaging helpers in an isolated temporary project.
+
 # 0.2.0
 
 - Add selectable quiz, workflow, output and diagram contributions from other

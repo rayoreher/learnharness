@@ -19,6 +19,7 @@ these are separate numbers, not interchangeable compatibility guarantees.
 | Every public signature, property and supporting type | [Complete API reference](plugin-api/README.md) |
 | Real projects and source reading routes | [Examples](plugin-examples.md) |
 | Teaching questions and grading | [Question contract](plugin-question-contract.md) |
+| Selectable lesson quiz, structure, output and diagram formats | [Lesson formats in this fork](plugin-api/lesson-formats.md) |
 | Practice problems and processing | [Problem contract](plugin-problem-contract.md) |
 | Submission interception, images and surfaces | [Session extensions](plugin-session-extension-contract.md) |
 | Current session snapshots and drafts | [View context](plugin-view-context.md) |

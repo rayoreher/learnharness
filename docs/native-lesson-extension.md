@@ -53,7 +53,7 @@ claiming completion. Original dependencies and scripts remain subject to the
 owner's outside-code intake requirement; isolated plugin fixtures alone do not
 prove that the full application runs.
 
-## Checks completed through development version 0.2.0
+## Checks completed through development version 0.2.1
 
 - Thirteen isolated backend tests cover accepted-answer authority, cancelled/forged
   answers, ordinary teacher feedback, separate coverage/remediation, delay,
@@ -97,3 +97,12 @@ fixtures verify its choices, slide controls, SVG arrows and fence preservation.
 Full React host integration tests are added but remain unrun behind the complete
 application's dependency/coverage gate. These fixtures do not establish full-app
 rendering or model-driven sequencing.
+
+Version 0.2.1 adds the dependency-free lockfile required by the unchanged
+`setupPlugins` helper. An isolated temporary project runs that original helper
+with real offline npm, then uses the original `buildCorePlugins` and
+`validateCorePackages` helpers to stage the package. The check confirms source,
+dependency metadata and learner-data directories stay outside the staged package.
+It does not run the other Core packages or the complete application. Portable SDK
+declaration emission and generated API reference refresh remain part of full-host
+verification.
