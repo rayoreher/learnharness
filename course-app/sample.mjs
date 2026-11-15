@@ -5,7 +5,7 @@ export function sampleCourse() {
     { id: 'recall', title: 'Retrieve before you reveal', summary: 'Give your memory a chance to work.', objectives: [{ id: 'active-recall', title: 'Explain active recall' }], blocks: [
       { type: 'paragraph', text: 'Reading an answer can make it feel familiar. Active recall adds a different step: try to produce the answer before looking. That attempt shows you what you can retrieve without help.' },
       { type: 'heading', text: 'A small experiment' },
-      { type: 'paragraph', text: 'Close your notes and explain yesterday’s main idea in two sentences. Then compare your explanation with the notes. A gap is useful information: it gives your next practice a clear target.' },
+      { type: 'paragraph', role: 'example', text: 'Close your notes and explain yesterday’s main idea in two sentences. Then compare your explanation with the notes. A gap is useful information: it gives your next practice a clear target.' },
       { type: 'bullets', items: ['Try first, even when you are unsure.', 'Check the answer and understand the explanation.', 'Bring the missed idea back in a later question.'] }
     ], exercises: [
       { id: 'recall-choice', type: 'multiple-choice', conceptIds: ['active-recall'], question: 'Which action gives you evidence of what you can retrieve?', options: ['Highlighting an answer', 'Explaining the idea with the notes closed', 'Reading the same page again'], answer: 'Explaining the idea with the notes closed', explanation: 'An explanation produced without notes makes retrieval visible. Looking at the answer first removes that opportunity.' },
@@ -14,7 +14,7 @@ export function sampleCourse() {
     ] },
     { id: 'spacing', title: 'Leave room between attempts', summary: 'Return to ideas over time.', objectives: [{ id: 'spaced-practice', title: 'Explain spaced practice' }], blocks: [
       { type: 'paragraph', text: 'Spaced practice distributes encounters with an idea across time. Instead of repeating one answer immediately until it sounds familiar, return after other questions or on another day.' },
-      { type: 'paragraph', text: 'Imagine practicing ten vocabulary words. After a miss, check the answer, try several other words, then return. A later successful retrieval gives you different evidence from simply repeating the solution you just saw.' },
+      { type: 'paragraph', role: 'example', text: 'Imagine practicing ten vocabulary words. After a miss, check the answer, try several other words, then return. A later successful retrieval gives you different evidence from simply repeating the solution you just saw.' },
       { type: 'bullets', items: ['Keep moving after feedback.', 'Return to missed concepts.', 'Use later practice to check retention.'] }
     ], exercises: [
       { id: 'spacing-blank', type: 'fill-blank', conceptIds: ['spaced-practice'], question: 'Practice distributed across time is called _____ practice. Enter one word.', answer: 'spaced', explanation: 'Spaced practice separates encounters with material across time.' },

@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { check, text, exerciseTypes, publicCourse, publicExercise } from './schema.mjs';
+import { presentationSettings } from '../public/course-studio/plugin-registry.js';
 
 const normalize = value => value.normalize('NFKC').toLocaleLowerCase('en').trim().replace(/\s+/g, ' ').replace(/[.!?]+$/, '');
 export function emptyProgress() { return { completedLessons: [], lastLessonId: null, attempts: [], reviews: [], sequence: 0, lessonSettings: {} }; }
@@ -12,12 +13,33 @@ export class Learning {
     return { course, lesson, exercise, progress: state.progress[courseId] };
   }
   async add(course) { return this.store.transact(s => { s.courses.push(course); s.progress[course.id] = emptyProgress(); return publicCourse(course); }); }
+  async courseSettings(courseId, value) {
+    return this.store.transact(s => {
+      const course = s.courses.find(c => c.id === courseId); check(course, 'Course not found.', 404);
+      const selected = exerciseTypes(value.exerciseTypes ?? course.settings.exerciseTypes);
+      let presentation; try { presentation = presentationSettings(value, course.settings); } catch (e) { check(false, e.message); }
+      const p = s.progress[course.id];
+      check(course.lessons.every(l => l.exercises.some(e => (p.lessonSettings[l.id]?.exerciseTypes ?? selected).includes(e.type))), 'Some lessons have no exercises in these formats. Choose another mix or set a lesson override.');
+      course.settings = { exerciseTypes: selected, ...presentation }; return publicCourse(course);
+    });
+  }
   async snapshot() {
     const s = await this.store.read();
     return { courses: s.courses.map(publicCourse), progress: s.progress, jobs: s.jobs.map(({ prompt, ...job }) => job), settings: s.settings };
   }
   async settings(courseId, lessonId, value) {
-    return this.store.transact(s => { const { course, progress } = this.locate(s, courseId, lessonId); const selected = exerciseTypes(value.exerciseTypes); check(course.lessons.find(l => l.id === lessonId).exercises.some(e => selected.includes(e.type)), 'This lesson has no exercises of the selected types.'); progress.lessonSettings[lessonId] = { exerciseTypes: selected }; return progress; });
+    return this.store.transact(s => {
+      const { course, progress } = this.locate(s, courseId, lessonId);
+      if (value.inherit === true) { delete progress.lessonSettings[lessonId]; return progress; }
+      const previous = { ...course.settings, ...progress.lessonSettings[lessonId] };
+      const selected = exerciseTypes(value.exerciseTypes ?? previous.exerciseTypes);
+      check(course.lessons.find(l => l.id === lessonId).exercises.some(e => selected.includes(e.type)), 'This lesson has no exercises of the selected types.');
+      let presentation; try { presentation = presentationSettings(value, previous); } catch (e) { check(false, e.message); }
+      const overrides = { ...progress.lessonSettings[lessonId] };
+      if (value.exerciseTypes !== undefined) overrides.exerciseTypes = selected;
+      for (const key of ['format', 'workflow', 'template', 'visual']) if (value[key] !== undefined) overrides[key] = presentation[key];
+      progress.lessonSettings[lessonId] = overrides; return progress;
+    });
   }
   async visit(courseId, lessonId) { return this.store.transact(s => { const { progress } = this.locate(s, courseId, lessonId); progress.lastLessonId = lessonId; return progress; }); }
   async complete(courseId, lessonId) {

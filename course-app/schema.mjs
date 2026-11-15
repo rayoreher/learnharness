@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
+import { presentationSettings } from '../public/course-studio/plugin-registry.js';
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';
 export const TYPES = ['multiple-choice', 'open', 'fill-blank', 'flashcard'];
 export class Problem extends Error {
   constructor(message, status = 400) { super(message); this.status = status; }
@@ -19,7 +20,9 @@ export function exerciseTypes(value) {
 export function validateCourse(input) {
   check(input && typeof input === 'object', 'A course must be an object.');
   const goal = text(input.goal, 'Learning goal', 2000);
-  const settings = { exerciseTypes: exerciseTypes(input.settings?.exerciseTypes ?? TYPES), format: 'text', workflow: 'lesson-quiz' };
+  let presentation;
+  try { presentation = presentationSettings(input.settings); } catch (e) { throw new Problem(e.message); }
+  const settings = { exerciseTypes: exerciseTypes(input.settings?.exerciseTypes ?? TYPES), ...presentation };
   check(Array.isArray(input.lessons) && input.lessons.length >= 1 && input.lessons.length <= 20, 'A course needs 1–20 small lessons.');
   const ids = new Set();
   const unique = (value, label) => { const id = text(value, label, 100); check(/^[a-zA-Z0-9_-]+$/.test(id) && !['__proto__', 'prototype', 'constructor'].includes(id) && !ids.has(id), `${label} must be a unique simple identifier.`); ids.add(id); return id; };
@@ -35,7 +38,7 @@ export function validateCourse(input) {
         check(Array.isArray(b.items) && b.items.length > 0 && b.items.length <= 20, 'A list needs items.');
         return { type: b.type, items: b.items.map(x => text(x, 'List item', 2000)) };
       }
-      return { type: b.type, text: text(b.text, 'Lesson text') };
+      return { type: b.type, text: text(b.text, 'Lesson text'), ...(b.role === 'example' ? { role: 'example' } : {}) };
     });
     check(Array.isArray(l.exercises) && l.exercises.length > 0 && l.exercises.length <= 40, 'Each lesson needs exercises.');
     const exercises = l.exercises.map(e => {
@@ -67,7 +70,7 @@ export const COURSE_SCHEMA = object({
   title: string, summary: string, goal: string, level: string,
   lessons: array(object({ id: string, title: string, summary: string,
     objectives: array(object({ id: string, title: string })),
-    blocks: array(object({ type: { enum: ['paragraph', 'heading', 'bullets', 'code'] }, text: string, items: array(string) })),
+    blocks: array(object({ type: { enum: ['paragraph', 'heading', 'bullets', 'code'] }, role: { enum: ['explanation', 'example', 'takeaway'] }, text: string, items: array(string) })),
     exercises: array(object({ id: string, type: { enum: TYPES }, conceptIds: array(string), question: string, answer: string, explanation: string, rubric: string, options: array(string) }))
   }))
 });

@@ -1,4 +1,59 @@
-# v0.1 verification record
+# Course Studio verification record
+
+## v0.2 completed verification
+
+- 27 automated tests pass on Node 24.22.3, including plugin compatibility,
+  collisions, output projection/fallback, sparse overrides, preserved records
+  and device sign-in. The inherited dependency tree is not executed.
+- An existing bubblewrap runner successfully supplied a credential-free browser
+  environment when launched with the necessary host execution permission.
+  Only installed runtime libraries, Node, Chromium, authored app modules and
+  the screenshot output folder were mounted. Host home/runtime directories,
+  other projects and daemon sockets were absent. The network namespace had
+  no external connectivity; the app and browser shared only its loopback.
+- The browser harness uses Chromium's DevTools protocol directly through Node's
+  built-in WebSocket, with no automation-package installation. Chromium's inner
+  sandbox is disabled only inside this enclosing filesystem/network isolation.
+  The browser was not run with access to host account files or credentials.
+- The real browser completed wrong-answer feedback, open-answer self-rating,
+  flashcard reveal/rating, forward lesson progression, review reappearance,
+  successful recall and a page reload with preserved queue state.
+- Slides and interactive scenes rendered. A real 1280×720 captioned video was
+  encoded, decoded by the video element, downloaded, and its WebM header checked.
+  Verified downloads were approximately 670 KB. Switching output preserved all attempt,
+  completion and review records.
+- Desktop and 390px mobile screenshots were inspected. Keyboard answer choice
+  retained focus, main navigation fit, and the page had no horizontal overflow.
+- The user completed the official ChatGPT device sign-in. The installed Codex
+  CLI 0.166.0 then generated a validated four-lesson HTTP course with sixteen
+  exercises covering all four mechanics. A real open-answer request returned
+  `correct` from `codex-rubric` with semantically appropriate feedback.
+- Live testing caught an obsolete `readOnly.access` request rejected by this
+  Codex version. The adapter now selects its own `learning-content` permission
+  profile with only minimal-runtime/workspace read grants and command network
+  access disabled. A fresh-profile protocol check confirmed the effective
+  read-only policy; signed-in generation and grading passed after the change.
+
+## v0.2 source review
+
+The authored closure now includes the browser-safe registry imported by the
+server. No outside package was added. A saved-scanner high flag at the original
+browser harness line 10 was a negative assertion that a daemon endpoint was
+inaccessible, using read-only `fs.access`; it did not open that endpoint or
+request privileges. The check was strengthened to require that the entire host
+home and runtime directories are absent, rather than checking one endpoint.
+The complete authored directories were rescanned after this change. Raw reports
+are retained in the task's temporary intake location; no detector was disabled.
+
+## Remaining before complete delivery
+
+- Finish the generalized plugin implementations and remaining acceptance items
+  in GitHub issue #1. Slot declarations alone are not complete implementations.
+- Verify the optional Next route/sidebar bridge with the inherited application's
+  independently reviewed dependencies. The standalone application has the
+  verified learning, media and signed-in inference path.
+
+## Historical v0.1 verification
 
 ## Completed
 
@@ -20,7 +75,7 @@
   signed-in account. No real inference was performed.
 - Syntax checks passed for the server modules and browser JavaScript.
 
-## Remaining before stable release
+### Limits at the v0.1 checkpoint
 
 - Complete ChatGPT sign-in and an actual generated course/open-answer grading
   roundtrip. Simulated protocol tests are not evidence of real inference.
@@ -30,7 +85,7 @@
 - Verify the Next route/sidebar integration with the inherited application's
   separately reviewed dependencies and runtime.
 
-## Source and execution boundary
+## Inherited source and execution boundary
 
 Base: `amosblomqvist/learnharness` commit
 `cb25c8e49b85eed9e78315584731cad73a0118a6`, archive SHA-256

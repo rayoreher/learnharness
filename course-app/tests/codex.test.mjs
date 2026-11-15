@@ -9,9 +9,9 @@ import { Codex } from '../codex.mjs';
 
 async function client(t, behavior = {}) {
   const directory = await mkdtemp(path.join(os.tmpdir(), 'lh-codex-test-'));
-  const messages = []; let child, spawnOptions;
+  const messages = []; let child, spawnOptions, spawnArgs;
   const fakeSpawn = (command, args, options) => {
-    spawnOptions = options; child = new EventEmitter(); child.stdout = new PassThrough(); child.stderr = new PassThrough();
+    spawnOptions = options; spawnArgs = args; child = new EventEmitter(); child.stdout = new PassThrough(); child.stderr = new PassThrough();
     const send = message => child.stdout.write(JSON.stringify(message) + '\n');
     child.stdin = new Writable({ write(chunk, _, done) {
       const message = JSON.parse(chunk.toString()); messages.push(message);
@@ -20,7 +20,7 @@ async function client(t, behavior = {}) {
         if (behavior.hang === message.method) return;
         let result = {};
         if (message.method === 'account/read') result = { account: { type: behavior.authType ?? 'chatgpt' } };
-        if (message.method === 'account/login/start') result = { authUrl: behavior.authUrl ?? 'https://auth.openai.com/authorize?example=1' };
+        if (message.method === 'account/login/start') result = message.params.type === 'chatgptDeviceCode' ? { verificationUrl: behavior.authUrl ?? 'https://auth.openai.com/codex/device', userCode: 'TEST-1234' } : { authUrl: behavior.authUrl ?? 'https://auth.openai.com/authorize?example=1' };
         if (message.method === 'model/list') result = { data: [{ id: 'available-model', displayName: 'Available model', isDefault: true }], nextCursor: null };
         if (message.method === 'thread/start') result = { thread: { id: 'thread-test' } };
         if (message.method === 'turn/start') {
@@ -37,14 +37,16 @@ async function client(t, behavior = {}) {
   };
   const codex = new Codex({ directory, spawnProcess: fakeSpawn, timeout: 200 });
   t.after(async () => { await codex.close(); await rm(directory, { recursive: true, force: true }); });
-  return { codex, messages, options: () => spawnOptions, child: () => child };
+  return { codex, messages, options: () => spawnOptions, args: () => spawnArgs, child: () => child };
 }
 test('Codex handshakes, authenticates with ChatGPT, and handles early completion', async t => {
   const f = await client(t); assert.equal((await f.codex.status()).connected, true);
   const result = await f.codex.generate('Create learning content', { type: 'object' }, 'available-model'); assert.equal(result.answer, 'complete');
   assert.deepEqual(f.messages.slice(0, 2).map(m => m.method), ['initialize', 'initialized']);
-  const turn = f.messages.find(m => m.method === 'turn/start'); assert.equal(turn.params.sandboxPolicy.type, 'readOnly'); assert.equal(turn.params.approvalPolicy, 'never');
-  assert.deepEqual(turn.params.sandboxPolicy.access.readableRoots, [f.options().cwd]);
+  const turn = f.messages.find(m => m.method === 'turn/start'); assert.equal(turn.params.sandboxPolicy, undefined); assert.equal(turn.params.approvalPolicy, 'never');
+  assert.ok(f.args().includes('default_permissions="learning-content"'));
+  assert.ok(f.args().includes('permissions.learning-content.filesystem={":minimal"="read",":workspace_roots"="read"}'));
+  assert.ok(f.args().includes('permissions.learning-content.network.enabled=false'));
   assert.equal(f.options().env.OPENAI_API_KEY, undefined); assert.equal(f.options().env.SSH_AUTH_SOCK, undefined);
 });
 test('API-key authentication cannot silently substitute for ChatGPT', async t => {
@@ -60,8 +62,13 @@ test('malformed and incomplete model responses never become accepted content', a
   await assert.rejects(interrupted.codex.generate('test', {}, null), /did not complete/);
 });
 test('login accepts only supported HTTPS destinations and exposes no token response', async t => {
-  const f = await client(t); const login = await f.codex.login(); assert.deepEqual(Object.keys(login), ['authUrl']);
+  const f = await client(t); const login = await f.codex.login('browser'); assert.deepEqual(Object.keys(login), ['authUrl']);
   const hostile = await client(t, { authUrl: 'https://example.com/steal' }); await assert.rejects(hostile.codex.login(), /unexpected sign-in/);
+});
+test('device sign-in returns only the verification address and user code', async t => {
+  const f = await client(t); const login = await f.codex.login();
+  assert.deepEqual(Object.keys(login).sort(), ['authUrl', 'userCode']); assert.equal(login.userCode, 'TEST-1234');
+  assert.equal(f.messages.find(m => m.method === 'account/login/start').params.type, 'chatgptDeviceCode');
 });
 test('unanswered protocol calls time out and release pending requests', async t => {
   const f = await client(t, { hang: 'model/list' });

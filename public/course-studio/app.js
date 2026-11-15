@@ -1,8 +1,13 @@
+import { registry } from './plugin-registry.js';
+import { mountLessonOutput } from './lesson-outputs.js';
+
 const root = document.querySelector('#app');
 const notice = document.querySelector('#notice');
 const names = { 'multiple-choice': 'Multiple choice', open: 'Open question', 'fill-blank': 'Fill in the blank', flashcard: 'Flashcards' };
-let state, connection = { connected: false }, route = { view: 'home' }, feedback = null, selected = '', answer = '', review = null, busy = false, noticeTimer, modelOptions = [], signInUrl = null;
+let state, connection = { connected: false }, route = { view: 'home' }, feedback = null, selected = '', answer = '', review = null, busy = false, noticeTimer, modelOptions = [], signInUrl = null, signInCode = null, lessonSurface = null;
 const polling = new Set();
+const draft = { goal: '', level: 'beginner', types: Object.keys(names), presentation: { format: 'text', template: 'guided', workflow: 'lesson-quiz' } };
+let lastRenderedRoute = null;
 
 function el(tag, attrs = {}, ...children) {
   const node = document.createElement(tag);
@@ -38,6 +43,19 @@ function lesson(c) { return c.lessons.find(l => l.id === route.lessonId) ?? c.le
 function typesControl(types, chosen, callback) {
   return el('div', { class: 'types' }, types.map(type => el('label', {}, el('input', { type: 'checkbox', value: type, checked: chosen.includes(type), onChange: callback }), names[type])));
 }
+function pluginSelect(slot, field, value, callback, scope) {
+  const id = `plugin-${scope}-${field}`;
+  const select = el('select', { id, 'aria-label': field, onChange: callback }, registry.list(slot).map(entry => el('option', { value: entry.manifest.id, selected: entry.manifest.id === value }, entry.manifest.label)));
+  return el('div', { class: 'field' }, el('label', { for: id }, field[0].toUpperCase() + field.slice(1)), select);
+}
+function presentationControls(settings, onChange, scope = 'create') {
+  return el('div', { class: 'presentation-controls' }, [['output', 'format', 'text'], ['template', 'template', 'guided'], ['workflow', 'workflow', 'lesson-quiz']].map(([slot, field, fallback]) => pluginSelect(slot, field, settings[field] ?? fallback, event => { onChange(field, event.target.value); }, scope)));
+}
+function lessonOutput(c, l, settings) {
+  const key = [c.id, c.version, l.id, settings.format, settings.template].join(':');
+  if (lessonSurface?.key !== key) { lessonSurface?.dispose(); lessonSurface = { key, ...mountLessonOutput(l, settings) }; }
+  return lessonSurface.element;
+}
 function shell(body) {
   const c = course();
   return el('div', { class: 'shell' },
@@ -52,17 +70,28 @@ function shell(body) {
 }
 function render() {
   if (!state) return;
+  const routeKey = JSON.stringify(route), sameRoute = routeKey === lastRenderedRoute;
+  const focused = document.activeElement;
+  const focus = sameRoute && root.contains(focused) ? { id: focused.id, tag: focused.tagName, text: focused.tagName === 'BUTTON' ? focused.textContent : '', start: focused.selectionStart, end: focused.selectionEnd } : null;
+  const expanded = sameRoute ? [...root.querySelectorAll('details')].map(d => d.open) : [];
+  if (route.view !== 'course' && lessonSurface) { lessonSurface.dispose(); lessonSurface = null; }
   let body;
   if (route.view === 'settings') body = settingsView();
   else if (route.view === 'course' && course()) body = courseView(course());
   else if (route.view === 'review' && course()) body = reviewView(course());
   else body = homeView();
   root.replaceChildren(shell(body));
+  root.querySelectorAll('details').forEach((d, index) => { if (expanded[index]) d.open = true; });
+  const nextFocus = focus?.id ? document.getElementById(focus.id) : focus?.text ? [...root.querySelectorAll('button')].find(b => b.textContent === focus.text) : null;
+  if (nextFocus && !nextFocus.disabled) { nextFocus.focus({ preventScroll: true }); if (typeof nextFocus.setSelectionRange === 'function' && focus.start !== null) nextFocus.setSelectionRange(focus.start, focus.end); }
+  else if (!sameRoute) document.getElementById('main')?.focus({ preventScroll: true });
+  lastRenderedRoute = routeKey;
 }
 function homeView() {
-  const goalInput = el('textarea', { id: 'goal', placeholder: 'I want to understand how neural networks learn…', required: '', maxLength: '2000', 'aria-label': 'What would you like to learn?' });
-  const levelInput = el('select', { id: 'level' }, ['beginner', 'intermediate', 'advanced'].map(v => el('option', { value: v }, v[0].toUpperCase() + v.slice(1))));
-  const typeInputs = typesControl(Object.keys(names), Object.keys(names));
+  const goalInput = el('textarea', { id: 'goal', placeholder: 'I want to understand how neural networks learn…', required: '', maxLength: '2000', 'aria-label': 'What would you like to learn?', onInput: event => { draft.goal = event.target.value; } }, draft.goal);
+  const levelInput = el('select', { id: 'level', onChange: event => { draft.level = event.target.value; } }, ['beginner', 'intermediate', 'advanced'].map(v => el('option', { value: v, selected: v === draft.level }, v[0].toUpperCase() + v.slice(1))));
+  const typeInputs = typesControl(Object.keys(names), draft.types, event => { draft.types = [...event.target.closest('.types').querySelectorAll('input:checked')].map(x => x.value); });
+  const presentation = draft.presentation;
   const form = el('form', { class: 'goalbox', onSubmit: event => {
     event.preventDefault(); const goal = goalInput.value, level = levelInput.value;
     const types = [...typeInputs.querySelectorAll('input:checked')].map(x => x.value);
@@ -70,11 +99,11 @@ function homeView() {
       if (!goal.trim()) throw new Error('Describe what you want to learn.');
       if (!types.length) throw new Error('Choose at least one exercise format.');
       if (!connection.connected) { go('settings'); throw new Error('Connect Codex with ChatGPT to generate your course.'); }
-      const job = await api('generate', { goal, level, types }); await refresh(); watchJob(job.id); message('Your course is being prepared. You can keep exploring.');
+      const job = await api('generate', { goal, level, types, presentation }); draft.goal = ''; await refresh(); watchJob(job.id); message('Your course is being prepared. You can keep exploring.');
     });
   } }, el('label', { for: 'goal' }, 'What would you like to understand?'), goalInput,
   el('div', { class: 'goal-options' }, el('div', { class: 'field' }, el('label', { for: 'level' }, 'Starting level'), levelInput), el('span', { class: 'small' }, 'A focused course, one small lesson at a time.'), el('button', { type: 'submit', class: 'primary', disabled: busy }, 'Create my course →')),
-  el('details', {}, el('summary', { class: 'small' }, 'Choose practice formats'), typeInputs));
+  el('details', {}, el('summary', { class: 'small' }, 'Choose practice and lesson formats'), typeInputs, presentationControls(presentation, (field, value) => { presentation[field] = value; })));
   return el('div', {}, el('section', { class: 'hero' }, el('p', { class: 'eyebrow' }, 'Learn with intention'), el('h1', {}, 'Make it make sense.'), el('p', {}, 'Start with a question. Build understanding through small lessons, varied practice, and another chance at the ideas that need it.')), form,
     state.jobs.filter(j => ['running', 'queued', 'interrupted', 'failed'].includes(j.status)).map(j => el('div', { class: 'job', role: 'status' }, el('strong', {}, j.goal), el('p', { class: 'small' }, ['running', 'queued'].includes(j.status) ? 'Preparing your lessons and exercises…' : j.error))),
     el('div', { class: 'sectionhead' }, el('h2', {}, 'Your learning paths'), button('Explore a sample ↗', async () => { const c = await api('sample', {}); await refresh(); openCourse(c); }, 'quiet')),
@@ -90,17 +119,22 @@ async function openCourse(c, id) {
 function courseView(c) {
   const l = lesson(c), p = progress(c);
   const selectedTypes = p.lessonSettings[l.id]?.exerciseTypes ?? c.settings.exerciseTypes;
+  const presentation = { format: 'text', template: 'guided', workflow: 'lesson-quiz', ...c.settings, ...p.lessonSettings[l.id] };
   const exercises = l.exercises.filter(e => selectedTypes.includes(e.type));
   const unanswered = exercises.filter(e => !p.attempts.some(a => a.exerciseId === e.id));
   const current = feedback ? exercises.find(e => e.id === feedback.exerciseId) : unanswered[0];
-  const settings = el('details', {}, el('summary', { class: 'small' }, 'Practice formats for this lesson'), typesControl([...new Set(l.exercises.map(e => e.type))], selectedTypes, async event => {
+  const settings = el('details', {}, el('summary', { class: 'small' }, 'Formats for this lesson'), presentationControls(presentation, (field, value) => { void action(async () => { await api(`courses/${c.id}/lessons/${l.id}/settings`, { [field]: value }); await refresh(); }); }, 'lesson'),
+    p.lessonSettings[l.id] && button('Use course defaults', async () => { await api(`courses/${c.id}/lessons/${l.id}/settings`, { inherit: true }); await refresh(); }, 'quiet'),
+    typesControl([...new Set(l.exercises.map(e => e.type))], selectedTypes, async event => {
     const container = event.target.closest('.types'); const values = [...container.querySelectorAll('input:checked')].map(x => x.value);
     await action(async () => { await api(`courses/${c.id}/lessons/${l.id}/settings`, { exerciseTypes: values }); feedback = null; await refresh(); });
   }));
   return el('div', {}, el('div', { class: 'row spread' }, button('← All learning paths', () => go('home'), 'quiet'), button(`Review ${p.reviews.length} concept${p.reviews.length === 1 ? '' : 's'} ↺`, () => openReview(c.id), 'quiet')),
     el('header', { class: 'lesson-heading' }, el('p', { class: 'eyebrow' }, c.title), el('h1', {}, l.title), el('p', {}, l.summary)),
+    el('details', {}, el('summary', { class: 'small' }, 'Default formats for this course'), presentationControls(c.settings, (field, value) => { void action(async () => { await api(`courses/${c.id}/settings`, { [field]: value }); await refresh(); }); }, 'course')),
     el('nav', { class: 'lesson-nav', 'aria-label': 'Course lessons' }, c.lessons.map((item, i) => button(`${p.completedLessons.includes(item.id) ? '✓' : i + 1}  ${item.title}`, () => openCourse(c, item.id), item.id === l.id ? 'active' : ''))),
-    el('div', { class: 'lesson-layout' }, el('article', { class: 'reading' }, el('span', { class: 'eyebrow' }, 'The lesson'), el('div', { class: 'objectives' }, l.objectives.map(o => el('p', {}, o.title))), l.blocks.map(renderBlock)),
+    el('div', { class: 'lesson-layout' }, el('article', { class: 'reading' }, el('span', { class: 'eyebrow' }, 'The lesson'), el('div', { class: 'objectives' }, l.objectives.map(o => el('p', {}, o.title))),
+      registry.get('workflow', presentation.workflow)?.implementation.practiceFirst && !p.attempts.some(a => a.lessonId === l.id) ? el('div', {}, el('h2', {}, 'Try what you know.'), el('p', {}, 'Start with an exercise. The lesson opens after your first attempt, so you can explore the idea with feedback in mind.')) : lessonOutput(c, l, presentation)),
       el('section', { class: 'practice', 'aria-label': 'Lesson practice' }, el('div', { class: 'row spread' }, el('span', { class: 'eyebrow' }, 'Put it into practice'), el('span', { class: 'small' }, `${exercises.length - unanswered.length}/${exercises.length}`)), settings,
         current ? questionView(c, l, current) : el('div', {}, el('h2', {}, 'A little further.'), el('p', {}, 'You have tried this lesson’s exercises. Any concepts that need another attempt stay in your review queue.'), button(p.completedLessons.includes(l.id) ? 'Continue to the next lesson →' : 'Complete lesson & continue →', async () => {
           await api(`courses/${c.id}/lessons/${l.id}/complete`, {}); await refresh(); const next = c.lessons[c.lessons.findIndex(x => x.id === l.id) + 1];
@@ -152,9 +186,9 @@ function settingsView() {
   return el('div', {}, el('section', { class: 'hero' }, el('p', { class: 'eyebrow' }, 'Your local connection'), el('h1', {}, 'A teacher on your terms.'), el('p', {}, 'Course Studio runs locally and connects to the installed Codex CLI. ChatGPT powers generation and open-answer feedback.')),
     el('section', { class: 'panel' }, el('h2', {}, 'Codex & ChatGPT'), el('p', {}, connection.connected ? 'Your ChatGPT account is connected through Codex.' : 'Sign in to ChatGPT through Codex to create a course.'), connection.error && el('p', { class: 'error' }, connection.error),
       el('div', { class: 'row' }, button(connection.pending ? 'Sign-in in progress…' : 'Sign in with ChatGPT ↗', async () => {
-        const data = await api('login', {}); signInUrl = data.authUrl; connection.pending = true; void watchConnection();
+        const data = await api('login', { method: 'device' }); signInUrl = data.authUrl; signInCode = data.userCode; connection.pending = true; void watchConnection();
       }, 'primary'), button('Refresh connection', async () => { connection = await api('connection'); }, 'quiet')),
-      el('div', { id: 'signin-link' }, signInUrl && !connection.connected && el('a', { href: signInUrl, target: '_blank', rel: 'noopener noreferrer' }, 'Open ChatGPT sign-in ↗')), el('p', { class: 'small' }, 'Credentials stay with Codex on the server. Its sign-in page opens on the machine running the app. No API-key billing fallback is used.')),
+      el('div', { id: 'signin-link' }, signInUrl && !connection.connected && el('div', {}, signInCode && el('p', {}, 'Enter this code: ', el('strong', { class: 'device-code' }, signInCode)), el('a', { href: signInUrl, target: '_blank', rel: 'noopener noreferrer' }, 'Open ChatGPT sign-in ↗'))), el('p', { class: 'small' }, 'Credentials stay with Codex on the server. You can complete device sign-in from another machine. No API-key billing fallback is used.')),
     el('section', { class: 'panel' }, el('h2', {}, 'Generation model'), el('label', { for: 'model' }, 'Available through your Codex account'), model,
       el('div', { class: 'row' }, button('Load available models', loadModels), button('Save model', async () => { if (!model.value) throw new Error('Load and choose a model first.'); await api('settings', { model: model.value }); await refresh(); message('Model preference saved.'); }, 'primary'))),
     el('section', { class: 'panel' }, el('h2', {}, 'Your learning records'), el('p', {}, 'Lessons, attempts, completion, and the review queue are saved on this machine. Refreshing the browser or restarting the app preserves them.'), el('p', { class: 'small' }, 'Model requests send the relevant learning content to the connected service. Local storage does not mean offline inference.')));

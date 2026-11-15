@@ -4,7 +4,7 @@ Course Studio adds a course workspace to the LearnHarness fork: small lessons,
 mixed exercises, immediate answer explanations, and durable concept review.
 The original teaching and practice interfaces remain available.
 
-## Run the first version
+## Run
 
 Use Node.js 22.13 or later (Node 24 LTS recommended), and install Codex separately
 using the official OpenAI instructions. From the repository root:
@@ -51,9 +51,33 @@ not substituted. Model availability and usage depend on the account. Content
 generation runs in an empty app-owned working directory with read-only access
 and no approval tools. The browser never receives provider credentials.
 
-The browser sign-in callback belongs to the machine running Course Studio.
-For remote installations, complete browser sign-in there; remote-friendly
-device-code sign-in is tracked for the next iteration.
+The default device-code flow works from a browser on another machine: open the
+displayed official sign-in link, enter the code and approve the connection.
+The backend keeps the Codex profile; the UI receives the verification address
+and the code intended for the user. The browser callback flow remains supported
+through the API's explicit `method: "browser"` option for same-machine setups.
+
+## Lesson-output plugins
+
+Choose a course default or override one lesson's Format, Template, and Workflow.
+Overrides are sparse: changing only a lesson's format still lets it inherit
+future changes to the course's template or workflow. **Use course defaults**
+removes the lesson override without removing attempts or review history.
+
+- Text: complete saved explanatory content.
+- Slides: paged scenes derived from that content.
+- Captioned video: browser-local encoding of the lesson scenes, with playback
+  and a downloadable WebM/MP4 artifact where supported. It has no narration and
+  uses no external video service. Keep the tab open during recording.
+- Interactive: reveal the lesson one scene at a time. These reveals do not
+  count as graded answers or successful recall.
+
+Guided, Example first, and Reference sheet templates are included. The
+Try, then explore workflow opens the lesson after the first exercise attempt.
+If a browser lacks video capabilities, a readable text lesson appears with
+an explicit explanation; source material and progress remain unchanged.
+
+The versioned extension contract is documented in `PLUGIN-CONTRACT.md`.
 
 ## Data and configuration
 

@@ -8,7 +8,7 @@ import { handleCourseRequest } from './http.mjs';
 export async function startServer({ port = Number(process.env.LH_COURSE_PORT || 3030), directory, codex } = {}) {
   const app = await createApplication({ directory, codex });
   const assets = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../public/course-studio');
-  const files = new Map([['/', ['index.html', 'text/html']], ['/courses', ['index.html', 'text/html']], ['/course-studio/index.html', ['index.html', 'text/html']], ['/course-studio/app.js', ['app.js', 'text/javascript']], ['/course-studio/style.css', ['style.css', 'text/css']]]);
+  const files = new Map([['/', ['index.html', 'text/html']], ['/courses', ['index.html', 'text/html']], ['/course-studio/index.html', ['index.html', 'text/html']], ['/course-studio/app.js', ['app.js', 'text/javascript']], ['/course-studio/plugin-registry.js', ['plugin-registry.js', 'text/javascript']], ['/course-studio/lesson-outputs.js', ['lesson-outputs.js', 'text/javascript']], ['/course-studio/style.css', ['style.css', 'text/css']]]);
   const server = http.createServer(async (req, res) => {
     try {
       const host = req.headers.host || '';

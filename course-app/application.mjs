@@ -5,6 +5,7 @@ import { Codex } from './codex.mjs';
 import { Learning } from './learning.mjs';
 import { sampleCourse } from './sample.mjs';
 import { check, text, exerciseTypes, publicCourse } from './schema.mjs';
+import { presentationSettings } from '../public/course-studio/plugin-registry.js';
 
 export async function createApplication({ directory = process.env.LH_COURSE_DATA_DIR || path.resolve('data/course-studio'), codex } = {}) {
   const store = await new Store(directory).initialize();
@@ -20,6 +21,7 @@ export async function createApplication({ directory = process.env.LH_COURSE_DATA
       check(!closing, 'Course Studio is shutting down.', 503);
       const goal = text(input.goal, 'Learning goal', 2000), level = text(input.level ?? 'beginner', 'Level', 100);
       const types = exerciseTypes(input.types);
+      let presentation; try { presentation = presentationSettings(input.presentation); } catch (e) { check(false, e.message); }
       const job = { id: randomUUID(), goal, status: 'queued', createdAt: Date.now() };
       // Claim the slot before the first await to fence simultaneous requests.
       activeJob = job.id;
@@ -30,7 +32,7 @@ export async function createApplication({ directory = process.env.LH_COURSE_DATA
         try {
           await store.transact(s => { s.jobs.find(j => j.id === job.id).status = 'running'; });
           check(!closing, 'Generation was interrupted by shutdown.', 503);
-          const course = await codex.course({ goal, level, types }, state.settings.model);
+          const course = await codex.course({ goal, level, types, presentation }, state.settings.model);
           // Save course and terminal job status in one durable transaction.
           await store.transact(s => { s.courses.push(course); s.progress[course.id] = { completedLessons: [], lastLessonId: null, attempts: [], reviews: [], sequence: 0, lessonSettings: {} }; Object.assign(s.jobs.find(j => j.id === job.id), { status: 'succeeded', courseId: course.id }); });
         } catch (e) { await store.transact(s => { Object.assign(s.jobs.find(j => j.id === job.id), { status: 'failed', error: e.status ? e.message : 'Generation failed. No incomplete course was saved.' }); }); }
