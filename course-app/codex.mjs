@@ -126,8 +126,12 @@ export class Codex extends EventEmitter {
   async course({ goal, level = 'beginner', types, presentation = {} }, model) {
     goal = text(goal, 'Learning goal', 2000); level = text(level, 'Level', 100); exerciseTypes(types);
     const prompt = `Create a self-contained course of 3–5 small lessons for this learner. Explain each lesson before its exercises. Use concrete examples. Every learning objective must have exercises. Use globally unique simple IDs. Each lesson should include exercises from the requested formats where suitable. Multiple-choice answers must exactly match one option. Fill-blank answers should be short, unambiguous terms. Open questions need a fair semantic rubric. Every exercise needs a reference answer and explanation. Flashcards test recall. Blocks use heading/paragraph/code text or bullets items; unused text is empty and unused items/options are empty arrays. Return only the specified JSON.\nLearner data: ${JSON.stringify({ goal, level, formats: types })}`;
-    const raw = await this.generate(prompt + `\nLesson presentation preferences: ${JSON.stringify(presentation)}. Mark worked-example blocks with role=example. For example-first lessons introduce a concrete worked example before the general explanation.`, COURSE_SCHEMA, model);
-    const course = validateCourse({ ...raw, goal, level, settings: { exerciseTypes: types, ...presentation } });
+    const schema = structuredClone(COURSE_SCHEMA);
+    schema.properties.lessons.items.properties.exercises.items.properties.type.enum = types;
+    const raw = await this.generate(prompt + `\nLesson presentation preferences: ${JSON.stringify(presentation)}. Mark worked-example blocks with role=example. For example-first lessons introduce a concrete worked example before the general explanation. For ordering exercises, options are shuffled items and answer is a JSON-encoded array of those exact strings in correct order. True-false exercises use exactly True and False as options.`, schema, model);
+    let course;
+    try { course = validateCourse({ ...raw, goal, level, settings: { exerciseTypes: types, ...presentation } }); }
+    catch (error) { throw new Problem(`The generated course is invalid: ${error.message}`, 502); }
     check(course.lessons.every(l => l.exercises.some(e => types.includes(e.type))), 'Generated lesson lacks the selected exercise formats.', 502); return course;
   }
   async grade(exercise, answer) {

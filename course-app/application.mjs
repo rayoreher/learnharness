@@ -2,7 +2,7 @@ import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { Store } from './store.mjs';
 import { Codex } from './codex.mjs';
-import { Learning } from './learning.mjs';
+import { Learning, emptyProgress } from './learning.mjs';
 import { sampleCourse } from './sample.mjs';
 import { check, text, exerciseTypes, publicCourse } from './schema.mjs';
 import { presentationSettings } from '../public/course-studio/plugin-registry.js';
@@ -34,7 +34,7 @@ export async function createApplication({ directory = process.env.LH_COURSE_DATA
           check(!closing, 'Generation was interrupted by shutdown.', 503);
           const course = await codex.course({ goal, level, types, presentation }, state.settings.model);
           // Save course and terminal job status in one durable transaction.
-          await store.transact(s => { s.courses.push(course); s.progress[course.id] = { completedLessons: [], lastLessonId: null, attempts: [], reviews: [], sequence: 0, lessonSettings: {} }; Object.assign(s.jobs.find(j => j.id === job.id), { status: 'succeeded', courseId: course.id }); });
+          await store.transact(s => { s.courses.push(course); s.progress[course.id] = emptyProgress(); Object.assign(s.jobs.find(j => j.id === job.id), { status: 'succeeded', courseId: course.id }); });
         } catch (e) { await store.transact(s => { Object.assign(s.jobs.find(j => j.id === job.id), { status: 'failed', error: e.status ? e.message : 'Generation failed. No incomplete course was saved.' }); }); }
         finally { activeJob = null; }
       };

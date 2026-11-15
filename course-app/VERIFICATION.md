@@ -1,5 +1,22 @@
 # Course Studio verification record
 
+## v0.3 completed verification
+
+- 35 automated tests pass on Node 24.22.3. Additional cases run a registered
+  custom exercise and grader through real core validation/persistence, reject
+  invalid grader results, test ordered and true/false answers, enforce delayed
+  reinforced success, schedule spaced recall, move global review between
+  courses, and reject conflicting receipt reuse.
+- The expanded isolated real-browser journey answered fill-blank, choice,
+  true/false and ordering exercises through their actual controls. It continued
+  after an incorrect true/false answer, completed the lesson and cleared that
+  concept through the global Review page. Earlier lesson/media, download,
+  keyboard-focus and mobile checks also passed.
+- Provider protocol code is unchanged from the live-verified v0.2 adapter.
+  Generation now supplies the selected registered mechanic IDs in its schema.
+  Actual generation of the added mechanics is part of the next combined live
+  source/diagram acceptance check; it is not claimed by these offline tests.
+
 ## v0.2 completed verification
 
 - 27 automated tests pass on Node 24.22.3, including plugin compatibility,

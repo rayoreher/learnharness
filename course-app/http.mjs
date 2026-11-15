@@ -36,6 +36,7 @@ export async function handleCourseRequest(request, suppliedApplication) {
     if (method === 'POST' && route.join('/') === 'generate') return json(await app.generate(input), 202);
     if (method === 'GET' && route[0] === 'jobs' && route.length === 2) { const state = await app.store.read(); const job = state.jobs.find(j => j.id === route[1]); check(job, 'Generation not found.', 404); return json(job); }
     if (method === 'POST' && route.join('/') === 'attempts') return json(await app.learning.attempt(input), 201);
+    if (method === 'GET' && route.join('/') === 'review') return json(await app.learning.nextGlobalReview());
     if (route[0] === 'courses' && route[1]) {
       if (method === 'POST' && route.length === 3 && route[2] === 'settings') return json(await app.learning.courseSettings(route[1], input));
       if (method === 'GET' && route.length === 3 && route[2] === 'review') return json(await app.learning.nextReview(route[1]));

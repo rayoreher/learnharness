@@ -1,5 +1,21 @@
 # Course Studio changes
 
+## 0.3.0 — exercise and review plugins
+
+- Generalized exercise/assessor dispatch through validated registry interfaces.
+  Added true/false and ordering exercises, including keyboard-accessible order
+  controls and rejection of malformed answer sequences.
+- Added custom content validation and grader identity/version in attempt records.
+  Invalid verdicts and missing grader capabilities cannot change progress.
+- Added session, reinforced and fixed-interval spaced review policies, keeping
+  future retention schedules separate from outstanding mistakes.
+- Added a global review page across courses, with per-course scheduling and
+  fair selection by recent review activity.
+- Added answer fingerprint checks so a receipt cannot be reused for a different
+  payload, including simultaneous submissions.
+- Passed 35 automated tests and the expanded isolated real-browser journey
+  through the new exercise mechanics and global review.
+
 ## 0.2.0 — lesson-output preview
 
 - Added plugin API 1 with versioned manifests, explicit extension slots,

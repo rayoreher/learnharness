@@ -40,13 +40,27 @@ registration. Manifest records and capability arrays are frozen.
 | `template` | `arrange(lesson)` returns a lesson projection; guided/example-first/reference are supplied |
 | `workflow` | `practiceFirst` selects the supported lesson-first or attempt-first sequencing |
 | `visual` | Reserved catalog entries for SVG and plain text; semantic diagram support is the next iteration |
-| `exercise` | Catalog of the four current mechanics; general custom mechanics remain on the delivery checklist |
-| `grader` | Catalog of answer-key, Codex rubric and self-assessment; general grader dispatch remains on the checklist |
-| `review` | Current session remediation policy; selectable policies remain on the checklist |
+| `exercise` | `input` selects choice/text/recall/ordered controls; `grader` names an assessor; optional `validate(exercise)` adds content checks; six mechanics are supplied |
+| `grader` | `grade({exercise, answer}, context)` returns a validated correct/partial/incorrect result and bounded feedback; Codex calls use `context.assess`; capability requirements are checked |
+| `review` | Delay/required-success policy, with optional spaced-day intervals; session/reinforced/spaced are supplied |
 | `source` | Goal-generated and included sample content; imports remain on the checklist |
 
 The catalog declares future seams explicitly. Catalog presence alone does not
 claim that arbitrary custom implementations of every slot are already runnable.
+
+Exercise plugins use the shared question/reference-answer/explanation/concept
+shape, with an options array for choice or ordering. Custom graders cannot
+write progress directly. The core validates the result, records grader identity
+and version, and updates review. A bad verdict creates no accepted attempt.
+Ordering submissions must contain each option exactly once. New registered
+mechanics are included in schema validation and structured generation.
+
+Session review clears a missed concept after a later unassisted success.
+Reinforced review requires two successful returns with a delay between them.
+Spaced review also schedules successful concepts after 1, 3, 7, 14 and 30 days;
+future retention checks are separate from outstanding mistakes. These are
+explicit fixed intervals, not FSRS or a claim of optimized retention. Changing
+policy preserves historical attempts and stored future schedules.
 
 ## Output and content authority
 

@@ -3,11 +3,11 @@ import { mountLessonOutput } from './lesson-outputs.js';
 
 const root = document.querySelector('#app');
 const notice = document.querySelector('#notice');
-const names = { 'multiple-choice': 'Multiple choice', open: 'Open question', 'fill-blank': 'Fill in the blank', flashcard: 'Flashcards' };
+const names = Object.fromEntries(registry.list('exercise').map(entry => [entry.manifest.id, entry.manifest.label]));
 let state, connection = { connected: false }, route = { view: 'home' }, feedback = null, selected = '', answer = '', review = null, busy = false, noticeTimer, modelOptions = [], signInUrl = null, signInCode = null, lessonSurface = null;
 const polling = new Set();
 const draft = { goal: '', level: 'beginner', types: Object.keys(names), presentation: { format: 'text', template: 'guided', workflow: 'lesson-quiz' } };
-let lastRenderedRoute = null;
+let lastRenderedRoute = null, reviewRequest = 0;
 
 function el(tag, attrs = {}, ...children) {
   const node = document.createElement(tag);
@@ -35,7 +35,7 @@ function go(view, courseId, lessonId) {
 }
 function routeFromHash() {
   const [view = 'home', courseId, lessonId] = location.hash.slice(1).split('/');
-  route = { view: ['home', 'course', 'review', 'settings'].includes(view) ? view : 'home', courseId, lessonId };
+  route = { view: ['home', 'course', 'review', 'review-all', 'settings'].includes(view) ? view : 'home', courseId, lessonId };
 }
 function course() { return state.courses.find(c => c.id === route.courseId); }
 function progress(c) { return state.progress[c.id]; }
@@ -49,7 +49,7 @@ function pluginSelect(slot, field, value, callback, scope) {
   return el('div', { class: 'field' }, el('label', { for: id }, field[0].toUpperCase() + field.slice(1)), select);
 }
 function presentationControls(settings, onChange, scope = 'create') {
-  return el('div', { class: 'presentation-controls' }, [['output', 'format', 'text'], ['template', 'template', 'guided'], ['workflow', 'workflow', 'lesson-quiz']].map(([slot, field, fallback]) => pluginSelect(slot, field, settings[field] ?? fallback, event => { onChange(field, event.target.value); }, scope)));
+  return el('div', { class: 'presentation-controls' }, [['output', 'format', 'text'], ['template', 'template', 'guided'], ['workflow', 'workflow', 'lesson-quiz'], ['review', 'review', 'session']].map(([slot, field, fallback]) => pluginSelect(slot, field, settings[field] ?? fallback, event => { onChange(field, event.target.value); }, scope)));
 }
 function lessonOutput(c, l, settings) {
   const key = [c.id, c.version, l.id, settings.format, settings.template].join(':');
@@ -63,7 +63,7 @@ function shell(body) {
       el('button', { class: 'brand', onClick: () => go('home') }, el('span', { class: 'mark', 'aria-hidden': 'true' }, 'h'), el('span', {}, el('strong', {}, 'learnharness'), el('small', {}, 'COURSE STUDIO'))),
       el('nav', { 'aria-label': 'Main navigation' }, el('p', { class: 'sidebar-label' }, 'Your workspace'),
         button('◫  My learning', () => go('home'), route.view === 'home' || route.view === 'course' ? 'active' : ''),
-        ...(c ? [button(`↺  Review${progress(c).reviews.length ? ` · ${progress(c).reviews.length}` : ''}`, () => openReview(c.id), route.view === 'review' ? 'active' : '')] : []),
+        ...(state.courses.length ? [button(`↺  Review${state.courses.reduce((sum, course) => sum + progress(course).reviews.length, 0) ? ` · ${state.courses.reduce((sum, course) => sum + progress(course).reviews.length, 0)}` : ''}`, () => openReview(), route.view === 'review' || route.view === 'review-all' ? 'active' : '')] : []),
         button('⚙  Connection', () => go('settings'), route.view === 'settings' ? 'active' : '')),
       el('div', { class: 'sidebar-footer' }, el('p', {}, 'Small lessons. Thoughtful practice. Understanding that carries forward.'), el('span', {}, `Version ${state.version} · saved locally`), el('a', { href: 'https://github.com/rayoreher/learnharness', target: '_blank', rel: 'noopener noreferrer' }, 'Project on GitHub ↗'))),
     el('main', { id: 'main', tabIndex: '-1' }, el('div', { class: 'topline' }, el('span', { class: 'eyebrow' }, route.view === 'home' ? 'A little further, every day' : 'Your learning workspace'), button(connection.connected ? '● ChatGPT connected' : '○ Connect Codex', () => go('settings'), `pill ${connection.connected ? 'connected' : ''}`)), body));
@@ -72,17 +72,19 @@ function render() {
   if (!state) return;
   const routeKey = JSON.stringify(route), sameRoute = routeKey === lastRenderedRoute;
   const focused = document.activeElement;
-  const focus = sameRoute && root.contains(focused) ? { id: focused.id, tag: focused.tagName, text: focused.tagName === 'BUTTON' ? focused.textContent : '', start: focused.selectionStart, end: focused.selectionEnd } : null;
+  const focus = sameRoute && root.contains(focused) ? { id: focused.id, aria: focused.getAttribute('aria-label'), itemId: focused.closest('.ordering li')?.id, tag: focused.tagName, text: focused.tagName === 'BUTTON' ? focused.textContent : '', start: focused.selectionStart, end: focused.selectionEnd } : null;
   const expanded = sameRoute ? [...root.querySelectorAll('details')].map(d => d.open) : [];
   if (route.view !== 'course' && lessonSurface) { lessonSurface.dispose(); lessonSurface = null; }
   let body;
   if (route.view === 'settings') body = settingsView();
   else if (route.view === 'course' && course()) body = courseView(course());
   else if (route.view === 'review' && course()) body = reviewView(course());
+  else if (route.view === 'review-all') body = globalReviewView();
   else body = homeView();
   root.replaceChildren(shell(body));
   root.querySelectorAll('details').forEach((d, index) => { if (expanded[index]) d.open = true; });
-  const nextFocus = focus?.id ? document.getElementById(focus.id) : focus?.text ? [...root.querySelectorAll('button')].find(b => b.textContent === focus.text) : null;
+  let nextFocus = focus?.id ? document.getElementById(focus.id) : focus?.aria ? [...root.querySelectorAll('button')].find(b => b.getAttribute('aria-label') === focus.aria) : focus?.text ? [...root.querySelectorAll('button')].find(b => b.textContent === focus.text) : null;
+  if (nextFocus?.disabled && focus.itemId) nextFocus = document.getElementById(focus.itemId);
   if (nextFocus && !nextFocus.disabled) { nextFocus.focus({ preventScroll: true }); if (typeof nextFocus.setSelectionRange === 'function' && focus.start !== null) nextFocus.setSelectionRange(focus.start, focus.end); }
   else if (!sameRoute) document.getElementById('main')?.focus({ preventScroll: true });
   lastRenderedRoute = routeKey;
@@ -149,30 +151,49 @@ function renderBlock(b) {
 }
 function questionView(c, l, q) {
   const saved = feedback?.exerciseId === q.id ? feedback : null;
+  const mechanic = registry.get('exercise', q.type)?.implementation;
+  if (!mechanic) return el('p', { class: 'error' }, 'The saved exercise plugin is unavailable. Its history has been preserved.');
+  const mode = mechanic.input;
+  const readable = value => { if (mode !== 'ordered') return value; try { return JSON.parse(value).join(' → '); } catch { return value; } };
   async function submit(actionName) {
-    const result = await api('attempts', { courseId: c.id, lessonId: l.id, exerciseId: q.id, requestId: crypto.randomUUID(), action: actionName, answer: q.type === 'multiple-choice' ? selected : answer, assisted: false });
+    if (mode === 'ordered' && !answer) answer = JSON.stringify(q.options);
+    const result = await api('attempts', { courseId: c.id, lessonId: l.id, exerciseId: q.id, requestId: crypto.randomUUID(), action: actionName, answer: mode === 'choice' ? selected : answer, assisted: false, context: ['review', 'review-all'].includes(route.view) ? 'review' : 'lesson' });
     feedback = result; await refresh();
   }
   const content = el('div', {}, el('h2', {}, names[q.type]), el('p', { class: 'question' }, q.question));
   if (!saved) {
-    if (q.type === 'multiple-choice') content.append(el('div', { class: 'options', role: 'group', 'aria-label': 'Answer choices' }, q.options.map((option, i) => el('button', { type: 'button', class: `option ${selected === option ? 'selected' : ''}`, disabled: busy, 'aria-pressed': String(selected === option), onClick: () => { selected = option; render(); } }, el('span', { 'aria-hidden': 'true' }, String.fromCharCode(65 + i)), el('span', {}, option)))));
-    else if (q.type !== 'flashcard') content.append(el('label', { for: 'answer' }, 'Your answer'), el('textarea', { id: 'answer', maxLength: '10000', placeholder: q.type === 'open' ? 'Explain it in your own words…' : 'Enter the missing term…', onInput: event => { answer = event.target.value; } }, answer));
+    if (mode === 'choice') content.append(el('div', { class: 'options', role: 'group', 'aria-label': 'Answer choices' }, q.options.map((option, i) => el('button', { type: 'button', class: `option ${selected === option ? 'selected' : ''}`, disabled: busy, 'aria-pressed': String(selected === option), onClick: () => { selected = option; render(); } }, el('span', { 'aria-hidden': 'true' }, String.fromCharCode(65 + i)), el('span', {}, option)))));
+    else if (mode === 'ordered') {
+      let values; try { values = answer ? JSON.parse(answer) : [...q.options]; } catch { values = [...q.options]; }
+      content.append(el('p', { class: 'small' }, 'Move the items into the correct order.'), el('ol', { class: 'ordering' }, values.map((value, index) => {
+        const move = delta => { const next = [...values]; [next[index], next[index + delta]] = [next[index + delta], next[index]]; answer = JSON.stringify(next); render(); };
+        return el('li', { id: `order-${q.id}-${q.options.indexOf(value)}`, tabIndex: '-1' }, el('span', {}, value), el('div', { class: 'row' }, el('button', { type: 'button', 'aria-label': `Move ${value} up`, disabled: busy || index === 0, onClick: () => move(-1) }, '↑'), el('button', { type: 'button', 'aria-label': `Move ${value} down`, disabled: busy || index === values.length - 1, onClick: () => move(1) }, '↓')));
+      })));
+    }
+    else if (mode !== 'recall') content.append(el('label', { for: 'answer' }, 'Your answer'), el('textarea', { id: 'answer', maxLength: '10000', placeholder: mechanic.grader === 'codex-rubric' ? 'Explain it in your own words…' : 'Enter your answer…', onInput: event => { answer = event.target.value; } }, answer));
     else content.append(el('p', { class: 'small' }, 'Try to recall the answer before revealing it.'));
-    content.append(el('div', { class: 'row' }, button(q.type === 'flashcard' ? 'Reveal answer' : 'Check my answer', () => submit(q.type === 'flashcard' ? 'reveal' : 'answer'), 'primary'), ...(q.type === 'flashcard' ? [] : [button('I don’t know yet', () => submit('unknown'), 'quiet')])));
-    if (q.type === 'open' && !connection.connected) content.append(el('p', { class: 'small' }, 'Sample mode: compare with the reference and self-assess. Connect Codex for rubric-based feedback.'));
+    content.append(el('div', { class: 'row' }, button(mode === 'recall' ? 'Reveal answer' : 'Check my answer', () => submit(mode === 'recall' ? 'reveal' : 'answer'), 'primary'), ...(mode === 'recall' ? [] : [button('I don’t know yet', () => submit('unknown'), 'quiet')])));
+    if (mechanic.grader === 'codex-rubric' && !connection.connected) content.append(el('p', { class: 'small' }, 'Compare with the reference and self-assess, or connect Codex for rubric-based feedback.'));
   } else {
     const labels = { correct: saved.grader === 'self-assessment' ? 'Recalled · self-assessed' : 'You’ve got it.', incorrect: 'A useful place to return to.', partial: 'You’re part of the way there.', pending: 'Compare your answer' };
-    content.append(el('div', { class: `feedback ${saved.result}`, role: 'status' }, el('p', { class: 'verdict' }, labels[saved.result]), saved.answer && el('p', { class: 'small' }, `Your answer: ${saved.answer}`), el('div', { class: 'solution' }, el('strong', {}, 'Reference answer'), el('p', {}, saved.solution)), el('p', { class: 'small' }, saved.feedback), saved.feedback !== saved.explanation && el('p', { class: 'small' }, saved.explanation)));
+    content.append(el('div', { class: `feedback ${saved.result}`, role: 'status' }, el('p', { class: 'verdict' }, labels[saved.result]), saved.answer && el('p', { class: 'small' }, `Your answer: ${readable(saved.answer)}`), el('div', { class: 'solution' }, el('strong', {}, 'Reference answer'), el('p', {}, readable(saved.solution))), el('p', { class: 'small' }, saved.feedback), saved.feedback !== saved.explanation && el('p', { class: 'small' }, saved.explanation)));
     if (saved.result === 'pending') content.append(el('p', { class: 'small' }, 'Did you recall this before seeing the answer?'), el('div', { class: 'row' }, ...[['again', 'Needs practice'], ['good', 'I recalled it']].map(([rating, label]) => button(label, async () => { feedback = await api(`courses/${c.id}/attempts/${saved.id}/rate`, { rating }); await refresh(); }, rating === 'good' ? 'primary' : ''))));
     else content.append(button('Continue →', async () => {
       feedback = null; selected = ''; answer = '';
-      if (route.view === 'review') await fetchReview(c.id);
+      if (route.view === 'review' || route.view === 'review-all') await fetchReview(route.view === 'review-all' ? null : c.id);
     }, 'primary'), el('p', { class: 'small' }, saved.result === 'correct' ? 'Progress saved locally.' : 'This concept stays in your review queue. Keep going.'));
   }
   return content;
 }
-async function fetchReview(id) { review = await api(`courses/${id}/review`); render(); }
-async function openReview(id) { go('review', id); await fetchReview(id); }
+async function fetchReview(id) { const current = ++reviewRequest, context = JSON.stringify(route); const next = await api(id ? `courses/${id}/review` : 'review'); if (current === reviewRequest && context === JSON.stringify(route)) { review = next; render(); } }
+async function openReview(id) { go(id ? 'review' : 'review-all', id); await fetchReview(id); }
+function globalReviewView() {
+  if (!review && !busy) void fetchReview().catch(e => message(e.message));
+  const c = review?.courseId ? state.courses.find(c => c.id === review.courseId) : null, q = review?.question;
+  return el('div', {}, el('section', { class: 'hero' }, el('p', { class: 'eyebrow' }, 'Across all your learning paths'), el('h1', {}, 'Keep the connections alive.'), el('p', {}, 'Return to missed concepts and due spaced reviews across your courses.')),
+    el('p', { class: 'small' }, `${review?.remaining ?? 0} outstanding · ${review?.scheduled ?? 0} concepts on a spaced schedule`),
+    c && q ? el('section', { class: 'panel' }, el('p', { class: 'eyebrow' }, `${c.title} · ${q.lessonTitle}`), questionView(c, { id: q.lessonId }, q)) : el('section', { class: 'panel' }, el('h2', {}, review?.waiting ? 'Let the idea settle.' : 'Your queue is clear for now.'), el('p', {}, review?.waiting ? 'Continue a lesson or return shortly for another retrieval attempt.' : 'Future spaced reviews will appear when they are due.'), button('Check again', () => fetchReview()), button('Continue learning', () => go('home'), 'primary')));
+}
 function reviewView(c) {
   const p = progress(c), q = review?.question;
   if (!review && !busy) { void fetchReview(c.id).catch(e => message(e.message)); }

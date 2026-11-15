@@ -50,17 +50,25 @@ builtin('template', 'example-first', 'Example first', { arrange: lesson => ({ ..
 builtin('template', 'reference', 'Reference sheet', { arrange: lesson => ({ ...lesson, blocks: [{ type: 'bullets', items: lesson.objectives.map(o => o.title) }, ...lesson.blocks] }) });
 builtin('visual', 'svg', 'SVG flow diagrams', {});
 builtin('visual', 'ascii', 'Plain-text diagrams', {});
-for (const [id, label] of Object.entries({ 'multiple-choice': 'Multiple choice', open: 'Open question', 'fill-blank': 'Fill in the blank', flashcard: 'Flashcards' })) builtin('exercise', id, label, {});
-builtin('grader', 'answer-key', 'Answer key', {});
-builtin('grader', 'codex-rubric', 'Codex rubric', {}, ['codex-chatgpt']);
-builtin('grader', 'self-assessment', 'Self assessment', {});
-builtin('review', 'session', 'Return to missed concepts', { delayAttempts: 2, delayMs: 30000 });
+for (const [id, label, input, grader] of [
+  ['multiple-choice', 'Multiple choice', 'choice', 'answer-key'], ['open', 'Open question', 'text', 'codex-rubric'],
+  ['fill-blank', 'Fill in the blank', 'text', 'answer-key'], ['flashcard', 'Flashcards', 'recall', 'self-assessment'],
+  ['true-false', 'True or false', 'choice', 'answer-key'], ['ordering', 'Put in order', 'ordered', 'ordered-key']
+]) builtin('exercise', id, label, { input, grader, ...(id === 'true-false' ? { validate: exercise => { if (exercise.options.length !== 2 || !exercise.options.includes('True') || !exercise.options.includes('False')) throw new Error('True-false exercises need exactly True and False.'); } } : {}) });
+const normalized = value => value.normalize('NFKC').toLocaleLowerCase('en').trim().replace(/\s+/g, ' ').replace(/[.!?]+$/, '');
+builtin('grader', 'answer-key', 'Answer key', { grade: async ({ exercise, answer }) => ({ result: normalized(answer) === normalized(exercise.answer) ? 'correct' : 'incorrect', feedback: exercise.explanation }) });
+builtin('grader', 'ordered-key', 'Ordered answer key', { grade: async ({ exercise, answer }) => ({ result: JSON.stringify(JSON.parse(answer)) === JSON.stringify(JSON.parse(exercise.answer)) ? 'correct' : 'incorrect', feedback: exercise.explanation }) });
+builtin('grader', 'codex-rubric', 'Codex rubric', { grade: async ({ exercise, answer }, context) => context.assess(exercise, answer) }, ['codex-chatgpt']);
+builtin('grader', 'self-assessment', 'Self assessment', { grade: async ({ exercise }) => ({ result: 'pending', feedback: exercise.explanation }) });
+builtin('review', 'session', 'Return to missed concepts', { delayAttempts: 2, delayMs: 30000, requiredCorrect: 1 });
+builtin('review', 'reinforced', 'Two successful returns', { delayAttempts: 2, delayMs: 30000, requiredCorrect: 2 });
+builtin('review', 'spaced', 'Session review + spaced recall', { delayAttempts: 2, delayMs: 30000, requiredCorrect: 1, spacedDays: [1, 3, 7, 14, 30] });
 builtin('source', 'goal', 'Learning goal', {});
 builtin('source', 'sample', 'Included sample', {});
 
 export function presentationSettings(input = {}, defaults = {}) {
-  const settings = { format: input.format ?? defaults.format ?? 'text', workflow: input.workflow ?? defaults.workflow ?? 'lesson-quiz', template: input.template ?? defaults.template ?? 'guided', visual: input.visual ?? defaults.visual ?? 'svg' };
-  for (const [field, slot] of [['format', 'output'], ['workflow', 'workflow'], ['template', 'template'], ['visual', 'visual']]) {
+  const settings = { format: input.format ?? defaults.format ?? 'text', workflow: input.workflow ?? defaults.workflow ?? 'lesson-quiz', template: input.template ?? defaults.template ?? 'guided', visual: input.visual ?? defaults.visual ?? 'svg', review: input.review ?? defaults.review ?? 'session' };
+  for (const [field, slot] of [['format', 'output'], ['workflow', 'workflow'], ['template', 'template'], ['visual', 'visual'], ['review', 'review']]) {
     if (!registry.get(slot, settings[field])) throw new Error(`Unsupported ${field}: ${settings[field]}`);
   }
   return settings;

@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto';
-import { presentationSettings } from '../public/course-studio/plugin-registry.js';
+import { presentationSettings, registry } from '../public/course-studio/plugin-registry.js';
 
-export const VERSION = '0.2.0';
-export const TYPES = ['multiple-choice', 'open', 'fill-blank', 'flashcard'];
+export const VERSION = '0.3.0';
+export const TYPES = registry.list('exercise').map(entry => entry.manifest.id);
 export class Problem extends Error {
   constructor(message, status = 400) { super(message); this.status = status; }
 }
@@ -14,7 +14,7 @@ export function text(value, name, max = 20000) {
   return value.trim();
 }
 export function exerciseTypes(value) {
-  check(Array.isArray(value) && value.length > 0 && value.length <= TYPES.length && value.every(x => TYPES.includes(x)) && new Set(value).size === value.length, 'Choose at least one supported exercise type.');
+  check(Array.isArray(value) && value.length > 0 && value.length <= 20 && value.every(x => registry.get('exercise', x)) && new Set(value).size === value.length, 'Choose at least one supported exercise type.');
   return value;
 }
 export function validateCourse(input) {
@@ -42,11 +42,17 @@ export function validateCourse(input) {
     });
     check(Array.isArray(l.exercises) && l.exercises.length > 0 && l.exercises.length <= 40, 'Each lesson needs exercises.');
     const exercises = l.exercises.map(e => {
-      check(TYPES.includes(e.type), 'Unsupported exercise type.');
+      const mechanic = registry.get('exercise', e.type)?.implementation;
+      check(mechanic && ['choice', 'text', 'recall', 'ordered'].includes(mechanic.input) && typeof registry.get('grader', mechanic.grader)?.implementation.grade === 'function', 'Unsupported exercise type or grader.');
       check(Array.isArray(e.conceptIds) && e.conceptIds.length > 0 && e.conceptIds.every(c => concepts.has(c)), 'Exercises must reference their lesson objectives.');
-      const options = e.type === 'multiple-choice' ? e.options : [];
+      const options = ['choice', 'ordered'].includes(mechanic.input) ? e.options : [];
       check(Array.isArray(options) && options.length <= 8, 'Invalid answer options.');
-      if (e.type === 'multiple-choice') check(options.length >= 2 && options.every(x => typeof x === 'string' && x.length > 0 && x.length <= 2000) && new Set(options).size === options.length && options.includes(e.answer), 'Multiple-choice exercises need distinct options including the correct answer.');
+      if (mechanic.input === 'choice') check(options.length >= 2 && options.every(x => typeof x === 'string' && x.length > 0 && x.length <= 2000) && new Set(options).size === options.length && options.includes(e.answer), 'Choice exercises need distinct options including the correct answer.');
+      if (mechanic.input === 'ordered') {
+        let ordered; try { ordered = JSON.parse(e.answer); } catch { check(false, 'Ordering exercises need a structured answer order.'); }
+        check(options.length >= 2 && options.every(x => typeof x === 'string' && x.length > 0 && x.length <= 2000) && new Set(options).size === options.length && Array.isArray(ordered) && ordered.length === options.length && new Set(ordered).size === options.length && ordered.every(x => options.includes(x)), 'Ordering answer must contain every option exactly once.');
+      }
+      if (mechanic.validate) { try { mechanic.validate(e); } catch (error) { check(false, error.message || 'Invalid exercise content.'); } }
       return { id: unique(e.id, 'Exercise ID'), type: e.type, conceptIds: [...new Set(e.conceptIds)], question: text(e.question, 'Question', 4000), answer: text(e.answer, 'Answer', 6000), explanation: text(e.explanation, 'Explanation', 6000), rubric: typeof e.rubric === 'string' ? e.rubric.slice(0, 6000) : '', options };
     });
     check(objectives.every(o => exercises.some(e => e.conceptIds.includes(o.id))), 'Every objective needs at least one exercise.');

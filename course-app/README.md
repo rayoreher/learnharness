@@ -38,7 +38,8 @@ dependencies; those dependencies have a separate verification boundary.
    session remediation; long-term spaced repetition is a separate next-version
    policy, rather than a claim that a cleared concept is permanently learned.
 
-Multiple choice and fill-blank use answer keys. Open answers use Codex and a
+Multiple choice, true/false and fill-blank use answer keys; ordering checks the
+submitted sequence. Open answers use Codex and a
 reference rubric when connected. Without a connection, open answers explicitly
 use self-assessment. Flashcards require a recall rating after reveal. Revealing
 an answer alone never records a successful recall. Self-assessments remain
@@ -78,6 +79,21 @@ If a browser lacks video capabilities, a readable text lesson appears with
 an explicit explanation; source material and progress remain unchanged.
 
 The versioned extension contract is documented in `PLUGIN-CONTRACT.md`.
+
+## Review policies
+
+Choose a policy in the course defaults or override a lesson:
+
+- Return to missed concepts: a later unassisted success clears a mistake.
+- Two successful returns: a mistake needs two successful returns, separated by
+  intervening attempts or time, even if the lesson is already complete.
+- Session review + spaced recall: clears mistakes normally and schedules later
+  successful retrieval after 1, 3, 7, 14 and 30 days. This is a transparent fixed
+  schedule rather than an FSRS implementation or a guarantee of retention.
+
+The sidebar Review page draws due material from all courses. Each course also
+has its own review view. Future schedules, self-assessment labels and past
+attempts remain saved when you change policy.
 
 ## Data and configuration
 
