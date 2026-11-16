@@ -821,7 +821,7 @@ function QuestionDockForm({
 							Confidence
 						</span>
 						<div
-							className={cn("relative h-4 min-w-0 flex-1", sel.dontKnow && "opacity-40")}
+							className={cn("lh-confidence-track relative h-8 min-w-0 flex-1", sel.dontKnow && "opacity-40")}
 							data-testid="confidence-track"
 						>
 							{/* The RAIL is painted here, not on the input: this overlay spans
@@ -831,9 +831,9 @@ function QuestionDockForm({
 								STACKING LAW (owner round 5): the input is absolute too — a
 								positioned overlay paints above an in-flow input no matter the
 								DOM order, which put the rail OVER the disc. Both positioned,
-								input later in DOM → the disc rides on top. The wrapper's height
-								is pinned (h-4) so the rail's top-1/2 and the disc's track share
-								one box — centered by construction, not by hope. */}
+								input later in DOM → the disc rides on top. The taller input
+								provides a comfortable hit area; its native 16px track and the
+								painted rail remain vertically centered. */}
 							<div
 								aria-hidden
 								data-testid="confidence-rail"
@@ -866,7 +866,7 @@ function QuestionDockForm({
 								}}
 								style={{ color: CONFIDENCE_COLORS[confIdx] }}
 								className={cn(
-									"absolute inset-0 h-4 w-full cursor-pointer appearance-none bg-transparent outline-none",
+									"lh-confidence-input absolute inset-0 h-8 w-full cursor-pointer appearance-none bg-transparent outline-none",
 									"[&::-webkit-slider-runnable-track]:h-4 [&::-webkit-slider-runnable-track]:bg-transparent",
 									"[&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-current",
 									"[&::-moz-range-track]:h-4 [&::-moz-range-track]:bg-transparent",

@@ -1,4 +1,28 @@
-.lh-lesson-practice{color:var(--foreground);max-width:100%;min-width:0}
-.lh-lesson-practice textarea{width:100%;min-height:6rem;color:inherit;background:var(--background);border:1px solid var(--border);border-radius:.4rem;padding:.6rem}
-.lh-lesson-practice>span{display:inline-block;margin:.3rem .4rem .3rem 0}
-.lh-lesson-practice canvas,.lh-lesson-practice video{display:block;max-width:100%;height:auto}
+.lh-lesson-practice { color: var(--foreground); max-width: 100%; min-width: 0; font-family: var(--font-prose, inherit); font-size: var(--lh-prose-size, 1rem); line-height: var(--lh-prose-leading, 1.6); overflow-wrap: anywhere; }
+.lh-lesson-content { padding: clamp(1rem, 3vw, 1.5rem); border: 1px solid var(--border); border-radius: 12px; background: var(--card, var(--background)); }
+.lh-lesson-header { display: grid; gap: .5rem; margin-block-end: 1.25rem; }
+.lh-lesson-eyebrow { color: color-mix(in srgb, var(--foreground) 80%, var(--muted-foreground)); font-family: var(--font-ui, inherit); font-size: .75rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+.lh-lesson-title { margin: 0; font: 650 clamp(1.15rem, 1.05rem + .3vw, 1.4rem)/1.3 var(--font-prose, system-ui); letter-spacing: -.02em; text-wrap: pretty; }
+.lh-lesson-practice > p { margin-block: .75rem; }
+.lh-lesson-practice :where(textarea, video, canvas) { max-width: 100%; }
+.lh-lesson-practice textarea { display: block; width: 100%; min-height: 8rem; margin-block: .5rem; resize: vertical; color: inherit; background: var(--background); border: 1px solid var(--border); border-radius: 8px; padding: .75rem; font: inherit; line-height: 1.6; }
+.lh-lesson-answer-editor > label { display: block; font-weight: 500; }
+.lh-lesson-answer-editor > span { display: inline-flex; margin: .5rem .5rem .25rem 0; }
+.lh-lesson-answer-editor > p { color: color-mix(in srgb, var(--foreground) 80%, var(--muted-foreground)); font-size: .875rem; }
+.lh-lesson-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-block-start: 1rem; }
+.lh-lesson-controls > span { display: inline-flex; }
+.lh-lesson-controls button { min-height: 36px; height: auto; white-space: normal; }
+.lh-lesson-page-count { color: color-mix(in srgb, var(--foreground) 80%, var(--muted-foreground)); font-family: var(--font-ui, inherit); font-size: .8125rem; font-variant-numeric: tabular-nums; }
+.lh-lesson-slide { min-width: 0; min-height: 6rem; }
+.lh-lesson-practice canvas, .lh-lesson-practice video { display: block; width: 100%; height: auto; margin-block-start: 1rem; border-radius: 8px; }
+.lh-lesson-practice a[download] { display: inline-flex; align-items: center; min-height: 36px; margin-block-start: .5rem; text-underline-offset: .2em; }
+.lh-lesson-practice [hidden] { display: none; }
+.lh-lesson-feedback { padding: 1rem 1.25rem; border: 1px solid var(--border); border-inline-start: 3px solid var(--lh-error, var(--border)); border-radius: 8px; background: var(--card, var(--background)); }
+.lh-lesson-feedback[data-result="correct"] { border-inline-start-color: var(--lh-success, var(--border)); }
+.lh-lesson-feedback[data-result="partial"] { border-inline-start-color: var(--lh-warning, var(--border)); }
+.lh-lesson-feedback-status { display: inline-block; margin-block-end: .75rem; font: 600 .8125rem/1.5 var(--font-prose, system-ui); }
+@media (max-width: 480px) {
+  .lh-lesson-content, .lh-lesson-feedback { padding: 1rem; }
+  .lh-lesson-controls > span { flex: 1 1 auto; }
+  .lh-lesson-controls button { width: 100%; }
+}

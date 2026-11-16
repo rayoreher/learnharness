@@ -299,15 +299,16 @@ export function Home({
 						dictationSlot={<DictationBar dictation={dictation} />}
 						turns={[] as TurnUsage[]}
 						leadingSlot={
-							<div className="flex items-center gap-0.5 rounded-md border border-border/60 bg-background p-0.5" data-testid="home-mode-switch">
+							<div className="lh-home-mode-switch flex items-center gap-0.5 rounded-md border border-border/60 bg-background p-0.5" data-testid="home-mode-switch" role="group" aria-label="Session type">
 								{(["teach", "practice"] as const).map((m) => (
 									<button
 										key={m}
 										type="button"
 										data-testid={`home-mode-${m}`}
+										aria-pressed={mode === m}
 										onClick={() => setMode(m)}
 										className={
-											"flex items-center gap-1 rounded-sm px-2 py-0.5 text-[11px] uppercase tracking-wider transition-colors " +
+											"min-h-8 flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-xs font-medium transition-colors " +
 											(mode === m
 												? "bg-accent text-foreground"
 												: "text-muted-foreground hover:text-foreground")

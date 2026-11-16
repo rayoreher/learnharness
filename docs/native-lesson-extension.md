@@ -4,6 +4,10 @@ This change extends the original LearnHarness application. Its home, teaching
 sessions, sidebar, plan, graph, settings, provider connections and native answer
 flow remain the base. MindSpark supplies examples of quiz mechanics only.
 
+Development version 0.4.0 adds presentation/accessibility polish to these native
+surfaces. The [UI study and acceptance rubric](ui-quality-study.md) records the
+research, first-pass changes, component previews and remaining full-app checks.
+
 ## Existing extension points
 
 - Package the feature as `plugins/lesson-practice`, using the existing API v1

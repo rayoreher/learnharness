@@ -1,0 +1,49 @@
+{
+  "syntax": {
+    "chunk_id": "7b4ff6",
+    "wall_time_seconds": 0.000017142,
+    "exit_code": 0,
+    "original_token_count": 28,
+    "output": "PASS syntax: home.tsx\nPASS syntax: sidebar.tsx\nPASS syntax: answered-card.tsx\nPASS syntax: question-dock.tsx\n"
+  },
+  "lesson-browser": {
+    "chunk_id": "2c496b",
+    "wall_time_seconds": 1.000418874,
+    "session_id": 15249,
+    "original_token_count": 169,
+    "output": "PASS added fill-blank editor uses native controlled answer and cleanup contract\nPASS lesson correction visibly shows the committed answer and explanation without opening the native Why control\nPASS flashcard reveal alone cannot publish successful recall\nPASS native settings rows save lesson-output preference\nPASS any lesson can be selected; concurrent saves retain the target; a separate plugin supplies selectable quiz, structure, output and diagram choices\nPASS slides render in a native tool card without creating a replacement page\nPASS fenced diagrams stay intact in slides; custom output opts into native fences; contributed slide and SVG renderers mount and clean up\n"
+  },
+  "viewer-browser": {
+    "chunk_id": "8cbee7",
+    "wall_time_seconds": 0.195595482,
+    "exit_code": 0,
+    "original_token_count": 74,
+    "output": "PASS editor-style code viewer uses native host-only Markdown, preserves source and expands accessibly\nPASS exact clipboard text, manual-copy fallback and idempotent abort cleanup\nPASS late clipboard completion cannot revive a disposed mount; failed native widgets clean up before host fallback\n"
+  },
+  "viewer-unit": {
+    "chunk_id": "23d162",
+    "wall_time_seconds": 0.00001579,
+    "exit_code": 0,
+    "original_token_count": 102,
+    "output": "✔ code survives its own closing-fence characters and untrusted metadata cannot escape the block (9.7546ms)\n✔ ordinary code languages register through native hooks and leave specialized renderers available (0.343666ms)\n✔ a conflicting registration releases every earlier claim (0.39922ms)\nℹ tests 3\nℹ suites 0\nℹ pass 3\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 58.52295\n"
+  },
+  "setup_lesson-practice": {
+    "chunk_id": "9ee55f",
+    "wall_time_seconds": 0.456019148,
+    "exit_code": 0,
+    "original_token_count": 74,
+    "output": "[plugin-setup] lesson-practice\n[core-plugins] built lesson-practice into /tmp/lh-native-setup-McmgWM/core-plugins\nPASS original plugin setup rejects a missing lockfile, then installs the empty lock offline; original Core builder stages the versioned package without source/dependency/data files\n"
+  },
+  "setup_code-viewer": {
+    "chunk_id": "00e6aa",
+    "wall_time_seconds": 0.417293078,
+    "exit_code": 0,
+    "original_token_count": 72,
+    "output": "[plugin-setup] code-viewer\n[core-plugins] built code-viewer into /tmp/lh-native-setup-m5jgJj/core-plugins\nPASS original plugin setup rejects a missing lockfile, then installs the empty lock offline; original Core builder stages the versioned package without source/dependency/data files\n"
+  },
+  "lesson-browser-completion": {
+    "exit_code": 0,
+    "output": "PASS native lesson-card video encodes, decodes and exposes a download\n",
+    "note": "Final continuation returned after the earlier browser session."
+  }
+}

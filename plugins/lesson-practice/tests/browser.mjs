@@ -54,6 +54,9 @@ try {
   await evaluate(`window.scope=new AbortController();window.answer=null;window.editor=fixture.questions.get('lesson-flashcard').mountAnswerEditor(document.querySelector('#slot'),{active:true,answer:{status:'empty'},input:{payload:{reference:'REFERENCE SECRET',explanation:'Recall first.'}},questionId:'card',signal:scope.signal,onChange(value){answer=value}})`);
   assert.equal(await evaluate('document.body.innerText.includes("REFERENCE SECRET")'), false);
   await evaluate(`[...document.querySelectorAll('button')].find(b=>b.textContent==='Reveal answer').click()`); assert.equal(await evaluate('document.body.innerText.includes("REFERENCE SECRET")'), true); assert.equal(await evaluate('answer.status'), 'unready');
+  assert.equal(await evaluate(`[...document.querySelectorAll('button')].find(b=>b.textContent==='Answer revealed').disabled`), true);
+  await evaluate('editor.update({active:true,answer})');
+  assert.equal(await evaluate(`[...document.querySelectorAll('button')].find(b=>b.textContent==='Answer revealed').disabled`), true);
   await evaluate(`[...document.querySelectorAll('button')].find(b=>b.textContent==='I recalled it').click()`); assert.equal(await evaluate('answer.value.value'), 'good'); await evaluate('scope.abort()');
   console.log('PASS flashcard reveal alone cannot publish successful recall');
   await evaluate(`(async()=>{window.scope=new AbortController();window.cleanup=await fixture.settings(document.querySelector('#slot'),scope.signal)})()`);
@@ -99,6 +102,8 @@ try {
   assert.equal(await evaluate('document.querySelectorAll("svg").length'), 0);
   console.log('PASS fenced diagrams stay intact in slides; custom output opts into native fences; contributed slide and SVG renderers mount and clean up');
   await evaluate(`window.scope=new AbortController();window.cleanup=fixture.tools.get('lesson_begin').mount(document.querySelector('#slot'),{state:'output-available',output:{showExplanation:true,lesson:{id:'step',nodeId:'landmark',title:'A small lesson',text:'Recall the idea before checking the answer.',settings:{output:'video'}}},signal:scope.signal})`);
+  assert.equal(await evaluate('document.querySelector("canvas").hidden'), true);
+  assert.equal(await evaluate(`[...document.querySelectorAll('button')].find(b=>b.textContent==='Stop video').disabled`), true);
   await evaluate(`[...document.querySelectorAll('button')].find(b=>b.textContent==='Create captioned video').click()`); await wait('document.querySelector("video")?.videoWidth === 1280'); assert.equal(await evaluate('document.querySelector("a[download]").getAttribute("href").startsWith("blob:")'), true); await evaluate('cleanup();scope.abort()');
   console.log('PASS native lesson-card video encodes, decodes and exposes a download');
 } finally { for (const entry of pending.values()) clearTimeout(entry.timer); socket?.close(); chrome?.kill(); server.closeAllConnections(); await new Promise(resolve => server.close(resolve)); }

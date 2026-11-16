@@ -1,3 +1,14 @@
+# 0.4.0
+
+- Add lesson title hierarchy, grouped presentation controls, announced slide
+  positions and feedback cards with explicit text status.
+- Improve answer-editor spacing and flashcard reveal state.
+- Keep the idle video canvas hidden and disable Stop while idle.
+- Improve narrow code-panel action layout through Code viewer 0.1.1.
+- Refine native focus, disclosure, selection semantics and control hit areas.
+- Record the UI research and 80-point acceptance rubric separately from scoped
+  component checks; full-app quality remains unscored until native verification.
+
 # 0.3.0
 
 - Retain native multiple-choice confidence as accepted evidence, including

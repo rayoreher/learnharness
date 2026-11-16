@@ -24,13 +24,14 @@ function mount(container, block, ctx, label) {
   const header = element('div'); header.className = 'lh-code-viewer-header';
   const title = element('span', label); title.className = 'lh-code-viewer-language'; header.append(title);
   const state = element('span', block.incomplete ? 'Generating…' : ''); state.className = 'lh-code-viewer-state'; header.append(state);
+  const actions = element('div'); actions.className = 'lh-code-viewer-actions'; header.append(actions);
   const body = element('div'); body.className = 'lh-code-viewer-body'; body.tabIndex = 0; body.setAttribute('role', 'region'); body.setAttribute('aria-label', `${label} source`);
   const status = element('p'); status.className = 'lh-code-viewer-status'; status.setAttribute('role', 'status');
   root.append(header, body, status); container.append(root);
   const handles = []; let disposed = false, expanded = false, copying = false, fallback;
   const dispose = () => { if (disposed) return; disposed = true; block.signal.removeEventListener('abort', dispose); for (const handle of handles.reverse()) handle.dispose(); root.remove(); };
   block.signal.addEventListener('abort', dispose, { once: true });
-  const control = (label, onClick) => { const slot = element('span'); header.append(slot); const handle = ctx.ui.mountButton(slot, { label, size: 'sm', variant: 'ghost', onClick }, { signal: block.signal }); handles.push(handle); return handle; };
+  const control = (label, onClick) => { const slot = element('span'); actions.append(slot); const handle = ctx.ui.mountButton(slot, { label, size: 'sm', variant: 'ghost', onClick }, { signal: block.signal }); handles.push(handle); return handle; };
   try {
     // Default host-only Markdown reuses native highlighting and prevents this
     // renderer from recursively claiming its own nested code fence.

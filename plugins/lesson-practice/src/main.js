@@ -13,19 +13,19 @@ function slideScenes(text) {
 }
 
 function editor(type, container, props, ui) {
-  const document = container.ownerDocument, root = node(document, 'div'); root.className = 'lh-lesson-practice'; container.append(root);
+  const document = container.ownerDocument, root = node(document, 'div'); root.className = 'lh-lesson-practice lh-lesson-answer-editor'; container.append(root);
   let active = props.active, disposed = false, value = props.answer.status === 'empty' ? { value: '', known: true, assisted: false } : structuredClone(props.answer.value), revealed = false;
   const controls = [], cleanups = [];
   const publish = () => { if (!disposed && !props.signal.aborted) props.onChange({ status: !value.known || value.value.trim() ? 'ready' : 'unready', value: structuredClone(value) }); };
   const button = (label, work, variant = 'outline') => { const slot = node(document, 'span'); root.append(slot); const handle = ui.mountButton(slot, { label, variant, size: 'sm', disabled: !active, onClick: work }, { signal: props.signal }); controls.push(handle); cleanups.push(() => handle.dispose()); return handle; };
-  let input;
+  let input, reveal;
   if (type === 'flashcard') {
     const reference = node(document, 'div'); reference.hidden = true; root.append(reference);
-    button('Reveal answer', () => { if (revealed || !active) return; revealed = true; reference.hidden = false; const rendered = ui.mountMarkdown(reference, { text: props.input.payload.reference }, { signal: props.signal }); cleanups.push(() => rendered.dispose());
+    reveal = button('Reveal answer', () => { if (revealed || !active) return; revealed = true; reveal.update({ label: 'Answer revealed', disabled: true }); reference.hidden = false; const rendered = ui.mountMarkdown(reference, { text: props.input.payload.reference }, { signal: props.signal }); cleanups.push(() => rendered.dispose());
       button('Needs practice', () => { value = { value: 'again', known: true, assisted: false }; publish(); });
       button('I recalled it', () => { value = { value: 'good', known: true, assisted: false }; publish(); }, 'default');
-    });
-    root.append(node(document, 'p', 'Recall first, then reveal and rate honestly. This is labelled self-assessment.'));
+    }, 'default');
+    root.append(node(document, 'p', 'Try to recall the answer before revealing it. Then rate your recall.'));
   } else {
     const label = node(document, 'label', 'Your answer'); input = node(document, 'textarea'); input.value = value.value; input.disabled = !active; input.maxLength = 10000; label.append(input); root.append(label);
     input.addEventListener('input', () => { value = { value: input.value, known: true, assisted: false }; publish(); });
@@ -36,6 +36,7 @@ function editor(type, container, props, ui) {
     if (next.answer.status !== 'empty') value = structuredClone(next.answer.value);
     if (input?.tagName === 'TEXTAREA') { if (input.value !== value.value) input.value = value.value; input.disabled = !active; }
     for (const handle of controls) handle.update({ disabled: !active });
+    if (revealed) reveal.update({ disabled: true });
   };
   const dispose = () => { if (disposed) return; disposed = true; props.signal.removeEventListener('abort', dispose); for (const cleanup of cleanups.reverse()) cleanup(); root.remove(); };
   props.signal.addEventListener('abort', dispose, { once: true }); publish();
@@ -43,11 +44,14 @@ function editor(type, container, props, ui) {
 }
 
 function mountExplanation(container, lesson, ctx, signal) {
-  const document = container.ownerDocument, root = node(document, 'section'); root.className = 'lh-lesson-practice'; container.append(root);
+  const document = container.ownerDocument, root = node(document, 'section'); root.className = 'lh-lesson-practice lh-lesson-content'; root.setAttribute('aria-label', `Lesson: ${lesson.title}`); container.append(root);
   const handles = [], releases = []; let stopped = false;
   const markdown = (parent, text) => { const handle = ctx.ui.mountMarkdown(parent, { text, allowPluginFences: true }, { signal }); handles.push(handle); return handle; };
-  const control = (label, work) => { const span = node(document, 'span'); root.append(span); const h = ctx.ui.mountButton(span, { label, size: 'sm', variant: 'outline', onClick: work }, { signal }); handles.push(h); return h; };
-  root.append(node(document, 'h3', lesson.title));
+  let controls;
+  const control = (label, work) => { if (!controls) { controls = node(document, 'div'); controls.className = 'lh-lesson-controls'; root.append(controls); } const span = node(document, 'span'); controls.append(span); const h = ctx.ui.mountButton(span, { label, size: 'sm', variant: 'outline', onClick: work }, { signal }); handles.push(h); return h; };
+  const header = node(document, 'header'); header.className = 'lh-lesson-header';
+  const eyebrow = node(document, 'span', 'Lesson'); eyebrow.className = 'lh-lesson-eyebrow';
+  const title = node(document, 'h3', lesson.title); title.className = 'lh-lesson-title'; header.append(eyebrow, title); root.append(header);
   if (lesson.settings.output === 'text') markdown(root, lesson.text);
   else if (!['slides', 'video'].includes(lesson.settings.output)) {
     const format = lesson.formats?.find(f => f.key === lesson.settings.output && f.format.kind === 'output');
@@ -56,24 +60,26 @@ function mountExplanation(container, lesson, ctx, signal) {
   }
   else {
     const scenes = lesson.settings.output === 'video' ? (lesson.text.match(/[\s\S]{1,500}(?:\s|$)|[\s\S]{1,500}/g) ?? [lesson.text]) : slideScenes(lesson.text), page = node(document, 'div'), count = node(document, 'p'); let index = 0;
+    page.className = 'lh-lesson-slide'; page.setAttribute('role', 'group'); page.setAttribute('aria-label', 'Lesson slide');
+    count.className = 'lh-lesson-page-count'; count.setAttribute('role', 'status'); count.setAttribute('aria-live', 'polite'); count.setAttribute('aria-atomic', 'true');
     root.append(page, count); const content = markdown(page, scenes[0] ?? lesson.text);
     let previous, next;
-    const draw = () => { content.update({ text: scenes[index] }); count.textContent = `${index + 1} / ${scenes.length}`; previous.update({ disabled: index === 0 }); next.update({ disabled: index === scenes.length - 1 }); };
+    const draw = () => { content.update({ text: scenes[index] }); count.textContent = `Slide ${index + 1} of ${scenes.length}`; previous.update({ disabled: index === 0 }); next.update({ disabled: index === scenes.length - 1 }); };
     previous = control('Previous', () => { if (index > 0) { index--; draw(); } }); next = control('Next', () => { if (index < scenes.length - 1) { index++; draw(); } }); draw();
     if (lesson.settings.output === 'video') {
-      const canvas = node(document, 'canvas'); canvas.width = 1280; canvas.height = 720; canvas.setAttribute('aria-label', 'Captioned lesson video'); root.append(canvas);
+      const canvas = node(document, 'canvas'); canvas.width = 1280; canvas.height = 720; canvas.hidden = true; canvas.setAttribute('aria-label', 'Captioned lesson video'); root.append(canvas);
       const status = node(document, 'p', 'Captioned video, generated locally without narration.'); status.setAttribute('role', 'status'); root.append(status);
       if (typeof MediaRecorder === 'undefined' || typeof canvas.captureStream !== 'function') status.textContent = 'This browser cannot encode video. The same lesson remains readable above.';
       else {
-        let recorder, stream, timer, videoURL, cancelled = false; const media = node(document, 'div'); root.append(media);
-        const finish = () => { clearInterval(timer); if (recorder?.state === 'recording') recorder.stop(); stream?.getTracks().forEach(t => t.stop()); };
+        let recorder, stream, timer, videoURL, stopVideo, cancelled = false; const media = node(document, 'div'); root.append(media);
+        const finish = () => { clearInterval(timer); if (recorder?.state === 'recording') recorder.stop(); stream?.getTracks().forEach(t => t.stop()); stopVideo?.update({ disabled: true }); };
         releases.push(() => { finish(); if (videoURL) URL.revokeObjectURL(videoURL); });
         control('Create captioned video', () => {
           if (recorder?.state === 'recording') return;
           const mime = ['video/webm;codecs=vp8', 'video/webm', 'video/mp4'].find(t => MediaRecorder.isTypeSupported(t)); if (!mime) { status.textContent = 'Video encoding is unavailable; use the readable lesson above.'; return; }
-          const context = canvas.getContext('2d'), chunks = []; cancelled = false; stream = canvas.captureStream(10); recorder = new MediaRecorder(stream, { mimeType: mime });
+          const context = canvas.getContext('2d'), chunks = []; cancelled = false; canvas.hidden = false; stopVideo.update({ disabled: false }); stream = canvas.captureStream(10); recorder = new MediaRecorder(stream, { mimeType: mime });
           recorder.ondataavailable = event => { if (event.data.size) chunks.push(event.data); };
-          recorder.onstop = () => { if (stopped || cancelled || !chunks.length) return; if (videoURL) URL.revokeObjectURL(videoURL); videoURL = URL.createObjectURL(new Blob(chunks, { type: mime })); const video = node(document, 'video'); video.controls = true; video.src = videoURL; const download = node(document, 'a', 'Download lesson video'); download.href = videoURL; download.download = `lesson-${lesson.nodeId}.${mime.includes('mp4') ? 'mp4' : 'webm'}`; media.replaceChildren(video, download); status.textContent = 'Your captioned video is ready.'; };
+          recorder.onstop = () => { if (stopped || cancelled || !chunks.length) return; canvas.hidden = true; if (videoURL) URL.revokeObjectURL(videoURL); videoURL = URL.createObjectURL(new Blob(chunks, { type: mime })); const video = node(document, 'video'); video.controls = true; video.src = videoURL; const download = node(document, 'a', 'Download lesson video'); download.href = videoURL; download.download = `lesson-${lesson.nodeId}.${mime.includes('mp4') ? 'mp4' : 'webm'}`; media.replaceChildren(video, download); status.textContent = 'Your captioned video is ready.'; };
           recorder.onerror = () => { finish(); status.textContent = 'Video creation failed; your lesson remains readable above.'; };
           let frame = 0;
           const drawFrame = () => {
@@ -84,7 +90,7 @@ function mountExplanation(container, lesson, ctx, signal) {
           };
           drawFrame(); recorder.start(1000); timer = setInterval(() => { frame++; if (frame >= scenes.length) finish(); else drawFrame(); }, 5000);
         });
-        control('Stop video', () => { cancelled = true; finish(); status.textContent = 'Video creation stopped.'; });
+        stopVideo = control('Stop video', () => { cancelled = true; finish(); canvas.hidden = true; status.textContent = 'Video creation stopped.'; }); stopVideo.update({ disabled: true });
       }
     }
   }
@@ -131,7 +137,7 @@ export function activate(ctx) {
   for (const type of ['fill-blank', 'flashcard']) disposers.push(ctx.registerQuestionRenderer({
     id: `lesson-${type}`, supportedContractVersions: [1], mountAnswerEditor: (container, props) => editor(type, container, props, ctx.ui),
     mountAnswered(container, props) {
-      const handles = [], document = container.ownerDocument, root = node(document, 'div'); root.className = 'lh-lesson-practice'; container.append(root);
+      const handles = [], document = container.ownerDocument, root = node(document, 'div'); root.className = 'lh-lesson-practice lh-lesson-answer-record'; container.append(root);
       const outcome = props.grading && 'result' in props.grading ? props.grading.result : null;
       root.append(node(document, 'p', `Your answer: ${props.answer.known ? (type === 'flashcard' ? props.answer.value === 'good' ? 'Recalled · self-assessed' : 'Needs practice · self-assessed' : props.answer.value) : 'I don’t know'}`));
       if (outcome?.result === 'needs-feedback' || props.grading?.error) root.append(node(document, 'p', 'Teacher feedback follows in this session.'));
@@ -147,7 +153,9 @@ export function activate(ctx) {
   } }));
   for (const toolName of ['lesson_feedback', 'lesson_correction']) disposers.push(ctx.registerToolRenderer({ toolName, mount(container, block) {
     if (block.state !== 'output-available' || !block.output?.reference) return;
-    const value = block.output, h = ctx.ui.mountMarkdown(container, { text: `**${value.result === 'correct' ? 'Correct' : value.result === 'partial' ? 'Partly correct' : 'Needs practice'}**\n\n**Correct answer**\n\n${value.reference}\n\n${value.explanation}`, allowPluginFences: true }, { signal: block.signal }); return () => h.dispose();
+    const value = block.output, document = container.ownerDocument, root = node(document, 'section'); root.className = 'lh-lesson-practice lh-lesson-feedback'; root.dataset.result = value.result; root.setAttribute('aria-label', 'Answer feedback');
+    const status = node(document, 'span', value.result === 'correct' ? 'Correct' : value.result === 'partial' ? 'Partly correct' : 'Needs practice'); status.className = 'lh-lesson-feedback-status'; root.append(status); container.append(root);
+    const h = ctx.ui.mountMarkdown(root, { text: `**Correct answer**\n\n${value.reference}\n\n${value.explanation}`, allowPluginFences: true }, { signal: block.signal }); return () => { h.dispose(); root.remove(); };
   } }));
   disposers.push(ctx.registerSettings((container, signal) => mountSettings(container, ctx, signal)));
   disposers.push(ctx.registerAction({ id: 'lesson-options', name: 'Lesson options', run(context) {
