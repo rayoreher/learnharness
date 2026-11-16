@@ -1,0 +1,1781 @@
+{
+  "dompurify-3.4.17": {
+    "raw_report_sha256": "67e6d9d678fea54b259478e99f807aae429a18d6bf4f2b7c21c849323864ff8e",
+    "reviewed_report_sha256": "62a5f7f4d9a2a7f5c13a24c8f8e1628b6c2e2fdcbd7565908f40cdf6227eae87",
+    "reviewed_findings_by_rule_and_path": {
+      "network-operation": {
+        "src/config.ts": [
+          68
+        ],
+        "src/purify.ts": [
+          57
+        ],
+        "README.md": [
+          3
+        ],
+        "LICENSE": [
+          4
+        ],
+        "dist/purify.cov.cjs.js": [
+          23218
+        ],
+        "dist/purify.js": [
+          41
+        ],
+        "dist/purify.cjs.d.ts": [
+          55
+        ],
+        "dist/purify.cjs.js": [
+          38
+        ],
+        "dist/purify.es.d.mts": [
+          55
+        ],
+        "dist/purify.es.mjs": [
+          37
+        ],
+        "dist/purify.cov.cjs.js.map": [
+          1
+        ],
+        "dist/purify.min.js": [
+          4
+        ],
+        "LICENSE-MPL": [
+          360
+        ],
+        "package.json": [
+          174
+        ]
+      },
+      "dynamic-execution": {
+        "src/purify.ts": [
+          102
+        ],
+        "README.md": [
+          510
+        ],
+        "dist/purify.cov.cjs.js": [
+          6
+        ],
+        "dist/purify.js": [
+          2
+        ],
+        "dist/purify.cjs.js": [
+          54
+        ],
+        "dist/purify.es.mjs": [
+          53
+        ],
+        "dist/purify.cov.cjs.js.map": [
+          1
+        ],
+        "dist/purify.min.js": [
+          2
+        ]
+      }
+    }
+  },
+  "undici-7.30.1": {
+    "raw_report_sha256": "2f424839258a714a1b8e8529805c37cce7136a1aa83b9deff8d9613cbb5da05a",
+    "reviewed_report_sha256": "b4457bc6bfcb9f3a45403b563db455be95666dcd1b851d79d9c5206a3a1fe809",
+    "reviewed_findings_by_rule_and_path": {
+      "network-operation": {
+        "README.md": [
+          3
+        ],
+        "docs/docs/api/CacheStorage.md": [
+          3
+        ],
+        "docs/docs/api/CacheStore.md": [
+          6
+        ],
+        "docs/docs/api/Client.md": [
+          23
+        ],
+        "docs/docs/api/Connector.md": [
+          12
+        ],
+        "docs/docs/api/ContentType.md": [
+          12
+        ],
+        "docs/docs/api/Debug.md": [
+          3
+        ],
+        "docs/docs/api/DiagnosticsChannel.md": [
+          5
+        ],
+        "docs/docs/api/Dispatcher.md": [
+          39
+        ],
+        "docs/docs/api/EnvHttpProxyAgent.md": [
+          47
+        ],
+        "docs/docs/api/EventSource.md": [
+          5
+        ],
+        "docs/docs/api/Fetch.md": [
+          1
+        ],
+        "docs/docs/api/GlobalInstallation.md": [
+          3
+        ],
+        "docs/docs/api/H2CClient.md": [
+          21
+        ],
+        "docs/docs/api/MockAgent.md": [
+          78
+        ],
+        "docs/docs/api/MockCallHistory.md": [
+          113
+        ],
+        "docs/docs/api/MockCallHistoryLog.md": [
+          42
+        ],
+        "docs/docs/api/MockClient.md": [
+          32
+        ],
+        "docs/docs/api/MockPool.md": [
+          31
+        ],
+        "docs/docs/api/ProxyAgent.md": [
+          20
+        ],
+        "docs/docs/api/RetryAgent.md": [
+          45
+        ],
+        "docs/docs/api/RetryHandler.md": [
+          56
+        ],
+        "docs/docs/api/RoundRobinPool.md": [
+          30
+        ],
+        "docs/docs/api/SnapshotAgent.md": [
+          52
+        ],
+        "docs/docs/api/Socks5ProxyAgent.md": [
+          61
+        ],
+        "docs/docs/api/WebSocket.md": [
+          3
+        ],
+        "docs/docs/api/api-lifecycle.md": [
+          83
+        ],
+        "docs/docs/best-practices/client-certificate.md": [
+          49
+        ],
+        "docs/docs/best-practices/crawling.md": [
+          3
+        ],
+        "docs/docs/best-practices/mocking-request.md": [
+          12
+        ],
+        "docs/docs/best-practices/proxy.md": [
+          11
+        ],
+        "docs/docs/best-practices/undici-vs-builtin-fetch.md": [
+          1
+        ],
+        "docs/docs/best-practices/writing-tests.md": [
+          38
+        ],
+        "index-fetch.js": [
+          5
+        ],
+        "index.js": [
+          124
+        ],
+        "lib/api/readable.js": [
+          23
+        ],
+        "lib/core/constants.js": [
+          4
+        ],
+        "lib/core/diagnostics.js": [
+          7
+        ],
+        "lib/core/request.js": [
+          70
+        ],
+        "lib/core/util.js": [
+          88
+        ],
+        "lib/dispatcher/client-h1.js": [
+          97
+        ],
+        "lib/dispatcher/client-h2.js": [
+          354
+        ],
+        "lib/dispatcher/env-http-proxy-agent.js": [
+          103
+        ],
+        "lib/dispatcher/pool.js": [
+          87
+        ],
+        "lib/dispatcher/proxy-agent.js": [
+          287
+        ],
+        "lib/encoding/index.js": [
+          6
+        ],
+        "lib/global.js": [
+          42
+        ],
+        "lib/handler/cache-handler.js": [
+          36
+        ],
+        "lib/handler/cache-revalidation-handler.js": [
+          14
+        ],
+        "lib/handler/redirect-handler.js": [
+          104
+        ],
+        "lib/interceptor/cache.js": [
+          108
+        ],
+        "lib/interceptor/decompress.js": [
+          291
+        ],
+        "lib/llhttp/constants.js": [
+          132
+        ],
+        "lib/mock/mock-agent.js": [
+          148
+        ],
+        "lib/mock/mock-interceptor.js": [
+          71
+        ],
+        "lib/mock/mock-utils.js": [
+          63
+        ],
+        "lib/util/cache.js": [
+          268
+        ],
+        "lib/util/date.js": [
+          4
+        ],
+        "lib/web/cache/cache.js": [
+          9
+        ],
+        "lib/web/cache/cachestorage.js": [
+          10
+        ],
+        "lib/web/cache/util.js": [
+          4
+        ],
+        "lib/web/cookies/constants.js": [
+          3
+        ],
+        "lib/web/cookies/index.js": [
+          6
+        ],
+        "lib/web/cookies/parse.js": [
+          10
+        ],
+        "lib/web/cookies/util.js": [
+          124
+        ],
+        "lib/web/eventsource/eventsource.js": [
+          4
+        ],
+        "lib/web/fetch/body.js": [
+          43
+        ],
+        "lib/web/fetch/constants.js": [
+          12
+        ],
+        "lib/web/fetch/data-url.js": [
+          9
+        ],
+        "lib/web/fetch/formdata-parser.js": [
+          27
+        ],
+        "lib/web/fetch/formdata.js": [
+          8
+        ],
+        "lib/web/fetch/headers.js": [
+          1
+        ],
+        "lib/web/fetch/index.js": [
+          1
+        ],
+        "lib/web/fetch/request.js": [
+          54
+        ],
+        "lib/web/fetch/response.js": [
+          27
+        ],
+        "lib/web/fetch/util.js": [
+          16
+        ],
+        "lib/web/infra/index.js": [
+          12
+        ],
+        "lib/web/subresource-integrity/Readme.md": [
+          5
+        ],
+        "lib/web/subresource-integrity/subresource-integrity.js": [
+          29
+        ],
+        "lib/web/webidl/index.js": [
+          75
+        ],
+        "lib/web/websocket/connection.js": [
+          5
+        ],
+        "lib/web/websocket/constants.js": [
+          6
+        ],
+        "lib/web/websocket/events.js": [
+          8
+        ],
+        "lib/web/websocket/receiver.js": [
+          223
+        ],
+        "lib/web/websocket/stream/websocketerror.js": [
+          9
+        ],
+        "lib/web/websocket/stream/websocketstream.js": [
+          4
+        ],
+        "lib/web/websocket/util.js": [
+          5
+        ],
+        "lib/web/websocket/websocket.js": [
+          5
+        ],
+        "package.json": [
+          5
+        ],
+        "scripts/strip-comments.js": [
+          7
+        ],
+        "types/README.md": [
+          3
+        ],
+        "types/cache-interceptor.d.ts": [
+          23
+        ],
+        "types/cache.d.ts": [
+          1
+        ],
+        "types/client.d.ts": [
+          65
+        ],
+        "types/content-type.d.ts": [
+          13
+        ],
+        "types/cookies.d.ts": [
+          3
+        ],
+        "types/dispatcher.d.ts": [
+          259
+        ],
+        "types/fetch.d.ts": [
+          1
+        ],
+        "types/formdata.d.ts": [
+          1
+        ],
+        "types/h2c-client.d.ts": [
+          47
+        ],
+        "types/header.d.ts": [
+          74
+        ],
+        "types/index.d.ts": [
+          37
+        ],
+        "types/mock-call-history.d.ts": [
+          17
+        ],
+        "types/mock-interceptor.d.ts": [
+          3
+        ],
+        "types/patch.d.ts": [
+          3
+        ],
+        "types/readable.d.ts": [
+          16
+        ],
+        "types/webidl.d.ts": [
+          50
+        ],
+        "types/websocket.d.ts": [
+          13
+        ]
+      },
+      "dynamic-execution": {
+        "docs/docs/api/RetryHandler.md": [
+          63
+        ],
+        "docs/docs/best-practices/client-certificate.md": [
+          39
+        ],
+        "docs/docs/best-practices/proxy.md": [
+          81
+        ],
+        "lib/api/readable.js": [
+          298
+        ],
+        "lib/cache/sqlite-cache-store.js": [
+          117
+        ],
+        "lib/core/connect.js": [
+          105
+        ],
+        "lib/core/util.js": [
+          43
+        ],
+        "lib/dispatcher/client-h1.js": [
+          1332
+        ],
+        "lib/dispatcher/client-h2.js": [
+          802
+        ],
+        "lib/dispatcher/proxy-agent.js": [
+          58
+        ],
+        "lib/handler/cache-handler.js": [
+          391
+        ],
+        "lib/handler/redirect-handler.js": [
+          62
+        ],
+        "lib/interceptor/cache.js": [
+          318
+        ],
+        "lib/mock/snapshot-recorder.js": [
+          261
+        ],
+        "lib/web/fetch/headers.js": [
+          681
+        ],
+        "lib/web/fetch/request.js": [
+          1003
+        ],
+        "lib/web/fetch/response.js": [
+          573
+        ],
+        "lib/web/fetch/util.js": [
+          858
+        ],
+        "lib/web/webidl/index.js": [
+          34
+        ],
+        "lib/web/websocket/stream/websocketstream.js": [
+          488
+        ],
+        "lib/web/websocket/util.js": [
+          320
+        ],
+        "lib/web/websocket/websocket.js": [
+          707
+        ]
+      },
+      "environment-access": {
+        "docs/docs/api/SnapshotAgent.md": [
+          368
+        ],
+        "lib/dispatcher/client-h1.js": [
+          68
+        ],
+        "lib/dispatcher/env-http-proxy-agent.js": [
+          26
+        ],
+        "lib/mock/pending-interceptors-formatter.js": [
+          23
+        ]
+      },
+      "encoded-payload": {
+        "lib/llhttp/llhttp-wasm.js": [
+          5
+        ],
+        "lib/llhttp/llhttp_simd-wasm.js": [
+          5
+        ]
+      }
+    }
+  },
+  "zod-4.6.6": {
+    "raw_report_sha256": "6eab6aac2796818a23162f636485dfc2439da89fea7d57c7f3a93a3054a45a9d",
+    "reviewed_report_sha256": "d49202f06493a561672a56d36131f2e9af9b3e4354612a88c079ece4bee93c5d",
+    "reviewed_findings_by_rule_and_path": {
+      "network-operation": {
+        "README.md": [
+          7
+        ],
+        "package.json": [
+          8
+        ],
+        "src/v3/tests/language-server.test.ts": [
+          7
+        ],
+        "src/v3/tests/parseUtil.test.ts": [
+          7
+        ],
+        "src/v3/tests/string.test.ts": [
+          298
+        ],
+        "src/v3/types.ts": [
+          605
+        ],
+        "src/v4/classic/external.ts": [
+          45
+        ],
+        "src/v4/classic/from-json-schema.ts": [
+          108
+        ],
+        "src/v4/classic/schemas.ts": [
+          480
+        ],
+        "src/v4/classic/tests/apply.test.ts": [
+          16
+        ],
+        "src/v4/classic/tests/codec-examples.test.ts": [
+          403
+        ],
+        "src/v4/classic/tests/from-json-schema.test.ts": [
+          153
+        ],
+        "src/v4/classic/tests/instanceof.test.ts": [
+          71
+        ],
+        "src/v4/classic/tests/number.test.ts": [
+          206
+        ],
+        "src/v4/classic/tests/preprocess.test.ts": [
+          309
+        ],
+        "src/v4/classic/tests/properties.test.ts": [
+          39
+        ],
+        "src/v4/classic/tests/record.test.ts": [
+          683
+        ],
+        "src/v4/classic/tests/standard-schema.test.ts": [
+          72
+        ],
+        "src/v4/classic/tests/string.test.ts": [
+          404
+        ],
+        "src/v4/classic/tests/template-literal.test.ts": [
+          60
+        ],
+        "src/v4/classic/tests/to-json-schema.test.ts": [
+          7
+        ],
+        "src/v4/classic/tests/url.test.ts": [
+          10
+        ],
+        "src/v4/core/api.ts": [
+          252
+        ],
+        "src/v4/core/checks.ts": [
+          145
+        ],
+        "src/v4/core/json-schema.ts": [
+          50
+        ],
+        "src/v4/core/regexes.ts": [
+          6
+        ],
+        "src/v4/core/schemas.ts": [
+          572
+        ],
+        "src/v4/core/tests/compile-differential.test.ts": [
+          649
+        ],
+        "src/v4/core/tests/compile.test.ts": [
+          572
+        ],
+        "src/v4/core/tests/polyfill-collision.test.ts": [
+          36
+        ],
+        "src/v4/core/tests/url-no-canparse.test.ts": [
+          28
+        ],
+        "src/v4/core/to-json-schema.ts": [
+          690
+        ],
+        "src/v4/core/visit.ts": [
+          1
+        ],
+        "src/v4/mini/schemas.ts": [
+          272
+        ],
+        "src/v4/mini/tests/checks.test.ts": [
+          145
+        ],
+        "src/v4/mini/tests/string.test.ts": [
+          92
+        ],
+        "v3/types.cjs": [
+          381
+        ],
+        "v3/types.js": [
+          372
+        ],
+        "v4/classic/external.cjs": [
+          71
+        ],
+        "v4/classic/external.js": [
+          14
+        ],
+        "v4/classic/from-json-schema.cjs": [
+          112
+        ],
+        "v4/classic/from-json-schema.js": [
+          86
+        ],
+        "v4/classic/schemas.cjs": [
+          555
+        ],
+        "v4/classic/schemas.d.cts": [
+          138
+        ],
+        "v4/classic/schemas.d.ts": [
+          138
+        ],
+        "v4/classic/schemas.js": [
+          427
+        ],
+        "v4/core/api.cjs": [
+          263
+        ],
+        "v4/core/api.d.cts": [
+          57
+        ],
+        "v4/core/api.d.ts": [
+          57
+        ],
+        "v4/core/api.js": [
+          114
+        ],
+        "v4/core/json-schema.d.cts": [
+          6
+        ],
+        "v4/core/json-schema.d.ts": [
+          6
+        ],
+        "v4/core/regexes.cjs": [
+          36
+        ],
+        "v4/core/regexes.d.cts": [
+          4
+        ],
+        "v4/core/regexes.d.ts": [
+          4
+        ],
+        "v4/core/regexes.js": [
+          5
+        ],
+        "v4/core/schemas.cjs": [
+          295
+        ],
+        "v4/core/schemas.d.cts": [
+          197
+        ],
+        "v4/core/schemas.d.ts": [
+          197
+        ],
+        "v4/core/schemas.js": [
+          251
+        ],
+        "v4/core/to-json-schema.cjs": [
+          511
+        ],
+        "v4/core/to-json-schema.js": [
+          502
+        ],
+        "v4/core/visit.cjs": [
+          2
+        ],
+        "v4/core/visit.js": [
+          1
+        ],
+        "v4/mini/schemas.cjs": [
+          273
+        ],
+        "v4/mini/schemas.d.cts": [
+          65
+        ],
+        "v4/mini/schemas.d.ts": [
+          65
+        ],
+        "v4/mini/schemas.js": [
+          140
+        ]
+      },
+      "dynamic-execution": {
+        "compile.cjs": [
+          13
+        ],
+        "index.cjs": [
+          2
+        ],
+        "locales/index.cjs": [
+          2
+        ],
+        "mini/index.cjs": [
+          2
+        ],
+        "src/v3/ZodError.ts": [
+          220
+        ],
+        "src/v3/benchmarks/index.ts": [
+          56
+        ],
+        "src/v3/helpers/util.ts": [
+          34
+        ],
+        "src/v3/tests/async-parsing.test.ts": [
+          218
+        ],
+        "src/v3/tests/complex.test.ts": [
+          28
+        ],
+        "src/v3/tests/function.test.ts": [
+          9
+        ],
+        "src/v3/tests/promise.test.ts": [
+          62
+        ],
+        "src/v3/tests/readonly.test.ts": [
+          24
+        ],
+        "src/v3/tests/tuple.test.ts": [
+          15
+        ],
+        "src/v3/types.ts": [
+          3870
+        ],
+        "src/v4/classic/tests/async-parsing.test.ts": [
+          217
+        ],
+        "src/v4/classic/tests/function.test.ts": [
+          6
+        ],
+        "src/v4/classic/tests/instance-footprint.test.ts": [
+          96
+        ],
+        "src/v4/classic/tests/jitless-allows-eval.test.ts": [
+          8
+        ],
+        "src/v4/classic/tests/promise.test.ts": [
+          50
+        ],
+        "src/v4/classic/tests/prototypes.test.ts": [
+          12
+        ],
+        "src/v4/classic/tests/readonly.test.ts": [
+          147
+        ],
+        "src/v4/classic/tests/template-literal.test.ts": [
+          209
+        ],
+        "src/v4/classic/tests/to-json-schema.test.ts": [
+          3242
+        ],
+        "src/v4/core/compile.ts": [
+          688
+        ],
+        "src/v4/core/doc.ts": [
+          48
+        ],
+        "src/v4/core/schemas.ts": [
+          4922
+        ],
+        "src/v4/core/tests/locales/he.test.ts": [
+          124
+        ],
+        "src/v4/locales/ar.ts": [
+          116
+        ],
+        "src/v4/locales/az.ts": [
+          112
+        ],
+        "src/v4/locales/be.ts": [
+          184
+        ],
+        "src/v4/locales/bg.ts": [
+          129
+        ],
+        "src/v4/locales/bn.ts": [
+          119
+        ],
+        "src/v4/locales/ca.ts": [
+          117
+        ],
+        "src/v4/locales/ckb.ts": [
+          136
+        ],
+        "src/v4/locales/cs.ts": [
+          119
+        ],
+        "src/v4/locales/da.ts": [
+          124
+        ],
+        "src/v4/locales/de.ts": [
+          117
+        ],
+        "src/v4/locales/el.ts": [
+          120
+        ],
+        "src/v4/locales/en.ts": [
+          132
+        ],
+        "src/v4/locales/eo.ts": [
+          119
+        ],
+        "src/v4/locales/es.ts": [
+          141
+        ],
+        "src/v4/locales/fa.ts": [
+          127
+        ],
+        "src/v4/locales/fi.ts": [
+          122
+        ],
+        "src/v4/locales/fr-CA.ts": [
+          117
+        ],
+        "src/v4/locales/fr.ts": [
+          135
+        ],
+        "src/v4/locales/gu.ts": [
+          119
+        ],
+        "src/v4/locales/he.ts": [
+          249
+        ],
+        "src/v4/locales/hi.ts": [
+          122
+        ],
+        "src/v4/locales/hr.ts": [
+          131
+        ],
+        "src/v4/locales/hu.ts": [
+          118
+        ],
+        "src/v4/locales/hy.ts": [
+          171
+        ],
+        "src/v4/locales/id.ts": [
+          116
+        ],
+        "src/v4/locales/is.ts": [
+          120
+        ],
+        "src/v4/locales/it.ts": [
+          117
+        ],
+        "src/v4/locales/ja.ts": [
+          115
+        ],
+        "src/v4/locales/ka.ts": [
+          124
+        ],
+        "src/v4/locales/kh.ts": [
+          5
+        ],
+        "src/v4/locales/km.ts": [
+          120
+        ],
+        "src/v4/locales/kn.ts": [
+          122
+        ],
+        "src/v4/locales/ko.ts": [
+          122
+        ],
+        "src/v4/locales/lt.ts": [
+          239
+        ],
+        "src/v4/locales/mk.ts": [
+          119
+        ],
+        "src/v4/locales/ms.ts": [
+          116
+        ],
+        "src/v4/locales/ne.ts": [
+          124
+        ],
+        "src/v4/locales/nl.ts": [
+          122
+        ],
+        "src/v4/locales/nn.ts": [
+          117
+        ],
+        "src/v4/locales/no.ts": [
+          117
+        ],
+        "src/v4/locales/ota.ts": [
+          118
+        ],
+        "src/v4/locales/pl.ts": [
+          119
+        ],
+        "src/v4/locales/ps.ts": [
+          127
+        ],
+        "src/v4/locales/pt-BR.ts": [
+          157
+        ],
+        "src/v4/locales/pt.ts": [
+          155
+        ],
+        "src/v4/locales/ro.ts": [
+          128
+        ],
+        "src/v4/locales/ru.ts": [
+          184
+        ],
+        "src/v4/locales/sk.ts": [
+          119
+        ],
+        "src/v4/locales/sl.ts": [
+          119
+        ],
+        "src/v4/locales/sv.ts": [
+          120
+        ],
+        "src/v4/locales/ta.ts": [
+          119
+        ],
+        "src/v4/locales/tg.ts": [
+          131
+        ],
+        "src/v4/locales/th.ts": [
+          120
+        ],
+        "src/v4/locales/tk.ts": [
+          109
+        ],
+        "src/v4/locales/tr.ts": [
+          112
+        ],
+        "src/v4/locales/ua.ts": [
+          5
+        ],
+        "src/v4/locales/uk.ts": [
+          118
+        ],
+        "src/v4/locales/ur.ts": [
+          120
+        ],
+        "src/v4/locales/uz.ts": [
+          116
+        ],
+        "src/v4/locales/vi.ts": [
+          118
+        ],
+        "src/v4/locales/yo.ts": [
+          125
+        ],
+        "src/v4/locales/zh-CN.ts": [
+          117
+        ],
+        "src/v4/locales/zh-TW.ts": [
+          116
+        ],
+        "src/v4/mini/tests/functions.test.ts": [
+          9
+        ],
+        "src/v4/mini/tests/prototypes.test.ts": [
+          12
+        ],
+        "v3/ZodError.cjs": [
+          54
+        ],
+        "v3/ZodError.js": [
+          50
+        ],
+        "v3/errors.cjs": [
+          2
+        ],
+        "v3/external.cjs": [
+          2
+        ],
+        "v3/helpers/enumUtil.cjs": [
+          5
+        ],
+        "v3/helpers/errorUtil.cjs": [
+          5
+        ],
+        "v3/helpers/errorUtil.js": [
+          2
+        ],
+        "v3/helpers/parseUtil.cjs": [
+          2
+        ],
+        "v3/helpers/partialUtil.cjs": [
+          5
+        ],
+        "v3/helpers/typeAliases.cjs": [
+          5
+        ],
+        "v3/helpers/util.cjs": [
+          5
+        ],
+        "v3/helpers/util.js": [
+          2
+        ],
+        "v3/index.cjs": [
+          2
+        ],
+        "v3/standard-schema.cjs": [
+          5
+        ],
+        "v3/types.cjs": [
+          2947
+        ],
+        "v3/types.js": [
+          2917
+        ],
+        "v4/classic/checks.cjs": [
+          5
+        ],
+        "v4/classic/coerce.cjs": [
+          2
+        ],
+        "v4/classic/compat.cjs": [
+          3
+        ],
+        "v4/classic/compat.js": [
+          30
+        ],
+        "v4/classic/deep-partial.cjs": [
+          2
+        ],
+        "v4/classic/errors.cjs": [
+          2
+        ],
+        "v4/classic/external.cjs": [
+          2
+        ],
+        "v4/classic/from-json-schema.cjs": [
+          2
+        ],
+        "v4/classic/in-out.cjs": [
+          2
+        ],
+        "v4/classic/index.cjs": [
+          2
+        ],
+        "v4/classic/iso.cjs": [
+          2
+        ],
+        "v4/classic/parse.cjs": [
+          2
+        ],
+        "v4/classic/schemas.cjs": [
+          2
+        ],
+        "v4/core/api.cjs": [
+          2
+        ],
+        "v4/core/checks.cjs": [
+          3
+        ],
+        "v4/core/compile.cjs": [
+          2
+        ],
+        "v4/core/compile.js": [
+          506
+        ],
+        "v4/core/core.cjs": [
+          151
+        ],
+        "v4/core/doc.cjs": [
+          38
+        ],
+        "v4/core/doc.js": [
+          35
+        ],
+        "v4/core/errors.cjs": [
+          2
+        ],
+        "v4/core/index.cjs": [
+          2
+        ],
+        "v4/core/json-schema-generator.cjs": [
+          106
+        ],
+        "v4/core/json-schema-processors.cjs": [
+          2
+        ],
+        "v4/core/json-schema.cjs": [
+          5
+        ],
+        "v4/core/memoizer.cjs": [
+          2
+        ],
+        "v4/core/parse.cjs": [
+          2
+        ],
+        "v4/core/regexes.cjs": [
+          2
+        ],
+        "v4/core/registries.cjs": [
+          59
+        ],
+        "v4/core/schemas.cjs": [
+          2
+        ],
+        "v4/core/schemas.js": [
+          2511
+        ],
+        "v4/core/standard-schema.cjs": [
+          5
+        ],
+        "v4/core/to-json-schema.cjs": [
+          665
+        ],
+        "v4/core/util.cjs": [
+          948
+        ],
+        "v4/core/versions.cjs": [
+          11
+        ],
+        "v4/core/visit.cjs": [
+          3
+        ],
+        "v4/index.cjs": [
+          2
+        ],
+        "v4/locales/ar.cjs": [
+          2
+        ],
+        "v4/locales/ar.d.ts": [
+          2
+        ],
+        "v4/locales/ar.js": [
+          107
+        ],
+        "v4/locales/az.cjs": [
+          2
+        ],
+        "v4/locales/az.d.ts": [
+          2
+        ],
+        "v4/locales/az.js": [
+          106
+        ],
+        "v4/locales/be.cjs": [
+          2
+        ],
+        "v4/locales/be.d.ts": [
+          2
+        ],
+        "v4/locales/be.js": [
+          164
+        ],
+        "v4/locales/bg.cjs": [
+          2
+        ],
+        "v4/locales/bg.d.ts": [
+          2
+        ],
+        "v4/locales/bg.js": [
+          121
+        ],
+        "v4/locales/bn.cjs": [
+          2
+        ],
+        "v4/locales/bn.d.ts": [
+          2
+        ],
+        "v4/locales/bn.js": [
+          109
+        ],
+        "v4/locales/ca.cjs": [
+          2
+        ],
+        "v4/locales/ca.d.ts": [
+          2
+        ],
+        "v4/locales/ca.js": [
+          108
+        ],
+        "v4/locales/ckb.cjs": [
+          2
+        ],
+        "v4/locales/ckb.d.ts": [
+          2
+        ],
+        "v4/locales/ckb.js": [
+          129
+        ],
+        "v4/locales/cs.cjs": [
+          2
+        ],
+        "v4/locales/cs.d.ts": [
+          2
+        ],
+        "v4/locales/cs.js": [
+          112
+        ],
+        "v4/locales/da.cjs": [
+          2
+        ],
+        "v4/locales/da.d.ts": [
+          2
+        ],
+        "v4/locales/da.js": [
+          116
+        ],
+        "v4/locales/de.cjs": [
+          2
+        ],
+        "v4/locales/de.d.ts": [
+          2
+        ],
+        "v4/locales/de.js": [
+          109
+        ],
+        "v4/locales/el.cjs": [
+          2
+        ],
+        "v4/locales/el.d.ts": [
+          2
+        ],
+        "v4/locales/el.js": [
+          108
+        ],
+        "v4/locales/en.cjs": [
+          2
+        ],
+        "v4/locales/en.d.ts": [
+          2
+        ],
+        "v4/locales/en.js": [
+          121
+        ],
+        "v4/locales/eo.cjs": [
+          2
+        ],
+        "v4/locales/eo.d.ts": [
+          2
+        ],
+        "v4/locales/eo.js": [
+          110
+        ],
+        "v4/locales/es.cjs": [
+          2
+        ],
+        "v4/locales/es.d.ts": [
+          2
+        ],
+        "v4/locales/es.js": [
+          132
+        ],
+        "v4/locales/fa.cjs": [
+          2
+        ],
+        "v4/locales/fa.d.ts": [
+          2
+        ],
+        "v4/locales/fa.js": [
+          115
+        ],
+        "v4/locales/fi.cjs": [
+          2
+        ],
+        "v4/locales/fi.d.ts": [
+          2
+        ],
+        "v4/locales/fi.js": [
+          113
+        ],
+        "v4/locales/fr-CA.cjs": [
+          2
+        ],
+        "v4/locales/fr-CA.d.ts": [
+          2
+        ],
+        "v4/locales/fr-CA.js": [
+          108
+        ],
+        "v4/locales/fr.cjs": [
+          2
+        ],
+        "v4/locales/fr.d.ts": [
+          2
+        ],
+        "v4/locales/fr.js": [
+          125
+        ],
+        "v4/locales/gu.cjs": [
+          2
+        ],
+        "v4/locales/gu.d.ts": [
+          2
+        ],
+        "v4/locales/gu.js": [
+          109
+        ],
+        "v4/locales/he.cjs": [
+          2
+        ],
+        "v4/locales/he.d.ts": [
+          2
+        ],
+        "v4/locales/he.js": [
+          217
+        ],
+        "v4/locales/hi.cjs": [
+          2
+        ],
+        "v4/locales/hi.d.ts": [
+          2
+        ],
+        "v4/locales/hi.js": [
+          107
+        ],
+        "v4/locales/hr.cjs": [
+          2
+        ],
+        "v4/locales/hr.d.ts": [
+          2
+        ],
+        "v4/locales/hr.js": [
+          122
+        ],
+        "v4/locales/hu.cjs": [
+          2
+        ],
+        "v4/locales/hu.d.ts": [
+          2
+        ],
+        "v4/locales/hu.js": [
+          109
+        ],
+        "v4/locales/hy.cjs": [
+          2
+        ],
+        "v4/locales/hy.d.ts": [
+          2
+        ],
+        "v4/locales/hy.js": [
+          154
+        ],
+        "v4/locales/id.cjs": [
+          2
+        ],
+        "v4/locales/id.d.ts": [
+          2
+        ],
+        "v4/locales/id.js": [
+          107
+        ],
+        "v4/locales/index.cjs": [
+          2
+        ],
+        "v4/locales/is.cjs": [
+          2
+        ],
+        "v4/locales/is.d.ts": [
+          2
+        ],
+        "v4/locales/is.js": [
+          110
+        ],
+        "v4/locales/it.cjs": [
+          2
+        ],
+        "v4/locales/it.d.ts": [
+          2
+        ],
+        "v4/locales/it.js": [
+          109
+        ],
+        "v4/locales/ja.cjs": [
+          2
+        ],
+        "v4/locales/ja.d.ts": [
+          2
+        ],
+        "v4/locales/ja.js": [
+          108
+        ],
+        "v4/locales/ka.cjs": [
+          2
+        ],
+        "v4/locales/ka.d.ts": [
+          2
+        ],
+        "v4/locales/ka.js": [
+          113
+        ],
+        "v4/locales/kh.cjs": [
+          2
+        ],
+        "v4/locales/kh.d.ts": [
+          3
+        ],
+        "v4/locales/kh.js": [
+          3
+        ],
+        "v4/locales/km.cjs": [
+          2
+        ],
+        "v4/locales/km.d.ts": [
+          2
+        ],
+        "v4/locales/km.js": [
+          111
+        ],
+        "v4/locales/kn.cjs": [
+          2
+        ],
+        "v4/locales/kn.d.ts": [
+          2
+        ],
+        "v4/locales/kn.js": [
+          112
+        ],
+        "v4/locales/ko.cjs": [
+          2
+        ],
+        "v4/locales/ko.d.ts": [
+          2
+        ],
+        "v4/locales/ko.js": [
+          112
+        ],
+        "v4/locales/lt.cjs": [
+          2
+        ],
+        "v4/locales/lt.d.ts": [
+          2
+        ],
+        "v4/locales/lt.js": [
+          203
+        ],
+        "v4/locales/mk.cjs": [
+          2
+        ],
+        "v4/locales/mk.d.ts": [
+          2
+        ],
+        "v4/locales/mk.js": [
+          110
+        ],
+        "v4/locales/ms.cjs": [
+          2
+        ],
+        "v4/locales/ms.d.ts": [
+          2
+        ],
+        "v4/locales/ms.js": [
+          108
+        ],
+        "v4/locales/ne.cjs": [
+          2
+        ],
+        "v4/locales/ne.d.ts": [
+          2
+        ],
+        "v4/locales/ne.js": [
+          107
+        ],
+        "v4/locales/nl.cjs": [
+          2
+        ],
+        "v4/locales/nl.d.ts": [
+          2
+        ],
+        "v4/locales/nl.js": [
+          111
+        ],
+        "v4/locales/nn.cjs": [
+          2
+        ],
+        "v4/locales/nn.d.ts": [
+          2
+        ],
+        "v4/locales/nn.js": [
+          109
+        ],
+        "v4/locales/no.cjs": [
+          2
+        ],
+        "v4/locales/no.d.ts": [
+          2
+        ],
+        "v4/locales/no.js": [
+          109
+        ],
+        "v4/locales/ota.cjs": [
+          2
+        ],
+        "v4/locales/ota.d.ts": [
+          2
+        ],
+        "v4/locales/ota.js": [
+          110
+        ],
+        "v4/locales/pl.cjs": [
+          2
+        ],
+        "v4/locales/pl.d.ts": [
+          2
+        ],
+        "v4/locales/pl.js": [
+          110
+        ],
+        "v4/locales/ps.cjs": [
+          2
+        ],
+        "v4/locales/ps.d.ts": [
+          2
+        ],
+        "v4/locales/ps.js": [
+          115
+        ],
+        "v4/locales/pt-BR.cjs": [
+          2
+        ],
+        "v4/locales/pt-BR.d.ts": [
+          2
+        ],
+        "v4/locales/pt-BR.js": [
+          139
+        ],
+        "v4/locales/pt.cjs": [
+          2
+        ],
+        "v4/locales/pt.d.ts": [
+          2
+        ],
+        "v4/locales/pt.js": [
+          138
+        ],
+        "v4/locales/ro.cjs": [
+          2
+        ],
+        "v4/locales/ro.d.ts": [
+          2
+        ],
+        "v4/locales/ro.js": [
+          118
+        ],
+        "v4/locales/ru.cjs": [
+          2
+        ],
+        "v4/locales/ru.d.ts": [
+          2
+        ],
+        "v4/locales/ru.js": [
+          164
+        ],
+        "v4/locales/sk.cjs": [
+          2
+        ],
+        "v4/locales/sk.d.ts": [
+          2
+        ],
+        "v4/locales/sk.js": [
+          112
+        ],
+        "v4/locales/sl.cjs": [
+          2
+        ],
+        "v4/locales/sl.d.ts": [
+          2
+        ],
+        "v4/locales/sl.js": [
+          110
+        ],
+        "v4/locales/sv.cjs": [
+          2
+        ],
+        "v4/locales/sv.d.ts": [
+          2
+        ],
+        "v4/locales/sv.js": [
+          111
+        ],
+        "v4/locales/ta.cjs": [
+          2
+        ],
+        "v4/locales/ta.d.ts": [
+          2
+        ],
+        "v4/locales/ta.js": [
+          111
+        ],
+        "v4/locales/tg.cjs": [
+          2
+        ],
+        "v4/locales/tg.d.ts": [
+          2
+        ],
+        "v4/locales/tg.js": [
+          113
+        ],
+        "v4/locales/th.cjs": [
+          2
+        ],
+        "v4/locales/th.d.ts": [
+          2
+        ],
+        "v4/locales/th.js": [
+          111
+        ],
+        "v4/locales/tk.cjs": [
+          2
+        ],
+        "v4/locales/tk.d.ts": [
+          2
+        ],
+        "v4/locales/tk.js": [
+          103
+        ],
+        "v4/locales/tr.cjs": [
+          2
+        ],
+        "v4/locales/tr.d.ts": [
+          2
+        ],
+        "v4/locales/tr.js": [
+          106
+        ],
+        "v4/locales/ua.cjs": [
+          2
+        ],
+        "v4/locales/ua.d.ts": [
+          3
+        ],
+        "v4/locales/ua.js": [
+          3
+        ],
+        "v4/locales/uk.cjs": [
+          2
+        ],
+        "v4/locales/uk.d.ts": [
+          2
+        ],
+        "v4/locales/uk.js": [
+          109
+        ],
+        "v4/locales/ur.cjs": [
+          2
+        ],
+        "v4/locales/ur.d.ts": [
+          2
+        ],
+        "v4/locales/ur.js": [
+          111
+        ],
+        "v4/locales/uz.cjs": [
+          2
+        ],
+        "v4/locales/uz.d.ts": [
+          2
+        ],
+        "v4/locales/uz.js": [
+          109
+        ],
+        "v4/locales/vi.cjs": [
+          2
+        ],
+        "v4/locales/vi.d.ts": [
+          2
+        ],
+        "v4/locales/vi.js": [
+          109
+        ],
+        "v4/locales/yo.cjs": [
+          2
+        ],
+        "v4/locales/yo.d.ts": [
+          2
+        ],
+        "v4/locales/yo.js": [
+          108
+        ],
+        "v4/locales/zh-CN.cjs": [
+          2
+        ],
+        "v4/locales/zh-CN.d.ts": [
+          2
+        ],
+        "v4/locales/zh-CN.js": [
+          110
+        ],
+        "v4/locales/zh-TW.cjs": [
+          2
+        ],
+        "v4/locales/zh-TW.d.ts": [
+          2
+        ],
+        "v4/locales/zh-TW.js": [
+          108
+        ],
+        "v4/mini/checks.cjs": [
+          5
+        ],
+        "v4/mini/coerce.cjs": [
+          2
+        ],
+        "v4/mini/deep-partial.cjs": [
+          2
+        ],
+        "v4/mini/external.cjs": [
+          2
+        ],
+        "v4/mini/in-out.cjs": [
+          2
+        ],
+        "v4/mini/index.cjs": [
+          2
+        ],
+        "v4/mini/iso.cjs": [
+          2
+        ],
+        "v4/mini/parse.cjs": [
+          5
+        ],
+        "v4/mini/schemas.cjs": [
+          2
+        ],
+        "v4-mini/index.cjs": [
+          2
+        ]
+      },
+      "encoded-payload": {
+        "src/v3/types.ts": [
+          709
+        ],
+        "src/v4/classic/tests/string.test.ts": [
+          277
+        ],
+        "src/v4/core/schemas.ts": [
+          1030
+        ],
+        "src/v4/core/util.ts": [
+          1075
+        ],
+        "v3/types.cjs": [
+          463
+        ],
+        "v3/types.js": [
+          454
+        ],
+        "v4/core/schemas.cjs": [
+          501
+        ],
+        "v4/core/schemas.js": [
+          457
+        ],
+        "v4/core/util.cjs": [
+          753
+        ],
+        "v4/core/util.js": [
+          682
+        ]
+      }
+    }
+  }
+}

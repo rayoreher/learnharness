@@ -1,0 +1,33 @@
+/* Shared interaction polish. Keep the native theme and component ownership. */
+:where(a[href], button, input, textarea, select, summary, [role="button"], [role="tab"], [role="menuitem"], [role="checkbox"], [role="switch"], [tabindex]):focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+  scroll-margin: 4rem 1rem;
+}
+
+@media (pointer: coarse) {
+  .lh-sidebar :is(button, a[href], input),
+  .lh-home-mode-switch button,
+  .lh-lesson-practice .lh-lesson-controls button,
+  .lh-lesson-practice button,
+  .lh-code-viewer button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .lh-confidence-track { min-height: 44px; }
+  .lh-confidence-input { height: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.sidebar-motion, .lh-lesson-practice, .lh-code-viewer, .lh-lesson-practice *, .lh-code-viewer *) {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :where(a[href], button, input, textarea, select, summary, [tabindex]):focus-visible { outline-color: Highlight; }
+  :where(.lh-lesson-content, .lh-lesson-feedback, .lh-code-viewer) { border-color: CanvasText; }
+}

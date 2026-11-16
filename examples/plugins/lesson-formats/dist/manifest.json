@@ -1,0 +1,10 @@
+{
+  "apiVersion": 1,
+  "id": "lesson-formats",
+  "name": "Example lesson formats",
+  "version": "0.1.0",
+  "minAppVersion": "0.6.1",
+  "description": "Example native plugin: numeric questions, reflection-first lessons, slide decks and SVG flow diagrams.",
+  "main": "main.js",
+  "backend": "backend.cjs"
+}

@@ -13,8 +13,10 @@ building or exercising it: plugins are trusted local code, not sandboxed extensi
 | [UI Showcase](../plugins/ui-showcase/README.md) | Runnable Community developer gallery | All 15 public UI methods, controlled values, family-local Reset and overlay ownership |
 | [Flashcards](../plugins/flashcards/README.md) | Core source reference | A complete feature: knowledge/document input, durable worker outcomes, plugin-owned storage, tree, review surfaces and settings |
 | [Coding questions](../plugins/coding-questions/README.md) | Core source reference | Teaching questions and repeated practice submissions, controlled editors, processing observations and saved-result rendering |
+| [Lesson formats](../examples/plugins/lesson-formats/README.md) | Optional example for this fork | Selectable numeric quizzes, reflection-first lessons, slide output and SVG diagrams through the existing plugin host |
 | [Drawing Pad](../plugins/drawing-pad/README.md) | Core source reference | Session-context actions, shortcuts, surfaces, learner-submission image attachment and acknowledgment-aware draft consumption |
 | [Rich code blocks](../plugins/rich-code-blocks/README.md) | Core source reference | Conditional fence renderers, additive instructions, settings synchronization, local assets and bounded rendering |
+| [Code viewer](../plugins/code-viewer/README.md) | Core addition in this fork | Editor-style code fences using host-only native highlighting, source-preserving copy, expansion and cleanup |
 
 Hello is the smallest place to begin. The official source projects are the primary
 substantial examples; read a route below for the extension point you need rather than
@@ -30,6 +32,9 @@ package is disabled, broken or missing. Their sources are included for study and
 adaptation, not installation as Community duplicates. Enable the app-supplied features
 in **Settings → Core plugins**. App updates supply Core code; writable records live
 under `<learning data>/core-plugin-data/<id>/`, separate from that code.
+
+This fork's additional Core IDs `lesson-practice` and `code-viewer` follow the
+same reservation and enable/disable rules.
 
 A Community fork needs its **own manifest ID and matching folder name**. Also review
 contribution/type identifiers, native tool names and code-fence names: changing a
