@@ -33,7 +33,7 @@ try {
   const enabled = host.list().find(p => p.id === 'lesson-practice');
   assert.equal(enabled.status, 'active', enabled.error);
   const contribution = host.agentContributions({ chatId: native.id, agent: 'teacher' }, ['quiz', 'explain']);
-  assert.equal(contribution.tools.length, 6); assert.equal(contribution.questionTypes.length, 2);
+  assert.equal(contribution.tools.length, 7); assert.equal(contribution.questionTypes.length, 2);
   assert.equal(contribution.instructions.length, 1);
   assert.deepEqual(contribution.questionTypes.map(q => q.definition.id).sort(), ['lesson-fill-blank', 'lesson-flashcard']);
   assert.equal(host.agentContributions({ chatId: native.id, agent: 'prober' }, []).tools.length, 0);
@@ -69,6 +69,9 @@ try {
   }
   await answerNumber('5');
   const status = await host.call('lesson-practice', 'session', { chatId: native.id }); assert.equal(status.session.reviews.length, 1); assert.equal(status.session.attempts[0].quizType, 'lesson-formats:numeric');
+  const correction = await contribution.tools.find(t => t.name === 'lesson_correction').execute('correct-numeric', { questionId: 'numeric-1' });
+  assert.equal(correction.details.reference, '4'); assert.equal(correction.details.explanation, 'Combine two pairs.');
+  assert.deepEqual((await host.call('lesson-practice', 'session', { chatId: native.id })).session.reviews, status.session.reviews);
   await contribution.tools.find(t => t.name === 'lesson_finish').execute('finish', { lessonId: 'extensions' });
   await answerNumber('4', true);
   assert.equal((await host.call('lesson-practice', 'session', { chatId: native.id })).session.reviews.length, 0);

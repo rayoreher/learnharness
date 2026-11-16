@@ -136,7 +136,7 @@ export function activate(ctx) {
       root.append(node(document, 'p', `Your answer: ${props.answer.known ? (type === 'flashcard' ? props.answer.value === 'good' ? 'Recalled · self-assessed' : 'Needs practice · self-assessed' : props.answer.value) : 'I don’t know'}`));
       if (outcome?.result === 'needs-feedback' || props.grading?.error) root.append(node(document, 'p', 'Teacher feedback follows in this session.'));
       else if (outcome) root.append(node(document, 'p', outcome.result === 'correct' ? 'Correct.' : 'Keep going; this concept will return in later practice.'));
-      handles.push(ctx.ui.mountMarkdown(root, { text: `**Reference answer**\n\n${props.input.payload.reference}\n\n${props.input.payload.explanation}` }, { signal: props.signal }));
+      handles.push(ctx.ui.mountMarkdown(root, { text: `**Reference answer**\n\n${props.input.payload.reference}\n\n${props.input.payload.explanation}`, allowPluginFences: true }, { signal: props.signal }));
       return () => { for (const h of handles) h.dispose(); root.remove(); };
     }
   }));
@@ -145,9 +145,9 @@ export function activate(ctx) {
     if (!block.output.showExplanation) { const h = ctx.ui.mountMarkdown(container, { text: 'Try the first question. The explanation follows your answer.' }, { signal: block.signal }); return () => h.dispose(); }
     return mountExplanation(container, block.output.lesson, ctx, block.signal);
   } }));
-  disposers.push(ctx.registerToolRenderer({ toolName: 'lesson_feedback', mount(container, block) {
+  for (const toolName of ['lesson_feedback', 'lesson_correction']) disposers.push(ctx.registerToolRenderer({ toolName, mount(container, block) {
     if (block.state !== 'output-available' || !block.output?.reference) return;
-    const value = block.output, h = ctx.ui.mountMarkdown(container, { text: `**${value.result === 'correct' ? 'Correct' : value.result === 'partial' ? 'Partly correct' : 'Needs practice'}**\n\n${value.explanation}\n\n**Reference answer**\n\n${value.reference}` }, { signal: block.signal }); return () => h.dispose();
+    const value = block.output, h = ctx.ui.mountMarkdown(container, { text: `**${value.result === 'correct' ? 'Correct' : value.result === 'partial' ? 'Partly correct' : 'Needs practice'}**\n\n**Correct answer**\n\n${value.reference}\n\n${value.explanation}`, allowPluginFences: true }, { signal: block.signal }); return () => h.dispose();
   } }));
   disposers.push(ctx.registerSettings((container, signal) => mountSettings(container, ctx, signal)));
   disposers.push(ctx.registerAction({ id: 'lesson-options', name: 'Lesson options', run(context) {

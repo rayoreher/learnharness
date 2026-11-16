@@ -60,6 +60,13 @@ The standalone checks are [sanitizer browser verification](../tests/sanitizer-br
 credential-free experiment inputs recorded in the review; they do not start the
 application or use existing account/profile data.
 
+Development version 0.3.0 adds a dependency-free Code viewer and updates the empty
+lesson-package lock's version. There are now eight lockfiles, with the same
+registry package/version set as the recorded seven-lockfile lookup. Its separate
+[confidence/code review](native-confidence-code-review.json) refreshes the pinned
+native test dependency's advisory check; it does not claim a fresh full-app query
+or resolve the inherited findings below.
+
 Other hits include Hono, brace-expansion, fast-uri, linkify-it, minimatch,
 shell-quote, source-map-js and legacy Zod 3. Some fixed versions cross a major
 version boundary. Review each dependency's actual caller and compatibility;

@@ -44,6 +44,13 @@ try {
   await evaluate(`document.querySelector('textarea').value='Recall';document.querySelector('textarea').dispatchEvent(new Event('input'))`); assert.equal(await evaluate('answer.status'), 'ready'); assert.equal(await evaluate('answer.value.value'), 'Recall');
   await evaluate('editor.update({active:false,answer});'); assert.equal(await evaluate('document.querySelector("textarea").disabled'), true); await evaluate('scope.abort()'); assert.equal(await evaluate('document.querySelector("#slot").children.length'), 0);
   console.log('PASS added fill-blank editor uses native controlled answer and cleanup contract');
+  await evaluate(`window.scope=new AbortController();window.cleanup=fixture.tools.get('lesson_correction').mount(document.querySelector('#slot'),{state:'output-available',output:{result:'incorrect',reference:'Recall',explanation:'Retrieval comes before feedback.'},signal:scope.signal})`);
+  assert.equal(await evaluate('document.querySelector("#slot").innerText.includes("Correct answer")'), true);
+  assert.equal(await evaluate('document.querySelector("#slot").innerText.includes("Recall")'), true);
+  assert.equal(await evaluate('document.querySelector("#slot").innerText.includes("Retrieval comes before feedback.")'), true);
+  assert.equal(await evaluate('fixture.markdownProps.at(-1).allowPluginFences'), true);
+  await evaluate('cleanup();scope.abort()');
+  console.log('PASS lesson correction visibly shows the committed answer and explanation without opening the native Why control');
   await evaluate(`window.scope=new AbortController();window.answer=null;window.editor=fixture.questions.get('lesson-flashcard').mountAnswerEditor(document.querySelector('#slot'),{active:true,answer:{status:'empty'},input:{payload:{reference:'REFERENCE SECRET',explanation:'Recall first.'}},questionId:'card',signal:scope.signal,onChange(value){answer=value}})`);
   assert.equal(await evaluate('document.body.innerText.includes("REFERENCE SECRET")'), false);
   await evaluate(`[...document.querySelectorAll('button')].find(b=>b.textContent==='Reveal answer').click()`); assert.equal(await evaluate('document.body.innerText.includes("REFERENCE SECRET")'), true); assert.equal(await evaluate('answer.status'), 'unready');

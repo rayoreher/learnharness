@@ -12,13 +12,14 @@ for (const directory of ['/home', '/run', '/var/run']) await assert.rejects(acce
 const host = path.resolve(process.env.LH_NATIVE_HOST_CORE, '../..');
 const { setupPlugins } = await import(pathToFileURL(path.join(host, 'scripts/setup-plugins.mjs')));
 const { buildCorePlugins, validateCorePackages } = await import(pathToFileURL(path.join(host, 'scripts/build-core-plugins.mjs')));
-const root = await mkdtemp(path.join(os.tmpdir(), 'lh-native-setup-')), project = path.join(root, 'plugins/lesson-practice');
 const manifest = JSON.parse(await readFile('/plugin/manifest.json', 'utf8'));
+assert.match(manifest.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+const root = await mkdtemp(path.join(os.tmpdir(), 'lh-native-setup-')), project = path.join(root, 'plugins', manifest.id);
 let missingLockChecked = false;
 try {
   await cp('/plugin', project, { recursive: true });
   await writeFile(path.join(root, 'package.json'), JSON.stringify({ version: '0.6.1' }));
-  await writeFile(path.join(root, 'core-plugins.json'), JSON.stringify(['lesson-practice']));
+  await writeFile(path.join(root, 'core-plugins.json'), JSON.stringify([manifest.id]));
   await writeFile('/tmp/native-empty-npmrc', '');
   await writeFile('/tmp/native-empty-global-npmrc', '');
   const lockFile = path.join(project, 'package-lock.json'), lock = JSON.parse(await readFile(lockFile, 'utf8'));
@@ -38,8 +39,8 @@ try {
   };
   setupPlugins(root, { run }); buildCorePlugins(root, { run }); validateCorePackages(root, path.join(root, 'core-plugins'));
   assert.equal(commands.length, 2); assert.equal(missingLockChecked, true);
-  const built = JSON.parse(await readFile(path.join(root, 'core-plugins/lesson-practice/manifest.json'), 'utf8'));
+  const built = JSON.parse(await readFile(path.join(root, 'core-plugins', manifest.id, 'manifest.json'), 'utf8'));
   assert.equal(built.version, manifest.version);
-  for (const name of ['package.json', 'package-lock.json', 'node_modules', 'src', 'tests', 'data']) await assert.rejects(access(path.join(root, 'core-plugins/lesson-practice', name)));
+  for (const name of ['package.json', 'package-lock.json', 'node_modules', 'src', 'tests', 'data']) await assert.rejects(access(path.join(root, 'core-plugins', manifest.id, name)));
   console.log('PASS original plugin setup rejects a missing lockfile, then installs the empty lock offline; original Core builder stages the versioned package without source/dependency/data files');
 } finally { await rm(root, { recursive: true, force: true }); }

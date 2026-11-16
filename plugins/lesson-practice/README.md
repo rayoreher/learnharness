@@ -32,6 +32,23 @@ until a later unassisted correct review answer clears them. Correct answers duri
 the first pass cannot clear an earlier mistake before it returns. Flashcards explicitly record
 self-assessment. Displaying a reference alone never clears a concept.
 
+The native multiple-choice confidence slider is retained in accepted lesson
+attempts. `lesson_status` reports learning signals: a confident mistake suggests
+a misconception, a hesitant correct answer suggests one delayed reinforcing
+check, and a confident correct answer permits moving on. Confidence follows the
+original teacher rules (90–100 for certainty; doubt at or below chance, or 30%).
+It never changes a grade or turns a correct answer into a mistake. Due reviews
+prioritize confident mistakes while preserving spacing and forward progression.
+Declining to guess carries no confidence. A successful reinforcement does not
+force a loop until the learner reports certainty. Old attempts can recover the
+signal from their accepted native record without regrading or moving the queue.
+
+Wrong-answer feedback uses `lesson_correction` to show the committed correct
+answer and brief explanation visibly before continuing. The original native
+card's Why control is unchanged. This tool reads accepted evidence and cannot
+regrade an answer or clear review. The optional **Code viewer** Core plugin adds an editor-style
+frame to ordinary code fences while reusing native syntax colors and line numbers.
+
 Text remains the default. Slides and browser-local captioned video render inside
 the same native lesson tool card, using host Markdown/buttons and inherited theme
 colors. Video has no narration or external service. Unsupported video leaves the

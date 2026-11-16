@@ -53,6 +53,35 @@ claiming completion. Original dependencies and scripts remain subject to the
 owner's outside-code intake requirement; isolated plugin fixtures alone do not
 prove that the full application runs.
 
+## Confidence, visible corrections and code in 0.3.0
+
+Generation stays incremental: agree on the original plan, commit one small
+explanation, then pose its selected questions one at a time. The next step uses
+the accepted answer and the original teacher's confidence guidance.
+
+The lesson records retain native multiple-choice confidence. `lesson_status`
+provides `learningSignals` and suggested `reinforce` checks. Confident mistakes
+lead the due review list; hesitant correct answers suggest one spaced reinforcing
+check while keeping their correct grade. A successful reinforcement does not
+force repeated confidence scoring. Declined answers have no confidence.
+Historical confidence can be recovered from accepted native records without
+regrading, changing assessment order or advancing the review queue.
+
+`lesson_correction` reads an accepted wrong/partial answer and presents its
+precommitted reference and explanation visibly in the lesson. This retains the
+original quiz card's collapsed Why control. Open responses still use ordinary
+teacher feedback. Correction display cannot change a grade or clear a miss.
+
+The separate optional [Code viewer](../plugins/code-viewer/README.md) Core plugin
+registers ordinary code languages through the existing renderer hook. It frames
+LearnHarness's native highlighted code and line numbers with a language header,
+Copy, Expand and scrolling. It uses host-only nested Markdown to avoid recursion,
+leaves diagram fences to their existing renderers and adds no dependencies.
+
+Focused backend, native-helper, widget and packaging verification for this version
+is recorded in [the review evidence](native-confidence-code-review.json). Complete
+React app/model verification and deployment remain outstanding.
+
 ## Checks completed through development version 0.2.1
 
 - Thirteen isolated backend tests cover accepted-answer authority, cancelled/forged

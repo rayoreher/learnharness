@@ -21,7 +21,14 @@ async function fixture(t, formats = []) {
     events: { emit() {}, on(listener) { events.add(listener); return () => events.delete(listener); } }
   };
   const stop = activate(context), tools = new Map(factories.flatMap(f => f.create({ chatId: native.id, agent: 'teacher' })).map(tool => [tool.name, tool]));
-  const tool = async (name, input) => (await tools.get(name).execute('native-tool-call', input, controller.signal)).details;
+  const tool = async (name, input) => {
+    const details = (await tools.get(name).execute('native-tool-call', input, controller.signal)).details;
+    if (name === 'lesson_revisit') {
+      const id = 'revisit-' + ++serial;
+      native.messages.push({ role: 'assistant', id, content: [{ type: 'toolCall', id, name, arguments: input }] }, { role: 'toolResult', id: id + '-result', toolCallId: id, toolName: name, details, isError: false });
+    }
+    return details;
+  };
   const call = (name, input = {}) => handlers.get(name)(input);
   let serial = 0;
   async function begin(nodeId = 'recall', selected, lessonId = nodeId + '-step') {
@@ -46,6 +53,7 @@ async function fixture(t, formats = []) {
     if (posed.source === 'native') {
       const choice = posed.occurrence.toolName === 'quiz', result = { result: !answer.known ? 'incorrect' : choice ? answer.value === 'Recall' ? 'correct' : 'incorrect' : 'needs-feedback' };
       const message = { role: 'toolResult', id: 'native-answer-' + serial, toolCallId: posed.questionId, toolName: posed.occurrence.toolName, isError: false, details: { kind: choice ? 'quiz' : 'explain', tool: posed.occurrence.toolName, questionText: posed.input.question, dontKnow: !answer.known, answers: choice ? [{ label: answer.value }] : [], ...(choice ? { correct: answer.known && answer.value === 'Recall', explanation: posed.input.explanation } : { text: answer.value, committed: posed.input.correctAnswer }), answeredAt: date } };
+      if (choice && answer.confidence !== undefined) message.details.confidence = answer.confidence;
       if (accepted) native.messages.push(message); return { result, message };
     }
     assert.deepEqual(posed.definition.validateAnswer({ input: posed.input, answer }) ?? [], []);
@@ -160,4 +168,67 @@ test('an already posed contributed quiz survives deselection and uses its commit
   await f.tool('lesson_finish', { lessonId: 'recall-step' });
   const assessed = (await f.call('session', { chatId: f.native.id })).session;
   assert.equal(assessed.attempts[0].provenance, 'teacher'); assert.equal(assessed.reviews.length, 1);
+});
+test('native confidence is saved, backfilled from accepted evidence and retained through restart without regrading', async t => {
+  const f = await fixture(t); await f.begin('recall', ['multiple-choice']);
+  f.accept(f.pose('multiple-choice'), { value: 'Recall', known: true, confidence: 95 });
+  let snapshot = await f.call('session', { chatId: f.native.id });
+  assert.equal(snapshot.session.attempts[0].confidence, 95); assert.equal(snapshot.learningSignals[0].signal, 'secure');
+  assert.equal(snapshot.reinforce.length, 0); assert.equal(snapshot.session.reviews.length, 0);
+  const file = path.join(f.directory, 'lessons.json'), stored = JSON.parse(await readFile(file, 'utf8'));
+  const original = structuredClone(stored.sessions[f.native.id].attempts[0]);
+  const { learningSignals, reconcile } = require('../src/domain.cjs');
+  const legacy = structuredClone(stored.sessions[f.native.id]); delete legacy.attempts[0].confidence; delete legacy.attempts[0].optionCount; delete legacy.attempts[0].known; delete legacy.attempts[0].review;
+  reconcile(legacy, f.native); assert.deepEqual(legacy.attempts[0], original);
+  assert.equal(learningSignals(stored.sessions[f.native.id]).signals[0].confidence, 95);
+  assert.equal(legacy.sequence, 1); assert.equal(legacy.attempts.length, 1);
+});
+test('a hesitant correct answer suggests one delayed reinforcement without becoming a mistake', async t => {
+  const f = await fixture(t); await f.begin('recall', ['multiple-choice']);
+  f.accept(f.pose('multiple-choice'), { value: 'Recall', known: true, confidence: 50 });
+  let snapshot = await f.call('session', { chatId: f.native.id });
+  assert.equal(snapshot.learningSignals[0].signal, 'fragile'); assert.equal(snapshot.reinforce[0].due, false);
+  assert.equal(snapshot.session.attempts[0].result, 'correct'); assert.equal(snapshot.session.reviews.length, 0);
+  await assert.rejects(f.tool('lesson_revisit', { lessonId: 'recall-step' }), /due reinforcement/);
+  await f.tool('lesson_finish', { lessonId: 'recall-step' });
+  snapshot = await f.tool('lesson_status', {}); assert.equal(snapshot.reinforce[0].due, true);
+  await f.tool('lesson_revisit', { lessonId: 'recall-step' });
+  f.accept(f.pose('multiple-choice'), { value: 'Recall', known: true, confidence: 50 });
+  snapshot = await f.call('session', { chatId: f.native.id });
+  assert.equal(snapshot.session.attempts[1].review, true); assert.equal(snapshot.reinforce.length, 0);
+  assert.equal(snapshot.learningSignals[0].signal, 'fragile'); assert.equal(snapshot.session.reviews.length, 0);
+});
+test('confident mistakes lead due reviews without being erased by correct first-pass answers', async t => {
+  const f = await fixture(t); await f.begin('recall', ['multiple-choice']);
+  f.accept(f.pose('multiple-choice'), { value: 'Reveal', known: true, confidence: 20 });
+  await f.tool('lesson_finish', { lessonId: 'recall-step' });
+  await f.begin('spacing', ['multiple-choice']);
+  f.accept(f.pose('multiple-choice', { nodeId: 'spacing' }), { value: 'Reveal', known: true, confidence: 100 });
+  await f.tool('lesson_finish', { lessonId: 'spacing-step' });
+  f.accept(f.pose('multiple-choice', { nodeId: 'spacing' }), { value: 'Recall', known: true, confidence: 100 });
+  const snapshot = await f.tool('lesson_status', {});
+  assert.equal(snapshot.learningSignals[0].signal, 'possible-misconception');
+  assert.equal(snapshot.learningSignals[0].confidence, 100); assert.equal(snapshot.due[0].lessonId, 'spacing-step');
+  assert.equal(snapshot.missed.length, 2); assert.equal(snapshot.covered.length, 2);
+});
+test('missing, invalid and declined confidence never becomes an invented learning signal', async t => {
+  const f = await fixture(t); await f.begin('recall', ['multiple-choice']);
+  for (const confidence of [undefined, NaN, Infinity, -1, 101, '95']) f.accept(f.pose('multiple-choice'), { value: 'Recall', known: true, confidence });
+  f.accept(f.pose('multiple-choice'), { value: '', known: false, confidence: 100 });
+  const snapshot = await f.call('session', { chatId: f.native.id });
+  assert(snapshot.session.attempts.every(a => !('confidence' in a))); assert.equal(snapshot.learningSignals[0].signal, 'gap');
+  assert.equal(snapshot.reinforce.length, 0);
+});
+test('visible correction reads the accepted committed answer without regrading or clearing review', async t => {
+  const f = await fixture(t); await f.begin('recall', ['multiple-choice']);
+  const question = f.pose('multiple-choice');
+  await assert.rejects(f.tool('lesson_correction', { questionId: question.questionId }), /accepted lesson answer/);
+  f.accept(question, { value: 'Reveal', known: true, confidence: 100 });
+  const before = await f.call('session', { chatId: f.native.id });
+  const correction = await f.tool('lesson_correction', { questionId: question.questionId });
+  assert.equal(correction.reference, 'Recall'); assert.equal(correction.explanation, question.input.explanation); assert.equal(correction.result, 'incorrect');
+  const after = await f.call('session', { chatId: f.native.id });
+  assert.deepEqual(after.session.attempts, before.session.attempts); assert.deepEqual(after.session.reviews, before.session.reviews);
+  const right = f.pose('multiple-choice'); f.accept(right, { value: 'Recall', known: true });
+  await assert.rejects(f.tool('lesson_correction', { questionId: right.questionId }), /needing correction/);
 });

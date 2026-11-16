@@ -1,3 +1,14 @@
+# 0.3.0
+
+- Retain native multiple-choice confidence as accepted evidence, including
+  recovering it from historical native records without regrading.
+- Surface confidence-aware lesson signals, prioritize due confident mistakes
+  and recommend one spaced reinforcement for a hesitant correct first pass.
+- Keep grades, coverage, retrieval spacing and missed-concept clearing intact.
+- Show accepted wrong-answer corrections visibly through a read-only native
+  lesson tool; preserve the original quiz card's Why control and saved grade.
+- Add the separate optional Code viewer Core plugin using native highlighting.
+
 # 0.2.1
 
 - Include the empty dependency lockfile required by LearnHarness's original

@@ -57,6 +57,7 @@ function learningResponses(record, formats = []) {
     if (typeof reference !== 'string' || !reference.trim()) continue;
     native.push({ source: 'native', questionId: call.id, lessonId: lesson.id, nodeId: lesson.nodeId, conceptId: lesson.id, quizType: call.name === 'quiz' ? 'multiple-choice' : 'open', question: call.arguments.question, reference, explanation: data.explanation ?? '', review: reviewing,
       answer: { value: data.text ?? data.answers.map(a => a.label ?? a.value ?? '').join('; '), known: !data.dontKnow, assisted: false }, answeredAt: data.answeredAt,
+      ...(!data.dontKnow && call.name === 'quiz' && Number.isFinite(data.confidence) && data.confidence >= 0 && data.confidence <= 100 ? { confidence: data.confidence, optionCount: call.arguments.options?.length } : {}),
       grading: { result: { result: data.dontKnow ? 'incorrect' : call.name === 'quiz' ? data.correct ? 'correct' : 'incorrect' : 'needs-feedback', provenance: call.name === 'quiz' ? 'native-quiz' : 'teacher' } } });
   }
   const plugin = acceptedAnswers(record, null).flatMap(({ snapshot, answer }) => {
@@ -84,14 +85,43 @@ function grade(type, input, answer) {
   else result = (type === 'multiple-choice' ? answer.value === payload.reference : normalize(answer.value) === normalize(payload.reference)) ? 'correct' : 'incorrect';
   return { result, provenance, reference: payload.reference, explanation: payload.explanation, assisted: answer.assisted === true };
 }
+function learningSignals(session, now = Date.now()) {
+  const latest = new Map(), byQuestion = new Map(session.attempts.map(a => [a.questionId, a]));
+  for (const attempt of session.attempts) latest.set(attempt.lessonId, attempt);
+  const signals = [], reinforce = [];
+  for (const [lessonId, last] of latest) {
+    const queued = session.reviews.find(r => r.lessonId === lessonId), attempt = (queued && byQuestion.get(queued.questionId)) || last;
+    const confidence = attempt.confidence;
+    const low = Number.isFinite(confidence) && confidence <= Math.max(30, attempt.optionCount >= 2 ? 100 / attempt.optionCount : 30);
+    const signal = attempt.known === false ? 'gap' : attempt.result !== 'correct' ? confidence >= 90 ? 'possible-misconception' : 'needs-practice' : attempt.assisted ? 'assisted' : low ? 'fragile' : confidence >= 90 ? 'secure' : 'correct';
+    const priority = signal === 'possible-misconception' ? 0 : ['gap', 'needs-practice'].includes(signal) ? 1 : ['fragile', 'assisted'].includes(signal) ? 2 : 3;
+    const item = { lessonId, nodeId: attempt.nodeId, questionId: attempt.questionId, result: attempt.result, signal, priority,
+      ...(Number.isFinite(confidence) ? { confidence } : {}),
+      recommendation: queued ? 'Show a brief correction, continue, then revisit when due.' : signal === 'fragile' && !attempt.review ? 'Offer one later reinforcing check; the accepted answer was correct.' : signal === 'assisted' ? 'Check unassisted recall later.' : 'Continue with the next step.' };
+    signals.push(item);
+    if (!queued && signal === 'fragile' && !attempt.review) reinforce.push({ ...item, due: session.sequence >= attempt.sequence + 2 || now >= Date.parse(attempt.answeredAt) + 30000 || session.completed.includes(lessonId) });
+  }
+  signals.sort((a, b) => a.priority - b.priority);
+  return { signals, reinforce };
+}
 function reconcile(session, record, now = Date.now()) {
   const previous = new Map(session.attempts.map(a => [a.questionId, a]));
   const responses = learningResponses(record, session.lessons.flatMap(lesson => (lesson.formats ?? []).map(format => ({ ...format, lessonId: lesson.id, nodeId: lesson.nodeId }))));
   for (const response of responses) {
-    if (previous.has(response.questionId)) continue;
+    if (previous.has(response.questionId)) {
+      // Backfill only evidence present in the accepted native record. Never
+      // recompute or replace a saved grade, sequence, or review decision.
+      const existing = previous.get(response.questionId);
+      if (response.source === 'native') {
+        if (existing.known === undefined) existing.known = response.answer.known;
+        if (existing.review === undefined) existing.review = response.review === true;
+        if (existing.confidence === undefined && response.confidence !== undefined) { existing.confidence = response.confidence; existing.optionCount = response.optionCount; }
+      }
+      continue;
+    }
     const outcome = session.feedback[response.questionId] ?? response.grading?.result;
     if (!session.lessons.some(l => l.id === response.lessonId && l.nodeId === response.nodeId && l.id === response.conceptId) || !outcome || !['correct', 'incorrect', 'partial'].includes(outcome.result)) continue;
-    const attempt = { questionId: response.questionId, lessonId: response.lessonId, nodeId: response.nodeId, conceptId: response.conceptId, quizType: response.quizType, result: outcome.result, provenance: outcome.provenance ?? 'teacher', assisted: response.answer?.assisted === true, answeredAt: response.answeredAt, sequence: ++session.sequence };
+    const attempt = { questionId: response.questionId, lessonId: response.lessonId, nodeId: response.nodeId, conceptId: response.conceptId, quizType: response.quizType, result: outcome.result, provenance: outcome.provenance ?? 'teacher', assisted: response.answer?.assisted === true, known: response.answer?.known !== false, review: response.review === true, ...(response.confidence !== undefined ? { confidence: response.confidence, optionCount: response.optionCount } : {}), answeredAt: response.answeredAt, sequence: ++session.sequence };
     session.attempts.push(attempt); previous.set(attempt.questionId, attempt);
     const queued = session.reviews.find(r => r.conceptId === attempt.conceptId);
     if (attempt.result === 'correct' && !attempt.assisted) {
@@ -101,7 +131,8 @@ function reconcile(session, record, now = Date.now()) {
       if (queued) Object.assign(queued, next); else session.reviews.push(next);
     }
   }
-  return { due: session.reviews.filter(r => session.sequence >= r.dueAfter || now >= r.dueAt || session.completed.includes(r.lessonId)), pendingFeedback: responses.filter(r => !previous.has(r.questionId)).map(r => ({ questionId: r.questionId, question: r.question, reference: r.reference, response: r.answer })) };
+  const { signals, reinforce } = learningSignals(session, now), priorities = new Map(signals.map(item => [item.lessonId, item.priority]));
+  return { learningSignals: signals, reinforce, due: session.reviews.filter(r => session.sequence >= r.dueAfter || now >= r.dueAt || session.completed.includes(r.lessonId)).sort((a, b) => (priorities.get(a.lessonId) ?? 1) - (priorities.get(b.lessonId) ?? 1)), pendingFeedback: responses.filter(r => !previous.has(r.questionId)).map(r => ({ questionId: r.questionId, question: r.question, reference: r.reference, response: r.answer })) };
 }
 function beginLesson(session, record, input, globalSettings, formats = []) {
   assert(record?.tree?.nodes?.some(n => n.id === input.nodeId), 'Use an existing native plan node ID.');
@@ -118,4 +149,4 @@ function completeLesson(session, record, lessonId) {
   assert(lesson.settings.quizTypes.every(t => session.attempts.some(a => a.lessonId === lessonId && a.quizType === t)), 'Try every selected quiz format and finish feedback before continuing.');
   if (!session.completed.includes(lessonId)) session.completed.push(lessonId);
 }
-module.exports = { PLUGIN_ID, TYPES, assert, text, defaults, settings, emptySession, sameOccurrence, acceptedAnswers, learningResponses, grade, reconcile, beginLesson, completeLesson };
+module.exports = { PLUGIN_ID, TYPES, assert, text, defaults, settings, emptySession, sameOccurrence, acceptedAnswers, learningResponses, learningSignals, grade, reconcile, beginLesson, completeLesson };

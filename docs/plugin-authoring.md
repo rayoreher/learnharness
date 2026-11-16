@@ -158,6 +158,12 @@ updates, and disabling never deletes data. Their IDs (`flashcards`, `coding-ques
 `drawing-pad`, `rich-code-blocks`) are reserved even if a core package is broken/missing.
 Conflicting community folders are skipped with a diagnostic and are not modified.
 
+This fork also ships **Lessons and mixed practice** (`lesson-practice`) and
+**Code viewer** (`code-viewer`) through that same Core catalog and lifecycle.
+They start disabled and their IDs are reserved like the original four. See
+[native lessons](native-lesson-extension.md) and the
+[code viewer source](../plugins/code-viewer/README.md).
+
 Repository source stays in `plugins/`. `npm run plugins:build-core` builds the selected
 catalog in `core-plugins.json` and stages generated packages. UI Showcase remains a
 source/developer example, not a shipped core package. This build command never installs
