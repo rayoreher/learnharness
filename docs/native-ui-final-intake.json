@@ -1,0 +1,80 @@
+{
+  "scope": "Code viewer 0.1.2 own CSS/version metadata and synthetic final UI evidence. No external dependency or executable command change.",
+  "scan": {
+    "scanner_version": "1.0.0",
+    "disposition": "manual_review_required",
+    "complete": true,
+    "tree_sha256": "4738de5437b128aabc294e5846dc90978b5239f214815b4f8f83323e26477552",
+    "files_recorded": 10,
+    "text_files_scanned": 6,
+    "bytes_read": 63488,
+    "findings_truncated": false,
+    "git_metadata_excluded": false,
+    "findings": [],
+    "limits": {
+      "files": 10000,
+      "file_bytes": 16777216,
+      "total_bytes": 16777216
+    },
+    "requires": [
+      "manual_source_and_provenance_review",
+      "dependency_and_advisory_review",
+      "isolated_execution_only"
+    ],
+    "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+  },
+  "raw_scan_sha256": "738687fa4d54b8b2ee508a28bac5c2b318cef7704f07a2434323f6e7bd323bba",
+  "files": [
+    {
+      "path": "plugins/code-viewer/manifest.json",
+      "bytes": 282,
+      "sha256": "4f5301ee3f7e604053dbcf36c262caf20c1e23dcbd164f3503c4de2fe38e1b3a",
+      "kind": "text"
+    },
+    {
+      "path": "plugins/code-viewer/package-lock.json",
+      "bytes": 245,
+      "sha256": "c203b6427165e692e0aac771392c6d9f81edb0f0edf44cce89f24dcfde68b210",
+      "kind": "text"
+    },
+    {
+      "path": "plugins/code-viewer/package.json",
+      "bytes": 234,
+      "sha256": "dd47c9cd042b8b30064baa34dfdc50b24ae4611394f1cf17bae611cc0792dba4",
+      "kind": "text"
+    },
+    {
+      "path": "plugins/code-viewer/src/styles.css",
+      "bytes": 2028,
+      "sha256": "573b739b6233478f86a06b7138ad9d5211606e049e2f5e72c60713f86f6b074b",
+      "kind": "text"
+    },
+    {
+      "path": "docs/native-ui-final-checks.md",
+      "bytes": 1802,
+      "sha256": "7ce47567727bcad229a818a7efa93668961b7a98356aeb08e3f674a2669fc3d3",
+      "kind": "text"
+    },
+    {
+      "path": "docs/native-ui-final-checks.json",
+      "bytes": 58897,
+      "sha256": "6768a61f5034fc9e0fcf931bfd27c6fb3708f487d2145053a85d71a02135c5a3",
+      "kind": "text"
+    },
+    {
+      "path": "docs/native-app-previews/code-contrast/default.png",
+      "bytes": 95127,
+      "sha256": "9cc788a4627c80e2924014ac74dbd9e54fbef38e8a32ca3874abfb1df180c568",
+      "kind": "synthetic_image"
+    },
+    {
+      "path": "docs/native-app-previews/code-contrast/ivory.png",
+      "bytes": 99978,
+      "sha256": "42743359c5eb309dc88171d59da0303046f64942f6fc915c641ff744fca72062",
+      "kind": "synthetic_image"
+    }
+  ],
+  "dispositions": [],
+  "dependency_review": "native-ui-final-checks.json",
+  "assurance": "Scoped full-file heuristic triage and source review; no safety certificate or privilege grant."
+}

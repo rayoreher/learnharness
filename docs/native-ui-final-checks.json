@@ -1,0 +1,1993 @@
+{
+  "checked_at_utc": "2026-11-23T12:25:13.226641+00:00",
+  "base_commit": "42972c236f7b54f66ac84f26e2ecb845a2a3a0e5",
+  "lesson_version": "0.4.3",
+  "code_viewer_version": "0.1.2",
+  "change": "Use white paper under native light syntax colors; tinted Ivory previously lowered two Python keywords to 4.342:1. Native syntax, copy/expand behavior and dark rendering remain the original widgets.",
+  "source_files": [
+    {
+      "path": "plugins/code-viewer/package.json",
+      "sha256": "dd47c9cd042b8b30064baa34dfdc50b24ae4611394f1cf17bae611cc0792dba4"
+    },
+    {
+      "path": "plugins/code-viewer/package-lock.json",
+      "sha256": "c203b6427165e692e0aac771392c6d9f81edb0f0edf44cce89f24dcfde68b210"
+    },
+    {
+      "path": "plugins/code-viewer/manifest.json",
+      "sha256": "4f5301ee3f7e604053dbcf36c262caf20c1e23dcbd164f3503c4de2fe38e1b3a"
+    },
+    {
+      "path": "plugins/code-viewer/src/styles.css",
+      "sha256": "573b739b6233478f86a06b7138ad9d5211606e049e2f5e72c60713f86f6b074b"
+    }
+  ],
+  "keyboard": {
+    "actual_original_app": true,
+    "accepted_answers": 7,
+    "scope": "Native MC/open/blank/card/numeric response controls and submission through focused native buttons with Space; confidence via End. Setup/lesson-reveal actions retain the existing mixed-input fixture. Not a claim that every app action was keyboard-only.",
+    "page_errors": 0,
+    "unsupported_shortcut_attempt_retained": true,
+    "premature_control_query_failure_retained": true,
+    "condition_based_native_readiness": true
+  },
+  "contrast_before": {
+    "results": [
+      {
+        "theme": "default",
+        "essential": [
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Read the slope",
+            "fontSize": "21.12px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "A derivative tells you the local rate of change. A positive slope means the function rises",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "For f(x) = x\u00b2, the derivative is 2x. At x = 3, the slope is 6. To lower the function, take",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Measure the slope",
+            "fontSize": "16px",
+            "color": "rgb(204, 204, 204)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 10.61197067154266,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Move in the opposite direction",
+            "fontSize": "16px",
+            "color": "rgb(204, 204, 204)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 10.61197067154266,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Check the new value",
+            "fontSize": "16px",
+            "color": "rgb(204, 204, 204)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 10.61197067154266,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Needs practice",
+            "fontSize": "13px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Decrease x",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "The derivative is 2x = 6. Moving opposite this positive slope means decreasing x.",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct",
+            "fontSize": "13px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "The derivative measures the instantaneous rate of change: how the function changes for a s",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Yes. The derivative measures the local rate of change, including its direction.",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Lesson practice complete",
+            "fontSize": "15px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "1 concept remains for later review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.832157 0.832157 0.832157)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 11.497305693257534,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Choose a direction",
+            "fontSize": "21.12px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "A gradient update subtracts a small multiple of the slope.",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Slide 1 of 2",
+            "fontSize": "13px",
+            "color": "color(srgb 0.832157 0.832157 0.832157)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 11.497305693257534,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Lesson practice complete",
+            "fontSize": "15px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "1 concept remains for later review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.832157 0.832157 0.832157)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 11.497305693257534,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Review",
+            "fontSize": "15px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Try an earlier idea again before checking the answer.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.832157 0.832157 0.832157)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 11.497305693257534,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Practice progress",
+            "fontSize": "15px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "2 lessons covered. No missed concepts are waiting for review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.832157 0.832157 0.832157)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 11.497305693257534,
+            "minimum": 4.5,
+            "pass": true
+          }
+        ],
+        "code": [
+          {
+            "scope": "native syntax sample",
+            "text": "def",
+            "fontSize": "12.5px",
+            "color": "rgb(249, 117, 131)",
+            "background": [
+              20,
+              20,
+              20
+            ],
+            "opacity": 1,
+            "contrast": 6.930559839652789,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "slope",
+            "fontSize": "12.5px",
+            "color": "rgb(179, 146, 240)",
+            "background": [
+              20,
+              20,
+              20
+            ],
+            "opacity": 1,
+            "contrast": 7.2694880029554545,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "return",
+            "fontSize": "12.5px",
+            "color": "rgb(249, 117, 131)",
+            "background": [
+              20,
+              20,
+              20
+            ],
+            "opacity": 1,
+            "contrast": 6.930559839652789,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "print",
+            "fontSize": "12.5px",
+            "color": "rgb(121, 184, 255)",
+            "background": [
+              20,
+              20,
+              20
+            ],
+            "opacity": 1,
+            "contrast": 8.871929705269215,
+            "minimum": 4.5,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "theme": "ivory",
+        "essential": [
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Read the slope",
+            "fontSize": "21.12px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "A derivative tells you the local rate of change. A positive slope means the function rises",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "For f(x) = x\u00b2, the derivative is 2x. At x = 3, the slope is 6. To lower the function, take",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Measure the slope",
+            "fontSize": "16px",
+            "color": "rgb(51, 51, 51)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 10.876332507271563,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Move in the opposite direction",
+            "fontSize": "16px",
+            "color": "rgb(51, 51, 51)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 10.876332507271563,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Check the new value",
+            "fontSize": "16px",
+            "color": "rgb(51, 51, 51)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 10.876332507271563,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Needs practice",
+            "fontSize": "13px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(50, 102, 201)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 4.659654695295757,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Decrease x",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "The derivative is 2x = 6. Moving opposite this positive slope means decreasing x.",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct",
+            "fontSize": "13px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(50, 102, 201)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 4.659654695295757,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "The derivative measures the instantaneous rate of change: how the function changes for a s",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Yes. The derivative measures the local rate of change, including its direction.",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Lesson practice complete",
+            "fontSize": "15px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "1 concept remains for later review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.294118 0.293333 0.28)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 7.543014676174838,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Choose a direction",
+            "fontSize": "21.12px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "A gradient update subtracts a small multiple of the slope.",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Slide 1 of 2",
+            "fontSize": "13px",
+            "color": "color(srgb 0.294118 0.293333 0.28)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 7.543014676174838,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Lesson practice complete",
+            "fontSize": "15px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "1 concept remains for later review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.294118 0.293333 0.28)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 7.543014676174838,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Review",
+            "fontSize": "15px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Try an earlier idea again before checking the answer.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.294118 0.293333 0.28)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 7.543014676174838,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Practice progress",
+            "fontSize": "15px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "2 lessons covered. No missed concepts are waiting for review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.294118 0.293333 0.28)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 7.543014676174838,
+            "minimum": 4.5,
+            "pass": true
+          }
+        ],
+        "code": [
+          {
+            "scope": "native syntax sample",
+            "text": "def",
+            "fontSize": "12.5px",
+            "color": "rgb(215, 58, 73)",
+            "background": [
+              250,
+              249,
+              245
+            ],
+            "opacity": 1,
+            "contrast": 4.34202995035451,
+            "minimum": 4.5,
+            "pass": false
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "slope",
+            "fontSize": "12.5px",
+            "color": "rgb(111, 66, 193)",
+            "background": [
+              250,
+              249,
+              245
+            ],
+            "opacity": 1,
+            "contrast": 6.180499837088121,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "return",
+            "fontSize": "12.5px",
+            "color": "rgb(215, 58, 73)",
+            "background": [
+              250,
+              249,
+              245
+            ],
+            "opacity": 1,
+            "contrast": 4.34202995035451,
+            "minimum": 4.5,
+            "pass": false
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "print",
+            "fontSize": "12.5px",
+            "color": "rgb(0, 92, 197)",
+            "background": [
+              250,
+              249,
+              245
+            ],
+            "opacity": 1,
+            "contrast": 5.973322339715506,
+            "minimum": 4.5,
+            "pass": true
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "scope": "Scoped computed-style/canvas-sRGB contrast observations on the actual native app with synthetic saved lessons. Not a complete WCAG audit."
+  },
+  "contrast_after": {
+    "results": [
+      {
+        "theme": "default",
+        "essential": [
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Read the slope",
+            "fontSize": "21.12px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "A derivative tells you the local rate of change. A positive slope means the function rises",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "For f(x) = x\u00b2, the derivative is 2x. At x = 3, the slope is 6. To lower the function, take",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Measure the slope",
+            "fontSize": "16px",
+            "color": "rgb(204, 204, 204)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 10.61197067154266,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Move in the opposite direction",
+            "fontSize": "16px",
+            "color": "rgb(204, 204, 204)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 10.61197067154266,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Check the new value",
+            "fontSize": "16px",
+            "color": "rgb(204, 204, 204)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 10.61197067154266,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Needs practice",
+            "fontSize": "13px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Decrease x",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "The derivative is 2x = 6. Moving opposite this positive slope means decreasing x.",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct",
+            "fontSize": "13px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "The derivative measures the instantaneous rate of change: how the function changes for a s",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Yes. The derivative measures the local rate of change, including its direction.",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Lesson practice complete",
+            "fontSize": "15px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "1 concept remains for later review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.832157 0.832157 0.832157)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 11.497305693257534,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Choose a direction",
+            "fontSize": "21.12px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "A gradient update subtracts a small multiple of the slope.",
+            "fontSize": "16px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Slide 1 of 2",
+            "fontSize": "13px",
+            "color": "color(srgb 0.832157 0.832157 0.832157)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 11.497305693257534,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Lesson practice complete",
+            "fontSize": "15px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "1 concept remains for later review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.832157 0.832157 0.832157)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 11.497305693257534,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Review",
+            "fontSize": "15px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Try an earlier idea again before checking the answer.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.832157 0.832157 0.832157)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 11.497305693257534,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Practice progress",
+            "fontSize": "15px",
+            "color": "rgb(230, 230, 230)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 13.65471973758265,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "2 lessons covered. No missed concepts are waiting for review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.832157 0.832157 0.832157)",
+            "background": [
+              28,
+              28,
+              28
+            ],
+            "opacity": 1,
+            "contrast": 11.497305693257534,
+            "minimum": 4.5,
+            "pass": true
+          }
+        ],
+        "code": [
+          {
+            "scope": "native syntax sample",
+            "text": "def",
+            "fontSize": "12.5px",
+            "color": "rgb(249, 117, 131)",
+            "background": [
+              20,
+              20,
+              20
+            ],
+            "opacity": 1,
+            "contrast": 6.930559839652789,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "slope",
+            "fontSize": "12.5px",
+            "color": "rgb(179, 146, 240)",
+            "background": [
+              20,
+              20,
+              20
+            ],
+            "opacity": 1,
+            "contrast": 7.2694880029554545,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "return",
+            "fontSize": "12.5px",
+            "color": "rgb(249, 117, 131)",
+            "background": [
+              20,
+              20,
+              20
+            ],
+            "opacity": 1,
+            "contrast": 6.930559839652789,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "print",
+            "fontSize": "12.5px",
+            "color": "rgb(121, 184, 255)",
+            "background": [
+              20,
+              20,
+              20
+            ],
+            "opacity": 1,
+            "contrast": 8.871929705269215,
+            "minimum": 4.5,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "theme": "ivory",
+        "essential": [
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Read the slope",
+            "fontSize": "21.12px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "A derivative tells you the local rate of change. A positive slope means the function rises",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "For f(x) = x\u00b2, the derivative is 2x. At x = 3, the slope is 6. To lower the function, take",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Measure the slope",
+            "fontSize": "16px",
+            "color": "rgb(51, 51, 51)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 10.876332507271563,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Move in the opposite direction",
+            "fontSize": "16px",
+            "color": "rgb(51, 51, 51)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 10.876332507271563,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Check the new value",
+            "fontSize": "16px",
+            "color": "rgb(51, 51, 51)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 10.876332507271563,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Needs practice",
+            "fontSize": "13px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(50, 102, 201)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 4.659654695295757,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Decrease x",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "The derivative is 2x = 6. Moving opposite this positive slope means decreasing x.",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct",
+            "fontSize": "13px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Correct answer",
+            "fontSize": "16px",
+            "color": "rgb(50, 102, 201)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 4.659654695295757,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "The derivative measures the instantaneous rate of change: how the function changes for a s",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Yes. The derivative measures the local rate of change, including its direction.",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Lesson practice complete",
+            "fontSize": "15px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "1 concept remains for later review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.294118 0.293333 0.28)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 7.543014676174838,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Choose a direction",
+            "fontSize": "21.12px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "A gradient update subtracts a small multiple of the slope.",
+            "fontSize": "16px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Slide 1 of 2",
+            "fontSize": "13px",
+            "color": "color(srgb 0.294118 0.293333 0.28)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 7.543014676174838,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Lesson practice complete",
+            "fontSize": "15px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "1 concept remains for later review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.294118 0.293333 0.28)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 7.543014676174838,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Review",
+            "fontSize": "15px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Try an earlier idea again before checking the answer.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.294118 0.293333 0.28)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 7.543014676174838,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "Practice progress",
+            "fontSize": "15px",
+            "color": "rgb(61, 61, 58)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 9.38109008233366,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "essential lesson/feedback/progress",
+            "text": "2 lessons covered. No missed concepts are waiting for review.",
+            "fontSize": "14px",
+            "color": "color(srgb 0.294118 0.293333 0.28)",
+            "background": [
+              240,
+              238,
+              230
+            ],
+            "opacity": 1,
+            "contrast": 7.543014676174838,
+            "minimum": 4.5,
+            "pass": true
+          }
+        ],
+        "code": [
+          {
+            "scope": "native syntax sample",
+            "text": "def",
+            "fontSize": "12.5px",
+            "color": "rgb(215, 58, 73)",
+            "background": [
+              255,
+              255,
+              255
+            ],
+            "opacity": 1,
+            "contrast": 4.574321430751539,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "slope",
+            "fontSize": "12.5px",
+            "color": "rgb(111, 66, 193)",
+            "background": [
+              255,
+              255,
+              255
+            ],
+            "opacity": 1,
+            "contrast": 6.5111464409038255,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "return",
+            "fontSize": "12.5px",
+            "color": "rgb(215, 58, 73)",
+            "background": [
+              255,
+              255,
+              255
+            ],
+            "opacity": 1,
+            "contrast": 4.574321430751539,
+            "minimum": 4.5,
+            "pass": true
+          },
+          {
+            "scope": "native syntax sample",
+            "text": "print",
+            "fontSize": "12.5px",
+            "color": "rgb(0, 92, 197)",
+            "background": [
+              255,
+              255,
+              255
+            ],
+            "opacity": 1,
+            "contrast": 6.292885287241436,
+            "minimum": 4.5,
+            "pass": true
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "scope": "Scoped computed-style/canvas-sRGB contrast observations on the actual native app with synthetic saved lessons. Not a complete WCAG audit."
+  },
+  "checks": {
+    "final-keyboard-ready-controls": {
+      "exit_code": 0,
+      "result_sha256": "6e6a14c6814028e2a3d77ed4bf453ddec7b9ef53c68e8c0f785c5898f9d59a88",
+      "log_sha256": "a3c375a2b1fd9933cb1db70ebe96ec46e1c2ca1935f4f5f90aa195332ff89f96"
+    },
+    "final-visible-reading-and-code": {
+      "exit_code": 0,
+      "result_sha256": "38649f8fcc1dd0f8415ab302d0781ec1fe7a998a4a9e7d98b7b911dbd288a7ef",
+      "log_sha256": "fb29819aa96678a06333ff3ff5feaf55ae8d40560442e44c614191eb941cc7f7"
+    },
+    "code-contrast-after": {
+      "exit_code": 0,
+      "result_sha256": "d2cd3356e701d3817a0a1be5dd7dc6cb2001b61e0a22f866876ec6cc015281ff",
+      "log_sha256": "d5ccd9b165519f6f0b01601cc01e69dbea228cecf8699b7e8eab015972bd9e30"
+    },
+    "code-contrast-visual": {
+      "exit_code": 0,
+      "result_sha256": "ef5e29a5289a3816c7817257ae442dc91d7fa91e08df798058c927df147b4524",
+      "log_sha256": "d5ccd9b165519f6f0b01601cc01e69dbea228cecf8699b7e8eab015972bd9e30"
+    },
+    "code-viewer-units": {
+      "exit_code": 0,
+      "result_sha256": "feb03247588f5ea35200f2c0f5f691a1471d1bd56b169775f366801257922e08",
+      "log_sha256": "ab51392394d3546b23d67c19eedfece2a05a7ce2bab581f8f19610d89de540c2"
+    },
+    "code-contrast-core-build": {
+      "exit_code": 0,
+      "result_sha256": "e9ccb2c62c7b871994a0a5d367ff8f485d9926e6131238a547c1680af5840a8d",
+      "log_sha256": "b664c2dc6a94c4ff38a539de80a54ac9341287c189ba765635fb132ce73bda4a"
+    },
+    "code-contrast-package": {
+      "exit_code": 0,
+      "result_sha256": "cce7e0f3298a96dd27070c05fe47b12af41e27ba68eb29f4fcda170fb3fe8ed3",
+      "log_sha256": "b22e0dc53f58162b3c0f615bd84842cafd6c77aa3168f7572172526181bed8d4"
+    },
+    "code-contrast-packaged-smoke": {
+      "exit_code": 0,
+      "result_sha256": "fdf7548bfbfa8fd70fea5a06701e9b64c080d45bfd2b078b1ab3fa2eecd90bbb",
+      "log_sha256": "ff4097fde27622d8a3a85bf7c5f05c8b497b9190ed1350614b9e95541360fcd9"
+    }
+  },
+  "dependency_change": "Only empty own-package version metadata changed; external package/version set is identical to the fresh 11:51 UTC, 1,412-pair zero-hit query.",
+  "dependency_query_sha256": "b3c9529ec186ecc9c8e4b116510e0bfb3e8376e0ff899bed73ac217a532e350f",
+  "previews": [
+    {
+      "path": "docs/native-app-previews/code-contrast/default.png",
+      "sha256": "9cc788a4627c80e2924014ac74dbd9e54fbef38e8a32ca3874abfb1df180c568"
+    },
+    {
+      "path": "docs/native-app-previews/code-contrast/ivory.png",
+      "sha256": "42743359c5eb309dc88171d59da0303046f64942f6fc915c641ff744fca72062"
+    }
+  ],
+  "ui_score": null,
+  "real_chatgpt_generation": false,
+  "remaining": [
+    "Native ChatGPT sign-in/generation and final UI/release decision."
+  ]
+}

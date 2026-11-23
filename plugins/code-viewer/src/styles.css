@@ -7,6 +7,9 @@
 .lh-code-viewer-body:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
 .lh-code-viewer-expanded .lh-code-viewer-body { max-height: none; }
 .lh-code-viewer-body [data-streamdown="code-block"] { margin: 0; border: 0; border-radius: 0; background: transparent; }
+/* Native light syntax colors are designed for white paper. A tinted theme
+   background otherwise lowers keyword contrast below the text minimum. */
+:root:not(.dark) .lh-code-viewer-body [data-streamdown="code-block"] { background: #fff; }
 .lh-code-viewer-body [data-streamdown="code-block-body"] { padding: .8rem 1rem; }
 .lh-code-viewer-body pre { white-space: pre; }
 .lh-code-viewer-status { margin: 0; padding: .35rem .8rem; font-size: .75rem; color: color-mix(in srgb, var(--foreground) 80%, var(--muted-foreground)); }
