@@ -4,7 +4,9 @@ This change extends the original LearnHarness application. Its home, teaching
 sessions, sidebar, plan, graph, settings, provider connections and native answer
 flow remain the base. MindSpark supplies examples of quiz mechanics only.
 
-Development version 0.4.0 adds presentation/accessibility polish to these native
+Development version 0.4.1 adds an opt-in request for both original teaching
+question tools. Disabled workflows retain the original mechanics setting.
+Version 0.4.0 added presentation/accessibility polish to these native
 surfaces. The [UI study and acceptance rubric](ui-quality-study.md) records the
 research, first-pass changes, component previews and remaining full-app checks.
 
@@ -17,6 +19,10 @@ research, first-pass changes, component previews and remaining full-app checks.
 - Attach short lessons and chosen quiz types to existing native plan node IDs.
   Keep plugin-owned outline/review settings under `ctx.dataDirectory`.
 - Reuse native `quiz` and `explain` for existing multiple-choice/open response.
+  Request them with `registerTools({ agents: ["teacher"], nativeQuestionTools:
+  ["quiz", "explain"], create })`; the host adds its own validated tools to that
+  teacher turn. Failed factories and disabled activations add no requests, and
+  prober/practice mechanics remain unchanged.
   Register only the new fill-blank/flashcard schemas/editors through `registerQuestionType` and
   `registerQuestionRenderer`. The host owns pending input, answer acceptance,
   cancellation, persistence, keyboard handling and teacher continuation.

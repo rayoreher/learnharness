@@ -1,3 +1,13 @@
+# 0.4.1
+
+- Request both original native teaching question tools through the existing
+  plugin tool registration, so mixed lessons can use multiple-choice confidence
+  and open responses under either original mechanics setting.
+- Preserve native question validation, reserved names, default behavior when
+  disabled and per-turn contribution snapshots.
+- Add regression coverage for request validation, role/lifecycle boundaries,
+  failed factories and the real teacher's tool catalog.
+
 # 0.4.0
 
 - Add lesson title hierarchy, grouped presentation controls, announced slide

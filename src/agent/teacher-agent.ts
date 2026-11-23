@@ -10,6 +10,8 @@ import {
 	askUserQuestionTool,
 	createProberTools,
 	createTeacherTools,
+	teachQuizToolFor,
+	teachExplainToolFor,
 	type ProbeDoneContext,
 	type ProberToolContext,
 	type TeacherToolContext,
@@ -133,6 +135,7 @@ export interface AgentBuildOptions {
 	pluginContributions?: (context: PluginToolContext, reservedToolNames: readonly string[]) => {
 		instructions: readonly string[];
 		tools: readonly AgentTool<any>[];
+		nativeQuestionTools?: readonly ("quiz" | "explain")[];
 		questionTypes?: readonly NativePluginQuestionContribution[];
 		problemTypes?: readonly NativePluginProblemContribution[];
 	};
@@ -202,7 +205,7 @@ function makeQuestionStopper(kind: AgentKind) {
 }
 
 function baseAgentOptions(kind: AgentKind, opts: AgentBuildOptions, tools: AgentTool<any, any>[], nodeExists?: (nodeId: string) => boolean,
-	practice?: { gate: PracticeGate; graphNodes: PracticeToolContext["graphNodes"] }) {
+	practice?: { gate: PracticeGate; graphNodes: PracticeToolContext["graphNodes"] }, teacher?: TeacherToolContext) {
 	// Practice never reaches the role fallback (the handler ALWAYS injects
 	// the session's conversation engine — practice rides the same
 	// conversation-spec resolution as teaching); the cast keeps AgentKind
@@ -228,6 +231,14 @@ function baseAgentOptions(kind: AgentKind, opts: AgentBuildOptions, tools: Agent
 	const contributions = opts.tools === undefined && opts.chatId && opts.pluginContributions
 		? opts.pluginContributions({ chatId: opts.chatId, agent: kind }, [...CONVERSATION_TOOL_NAMES, ...builtinTools.map(tool => tool.name)])
 		: undefined;
+	// A mixed teaching workflow can request the other original question tool.
+	// Keep native validation/healing and the default mechanics-owned tool;
+	// disabled/failed contributions, other roles and explicit registries add none.
+	if (kind === "teacher" && teacher) for (const name of contributions?.nativeQuestionTools ?? []) {
+		if (builtinTools.some(tool => tool.name === name)) continue;
+		if (name === "quiz") builtinTools.push(withArgumentHeal(teachQuizToolFor(teacher)));
+		else if (name === "explain") builtinTools.push(withArgumentHeal(teachExplainToolFor(teacher)));
+	}
 	const questionLedger = contributions?.questionTypes?.length && opts.chatId
 		? new PluginQuestionLedger(contributions.questionTypes, opts.chatId, nodeExists) : undefined;
 	const problemTools = kind === "practice" && practice && opts.chatId
@@ -355,7 +366,7 @@ export function createTeacherAgent(
 	const tools = opts.tools ?? (ctx ? createTeacherTools(ctx, opts.toolToggles) : bareQuestionTools());
 	return baseAgentOptions("teacher", opts, Object.values(tools), ctx
 		? nodeId => ctx.chatStore.getChat(ctx.chatId)?.tree?.nodes.some(node => node.id === nodeId) ?? false
-		: undefined);
+		: undefined, undefined, ctx);
 }
 
 /** The bare teach question set (tests, bare agents): quiz with the shared

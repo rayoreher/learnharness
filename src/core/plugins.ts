@@ -128,6 +128,11 @@ export interface PluginToolContext {
 /** A fresh native Pi loadout per conversation turn; no private app imports. */
 export interface PluginTools {
 	agents: PluginAgentKind[];
+	/** Opt a teaching workflow into the original native quiz/explain tools.
+	 * Requires a teacher target. Additive, teacher-only and activation-owned;
+	 * omitted requests preserve the learner's original mechanics setting.
+	 * These are host tools, never plugin replacements or custom question types. */
+	nativeQuestionTools?: readonly ("quiz" | "explain")[];
 	/** Create fresh native tools for the matching turn's frozen chat/agent context.
 	 * Factory/admission errors omit this plugin's contribution for that turn rather
 	 * than replacing host tools. Honor each tool execution's cancellation signal. */

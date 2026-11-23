@@ -1,0 +1,148 @@
+{
+  "checked_at_utc": "2026-11-23T08:55:33.588439+00:00",
+  "base_commit": "cbe4c6e884381e37e5948bcc8228c57fdd608407",
+  "lesson_version": "0.4.1",
+  "source_files": [
+    {
+      "path": "docs/native-app-review.md",
+      "sha256": "0a12d4dc964dde4a053f5f158992d3a7b3552cef5b4e456c14bbba4b588393c6"
+    },
+    {
+      "path": "docs/native-lesson-extension.md",
+      "sha256": "d75c1439cfceb2e3d8788c60ae1d85b8a0a9dc7d9f2bd69a563deb0b2137b296"
+    },
+    {
+      "path": "docs/native-pr-validation.md",
+      "sha256": "cc573fdb1668d3bbe4c6b2fd4df9a05a256b1fe3ce54a428e3ebf2fb9a1eeac2"
+    },
+    {
+      "path": "docs/plugin-api/README.md",
+      "sha256": "07132afc24ea22998cb6da6dc07d726898868cbe86f06725771b449b8fbb0298"
+    },
+    {
+      "path": "docs/plugin-api/plugin-lessons.md",
+      "sha256": "733a55e67c34a7f4504954a9962039eae2afe37b1440087a05a90c2e355c950d"
+    },
+    {
+      "path": "docs/plugin-api/plugin-ui.md",
+      "sha256": "d194916cf447767fc3a8a8fce52d57d88da30c84c84c089e5e590bb83e1331ad"
+    },
+    {
+      "path": "docs/plugin-api/plugins.md",
+      "sha256": "cd639c75e6fb4f65e5ce50bfaf4a61c21c5b389d13b77c9a8bd8ba684930153a"
+    },
+    {
+      "path": "plugins/lesson-practice/CHANGELOG.md",
+      "sha256": "fb80d0970f386b2306258cb5e6a4118ee889063ffed89cc1b9b494667d584f11"
+    },
+    {
+      "path": "plugins/lesson-practice/README.md",
+      "sha256": "701cc7fa05b9cf053470cc11cf281a23f84b533a159ccc31ac3fda8aded894ad"
+    },
+    {
+      "path": "plugins/lesson-practice/manifest.json",
+      "sha256": "87e04002c167fec26b60a8bf7c1b02cc15546ff6f8c41f22c63310a1aa765832"
+    },
+    {
+      "path": "plugins/lesson-practice/package-lock.json",
+      "sha256": "5a4d15194fccb2d8e8fc7bc75fe0156b4c95c96dab79ba5f566211ea02cae527"
+    },
+    {
+      "path": "plugins/lesson-practice/package.json",
+      "sha256": "712dc85e40163a9cd51589c43f03ad645f02ffe7e94d589ef213821148552bdb"
+    },
+    {
+      "path": "plugins/lesson-practice/src/backend.cjs",
+      "sha256": "bf5dcaf27bcc0eeae5665b711865312f4e0a53d83d3adebc3da53c82c2a1e7e8"
+    },
+    {
+      "path": "plugins/lesson-practice/tests/host-lifecycle.mjs",
+      "sha256": "0a5d98c559143f18eb2eb0f26b451b4d35f61d34ec893699b3ff261bc92f072d"
+    },
+    {
+      "path": "plugins/lesson-practice/tests/native.test.mjs",
+      "sha256": "b8b9e057859ba2a07bb39318aeb4eb37d737020161e0f68f6c514386e1cac7bb"
+    },
+    {
+      "path": "src/agent/teacher-agent.ts",
+      "sha256": "ab4d608a53f6263bd93c7ec0bc6f988f3e6e2e6f74dbc7f3e0fd4b4c31a3af8b"
+    },
+    {
+      "path": "src/core/plugins.ts",
+      "sha256": "4027193f2dc2ee4e8059a2390b8c1c8e0e6377ba2372c519e85cfdff7ef2c4d9"
+    },
+    {
+      "path": "src/server/plugin-host.ts",
+      "sha256": "01d591cc4808ad13d86fa656ad2e4f668e7f5040f684a1c25148a101ee0d78aa"
+    },
+    {
+      "path": "tests/plugin-contributions.test.ts",
+      "sha256": "f45118e5d3ab04e8cd1a1709360cf79628bef8b62078569552b084ad8be2326f"
+    },
+    {
+      "path": "tests/plugin-native-tools.test.ts",
+      "sha256": "55a1949f43dce7740f676f9c4d8b99c6c6274af94112a86db421e1cfd0433a49"
+    },
+    {
+      "path": "tests/plugin-types.test.ts",
+      "sha256": "fb3f4456ee5bfa3854fb87dbe9a2adc2b06a3d19a399f991bb9782cad9cc27d9"
+    }
+  ],
+  "change": "Optional nativeQuestionTools on the existing registerTools contribution. A ready enabled teacher factory requests host-owned quiz/explain; failed packages, unregistration and disable contribute nothing. Original prober/practice and default mechanics remain intact.",
+  "checks": {
+    "component_and_host": {
+      "passed": 24,
+      "failed": 0,
+      "scope": "18 lesson backend, 3 code-viewer unit, 3 new host registration/role/validation/lifecycle/snapshot tests."
+    },
+    "real_teacher_catalog": {
+      "before": "New regression fails on unchanged cbe4c6e source: missing original question tool, 0 !== 1.",
+      "after": "Passes under both choice and free-recall settings; includes native live-node validation, explicit registry bypass and disable behavior.",
+      "boundary": "Actual native teacher, native Agent SDK, original quiz/explain factories and real plugin host. Two account transport modules are replaced with fail-fast inert exports; no provider request is performed.",
+      "transport_fixture_sha256": "3eb72c2831acb2eacea6bcb70fdf6225385371080a2f10940a9edf4dbca76f57"
+    },
+    "sdk_and_api": {
+      "emitted": true,
+      "portable_type_test_passed": true,
+      "generated_pages": 23,
+      "public_types": 142,
+      "signatures": 911,
+      "scope": "Original SDK emitter, original API generator and original consumer portability/type test, including the new tool request field."
+    },
+    "packaged_host": {
+      "passed_groups": 4,
+      "scope": "Built version 0.4.1 discovered/enabled in original native host, all four format contribution categories and accepted review, disable/re-enable restoration, original missing-lock/offline empty-lock setup and Core packaging."
+    }
+  },
+  "checker_allowance": {
+    "approved_at_turn": "Owner explicitly selected Allow the bounded 16 MB limit on 23 November 2026.",
+    "checked_at_utc": "2026-11-23T08:32:32.718999+00:00",
+    "old_sha256": "2c620cf0352426760e0235644c5d7f901c1b6e1f46d07d6ef92035f92dac316e",
+    "new_sha256": "6ec4d2947e3b234d14dcc43acec97b6d3988180e87028cb60a1e09b4d41fee52",
+    "change": "MAX_FILE_BYTES: 1 MiB -> 16 MiB only",
+    "unchanged": "All detection rules, file count, depth, input and total 16 MiB limits; installed shared-server immutable capability is unchanged."
+  },
+  "review": {
+    "exact_pinned_compiler": "typescript 5.9.3; sha512 integrity matches original lock",
+    "compiler_file_bytes": 9112572,
+    "original_compiler_sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675",
+    "scope": "Complete whole-file intake bundles, exact integrity/hash inventory, fresh exact-version advisories, reviewed false-positive source locations and visible value-preserving escapes only in disposable locale/declaration comments. No package hooks run.",
+    "checker_regressions_passed": 21,
+    "isolation": "Existing network-disabled bubblewrap, cleared environment, read-only public source/module snapshots and synthetic temporary records. No home, account/profile data or service sockets mounted."
+  },
+  "evidence_hashes": {
+    "components": "fe4628f6607fe9ed80baa3e3c1e1cfefe75950d2f26203d20c21ac8c39d263ed",
+    "teacher_before": "c840a131ba99ab5c6a0ab4e3ea1f2e85a01be93dd8eb4f1d4beb53ec34d97f1c",
+    "teacher_after": "0a881d703dc90f38fd938cdb25783228b558a48586cef91d03c79f0098a62727",
+    "sdk": "c86f32b1daebb89c1b489fb9aaae34edcb8e35b5e1b084c53b72ca570fc4d30d",
+    "packaged_host": "e0ca42d77a20a0578e3da4d60d1de3a9ffe29b5396d2f8830842a266bf9a9e81"
+  },
+  "remaining": [
+    "Full original app dependency/artifact review and current advisories, including newly reported framework findings.",
+    "Full React/browser/model sequence and persistence/restart verification (#6).",
+    "Actual UI quality rubric and no P0 failures (#9)."
+  ],
+  "ui_score": null,
+  "deployment_changed": false,
+  "full_app_verified": false
+}

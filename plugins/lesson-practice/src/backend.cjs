@@ -37,7 +37,7 @@ function activate(ctx) {
     } };
   }
   disposers.push(ctx.registerInstructions({ agents: ['teacher'], text: instructions }));
-  disposers.push(ctx.registerTools({ agents: ['teacher'], create({ chatId }) { return [
+  disposers.push(ctx.registerTools({ agents: ['teacher'], nativeQuestionTools: ['quiz', 'explain'], create({ chatId }) { return [
     tool('lesson_status', 'Read this native session’s lesson settings, contributed formats, coverage, confidence signals, suggested reinforcement and missed concepts due for later practice.', schema.object({}), () => { const value = readSession(chatId); return { settings: value.settings, formats: value.formats, lessons: value.session.lessons.map(({ id, nodeId, title, settings, formats }) => ({ lessonId: id, nodeId, title, settings, formats })), covered: value.session.completed, missed: value.session.reviews, due: value.due, learningSignals: value.learningSignals, reinforce: value.reinforce, pendingFeedback: value.pendingFeedback }; }),
     tool('lesson_begin', 'Commit one single-step micro-lesson attached to an existing native plan node; several micro-lessons may share a node. Text is the complete learner-facing explanation; optional settings choose this lesson’s workflow, output, diagrams and quiz mix.', schema.beginSchema, input => changeSession(chatId, (session, native, state) => {
       const formats = catalog(), existing = session.lessons.find(l => l.id === input.lessonId);

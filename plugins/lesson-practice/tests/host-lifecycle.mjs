@@ -33,6 +33,7 @@ try {
   const enabled = host.list().find(p => p.id === 'lesson-practice');
   assert.equal(enabled.status, 'active', enabled.error);
   const contribution = host.agentContributions({ chatId: native.id, agent: 'teacher' }, ['quiz', 'explain']);
+  assert.deepEqual(contribution.nativeQuestionTools, ['quiz', 'explain']);
   assert.equal(contribution.tools.length, 7); assert.equal(contribution.questionTypes.length, 2);
   assert.equal(contribution.instructions.length, 1);
   assert.deepEqual(contribution.questionTypes.map(q => q.definition.id).sort(), ['lesson-fill-blank', 'lesson-flashcard']);
@@ -82,6 +83,7 @@ try {
   console.log('PASS a separate native plugin contributes all four format categories; accepted numeric answers enter and clear the lesson review loop; disabled choices retain saved content');
 
   await host.setEnabled('lesson-practice', false);
+  assert.equal(host.agentContributions({ chatId: native.id, agent: 'teacher' }, []).nativeQuestionTools, undefined);
   assert.equal(activeQuestion.signal.aborted, true); assert.throws(() => activeQuestion.requireActive());
   assert.equal(host.resolveQuestionType('lesson-practice', 'lesson-fill-blank', 1).status, 'unavailable');
   assert.equal(host.agentContributions({ chatId: native.id, agent: 'teacher' }, []).tools.length, 0);

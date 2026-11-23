@@ -53,7 +53,7 @@ export interface PluginHostDependencies {
 	installationErrors?: Record<string, string>;
 }
 interface Instructions { agents: Set<PluginAgentKind>; text: string }
-interface Tools { agents: Set<PluginAgentKind>; create: PluginTools["create"] }
+interface Tools { agents: Set<PluginAgentKind>; create: PluginTools["create"]; nativeQuestionTools: readonly ("quiz" | "explain")[] }
 type QuestionDefinition = NativePluginQuestionDefinition;
 /** Frozen per-turn provenance, admitted atomically with ordinary package contributions. */
 export interface PluginQuestionContribution {
@@ -70,7 +70,7 @@ export type PluginQuestionResolution =
 export type PluginProblemResolution =
 	| { status: "available"; definition: NativePluginProblemDefinition; signal: AbortSignal; requireActive(): void }
 	| { status: "incompatible" | "unavailable" };
-export interface PluginAgentContributions { instructions: string[]; tools: AgentTool<any>[]; questionTypes?: PluginQuestionContribution[]; problemTypes?: NativePluginProblemContribution[] }
+export interface PluginAgentContributions { instructions: string[]; tools: AgentTool<any>[]; nativeQuestionTools?: ("quiz" | "explain")[]; questionTypes?: PluginQuestionContribution[]; problemTypes?: NativePluginProblemContribution[] }
 interface Activation {
 	controller: AbortController;
 	cleanups: PluginCleanup[];
@@ -263,7 +263,11 @@ export function createPluginHost(deps: PluginHostDependencies) {
 						requireLive();
 						const agents = targets(contribution?.agents);
 						if (typeof contribution.create !== "function") throw new Error("Plugin tools require a native tool factory");
-						const registered = { agents, create: contribution.create.bind(contribution) };
+						const requested = contribution.nativeQuestionTools;
+						if (requested !== undefined && (!Array.isArray(requested) || requested.length > 2 ||
+							new Set(requested).size !== requested.length || [...requested].some(name => name !== "quiz" && name !== "explain") ||
+							(requested.length > 0 && !agents.has("teacher")))) throw new Error("Native question tools must be unique quiz/explain names with a teacher target");
+						const registered = { agents, create: contribution.create.bind(contribution), nativeQuestionTools: Object.freeze([...(requested ?? [])]) };
 						activation.tools.add(registered);
 						return () => { activation.tools.delete(registered); };
 					},
@@ -434,6 +438,7 @@ export function createPluginHost(deps: PluginHostDependencies) {
 			try {
 				const texts = instructions.filter(item => item.agents.has(turn.agent)).map(item => item.text);
 				const tools: AgentTool<any>[] = [];
+				const nativeQuestionTools = new Set<"quiz" | "explain">();
 				const packageNames = new Set<string>();
 				for (const factory of factories.filter(item => item.agents.has(turn.agent))) {
 					if (!live(pkg, activation)) break;
@@ -443,6 +448,7 @@ export function createPluginHost(deps: PluginHostDependencies) {
 						if (created && typeof (created as { then?: unknown }).then === "function") void Promise.resolve(created).catch(() => {});
 						throw new Error("Plugin tool factory must synchronously return a native tool array");
 					}
+					if (turn.agent === "teacher") for (const name of factory.nativeQuestionTools) nativeQuestionTools.add(name);
 					for (const tool of created as AgentTool<any>[]) {
 						if (!tool || typeof tool.name !== "string" || !nativeToolName.test(tool.name)) throw new Error("Invalid native plugin tool name (letter/underscore first, letters/digits/_/-, max 64 characters)");
 						if (names.has(tool.name) || packageNames.has(tool.name)) throw new Error(`Plugin tool name collision: ${tool.name}`);
@@ -502,6 +508,7 @@ export function createPluginHost(deps: PluginHostDependencies) {
 				for (const name of packageNames) names.add(name);
 				result.instructions.push(...texts);
 				result.tools.push(...tools);
+				if (nativeQuestionTools.size) result.nativeQuestionTools = [...new Set([...(result.nativeQuestionTools ?? []), ...nativeQuestionTools])];
 				if (questionTypes.length) (result.questionTypes ??= []).push(...questionTypes);
 				if (problemTypes.length) (result.problemTypes ??= []).push(...problemTypes);
 				if (pkg.contributionWarning !== undefined) {

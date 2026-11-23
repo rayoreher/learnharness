@@ -5,6 +5,13 @@ LearnHarness app. Its current release decision is **draft; do not merge yet**.
 This review checked the server's existing tools and working method before using
 them. It adds test evidence and release tracking, without a feature version bump.
 
+The later 0.4.1 fix and its isolated verification are recorded in
+[the mixed-question review](native-mixed-questions-review.json). Both original
+question tools now appear in the real teacher's catalog under either mechanics
+setting. Full application flows remain required before merge. The owner has
+also approved the checker capacity increase, and SDK/API generation now passes.
+The dated 0.4.0 results below retain their original source identity.
+
 ## Existing tools and method
 
 - Search the reusable capability catalog and inspect a suitable tool before
@@ -57,11 +64,12 @@ workshop; the result file was read back and parsed successfully. The public
 ## Review findings and merge conditions
 
 1. **Mixed native question tools are unavailable together** ([#10](https://github.com/rayoreher/learnharness/issues/10)).
-   The lesson plugin selects both native quiz formats, while the teacher's
-   mechanics setting exposes either `quiz` or `explain`. Existing backend
+   At the reviewed 0.4.0 source, the lesson plugin selects both native quiz
+   formats, while the teacher exposes either `quiz` or `explain`. Existing backend
    fixtures insert both kinds of records manually. Their passing result cannot
-   verify the real teacher's available tools. Fix the host opt-in and test both
-   mechanics settings, plugin disable and the actual mixed lesson journey.
+   verify the real teacher's available tools. Version 0.4.1 fixes the host opt-in
+   and tests both mechanics settings and plugin disable; the actual mixed
+   lesson journey remains part of #6.
 2. **Full native app verification remains open** ([#6](https://github.com/rayoreher/learnharness/issues/6)).
    Complete dependency/artifact review, SDK/API generation, React integration
    checks and real browser/model/restart flows are still required. The earlier

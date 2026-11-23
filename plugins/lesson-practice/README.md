@@ -14,6 +14,10 @@ flashcard editors are added. **Lesson options** in a teaching
 session selects a saved lesson and changes its quiz mix/presentation. Its ordinary plugin
 settings set defaults for future lessons.
 
+Version 0.4.1 explicitly requests both original teaching tools through the native
+plugin host, so either original question-mechanics setting supports a mixed
+lesson. Disabling this plugin restores the original setting on future turns.
+
 The normal prober and `plan_init` still establish the goal and plan. Additional
 teacher tools commit small lessons to existing plan node IDs. Several
 micro-lessons can share one coarse plan node; the plan is still a map rather

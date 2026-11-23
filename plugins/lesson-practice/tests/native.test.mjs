@@ -67,6 +67,7 @@ async function fixture(t, formats = []) {
 const unknown = { value: '', known: false, assisted: false };
 test('extension registers with the original host and creates no replacement engine or transport', async t => {
   const f = await fixture(t); assert.equal(f.questions.size, 2); assert.equal(f.questions.has('lesson-multiple-choice'), false); assert.equal(f.questions.has('lesson-open'), false); assert.deepEqual(f.instructions[0].agents, ['teacher']);
+  assert.deepEqual(f.factories[0].nativeQuestionTools, ['quiz', 'explain']);
   assert.match(f.instructions[0].text, /existing probe, teacher, plan, graph, model connection/);
   await f.begin(); assert.equal(f.native.messages.length, 2); assert.deepEqual(f.native.tree.nodes, [{ id: 'recall' }, { id: 'spacing' }]);
 });

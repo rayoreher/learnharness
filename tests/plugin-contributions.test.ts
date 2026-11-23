@@ -165,6 +165,35 @@ test("all roles append instructions/tools without replacing builtin prompt, gate
 	await assert.rejects(running.state.tools.find(tool => tool.name === "addon_teacher")!.execute("late", {}), /disabled or unavailable/);
 });
 
+test("mixed teaching requests add original question tools while preserving mechanics and live validation", async t => {
+	const f = fixture(t); f.plugin(); const ctx = await f.context();
+	const off = ctx.registerTools({ agents: ["teacher"], nativeQuestionTools: ["quiz", "explain"], create: () => [] });
+	let nodes = [{ id: "recall" }];
+	const teacher = { chatId: "native-chat", chatStore: { getChat: () => ({ tree: { nodes } }) } } as never;
+	const names = (agent: ReturnType<typeof createTeacherAgent>) => agent.state.tools.map(tool => tool.name);
+	for (const free of [false, true]) {
+		const opts: AgentBuildOptions = { engine: engine(), chatId: "native-chat", toolToggles: { explain: free } };
+		const core = createTeacherAgent(teacher, opts), mixed = createTeacherAgent(teacher, { ...opts, pluginContributions: f.host.agentContributions });
+		assert.equal(names(core).includes("quiz"), !free); assert.equal(names(core).includes("explain"), free);
+		assert.equal(names(mixed).filter(name => name === "quiz").length, 1); assert.equal(names(mixed).filter(name => name === "explain").length, 1);
+		for (const tool of core.state.tools) assert.ok(names(mixed).includes(tool.name));
+		for (const name of ["quiz", "explain"]) {
+			const tool = mixed.state.tools.find(tool => tool.name === name)!;
+			const input = { type: "check", nodeId: "recall", question: "What happens before feedback?", correctAnswer: "Recall", explanation: "Retrieve the idea first.", options: [{ value: "Recall", label: "Recall" }, { value: "Reveal", label: "Reveal" }] };
+			assert.equal(tool.executionMode, "sequential");
+			assert.notEqual((await tool.execute("valid", input)).isError, true);
+			assert.equal((await tool.execute("foreign", { ...input, nodeId: "other" })).isError, true);
+			nodes = []; assert.equal((await tool.execute("stale", input)).isError, true); nodes = [{ id: "recall" }];
+		}
+		assert.deepEqual(names(createTeacherAgent(teacher, { ...opts, tools: {}, pluginContributions: f.host.agentContributions })), []);
+	}
+	off();
+	assert.equal(names(createTeacherAgent(teacher, { engine: engine(), chatId: "native-chat", pluginContributions: f.host.agentContributions })).includes("explain"), false);
+	ctx.registerTools({ agents: ["teacher"], nativeQuestionTools: ["quiz", "explain"], create: () => [] });
+	await f.host.setEnabled("example", false);
+	assert.equal(names(createTeacherAgent(teacher, { engine: engine(), chatId: "native-chat", pluginContributions: f.host.agentContributions })).includes("explain"), false);
+});
+
 test("builtin names remain reserved when absent; first valid package wins and invalid packages reserve nothing", async t => {
 	const f = fixture(t); for (const id of ["a-first", "b-collision", "c-next", "d-builtin"]) f.plugin(id);
 	// Enable in reverse order: precedence must follow package IDs, not toggle order.

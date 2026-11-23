@@ -78,12 +78,15 @@ compatibility analysis before full-app verification. Primary examples:
 
 ## Remaining execution gates
 
-- The existing framework's 2.6 MB Webpack bundle exceeds the required scanner's
-  1 MB per-file limit. The requested 8 MB allowance remains unanswered; no trusted
-  scanner rule or limit has changed.
+- On 23 November the owner approved a 16 MiB per-file reading allowance. Only
+  that local checker constant changed; detection rules and its 16 MiB total
+  limit are unchanged, and all 21 existing checker regressions passed. Large
+  compiler and framework files can now be reviewed whole. Artifact/dependency
+  review still applies before execution.
 - Complete artifact/hook review and address applicable dependency advisories.
-- Emit the portable SDK, refresh generated API references and run the added
-  React/Markdown integration tests plus relevant existing checks.
+- The portable SDK now emits successfully, the original portability/type test
+  passes, and all 23 generated API pages have been refreshed for the native
+  additions. Added React/Markdown integration tests and full app checks remain.
 - Run the original web app in a fresh isolated profile, verifying real lesson,
   quiz, contributed presentation, feedback, progression, review and restart.
 - Confirm the model connection. Original LearnHarness uses its own ChatGPT
