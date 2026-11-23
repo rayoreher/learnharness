@@ -63,6 +63,21 @@ export function toolFallbackPart(part: LhViewPart): ArtifactPartProps["part"] {
 	};
 }
 
+/** Canonical HTTP reads recreate JSON objects even when a saved tool has not
+ * changed. Keep that value's identity so polling cannot restart local media or
+ * slide state. A real value/state/registration change still replaces the mount. */
+function useStableToolValue<T>(value: T): T {
+	const previous = useRef<{ serialized: string | undefined; value: T } | undefined>(undefined);
+	try {
+		const serialized = JSON.stringify(value);
+		if (!previous.current || previous.current.serialized !== serialized) previous.current = { serialized, value };
+		return previous.current.value;
+	} catch {
+		// Unexpected non-JSON data keeps the existing replacement behavior.
+		return value;
+	}
+}
+
 /** Ordinary tools retain the expandable trace; accepted background calls use
  * the native dispatch/status card. Custom renderers replace either default body.
  * Disabled, failed, or uninstalled renderers never make native results vanish. */
@@ -73,16 +88,17 @@ export function PluginToolRenderer({ part, fallback: suppliedFallback }: { part:
 	const background = part.background as PluginToolRenderProps["background"];
 	const pluginId = background?.pluginId, taskId = background?.taskId, status = background?.status;
 	const registration = snapshot.toolRenderers.find(entry => entry.renderer.toolName === toolName);
-	const content = part.result?.content, details = part.result?.details, isError = part.result?.isError;
+	const input = useStableToolValue(part.input), output = useStableToolValue(part.output);
+	const content = useStableToolValue(part.result?.content), details = useStableToolValue(part.result?.details), isError = part.result?.isError;
 	const mount = useMemo<PluginMount>(() => (container, signal) => {
 		if (!registration || !isToolState(part.state)) return;
 		return registration.renderer.mount(container, {
-			toolName, toolCallId: part.toolCallId ?? "", input: part.input, state: part.state,
-			output: part.output, errorText: part.errorText,
+			toolName, toolCallId: part.toolCallId ?? "", input, state: part.state,
+			output, errorText: part.errorText,
 			...(content ? { result: { content, details, isError: isError ?? false } } : {}),
 			...(pluginId !== undefined && taskId !== undefined && status !== undefined ? { background: { pluginId, taskId, status } } : {}), signal,
 		});
-	}, [registration, toolName, part.toolCallId, part.input, part.state, part.output, part.errorText, content, details, isError, pluginId, taskId, status]);
+	}, [registration, toolName, part.toolCallId, input, part.state, output, part.errorText, content, details, isError, pluginId, taskId, status]);
 	// Native ACK details identify dispatch even before the jobs feed catches up.
 	// A later synthetic result must not turn back into its original dispatch.
 	const ack = details as { jobId?: unknown; dispatched?: unknown } | null | undefined;

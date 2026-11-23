@@ -5,6 +5,10 @@ LearnHarness app. Its current release decision is **draft; do not merge yet**.
 This review checked the server's existing tools and working method before using
 them. It adds test evidence and release tracking, without a feature version bump.
 
+The later [0.4.2 full-app verification](native-app-v042-verification.md) records
+production builds, the complete root suite and actual native browser flow.
+The dated server/component results below retain their original scope.
+
 The later 0.4.1 fix and its isolated verification are recorded in
 [the mixed-question review](native-mixed-questions-review.json). Both original
 question tools now appear in the real teacher's catalog under either mechanics
@@ -73,7 +77,8 @@ workshop; the result file was read back and parsed successfully. The public
 2. **Full native app verification remains open** ([#6](https://github.com/rayoreher/learnharness/issues/6)).
    Complete dependency/artifact review, SDK/API generation, React integration
    checks and real browser/model/restart flows are still required. The earlier
-   scanner-size decision is unanswered; the trusted limit remains unchanged.
+   scanner-size decision was subsequently approved, and the complete bounded
+   dependency review is recorded in the 0.4.2 evidence above.
    Inherited dependency findings are tracked in [#8](https://github.com/rayoreher/learnharness/issues/8).
 3. **GitHub has no test result for this head.** Actions is disabled for this
    fork; there are no check runs, commit statuses or PR workflow runs at the

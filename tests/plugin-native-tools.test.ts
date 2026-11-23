@@ -10,7 +10,11 @@ async function fixture(t: TestContext) {
 	const root = fs.mkdtempSync(path.join(os.tmpdir(), "native-question-tools-"));
 	const directory = path.join(root, "plugins");
 	const host = createPluginHost({ directory, appVersion: "0.6.1", createServices: () => ({
-		learning: { getSession: () => null }, inference: {} as never,
+		learning: {
+			directory: root, listSessions: () => [], getSession: () => null,
+			graph() { throw new Error("Unexpected graph read"); },
+			readGraphFile() { throw new Error("Unexpected graph file read"); },
+		}, inference: {} as never,
 		agents: { dispose: async () => {} } as never, workers: { dispose: async () => {} } as never,
 		createBackgroundTool() { throw new Error("Unexpected background tool"); },
 	}) });

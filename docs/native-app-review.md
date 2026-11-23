@@ -1,8 +1,13 @@
 # Full native application review
 
-The native feature is a development build. The full original application has
-not yet passed its required dependency, browser and model verification. This
-review preserves the original app and records the remaining work before it runs.
+Development checkpoint **0.4.2** now builds and runs the complete original app.
+The root suite has 5,335 passes, four platform-specific skips and no failures;
+actual browser flows verify mixed questions, corrections, accepted confidence,
+review and restart with a scripted local model. The final dependency lookup
+reports zero affected registry pairs. See the
+[current full-app evidence and remaining acceptance](native-app-v042-verification.md).
+Real ChatGPT generation, the final UI decision and release remain open.
+The earlier baseline review below retains its original scope and results.
 
 ## Source review
 

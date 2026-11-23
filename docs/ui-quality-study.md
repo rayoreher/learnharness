@@ -6,6 +6,13 @@ connections and existing plugin system remain the product's structure.
 “80% of Apple quality” becomes the practical acceptance rubric below; it is not
 a measured comparison with Apple's products or a score already achieved.
 
+The [0.4.2 native-app check](native-app-v042-verification.md) now runs the complete
+app, with actual widgets/fonts, accepted mixed questions, corrections, review,
+restart, responsive navigation and Settings. Its normal model endpoint is a
+scripted fixture. The full rubric remains unassigned pending its remaining
+real-connection and remaining accessibility acceptance. Recovery, contributor
+formats, captioned video and genuine 200% browser zoom now have full-app evidence.
+
 ## References and what they change
 
 | Primary reference | Useful pattern | Application here |
@@ -41,7 +48,7 @@ The audit uses source at `feec0f8`; it is not a runtime audit of the older previ
 | P1 | Lesson output is largely unstructured plugin DOM | Add a clear title/eyebrow, reading rhythm, grouped controls and announced slide position |
 | P1 | Feedback and code actions lack consistent grouping at narrow widths | Give correction feedback a clear text status; wrap code controls and preserve local horizontal scrolling |
 | P1 | Video output presents a blank canvas before creation, and its Stop action is initially available | Hide the idle canvas and disable Stop while idle |
-| P1, open | Browser sidebar behavior and the full composition need narrow-screen verification | Verify real navigation, dialogs and composer at 320 CSS pixels before deciding on a broader navigation change |
+| P1, resolved in 0.4.2 | Narrow browser sidebar compressed the lesson | Use the existing modal shell; verify navigation, focus, Settings and composer at 320/390/820 widths |
 | P1, open | First-run connection setup and returning to an unfinished lesson need end-to-end usability review | Observe these real flows before changing their structure or adding dashboard chrome |
 
 ## The 80-point acceptance bar
@@ -70,6 +77,7 @@ with controlled substitutes for native widgets. Screenshots are labeled componen
 previews; they are not screenshots of the complete React app.
 
 The earlier full-app review gates in [native-app-review.md](native-app-review.md)
-remain open, including the unanswered scanner-size decision. Existing deployed
-learner and account data are untouched. The target stays open until real native
-app verification supports the rubric.
+have progressed through the owner-approved bounded checker allowance and full
+artifact review; the earlier component-only boundary is superseded by the
+0.4.2 evidence above. Existing deployed learner and account data are untouched.
+The target stays open until the remaining native acceptance supports the rubric.

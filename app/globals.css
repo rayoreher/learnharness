@@ -455,6 +455,17 @@ body {
 	animation: settings-pop 150ms ease-out;
 }
 
+@media (max-width: 639px) {
+	.settings-dialog-pop :where(button:not([role="switch"]), select, input:not([type="checkbox"]):not([type="radio"])) {
+		min-height: 44px;
+	}
+	.settings-dialog-pop button:not([role="switch"]) { min-width: 44px; }
+	.settings-dialog-pop button[role="switch"]::before { content: ""; position: absolute; inset: -14px -6px; }
+	.lh-sidebar :where(button, input), [data-testid="setup-cta-keys"] { min-height: 44px; }
+	.lh-wco-gutter [data-plugin-chrome-title] { font-size: 1.125rem; }
+	.lh-wco-gutter [data-testid="phase-chip"] { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.settings-dialog-pop {
 		animation: none;

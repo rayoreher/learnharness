@@ -365,9 +365,10 @@ export function registerQuestionProof(ctx) {
         update: apply,
         focus() { textarea.focus(); },
         handleKeyDown(key) {
-          if (key !== "Tab") return "pass";
-          textarea.setRangeText("\\t", textarea.selectionStart, textarea.selectionEnd, "end");
-          textarea.dataset.tabs = String(Number(textarea.dataset.tabs) + 1); publish(); return "handled";
+          if (!["Tab", "Enter", "Shift+Enter"].includes(key)) return "pass";
+          textarea.setRangeText(key === "Tab" ? "\\t" : "\\n", textarea.selectionStart, textarea.selectionEnd, "end");
+          if (key === "Tab") textarea.dataset.tabs = String(Number(textarea.dataset.tabs) + 1);
+          publish(); return "handled";
         },
         // Deliberately no appendTranscript: host thinking owns predict speech;
         // revealed thinking-off check must retain a visible disabled microphone.

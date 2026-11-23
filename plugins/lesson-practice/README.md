@@ -62,7 +62,7 @@ selectable quiz/structure/output/diagram choices with `registerLessonFormat`,
 alongside their normal native question types and code-fence renderers. Chosen
 metadata stays with saved lessons. Output changes apply when the lesson is next
 presented; accepted transcript cards are not rewritten. See the optional
-`examples/plugins/lesson-formats` package and `docs/plugin-api/lesson-formats.md`.
+`examples/plugins/lesson-formats` package and `docs/plugin-api/plugin-lessons.md`.
 
 Build this plugin alone with `node scripts/build.mjs`; it only copies reviewed
 source files and installs no dependencies. The host's existing Core plugin build

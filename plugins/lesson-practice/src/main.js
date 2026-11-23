@@ -157,6 +157,24 @@ export function activate(ctx) {
     const status = node(document, 'span', value.result === 'correct' ? 'Correct' : value.result === 'partial' ? 'Partly correct' : 'Needs practice'); status.className = 'lh-lesson-feedback-status'; root.append(status); container.append(root);
     const h = ctx.ui.mountMarkdown(root, { text: `**Correct answer**\n\n${value.reference}\n\n${value.explanation}`, allowPluginFences: true }, { signal: block.signal }); return () => { h.dispose(); root.remove(); };
   } }));
+  for (const toolName of ['lesson_finish', 'lesson_revisit', 'lesson_status']) disposers.push(ctx.registerToolRenderer({ toolName, mount(container, block) {
+    if (block.state !== 'output-available' || !block.output) return;
+    if (toolName === 'lesson_finish' && (!Number.isSafeInteger(block.output.missedConcepts) || block.output.missedConcepts < 0)) return;
+    if (toolName === 'lesson_status' && (!Array.isArray(block.output.missed) || !Array.isArray(block.output.covered))) return;
+    if (toolName === 'lesson_revisit' && !block.output.lessonContext) return;
+    const value = block.output, document = container.ownerDocument, root = node(document, 'section'); root.className = 'lh-lesson-practice lh-lesson-progress'; root.setAttribute('aria-label', 'Lesson progress');
+    let title, description;
+    if (toolName === 'lesson_revisit') { title = 'Review'; description = 'Try an earlier idea again before checking the answer.'; }
+    else {
+      const missed = toolName === 'lesson_status' ? (Array.isArray(value.missed) ? value.missed.length : 0) : value.missedConcepts;
+      const waiting = Number.isSafeInteger(missed) && missed > 0 ? `${missed} ${missed === 1 ? 'concept remains' : 'concepts remain'} for later review.` : 'No missed concepts are waiting for review.';
+      title = toolName === 'lesson_finish' ? 'Lesson practice complete' : 'Practice progress';
+      const covered = Array.isArray(value.covered) ? value.covered.length : 0;
+      description = toolName === 'lesson_status' ? `${covered} ${covered === 1 ? 'lesson covered' : 'lessons covered'}. ${waiting}` : waiting;
+    }
+    root.append(node(document, 'strong', title), node(document, 'p', description)); container.append(root);
+    return () => root.remove();
+  } }));
   disposers.push(ctx.registerSettings((container, signal) => mountSettings(container, ctx, signal)));
   disposers.push(ctx.registerAction({ id: 'lesson-options', name: 'Lesson options', run(context) {
     if (context.surface !== 'session') return;

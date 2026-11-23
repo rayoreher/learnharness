@@ -4,6 +4,7 @@
 .lh-lesson-eyebrow { color: color-mix(in srgb, var(--foreground) 80%, var(--muted-foreground)); font-family: var(--font-ui, inherit); font-size: .75rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
 .lh-lesson-title { margin: 0; font: 650 clamp(1.15rem, 1.05rem + .3vw, 1.4rem)/1.3 var(--font-prose, system-ui); letter-spacing: -.02em; text-wrap: pretty; }
 .lh-lesson-practice > p { margin-block: .75rem; }
+.lh-lesson-content :where(p, li) { max-width: 72ch; }
 .lh-lesson-practice :where(textarea, video, canvas) { max-width: 100%; }
 .lh-lesson-practice textarea { display: block; width: 100%; min-height: 8rem; margin-block: .5rem; resize: vertical; color: inherit; background: var(--background); border: 1px solid var(--border); border-radius: 8px; padding: .75rem; font: inherit; line-height: 1.6; }
 .lh-lesson-answer-editor > label { display: block; font-weight: 500; }
@@ -21,6 +22,9 @@
 .lh-lesson-feedback[data-result="correct"] { border-inline-start-color: var(--lh-success, var(--border)); }
 .lh-lesson-feedback[data-result="partial"] { border-inline-start-color: var(--lh-warning, var(--border)); }
 .lh-lesson-feedback-status { display: inline-block; margin-block-end: .75rem; font: 600 .8125rem/1.5 var(--font-prose, system-ui); }
+.lh-lesson-progress { padding: 1rem 1.25rem; border: 1px solid var(--border); border-radius: 8px; background: var(--card, var(--background)); }
+.lh-lesson-progress strong { font-size: .9375rem; }
+.lh-lesson-progress p { margin-block: .5rem 0; color: color-mix(in srgb, var(--foreground) 80%, var(--muted-foreground)); font-size: .875rem; }
 @media (max-width: 480px) {
   .lh-lesson-content, .lh-lesson-feedback { padding: 1rem; }
   .lh-lesson-controls > span { flex: 1 1 auto; }

@@ -4,7 +4,12 @@ This change extends the original LearnHarness application. Its home, teaching
 sessions, sidebar, plan, graph, settings, provider connections and native answer
 flow remain the base. MindSpark supplies examples of quiz mechanics only.
 
-Development version 0.4.1 adds an opt-in request for both original teaching
+Development version 0.4.2 adds full-app verification, responsive navigation and
+Settings, readable lesson progress and complete authoring packaging. See the
+[current verification](native-app-v042-verification.md) for exact checks and
+remaining real-model/release acceptance.
+
+Version 0.4.1 adds an opt-in request for both original teaching
 question tools. Disabled workflows retain the original mechanics setting.
 Version 0.4.0 added presentation/accessibility polish to these native
 surfaces. The [UI study and acceptance rubric](ui-quality-study.md) records the

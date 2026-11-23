@@ -570,7 +570,9 @@ export async function verifyPluginBrowser(url, options = {}) {
 		page.on("request", request => {
 			requestStages.set(request, evidence.stage);
 			const target = new URL(request.url());
-			if (recording) evidence.requests.push({ method: request.method(), url: request.url(), type: request.resourceType(), stage: evidence.stage });
+			if (recording) evidence.requests.push({ method: request.method(), url: request.url(), type: request.resourceType(), stage: evidence.stage,
+				...(request.method() === "POST" && new URL(request.url()).pathname === "/api/chat" ? { input: JSON.parse(request.postData() ?? "{}").input } : {}),
+			});
 			// Hold only the question chat's real terminal canonical GET, never
 			// fabricate a record/result. Native persistence keeps running normally.
 			if (questionCanonicalGate && target.pathname === `/api/chats/${QUESTION.chatId}` && request.method() === "GET") {
@@ -873,6 +875,7 @@ export async function verifyPluginBrowser(url, options = {}) {
 
 		evidence.stage = "fresh Settings nests above an active main picker";
 		await openKnowledge();
+		await assertPaneKnowledgePicker(page);
 		await expandKnowledge(`cluster-toggle-${KNOWLEDGE.sourceId}`);
 		await expandKnowledge(`chain-toggle-${KNOWLEDGE.chainId}`);
 		const selectedPremise = `${KNOWLEDGE_OVERLAY} [data-testid="prop-checkbox-${KNOWLEDGE.premiseId}"]`;
@@ -881,12 +884,12 @@ export async function verifyPluginBrowser(url, options = {}) {
 		const retainedPicker = await page.$(KNOWLEDGE_OVERLAY);
 		const retainedSelection = await page.$(selectedPremise);
 		const pickerFocus = await page.evaluateHandle(() => document.activeElement);
-		// The sidebar is isolated by the picker. Use the existing global command,
-		// not a synthetic click into the inactive background.
+		// A page-origin picker stays in the main pane. The global Settings
+		// command covers it while retaining that same view and selection.
 		await chord(",");
 		await page.waitForSelector('[data-testid="settings-dialog"]', { visible: true });
 		assert.equal(await page.$$eval('[data-testid="settings-dialog"]', nodes => nodes.length), 1);
-		assert.equal(await retainedPicker.evaluate(overlay => overlay.isConnected && !!overlay.closest("[inert]") && getComputedStyle(overlay).display !== "none"), true, "Fresh Settings must cover the same painted picker, not close/remount it");
+		assert.equal(await retainedPicker.evaluate(overlay => overlay.isConnected && !!overlay.closest('[inert], [aria-hidden="true"]') && getComputedStyle(overlay).display !== "none"), true, "Fresh Settings must cover the same painted picker, not close/remount it");
 		assert.equal(await retainedSelection.evaluate(input => input.isConnected && input.checked), true);
 		assert.equal(await page.$eval('[data-testid="settings-dialog"]', dialog => {
 			const bounds = dialog.getBoundingClientRect();
@@ -914,9 +917,9 @@ export async function verifyPluginBrowser(url, options = {}) {
 		await page.waitForSelector('[data-testid="settings-dialog"]', { hidden: true });
 		await page.mouse.move(0, 0);
 		await page.waitForFunction(input => document.activeElement === input, { timeout: timeoutMs }, pickerFocus);
-		assert.equal(await retainedPicker.evaluate((overlay, selector) => overlay.isConnected && document.querySelector(selector) === overlay && !overlay.closest("[inert]"), KNOWLEDGE_OVERLAY), true);
+		assert.equal(await retainedPicker.evaluate((overlay, selector) => overlay.isConnected && document.querySelector(selector) === overlay && !overlay.closest('[inert], [aria-hidden="true"]'), KNOWLEDGE_OVERLAY), true);
 		assert.equal(await retainedSelection.evaluate(input => input.isConnected && input.checked), true, "Resuming the same picker retains the actual selection control");
-		await assertFullWindowPicker();
+		await assertPaneKnowledgePicker(page);
 		await assertKnowledge("closing fresh Settings resumes the mounted picker and its controlled selection", [KNOWLEDGE.premiseId], 1);
 		await screenshot("foreground-settings-picker-resumed");
 		evidence.foreground.push({ label: "Fresh Settings nests above the same picker and returns focus on close", pickerRetained: true, selectionRetained: true, focusRestored: true, ids: [KNOWLEDGE.premiseId] });
@@ -1625,6 +1628,12 @@ export async function verifyPluginBrowser(url, options = {}) {
 	} catch (error) {
 		failed = error;
 		evidence.failure = { message: String(error?.message ?? error), stack: error?.stack };
+		if (evidence.stage.startsWith("native plugin question")) {
+			try {
+				const response = await fetch(`${base}/api/chats/${QUESTION.chatId}`, { headers: options.headers, signal: AbortSignal.timeout(timeoutMs) });
+				evidence.failedQuestionRecord = await response.json();
+			} catch (diagnosticError) { evidence.questionDiagnosticError = String(diagnosticError); }
+		}
 		try { await screenshot("failure"); }
 		catch (captureError) { evidence.screenshotError = String(captureError); }
 	} finally {
@@ -1818,7 +1827,7 @@ async function verifySessionExtensions({ page, evidence, admissionCall: call, op
 			semanticDisplay: getComputedStyle(node.querySelector('[data-plugin-session-surface]')).display,
 			semanticBounds: box(node.querySelector('[data-plugin-session-surface]')),
 			topbar: box(document.querySelector("main header")), sidebar: box(document.querySelector("aside")),
-			visibleTitle: node.querySelector("h2")?.textContent, closeVisible: !!node.querySelector('button[aria-label="Close"]'),
+			accessibleTitle: node.querySelector('[data-plugin-session-surface]')?.getAttribute("aria-label"), hostHeading: !!node.querySelector("h2"), closeVisible: !!node.querySelector('button[aria-label="Close"]'),
 			composerCovered: !!document.querySelector('[data-testid="composer"]')?.closest("[inert]") };
 	});
 	evidence.sessionExtensions.push({ label: "surface body geometry", ...regionBounds });
@@ -1828,7 +1837,7 @@ async function verifySessionExtensions({ page, evidence, admissionCall: call, op
 		`Surface must fill the actual native session body boundary (${dimension}): ${JSON.stringify(regionBounds)}`);
 	assert.ok(regionBounds.region.y >= regionBounds.topbar.bottom - 1, "Surface must not cover native topbar");
 	assert.ok(regionBounds.region.x >= regionBounds.sidebar.right - 1, "Surface must not cover sidebar");
-	assert.equal(regionBounds.visibleTitle, "Session extension proof"); assert.equal(regionBounds.closeVisible, true);
+	assert.equal(regionBounds.accessibleTitle, "Session extension proof"); assert.equal(regionBounds.hostHeading, false, "Native surfaces expose their accessible title without adding a host heading row"); assert.equal(regionBounds.closeVisible, true);
 	assert.equal(regionBounds.composerCovered, true, "Covered native input must not remain interactive");
 	await action("nested");
 	await page.waitForSelector('[data-smoke-session-surface="1"]', { visible: true });
@@ -1919,11 +1928,12 @@ async function verifySessionExtensions({ page, evidence, admissionCall: call, op
 	const modelContent = JSON.stringify(state.requests.at(-1).messages);
 	assert.ok(modelContent.includes("reading") && modelContent.includes("thinking"), "Provider projection labels separate thinking channels");
 	await release(SESSION.chatId);
+		await page.locator('[data-testid="your-thinking"] > button[aria-expanded="false"]').click();
 	await page.waitForFunction(() => [...document.querySelectorAll('main img[alt="Submitted image"]')].length === 4);
 	const channelPlacement = await page.$$eval('main img[alt="Submitted image"]', images => images.map(image => ({ src: image.src,
-		thinkingLabel: (() => { let node = image.parentElement; while (node && node.tagName !== "MAIN") { const button = node.querySelector(':scope > button[aria-expanded]'); if (button) return button.textContent.trim(); node = node.parentElement; } return null; })() })));
-	assert.ok(channelPlacement.some(entry => entry.thinkingLabel?.includes("THINKING WHILE READING")), "Reading image has separate visible host container");
-	assert.ok(channelPlacement.some(entry => entry.thinkingLabel?.includes("YOUR THINKING")), "Question-thinking image has visible host thinking container");
+			thinkingChannel: image.closest('[data-testid="reading-thinking-block"]') ? "readingThinking" : image.closest('[data-testid="your-thinking"]') ? "thinking" : null })));
+		assert.ok(channelPlacement.some(entry => entry.thinkingChannel === "readingThinking"), "Reading image has separate visible host container");
+		assert.ok(channelPlacement.some(entry => entry.thinkingChannel === "thinking"), "Question-thinking image has visible host thinking container");
 	assert.equal(await page.$eval('[data-smoke-question-answered]', node => node.textContent), original + SESSION.codeSuffix, "Ordinary external renderer preserves transformed code verbatim while host owns images outside it");
 	evidence.sessionExtensions.push({ label: "genuine plugin JSON-string answer transform, code verbatim, three native image channels and actual adapter payload", answerInput, answerResult, channelPlacement, provider: state.requests.at(-1) });
 	await screenshot("session-native-answer-images");

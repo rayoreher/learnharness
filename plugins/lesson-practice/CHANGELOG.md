@@ -1,3 +1,16 @@
+# 0.4.2
+
+- Preserve interactive tool content across identical saved-state refreshes so
+  slides and captioned-video creation can finish. Verify actual cancellation,
+  retry and optional deck/SVG/numeric contributions through the native app.
+- Verify the full native lesson and mixed-question flow, accepted confidence,
+  visible corrections, plugin recovery and delayed review through the web app.
+- Keep lesson prose to a readable measure while allowing code and diagrams
+  to use the available width.
+- Present lesson completion and review progress in ordinary learner language.
+- Include the lesson and code-viewer projects, format example and stable lesson
+  contract in the portable authoring kit.
+
 # 0.4.1
 
 - Request both original native teaching question tools through the existing

@@ -199,7 +199,10 @@ registerHooks({resolve(specifier,context,next){ const result=next(specifier,cont
 			const { verifyPluginBrowser } = await import("./smoke-plugin-browser.mjs");
 			const evidenceDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "lh-plugin-browser-evidence-"));
 			console.log("[smoke-server] browser evidence:", evidenceDirectory);
-			await verifyPluginBrowser(url, { scratchDirectory: evidenceDirectory });
+			await verifyPluginBrowser(url, {
+				scratchDirectory: evidenceDirectory,
+				...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}),
+			});
 		}
 	} catch (err) {
 		failed = err;

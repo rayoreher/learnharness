@@ -147,6 +147,22 @@ describe("shared Markdown renderer dispatch", () => {
 });
 
 describe("native tool renderer dispatch", () => {
+	it("keeps interactive tool content alive across identical canonical reads, but replaces changed results", async () => {
+		const seen: PluginToolRenderProps[] = [];
+		const h = await harness({ activate(ctx) { ctx.registerToolRenderer({ toolName: "custom_tool", mount(container, props) {
+			seen.push(props); const input = document.createElement("input"); input.value = "initial"; container.append(input);
+		} }); } });
+		const part = nativePart({ output: { text: "saved lesson" }, result: { content: [{ type: "text", text: "saved lesson" }], details: { page: 1 }, isError: false } });
+		try {
+			await h.render(<ToolPartRenderer part={part} />);
+			const input = document.querySelector("input")!; input.value = "learner's local state";
+			await h.render(<ToolPartRenderer part={structuredClone(part)} />);
+			assert.equal(seen.length, 1, "An unchanged saved record must not abort an interactive renderer");
+			assert.equal(seen[0]!.signal.aborted, false); assert.equal(document.querySelector("input"), input); assert.equal(input.value, "learner's local state");
+			await h.render(<ToolPartRenderer part={{ ...structuredClone(part), output: { text: "changed lesson" } }} />);
+			assert.equal(seen.length, 2); assert.equal(seen[0]!.signal.aborted, true); assert.notEqual(document.querySelector("input"), input);
+		} finally { await h.close(); }
+	});
 	it("passes all four native states, call identity/input/details/error/result, and cancels on every update", async () => {
 		const seen: PluginToolRenderProps[] = [];
 		const h = await harness({ activate(ctx) { ctx.registerToolRenderer({ toolName: "custom_tool", mount(container, props) { seen.push(props); container.textContent = `custom ${props.state}`; } }); } });

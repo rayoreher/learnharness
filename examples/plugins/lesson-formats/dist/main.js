@@ -3,9 +3,9 @@ export function activate(ctx) {
   const off = [];
   off.push(ctx.registerQuestionRenderer({ id: 'numeric', supportedContractVersions: [1],
     mountAnswerEditor(container, props) {
-      const document = container.ownerDocument, root = element(document, 'label', 'Your number'), input = element(document, 'input'); input.inputMode = 'decimal'; input.maxLength = 200;
+      const document = container.ownerDocument, root = element(document, 'div'), label = element(document, 'label', 'Your number'), input = element(document, 'input'); input.inputMode = 'decimal'; input.maxLength = 200;
       let active = props.active, answer = props.answer.status === 'empty' ? { value: '', known: true, assisted: false } : structuredClone(props.answer.value);
-      input.value = answer.value; input.disabled = !active; root.append(input); container.append(root);
+      input.value = answer.value; input.disabled = !active; label.append(input); root.append(label); container.append(root);
       const publish = () => { if (!props.signal.aborted && active) props.onChange({ status: !answer.known || (answer.value.trim() && Number.isFinite(Number(answer.value))) ? 'ready' : 'unready', value: structuredClone(answer) }); };
       input.oninput = () => { answer = { value: input.value, known: true, assisted: false }; publish(); };
       const button = ctx.ui.mountButton(root, { label: 'I don’t know', size: 'sm', variant: 'outline', disabled: !active, onClick() { if (active) { answer = { value: '', known: false, assisted: false }; publish(); } } }, { signal: props.signal }); publish();
