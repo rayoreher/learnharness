@@ -4,7 +4,11 @@ This change extends the original LearnHarness application. Its home, teaching
 sessions, sidebar, plan, graph, settings, provider connections and native answer
 flow remain the base. MindSpark supplies examples of quiz mechanics only.
 
-Development version 0.4.2 adds full-app verification, responsive navigation and
+Development version 0.4.3 adds clearer model-error recovery, comfortable phone
+Retry, labeled options/defaults and actual native Settings acceptance. See the
+[latest follow-up](native-app-v043-verification.md).
+
+Version 0.4.2 adds full-app verification, responsive navigation and
 Settings, readable lesson progress and complete authoring packaging. See the
 [current verification](native-app-v042-verification.md) for exact checks and
 remaining real-model/release acceptance.

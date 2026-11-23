@@ -99,6 +99,9 @@ function mountExplanation(container, lesson, ctx, signal) {
 
 async function mountSettings(container, ctx, signal, chatId) {
   const [snapshot, catalog] = await Promise.all([ctx.call(chatId ? 'session' : 'get-settings', chatId ? { chatId } : {}), ctx.call('formats', {})]); if (signal.aborted) return;
+  const heading = node(container.ownerDocument, 'header'); heading.className = 'lh-lesson-practice';
+  const title = node(container.ownerDocument, 'h2', chatId ? 'Lesson options' : 'Lesson defaults'); title.className = 'lh-lesson-title';
+  heading.append(title, node(container.ownerDocument, 'p', chatId ? 'Choose defaults or a lesson. Changes save automatically.' : 'Choose presentation and practice options for new lessons. Changes save automatically.')); container.append(heading);
   let defaults = structuredClone(snapshot.settings ?? snapshot), lesson = chatId ? snapshot.session.lessons.at(-1) : null, value = structuredClone(lesson?.settings ?? defaults), pendingSave = Promise.resolve();
   const save = update => {
     const target = lesson;
@@ -129,7 +132,7 @@ async function mountSettings(container, ctx, signal, chatId) {
     ...choices('quiz', Object.entries(names), value.quizTypes).map(([type, label]) => ({ key: type, type: 'toggle', label, value: value.quizTypes.includes(type), onChange: selected => save(current => ({ quizTypes: selected ? [...new Set([...current.quizTypes, type])] : current.quizTypes.filter(t => t !== type) })) }))
   ];
   const handle = ctx.ui.mountSettingsRows(container, { rows: rows() }, { signal });
-  return () => handle.dispose();
+  return () => { handle.dispose(); heading.remove(); };
 }
 
 export function activate(ctx) {

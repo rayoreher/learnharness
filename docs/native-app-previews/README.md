@@ -19,3 +19,7 @@ are synthetic. Screenshots show actual scroll positions, not marketing mockups.
 See the [verification scope](../native-app-v042-verification.md) and
 [machine-readable record](../native-app-v042-verification.json). UI acceptance
 remains separate from these screenshots.
+
+The [0.4.3 follow-up](../native-app-v043-verification.md) adds clearer recovery,
+a visible phone Retry control and labeled lesson options, with separate current
+previews. The images above retain their 0.4.2 scope.

@@ -89,10 +89,30 @@ try {
     const get=await fetch('/api/custom-provider');const revision=get.headers.get('etag');
     const provider=await fetch('/api/custom-provider',{method:'POST',headers:{'Content-Type':'application/json','if-match':revision},body:JSON.stringify({baseUrl,authMode:'keyless'})});
     const models=await fetch('/api/settings/models',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(['strong','cheap','vision'].map(slot=>[slot,{model:{provider:'custom',id:'native-qa'},thinkingLevel:'off'}])))});
-    const plugins=[];for(const id of ['lesson-practice','code-viewer','lesson-formats']){const response=await fetch('/api/plugins/'+id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({enabled:true})});plugins.push({id,status:response.status,body:await response.json()});}
-    return {provider:{status:provider.status,body:await provider.json()},models:{status:models.status,body:await models.json()},plugins};
+    return {provider:{status:provider.status,body:await provider.json()},models:{status:models.status,body:await models.json()}};
   },'http://127.0.0.1:'+model.address().port+'/v1');
-  fs.writeFileSync(out+'/configuration.json',JSON.stringify(configured,null,2));assert.equal(configured.provider.status,200);assert.equal(configured.models.status,200);assert.ok(configured.plugins.every(p=>p.status===200));
+  fs.writeFileSync(out+'/configuration.json',JSON.stringify(configured,null,2));assert.equal(configured.provider.status,200);assert.equal(configured.models.status,200);
+  await page.reload({waitUntil:'networkidle2'});
+  phase='enable and configure through actual Settings';
+  await page.locator('[data-testid="settings-entry"]').click();
+  await page.locator('[data-testid="settings-nav-core-plugins"]').click();
+  for(const id of ['lesson-practice','code-viewer']) {
+    await page.locator(`[data-testid="plugin-${id}"] [role="switch"][aria-checked="false"]`).click();
+    await page.waitForSelector(`[data-testid="plugin-${id}"] [role="switch"][aria-checked="true"]:not(:disabled)`);
+  }
+  await page.locator('[aria-label="Settings for Lessons and mixed practice"]').click();
+  await page.waitForSelector('[aria-label="Lesson output"]');
+  await page.select('[aria-label="Lesson output"]','slides');
+  await page.waitForSelector('[aria-label="Lesson output"]:not(:disabled)');
+  assert.equal(await page.$eval('[aria-label="Lesson output"]',control=>control.value),'slides');
+  await page.select('[aria-label="Lesson output"]','text');
+  await page.waitForSelector('[aria-label="Lesson output"]:not(:disabled)');
+  await page.locator('[data-testid="settings-nav-plugins"]').click();
+  await page.locator('[data-testid="plugin-lesson-formats"] [role="switch"][aria-checked="false"]').click();
+  await page.waitForSelector('[data-testid="plugin-lesson-formats"] [role="switch"][aria-checked="true"]:not(:disabled)');
+  await page.screenshot({path:out+'/settings-activation.png',fullPage:true});
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('[data-testid="settings-dialog"]',{hidden:true});
   await page.reload({waitUntil:'networkidle2'});
   phase='start native session';await page.locator('[contenteditable="true"]').fill('I want to learn gradient descent through small lessons and mixed quizzes. I know squares but I am new to derivatives.');await page.locator('[aria-label="Send"]').click();
   await page.waitForFunction(()=>document.body.innerText.includes('Ready to begin?'),{timeout:45000});
@@ -159,8 +179,20 @@ try {
   await sendText('Continue after the cancelled explanation.');
   await page.waitForSelector('[data-testid="retry-failed-turn"]',{visible:true});
   assert.ok(failedRequests>0);
-  await page.waitForFunction(()=>document.body.innerText.includes('model temporarily unavailable'));
+  await page.waitForFunction(()=>document.body.innerText.includes('The model couldn’t finish its reply.'));
+  assert.doesNotMatch(await page.evaluate(()=>document.body.innerText),/fixture_error|model temporarily unavailable/,'Technical diagnostics start collapsed');
   await page.screenshot({path:out+'/model-error.png',fullPage:true});
+  await page.setViewport({width:320,height:740});
+  const errorCard=await page.$('[role="alert"]');await errorCard.scrollIntoView();
+  const errorLayout=await page.$eval('[role="alert"]',element=>({width:element.clientWidth,scroll:element.scrollWidth,page:document.documentElement.scrollWidth,viewport:innerWidth}));
+  assert.ok(errorLayout.scroll<=errorLayout.width&&errorLayout.page<=errorLayout.viewport,'Narrow model error stays readable without horizontal overflow');
+  assert.equal(await errorCard.isIntersectingViewport({threshold:0.9}),true,'The narrow recovery message is visible');
+  assert.ok(await page.$eval('[data-testid="retry-failed-turn"]',button=>button.getBoundingClientRect().height>=44),'Phone retry has a comfortable touch target');
+  await page.screenshot({path:out+'/model-error-phone.png',fullPage:true});
+  await page.setViewport({width:1440,height:1000});
+  await page.locator('aria/Show details').click();
+  await page.waitForFunction(()=>document.body.innerText.includes('model temporarily unavailable'));
+  await page.screenshot({path:out+'/model-error-details.png',fullPage:true});
   responseMode='normal';await page.locator('[data-testid="retry-failed-turn"]').click();
   await page.waitForFunction(()=>!document.querySelector('[data-testid="retry-failed-turn"]')&&!!document.querySelector('[data-testid="composer"] [aria-label="Send"]'));
   assert.deepEqual((await state()).session.attempts,final.session.attempts,'Retry preserves accepted practice');
@@ -195,7 +227,22 @@ try {
   assert.equal(await page.$eval('[aria-label="Lesson: Repeat an update"] a[download]',link=>link.href.startsWith('blob:')),true);
   await page.screenshot({path:out+'/captioned-video.png',fullPage:true});
   const presentation={contributedDeck:true,svg:true,numericAccepted:true,videoEncodedAndDecoded:true};
-  fs.writeFileSync(out+'/journey-evidence.json',JSON.stringify({sessionId,wrong,afterBlank,beforeReview,final,contributed,presentation,phase,stage,learningCalls,calls:calls.length,recovery:{streamAborted:heldAborted,visibleFailure:true,failedRequests,retry:true,acceptedPracticePreserved:true},errors,profile,url:page.url(),boundary:'Real original Next/React/server/SDK/tools/acceptance/persistence and plugin frontend; only normal custom model endpoint scripted. No real ChatGPT/model-quality claim.'},null,2));
+  phase='per-lesson options in the native dialog';
+  await page.locator('[aria-label="More plugin actions"]').click();
+  await page.locator('[data-plugin-action="lesson-practice/lesson-options-topbar"]').click();
+  await page.waitForSelector('[role="dialog"][aria-label="Lesson options"]');
+  await page.select('[aria-label="Apply to"]','slope-1');
+  await page.select('[aria-label="Lesson output"]','slides');
+  await page.waitForSelector('[aria-label="Lesson output"]:not(:disabled)');
+  const optionsState=await state();
+  assert.equal(optionsState.session.lessons.find(lesson=>lesson.id==='slope-1').settings.output,'slides');
+  assert.equal(optionsState.settings.output,'text','Per-lesson options preserve defaults');
+  assert.equal(optionsState.session.lessons.find(lesson=>lesson.id==='direction-1').settings.output,'slides');
+  assert.deepEqual(optionsState.session.attempts,contributed.session.attempts,'Changing presentation preserves accepted answers');
+  await page.screenshot({path:out+'/per-lesson-options.png',fullPage:true});
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('[role="dialog"][aria-label="Lesson options"]',{hidden:true});
+  fs.writeFileSync(out+'/journey-evidence.json',JSON.stringify({sessionId,wrong,afterBlank,beforeReview,final,contributed,presentation,settingsUI:{activation:true,defaultOutput:true,perLessonOutput:true,answersPreserved:true},phase,stage,learningCalls,calls:calls.length,recovery:{streamAborted:heldAborted,visibleFailure:true,failedRequests,retry:true,acceptedPracticePreserved:true},errors,profile,url:page.url(),boundary:'Real original Next/React/server/SDK/tools/acceptance/persistence and plugin frontend; only normal custom model endpoint scripted. No real ChatGPT/model-quality claim.'},null,2));
   console.log(JSON.stringify({phase,stage,calls:calls.length,attempts:final.session.attempts.length,reviews:final.session.reviews.length,errors,url:page.url()}));
 } catch(error) {
   if(page){await page.screenshot({path:out+'/failure.png',fullPage:true});fs.writeFileSync(out+'/failure.json',JSON.stringify({phase,stage,errors,error:String(error),text:await page.evaluate(()=>document.body.innerText)},null,2));}

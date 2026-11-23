@@ -1,3 +1,9 @@
+# 0.4.3
+
+- Use a clear model-failure message with optional diagnostic details and the
+  existing Retry action. Verify Core activation and lesson settings through
+  actual native Settings controls.
+
 # 0.4.2
 
 - Preserve interactive tool content across identical saved-state refreshes so

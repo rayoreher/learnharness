@@ -1,0 +1,164 @@
+{
+  "checked_at_utc": "2026-11-23T11:59:14.160810+00:00",
+  "base_commit": "91c21d013bb5f476127d14cb5268a41a40f3ef99",
+  "lesson_version": "0.4.3",
+  "scope": "Small UX follow-up: readable announced model-failure recovery, 44px phone Retry, lesson options/defaults heading and actual native Settings acceptance. No new external dependencies or account transport.",
+  "source_files": [
+    {
+      "path": "components/chat.tsx",
+      "sha256": "fc3104598a8501f17a07f77060ecc27528453ddfc57357c2af691fd80217d62f"
+    },
+    {
+      "path": "plugins/lesson-practice/CHANGELOG.md",
+      "sha256": "35c08d41e4be010232cd0f59dec717d7cd54eb3885935c28344dcc48f262594b"
+    },
+    {
+      "path": "plugins/lesson-practice/manifest.json",
+      "sha256": "3552048a102989a899bb6bf78c71bf6cc046f08508df3ac6e1eed2903a7d33e7"
+    },
+    {
+      "path": "plugins/lesson-practice/package-lock.json",
+      "sha256": "51bdd4611b5ae71097559982fbcc61cbec3f7eaaa95a9a7a16b4d11a87bfd7ef"
+    },
+    {
+      "path": "plugins/lesson-practice/package.json",
+      "sha256": "389fd41ebf381837e87289c14d1a310ed66b55f832f8c1444f195c221a25385b"
+    },
+    {
+      "path": "plugins/lesson-practice/src/main.js",
+      "sha256": "635ca963c252c96836cd9f3304c7d1c7e03ac62f864bb5522d5ec3df0655f861"
+    },
+    {
+      "path": "scripts/smoke-native-lessons.mjs",
+      "sha256": "0b86ab406977ea394f1c886834e6d7fb4a69e72195b30bc32b954d66812c0022"
+    }
+  ],
+  "checks": {
+    "v043-release-build": {
+      "exit_code": 0,
+      "result_sha256": "86747214c70cbb14efb75acbefbc8b9967da6c6887955f738721b96950c12f55",
+      "log_sha256": "a155d19da54a2f521f2c495f5b0f9652284d860d4f7a27587ee073618a8def3c"
+    },
+    "v043-affected-checks": {
+      "exit_code": 0,
+      "result_sha256": "3cb6fe892a5b40335a1112c55586961b50c16f7da5346596e1d51fcd113c8ccd",
+      "log_sha256": "003b287c3ec6c11c43aa753e0dd44372131f209dd06d337d74b8da43235c367c"
+    },
+    "v043-release-lint": {
+      "exit_code": 0,
+      "result_sha256": "8ad228be9c9cdbf0b1b452e866b862d776707ee0656d82bd362d946180a495f9",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "v043-release-browser": {
+      "exit_code": 0,
+      "result_sha256": "b778cfc5e4a9f81691634a23c553a8c12b540fd0ea4a26a5ac2175d0f5052402",
+      "log_sha256": "014f59a991ffcc8545faca3b961fce4aabb5ac4a81eb7c034d39072773437fab"
+    },
+    "v043-release-package": {
+      "exit_code": 0,
+      "result_sha256": "a4f6514ed2c2d31d18a6168c96714bdb5b58ef55ba49ae6d5638128ded5cd849",
+      "log_sha256": "f478428248d513ac28b0415302f7af01db77626f1e1fafc6f9a7d26c1517774b"
+    },
+    "v043-packaged-browser": {
+      "exit_code": 0,
+      "result_sha256": "9ded024ddcc169836524d5d85fd94f7d0ee006e64e6eb7da65ebb7d3e84408f2",
+      "log_sha256": "68cef831271e9617d5abd6fa358ed0065fb3155907c884e1bf5fa1bf9116bdac"
+    },
+    "v043-release-packaged-browser": {
+      "exit_code": 0,
+      "result_sha256": "299456b7e98ec1f05149ffec70fb8b62690362552a74e5db3bdad2b5c39d9ea4",
+      "log_sha256": "888d0c58a50914b6f4a748430984b5e2444b16c120b9754f1626d0e5fbdd46cb"
+    }
+  },
+  "baseline_root_suite": {
+    "commit": "91c21d013bb5f476127d14cb5268a41a40f3ef99",
+    "passed": 5335,
+    "skipped": 4,
+    "failed": 0
+  },
+  "affected_tests": {
+    "passed": 81,
+    "failed": 0
+  },
+  "browser": {
+    "model": "Scripted normal custom-provider endpoint; original actual app/teacher/SDK/host/acceptance/persistence.",
+    "model_responses": 25,
+    "accepted_answers": 7,
+    "core_enable_through_settings": true,
+    "community_enable_through_settings": true,
+    "default_output_save_and_return": true,
+    "per_lesson_output_save": true,
+    "defaults_and_accepted_answers_preserved": true,
+    "error_details_collapsed_then_accessible": true,
+    "phone_error_visible_at_320": true,
+    "phone_retry_target_px_min": 44,
+    "native_retry_recovers": true,
+    "actual_video_encodes_decodes": true,
+    "page_errors": 0
+  },
+  "advisories": {
+    "checked_at_utc": "2026-11-23T11:51:04.918732+00:00",
+    "unique_registry_pairs": 1412,
+    "affected_pairs": 0,
+    "locks": [
+      {
+        "path": "package-lock.json",
+        "sha256": "23c1599207e95e831a0dc2c19bd57cdb3200f4d704d69b2b3fa48b12d24accb7"
+      },
+      {
+        "path": "plugins/code-viewer/package-lock.json",
+        "sha256": "8883ce9dc83e6d2fa4632227f85541634e3a1d04eb7cfcfbc9bf6ee6f63f041e"
+      },
+      {
+        "path": "plugins/coding-questions/package-lock.json",
+        "sha256": "ef81df155caa09ae9c9bf21ea455bdcc9ee925e385b810ee4b603a834305ab5a"
+      },
+      {
+        "path": "plugins/drawing-pad/package-lock.json",
+        "sha256": "3706bc4c5d16f7c8b5614d56c79dad10fae85fd77e8398beda7d31c71942e16b"
+      },
+      {
+        "path": "plugins/flashcards/package-lock.json",
+        "sha256": "1308ec40463d79722c2726b64c341b2175dd9208a01eed96e521e2f8b2eaee12"
+      },
+      {
+        "path": "plugins/lesson-practice/package-lock.json",
+        "sha256": "51bdd4611b5ae71097559982fbcc61cbec3f7eaaa95a9a7a16b4d11a87bfd7ef"
+      },
+      {
+        "path": "plugins/rich-code-blocks/package-lock.json",
+        "sha256": "55d10edaddbef7cea7ab4476aed01913a882e62908d02e877b24657e5209e433"
+      },
+      {
+        "path": "plugins/ui-showcase/package-lock.json",
+        "sha256": "f8863e043af5237221fb4d50936af36939b0278a633cf00b8664537dc4c4603c"
+      }
+    ],
+    "retained_full_query_sha256": "b3c9529ec186ecc9c8e4b116510e0bfb3e8376e0ff899bed73ac217a532e350f"
+  },
+  "previews": [
+    {
+      "path": "docs/native-app-previews/v043/model-error-phone.png",
+      "sha256": "78d87435e07f25973850ebc6d1e41f953f423a8bcb5d8c84ee70eb9824b6ac22"
+    },
+    {
+      "path": "docs/native-app-previews/v043/model-error.png",
+      "sha256": "467744ab90bbd7876e2f0190fbe7bd911edb8462bdb8f5f3293ea37d21d09f37"
+    },
+    {
+      "path": "docs/native-app-previews/v043/per-lesson-options.png",
+      "sha256": "8f3553b226d7425b352a92cb34d1d23e6b08148864c675d215b4f914fc292169"
+    },
+    {
+      "path": "docs/native-app-previews/v043/settings-activation.png",
+      "sha256": "523d5970910122bfe65d5182aa33fcebad34bb0aff898396885f4de1f0fdf7a5"
+    }
+  ],
+  "remaining": [
+    "Real native ChatGPT connection/generation",
+    "Remaining accessibility observations and final 80-point decision",
+    "Release/deployment acceptance"
+  ],
+  "ui_score": null,
+  "deployment_changed": false
+}
