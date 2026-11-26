@@ -1,5 +1,9 @@
 # Native sign-in return recovery
 
+**Follow-up:** [Final real-provider, restart and UI acceptance](native-release-acceptance.md)
+now passes, including both lessons and cleared review. The observations below
+record the earlier recovery checkpoint and its exact scoped checks.
+
 When LearnHarness runs on a server and its browser runs on another computer,
 ChatGPT returns to the browser computer’s loopback address. The native callback
 listener is still on the server, so the browser shows a connection refusal.

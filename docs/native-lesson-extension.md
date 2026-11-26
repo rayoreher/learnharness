@@ -7,7 +7,9 @@ flow remain the base. MindSpark supplies examples of quiz mechanics only.
 Development version 0.4.4 adds pending sign-in return recovery for browsers on
 another computer and accurate question-node validation errors. The real native
 ChatGPT connection, master plan, first lesson, confidence and committed correction
-have been exercised. [Recovery checks and live acceptance boundaries](native-sign-in-recovery.md).
+have been exercised. The full two-lesson real-provider acceptance and the
+85-point project UI bar pass; see [final acceptance](native-release-acceptance.md)
+and [return recovery](native-sign-in-recovery.md).
 
 Version 0.4.3 adds clearer model-error recovery, comfortable phone
 Retry, labeled options/defaults and actual native Settings acceptance. See the

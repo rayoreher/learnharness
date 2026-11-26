@@ -6,12 +6,14 @@ connections and existing plugin system remain the product's structure.
 “80% of Apple quality” becomes the practical acceptance rubric below; it is not
 a measured comparison with Apple's products or a score already achieved.
 
-The [0.4.2 native-app check](native-app-v042-verification.md) now runs the complete
-app, with actual widgets/fonts, accepted mixed questions, corrections, review,
-restart, responsive navigation and Settings. Its normal model endpoint is a
-scripted fixture. The full rubric remains unassigned pending its remaining
-real-connection and remaining accessibility acceptance. Recovery, contributor
-formats, captioned video and genuine 200% browser zoom now have full-app evidence.
+The [final native 0.4.4 acceptance](native-release-acceptance.md) records
+**85/100 with no unresolved observed P0** against the rubric below. This is an
+agent assessment with explicit deductions and scoped evidence. Real native
+ChatGPT completed two small lessons, all four formats per lesson, a committed
+correction and later successful review. The original full app was also checked
+with scripted model/subscription replies for repeatable browser recovery cases;
+those fixtures remain labeled. No independent user study or complete WCAG
+certification is claimed.
 
 ## References and what they change
 
@@ -49,7 +51,7 @@ The audit uses source at `feec0f8`; it is not a runtime audit of the older previ
 | P1 | Feedback and code actions lack consistent grouping at narrow widths | Give correction feedback a clear text status; wrap code controls and preserve local horizontal scrolling |
 | P1 | Video output presents a blank canvas before creation, and its Stop action is initially available | Hide the idle canvas and disable Stop while idle |
 | P1, resolved in 0.4.2 | Narrow browser sidebar compressed the lesson | Use the existing modal shell; verify navigation, focus, Settings and composer at 320/390/820 widths |
-| P1, open | First-run connection setup and returning to an unfinished lesson need end-to-end usability review | Observe these real flows before changing their structure or adding dashboard chrome |
+| P1, resolved in 0.4.4 | First-run connection setup and returning to an unfinished lesson needed end-to-end review | Actual Settings/defaults/reload checks, recovered real sign-in, pending-return recovery and preserved account/progress after restart now pass |
 
 ## The 80-point acceptance bar
 
@@ -65,8 +67,9 @@ The audit uses source at `feec0f8`; it is not a runtime audit of the older previ
 Delivery needs at least 80/100 **and no unresolved P0 failures**. A good screenshot
 alone earns no complete-flow or recovery credit. Full-app testing must include
 light/dark themes, keyboard input, larger text/zoom, the native model connection,
-plugin disable/re-enable, cancellation and restart. Current full-app score is
-**unassigned** until those checks run; component results are recorded separately.
+plugin disable/re-enable, cancellation and restart. Current assessment is **85/100**, with deductions for mixed-input setup, scoped
+accessibility coverage, inherited dense chrome and conversational/manual-return
+recovery. Exact reasoning and limits are in the final acceptance record.
 
 ## Verification boundary
 
@@ -80,4 +83,5 @@ The earlier full-app review gates in [native-app-review.md](native-app-review.md
 have progressed through the owner-approved bounded checker allowance and full
 artifact review; the earlier component-only boundary is superseded by the
 0.4.2 evidence above. Existing deployed learner and account data are untouched.
-The target stays open until the remaining native acceptance supports the rubric.
+The tested native acceptance now meets the project’s practical delivery bar;
+[the final record](native-release-acceptance.json) retains every material limit.

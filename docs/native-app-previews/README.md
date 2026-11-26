@@ -23,3 +23,12 @@ remains separate from these screenshots.
 The [0.4.3 follow-up](../native-app-v043-verification.md) adds clearer recovery,
 a visible phone Retry control and labeled lesson options, with separate current
 previews. The images above retain their 0.4.2 scope.
+
+## Final native acceptance
+
+[Final evidence and 85-point assessment](../native-release-acceptance.md) includes
+actual real-provider synthetic-topic views at [desktop](real-native/lesson-1440.png)
+and [phone](real-native/lesson-390.png). The account identity is excluded.
+[Return recovery](../native-sign-in-recovery.md) includes separately labeled
+synthetic subscription views at [1440](sign-in-recovery/recovery-1440.png) and
+[320](sign-in-recovery/recovery-320.png) pixels.

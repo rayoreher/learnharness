@@ -1,5 +1,9 @@
 # Native keyboard and reading checks
 
+**26 November follow-up:** [Final native acceptance](native-release-acceptance.md)
+records the completed real connection/course/review checks and 85-point UI
+assessment. The scoped keyboard/contrast observations below retain their original boundaries.
+
 The real app accepts all seven fixture answers using keyboard response controls,
 including multiple choice, open response, fill-blank, flashcard self-assessment
 and the contributed numeric question. Space activates native choices/card/Submit
