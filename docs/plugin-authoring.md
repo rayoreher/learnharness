@@ -19,6 +19,7 @@ these are separate numbers, not interchangeable compatibility guarantees.
 | Every public signature, property and supporting type | [Complete API reference](plugin-api/README.md) |
 | Real projects and source reading routes | [Examples](plugin-examples.md) |
 | Teaching questions and grading | [Question contract](plugin-question-contract.md) |
+| Selectable lesson quiz, structure, output and diagram formats | [Lesson format contract](plugin-lesson-contract.md) |
 | Practice problems and processing | [Problem contract](plugin-problem-contract.md) |
 | Submission interception, images and surfaces | [Session extensions](plugin-session-extension-contract.md) |
 | Current session snapshots and drafts | [View context](plugin-view-context.md) |
@@ -156,6 +157,12 @@ infer one from the other. Core plugins update with the app and are managed in
 updates, and disabling never deletes data. Their IDs (`flashcards`, `coding-questions`,
 `drawing-pad`, `rich-code-blocks`) are reserved even if a core package is broken/missing.
 Conflicting community folders are skipped with a diagnostic and are not modified.
+
+This fork also ships **Lessons and mixed practice** (`lesson-practice`) and
+**Code viewer** (`code-viewer`) through that same Core catalog and lifecycle.
+They start disabled and their IDs are reserved like the original four. See
+[native lessons](plugin-lesson-contract.md) and the
+[code viewer source](../plugins/code-viewer/README.md).
 
 Repository source stays in `plugins/`. `npm run plugins:build-core` builds the selected
 catalog in `core-plugins.json` and stages generated packages. UI Showcase remains a

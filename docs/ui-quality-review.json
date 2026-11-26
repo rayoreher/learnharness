@@ -1,0 +1,649 @@
+{
+  "checked_at_utc": "2026-11-16T07:50:15.532754+00:00",
+  "base_commit": "feec0f8e6c9b9734e1136019b851c845ccb4da3c",
+  "versions": {
+    "lesson-practice": "0.4.0",
+    "code-viewer": "0.1.1"
+  },
+  "research_scope": {
+    "origin": "https://github.com/Khan/wonder-blocks",
+    "commit": "8a9b4c1a76d9c7e0da2ff612de95435656e761c9",
+    "scope": "Five exact public text files for read-only design-pattern study. No repository agent files, installation, imports, build or tests. Not a complete repository/dependency review.",
+    "files": [
+      {
+        "path": "LICENSE",
+        "git_blob": "efc90bf831d79f585c0981eaeb327d8365b77d64",
+        "url": "https://github.com/Khan/wonder-blocks/blob/8a9b4c1a76d9c7e0da2ff612de95435656e761c9/LICENSE",
+        "sha256": "1458ac3e0dc1f773a24d7ac12d3dc4d0a0b105df8a768c644530659df07edd88",
+        "bytes": 1069
+      },
+      {
+        "path": "package.json",
+        "git_blob": "ffcf2e2f2018c8144db0a54d232719036238131b",
+        "url": "https://github.com/Khan/wonder-blocks/blob/8a9b4c1a76d9c7e0da2ff612de95435656e761c9/package.json",
+        "sha256": "0695d553e455643891b789d2722988e84d530d8d2660017cbe61ead3f58cab09",
+        "bytes": 8781
+      },
+      {
+        "path": "packages/wonder-blocks-button/src/components/button.tsx",
+        "git_blob": "d8531d24b4bdbff28236532390be1db024329ecd",
+        "url": "https://github.com/Khan/wonder-blocks/blob/8a9b4c1a76d9c7e0da2ff612de95435656e761c9/packages/wonder-blocks-button/src/components/button.tsx",
+        "sha256": "e29b8bed5192cd30b69845e5259256f4e0b962dad3ad751d099bfc80ba37f55f",
+        "bytes": 3465
+      },
+      {
+        "path": "packages/wonder-blocks-button/src/theme/default.ts",
+        "git_blob": "e422e43e2d7702affb55f8d09a64d5fa641814ac",
+        "url": "https://github.com/Khan/wonder-blocks/blob/8a9b4c1a76d9c7e0da2ff612de95435656e761c9/packages/wonder-blocks-button/src/theme/default.ts",
+        "sha256": "967fb8edc04d0c2407a88c34a04c05735f28b1c0cc5e848b31d8a37edd716ebe",
+        "bytes": 3745
+      },
+      {
+        "path": "packages/wonder-blocks-tokens/src/tokens/spacing.ts",
+        "git_blob": "f8253a775c1296ae2372a57305278b0b15a29e38",
+        "url": "https://github.com/Khan/wonder-blocks/blob/8a9b4c1a76d9c7e0da2ff612de95435656e761c9/packages/wonder-blocks-tokens/src/tokens/spacing.ts",
+        "sha256": "adbf863049e1334711012c6b7c5dcb96ae703f43f4b49308180383b20984efa7",
+        "bytes": 1618
+      }
+    ]
+  },
+  "raw_reference_scan": {
+    "scanner_version": "1.0.0",
+    "disposition": "blocked",
+    "complete": true,
+    "tree_sha256": "62164998ac572d2fac9c21a549e60c7b98e4e428a6be4c2ded4475b5c92002b7",
+    "files_recorded": 13,
+    "text_files_scanned": 5,
+    "bytes_read": 18678,
+    "findings_truncated": false,
+    "git_metadata_excluded": false,
+    "findings": [
+      {
+        "path": "package.json",
+        "rule": "destructive-operation",
+        "severity": "high",
+        "message": "Potentially destructive command needs review.",
+        "line": 19
+      },
+      {
+        "path": "package.json",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 45
+      }
+    ],
+    "limits": {
+      "files": 10000,
+      "file_bytes": 1048576,
+      "total_bytes": 16777216
+    },
+    "requires": [
+      "manual_source_and_provenance_review",
+      "dependency_and_advisory_review",
+      "isolated_execution_only"
+    ],
+    "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+  },
+  "outside_code_adopted": false,
+  "runtime_scans": {
+    "lesson-practice": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "16e75f969b43276e0ab7c58a89db2211c2f810bc497fab0488aae0910e77a27e",
+      "files_recorded": 22,
+      "text_files_scanned": 19,
+      "bytes_read": 164839,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [
+        {
+          "path": "LICENSE",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "tests/native-setup.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 5
+        },
+        {
+          "path": "tests/native-setup.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 10
+        },
+        {
+          "path": "tests/host-lifecycle.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 9
+        },
+        {
+          "path": "tests/host-contract.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 9
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 41
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 5
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 7
+        }
+      ],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 1048576,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    },
+    "code-viewer": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "c89af2e57276999ef2f267fe8d43def850f6eba0ba53fbec48b0cdba00b03d8d",
+      "files_recorded": 13,
+      "text_files_scanned": 10,
+      "bytes_read": 54734,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [
+        {
+          "path": "src/main.js",
+          "rule": "dynamic-execution",
+          "severity": "review",
+          "message": "Dynamic execution or unsafe deserialization needs review.",
+          "line": 15
+        },
+        {
+          "path": "LICENSE",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 34
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 5
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 6
+        }
+      ],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 1048576,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    },
+    "ui": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "48535f12d0c9b48b40477b61c95ebcd01df6c7e90642d771a5f7021de66395e2",
+      "files_recorded": 12,
+      "text_files_scanned": 7,
+      "bytes_read": 138484,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [
+        {
+          "path": "tests/native-ui-browser.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 47
+        },
+        {
+          "path": "tests/native-ui-browser.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 6
+        },
+        {
+          "path": "tests/native-ui-browser.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 8
+        },
+        {
+          "path": "components/home.tsx",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 159
+        },
+        {
+          "path": "components/sidebar.tsx",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 452
+        }
+      ],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 1048576,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    }
+  },
+  "runtime_inventory": [
+    {
+      "path": "code-viewer/LICENSE",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "bytes": 34523
+    },
+    {
+      "path": "code-viewer/README.md",
+      "sha256": "1af5f308c7da34a58e0076e3aa06c212c3ab5133ce94a8742f50810af555c0ea",
+      "bytes": 1328
+    },
+    {
+      "path": "code-viewer/manifest.json",
+      "sha256": "c5a984f19d5198f8220bc7cfbef26208fbf73007515008c720780818b754cdad",
+      "bytes": 282
+    },
+    {
+      "path": "code-viewer/package-lock.json",
+      "sha256": "8883ce9dc83e6d2fa4632227f85541634e3a1d04eb7cfcfbc9bf6ee6f63f041e",
+      "bytes": 245
+    },
+    {
+      "path": "code-viewer/package.json",
+      "sha256": "4d4f63b6a35723ed3ab33aba59cebf4bf0346b9ba0262dcb1c91b7780207a616",
+      "bytes": 234
+    },
+    {
+      "path": "code-viewer/scripts/build.mjs",
+      "sha256": "120252bbe1d1c65c5f614aaeecfe646e49f0fdb1b2e0fd42e790c0e0517693b6",
+      "bytes": 1197
+    },
+    {
+      "path": "code-viewer/src/main.js",
+      "sha256": "533039638af5cd04a724ac1d137dedca8d0d9e0c437b2afb245e6c628b572be4",
+      "bytes": 4732
+    },
+    {
+      "path": "code-viewer/src/styles.css",
+      "sha256": "1adee48e2d2f81614470e3a3dedd05ef573ba1ebaecc335624e5fea50e37df9c",
+      "bytes": 1787
+    },
+    {
+      "path": "code-viewer/tests/browser.mjs",
+      "sha256": "ba939635c814b34fcced17cfe50a4913a8857a321e691d3721e32ab0c44d5abc",
+      "bytes": 8427
+    },
+    {
+      "path": "code-viewer/tests/viewer.test.mjs",
+      "sha256": "2e7c747c03879f22546f5a9cceb00a4028291c5966ea08b36c24b0c5962f52e8",
+      "bytes": 1979
+    },
+    {
+      "path": "lesson-practice/CHANGELOG.md",
+      "sha256": "7a16db178840bead4d02c33a1eae45fb992d8e95b589314ee7e7ea6eeac1fc35",
+      "bytes": 3007
+    },
+    {
+      "path": "lesson-practice/LICENSE",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "bytes": 34523
+    },
+    {
+      "path": "lesson-practice/README.md",
+      "sha256": "f5052776352faf854ed4a142def7018ced9d94bc43435cb04f057c1b7416c9d8",
+      "bytes": 4989
+    },
+    {
+      "path": "lesson-practice/manifest.json",
+      "sha256": "587f6cbc2595403c67f4d8716eca29358ba253c7b917591eb844001b09355496",
+      "bytes": 356
+    },
+    {
+      "path": "lesson-practice/package-lock.json",
+      "sha256": "4ed97d0c5a1edb33b4427ca8fc0b7cd1aa2f3d49f0b99aecf4ccb927b858d6c7",
+      "bytes": 253
+    },
+    {
+      "path": "lesson-practice/package.json",
+      "sha256": "a28b4737a6461d7e60a54368546487456fda75d5af4f9a570aba831590cbbb15",
+      "bytes": 238
+    },
+    {
+      "path": "lesson-practice/scripts/build.mjs",
+      "sha256": "93ac8b9087021daba248e17c7d6e15c4c466732199b92116c3c7b3ef84f64afa",
+      "bytes": 1396
+    },
+    {
+      "path": "lesson-practice/src/backend.cjs",
+      "sha256": "129037e8b0e534231898cee597231376a9b988514dd1545686fe3b87665c25aa",
+      "bytes": 17128
+    },
+    {
+      "path": "lesson-practice/src/domain.cjs",
+      "sha256": "3e2404e61987c2ae1afac707ea843e1c8af2b455e5f271eb891419ba68586dd9",
+      "bytes": 16077
+    },
+    {
+      "path": "lesson-practice/src/formats.cjs",
+      "sha256": "326c2832640eda80dd31437fd34c368ad65c6507af3596d18c8c66ef49c3477e",
+      "bytes": 1390
+    },
+    {
+      "path": "lesson-practice/src/main.js",
+      "sha256": "f97a00da6a698e09b678c8f000c6ea5925158be0fb4d83aa5d6226e866c5431e",
+      "bytes": 17595
+    },
+    {
+      "path": "lesson-practice/src/schemas.cjs",
+      "sha256": "0c433bba75c00343b2d95278ff1b235821bac749f8f045db96825dadaf56979f",
+      "bytes": 1213
+    },
+    {
+      "path": "lesson-practice/src/store.cjs",
+      "sha256": "6c62cb5746bef5aa5c37d233abb5a5f0e62491db4e97ec50b68f48e6b139739b",
+      "bytes": 1609
+    },
+    {
+      "path": "lesson-practice/src/styles.css",
+      "sha256": "38c1b7c8a7bde65c1b1412b69ab66fc7f9ef34ee03fbba5600f06363e0cd5e0e",
+      "bytes": 3112
+    },
+    {
+      "path": "lesson-practice/tests/browser.mjs",
+      "sha256": "4a005732abe738d344ad982664a22305198d6ec27d33d72eab5510c6bac89e6a",
+      "bytes": 18435
+    },
+    {
+      "path": "lesson-practice/tests/host-contract.mjs",
+      "sha256": "e58a22a50588e0d9dd47aca6220ca811bfd846a684852d249015c31521c1d674",
+      "bytes": 7193
+    },
+    {
+      "path": "lesson-practice/tests/host-lifecycle.mjs",
+      "sha256": "08716cd1d1a530d456f19e11a1669b1d14a73ab2f4c112ca111758998289e172",
+      "bytes": 9530
+    },
+    {
+      "path": "lesson-practice/tests/native-setup.mjs",
+      "sha256": "54c81b4afbffba5e8197a606e2c5c406c61c33f1664281331848f872a29fb90f",
+      "bytes": 3419
+    },
+    {
+      "path": "lesson-practice/tests/native.test.mjs",
+      "sha256": "179723e24039350541093a79b91327b622e9c72a922de4a7f58454efe4f3fdf6",
+      "bytes": 23376
+    },
+    {
+      "path": "ui/app/interface-polish.css",
+      "sha256": "7c2890ee5a49d1542b249ad1cb395fe44296eb52791c779ee37bf08a96d4d7ab",
+      "bytes": 1265
+    },
+    {
+      "path": "ui/components/answered-card.tsx",
+      "sha256": "b664a94502d22a93b4afd48f71ecbe93e93a60faddfb97fefbe0056004d4d366",
+      "bytes": 11129
+    },
+    {
+      "path": "ui/components/home.tsx",
+      "sha256": "3ae752a5358282f34b5ee0d21080107af9888fc84d3fb30679bea31c3520a662",
+      "bytes": 15615
+    },
+    {
+      "path": "ui/components/question-dock.tsx",
+      "sha256": "ca99647f1012137ed2920309a4efc8a4494b4af373edd2af030c00a05f0533f3",
+      "bytes": 41991
+    },
+    {
+      "path": "ui/components/sidebar.tsx",
+      "sha256": "573ec076e4051275759942debd3b9d908e9f7a2422b1ed717285235fab3f9b05",
+      "bytes": 42321
+    },
+    {
+      "path": "ui/src/core/themes.ts",
+      "sha256": "0eff0e9badf92a1981631db98e1d9ba565ce2136d1601995063be50b35d103e3",
+      "bytes": 12359
+    },
+    {
+      "path": "ui/tests/native-ui-browser.mjs",
+      "sha256": "2cab9133a2e0bf2102938b396a5eb7745b68665d82706bcfcc8bdb6af0723804",
+      "bytes": 13804
+    }
+  ],
+  "operation_review": {
+    "checked_at_utc": "2026-11-16T07:40:15.431433+00:00",
+    "scanner": "/home/rayoreher/.codex/skills/third-party-code-guard/scripts/guard.py",
+    "intended_operations": [
+      "Node 24 --experimental-transform-types /check.mjs for component-only Chromium QA",
+      "Existing lesson and code-viewer browser fixtures against revised modules",
+      "Reviewed Babel parser on four TSX source snapshots only",
+      "Original setup/Core package helper for both updated empty-lock packages"
+    ],
+    "dispositions": [
+      "All new runtime scopes have complete scans with no high findings. LICENSE URLs are legal text. Code viewer RegExp.exec reads supported startLine metadata, not code execution.",
+      "The UI browser driver starts only existing Chromium in a fresh tmpfs profile; its HTTP/CDP connections are namespace-local loopback. Environment reads are explicit isolation flags. The only writable output mount is docs/ui-previews. It mounts real plugin modules and CSS with controlled widget stand-ins; it does not mount or call the original app, account/model services or source checkout root.",
+      "The original pure themes.ts is byte-identical to the pinned upstream file. Its only import is type-only; runtime is data, color/string helpers and theme variable construction. No package dependency, filesystem, network, process or environment access occurs. It supplies two built-in preset palettes only, never user settings.",
+      "Network flags in home.tsx and sidebar.tsx refer to existing app API reads. Those files are only inert parser input in this experiment; their React imports, hooks and network operations are not executed.",
+      "Existing native helper/TypeBox/Babel review evidence stays in native-lesson-intake.json and native-confidence-code-review.json. Exact bytes and advisories must be rechecked before helper reuse. No scanner limit or detector has changed."
+    ],
+    "foreign_reference_scope": "Five exact Khan Wonder Blocks files, read only. Root manifest scripts.clean removes local package build/dependency directories; its blocked report is retained. No installation, cleanup, imports, build, tests or dependency/advisory claims for the full foreign repository. No outside code copied into the product.",
+    "limitations": [
+      "Full React/Next rendering, native widget integrations, real user flows, fonts and account/model sequencing are unverified.",
+      "Full-app review gates and the unanswered scanner-size decision remain unchanged.",
+      "No claim of an 80/100 full-app score or WCAG conformance."
+    ]
+  },
+  "helper_advisories": {
+    "checked_at_utc": "2026-11-16T07:43:15.729128+00:00",
+    "queries": [
+      {
+        "package": {
+          "ecosystem": "npm",
+          "name": "@babel/parser"
+        },
+        "version": "7.20.15"
+      },
+      {
+        "package": {
+          "ecosystem": "npm",
+          "name": "typebox"
+        },
+        "version": "1.3.27"
+      }
+    ],
+    "response": {
+      "results": [
+        {},
+        {}
+      ]
+    }
+  },
+  "parser_scan": {
+    "scanner_version": "1.0.0",
+    "disposition": "manual_review_required",
+    "complete": true,
+    "tree_sha256": "3b962d3d27ff6f2b7c3be7d308a06d9a7216a11d7147032c2741d83c2b786201",
+    "files_recorded": 4,
+    "text_files_scanned": 3,
+    "bytes_read": 487563,
+    "findings_truncated": false,
+    "git_metadata_excluded": false,
+    "findings": [
+      {
+        "path": "lib/index.js",
+        "rule": "dynamic-execution",
+        "severity": "review",
+        "message": "Dynamic execution or unsafe deserialization needs review.",
+        "line": 3824
+      },
+      {
+        "path": "package.json",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 5
+      }
+    ],
+    "limits": {
+      "files": 10000,
+      "file_bytes": 1048576,
+      "total_bytes": 16777216
+    },
+    "requires": [
+      "manual_source_and_provenance_review",
+      "dependency_and_advisory_review",
+      "isolated_execution_only"
+    ],
+    "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+  },
+  "syntax_driver_scan": {
+    "scanner_version": "1.0.0",
+    "disposition": "manual_review_required",
+    "complete": true,
+    "tree_sha256": "649173f6532610006d0a8f24d350d8e9968a33d0df0a486f34dd405e4f040f00",
+    "files_recorded": 1,
+    "text_files_scanned": 1,
+    "bytes_read": 337,
+    "findings_truncated": false,
+    "git_metadata_excluded": false,
+    "findings": [],
+    "limits": {
+      "files": 10000,
+      "file_bytes": 1048576,
+      "total_bytes": 16777216
+    },
+    "requires": [
+      "manual_source_and_provenance_review",
+      "dependency_and_advisory_review",
+      "isolated_execution_only"
+    ],
+    "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+  },
+  "native_helper_tree_sha256": "1a5c28107ef48ac4b2bb232dafc2702bfa6010030f468b224404250f30494023",
+  "additional_helper_review": "Original native helper closure is byte-identical to the previously recorded review. Babel lib/index.js SHA256 is 3d772729da6b89361d16c6f2ff9b8ebad77eb3799699f5ffab14141aae6c522e; it has no runtime imports in this reviewed three-file closure. Its flagged function at line 3824 is an ordinary anonymous function, not a Function constructor. Manifest URLs are metadata. Drivers parse four source snapshots only; original UI imports/hooks are never executed.",
+  "verification": {
+    "component_browser": {
+      "scope": "Component browser QA with real plugin modules/CSS and controlled host widget substitutes; native preset palettes. Not full React/model verification.",
+      "results": [
+        {
+          "width": 1440,
+          "theme": "default",
+          "overflow": false,
+          "minimum_scoped_text_contrast": 11.497305693257534
+        },
+        {
+          "width": 1440,
+          "theme": "catppuccin-latte",
+          "overflow": false,
+          "minimum_scoped_text_contrast": 5.979333644878896
+        },
+        {
+          "width": 768,
+          "theme": "default",
+          "overflow": false,
+          "minimum_scoped_text_contrast": 11.497305693257534
+        },
+        {
+          "width": 768,
+          "theme": "catppuccin-latte",
+          "overflow": false,
+          "minimum_scoped_text_contrast": 5.979333644878896
+        },
+        {
+          "width": 320,
+          "theme": "default",
+          "overflow": false,
+          "minimum_scoped_text_contrast": 11.497305693257534
+        },
+        {
+          "width": 320,
+          "theme": "catppuccin-latte",
+          "overflow": false,
+          "minimum_scoped_text_contrast": 5.979333644878896
+        }
+      ],
+      "touch_minimum_height": 44,
+      "larger_text": "passed at 320px with 32px root text",
+      "keyboard_focus": "passed",
+      "inert_focus": "passed",
+      "reduced_motion": "passed"
+    },
+    "tsx_syntax": "All four modified TSX components passed reviewed Babel parsing in credential-free isolation. This is not TypeScript checking or React execution.",
+    "lesson_browser": "Passed existing editor/control/settings/presentation fixtures with added revealed-button and idle-video assertions; actual video encoding and decoding passed.",
+    "code_viewer_browser": "Passed source-preserving copy, clipboard fallback, expansion, cancellation, late async completion and failed-widget cleanup.",
+    "code_viewer_unit": "Three existing fence/registration/rollback tests passed.",
+    "native_packaging": "Both current versions passed original setup and Core packaging helpers with real offline npm and empty locks in a disposable namespace.",
+    "backend_scope": "Grading, confidence/adaptation logic and backend source are unchanged from the separately verified 0.3.0 revision; the UI pass does not rerun the full backend suite.",
+    "initial_fixture_failure": "The first component QA driver failed JavaScript syntax before Chromium started because a fixture fence delimiter ended its template string. Replaced that literal with an explicit character construction; rescanned the changed driver and reran successfully. No product source fix or unreviewed app run was involved."
+  },
+  "quality_score": {
+    "target": 80,
+    "maximum": 100,
+    "current_full_app_score": null,
+    "status": "Unassigned pending real native app verification and unresolved P0 audit; component-only results do not satisfy the full-app rubric."
+  },
+  "limits": [
+    "Full React/Next, native widget/Markdown/font integration, first-run setup, narrow-screen navigation, actual zoom, complete keyboard journey, model sequencing, save/error/cancel/restart and deployment remain unverified.",
+    "The required scanner still has its original 1 MB per-file limit; the earlier 8 MB request remains unanswered. No detector or trusted scanner file changed.",
+    "The optional local Codex connection clarification is unchanged.",
+    "No actual learner data, account profile, deployed service or production page was mounted, migrated or modified."
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "checked_at_utc": "2026-11-26T02:15:29.365225+00:00",
+  "scope": "Documentation-only final native acceptance, project UI rubric assessment and two viewed synthetic-topic real-app screenshots. Runtime/test source and dependency closure unchanged from f55043c.",
+  "scan": {
+    "scanner_version": "1.0.0",
+    "disposition": "manual_review_required",
+    "complete": true,
+    "tree_sha256": "58fb814322cfba3fbacd663a9a301dc6c721c46934e7a1b3ed691addfacbf2f5",
+    "files_recorded": 9,
+    "text_files_scanned": 7,
+    "bytes_read": 39092,
+    "findings_truncated": false,
+    "git_metadata_excluded": false,
+    "findings": [
+      {
+        "path": "docs/ui-quality-study.md",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 22
+      },
+      {
+        "path": "docs/native-sign-in-recovery.md",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 11
+      }
+    ],
+    "limits": {
+      "files": 10000,
+      "file_bytes": 16777216,
+      "total_bytes": 16777216
+    },
+    "requires": [
+      "manual_source_and_provenance_review",
+      "dependency_and_advisory_review",
+      "isolated_execution_only"
+    ],
+    "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+  },
+  "files": [
+    {
+      "path": "docs/native-app-previews/README.md",
+      "sha256": "8063bf077a835133344fd7612b0028c3b64181ece2dbd9641e0c34e2fb559659",
+      "bytes": 2078
+    },
+    {
+      "path": "docs/native-lesson-extension.md",
+      "sha256": "dd96a4591e336d6b120edcb02ed2ca6257077798d04e69a894ab3f330a44677a",
+      "bytes": 10423
+    },
+    {
+      "path": "docs/native-sign-in-recovery.md",
+      "sha256": "d5db6dbbf232d6bd49dba6a737ed6c4cf0a4d4fed3f2bd45ad146243de9f62aa",
+      "bytes": 3439
+    },
+    {
+      "path": "docs/native-ui-final-checks.md",
+      "sha256": "2e3695b6f9cd6030a93a7fed4bcdb4f07d2df618891caa98937ad5748e16425f",
+      "bytes": 2055
+    },
+    {
+      "path": "docs/ui-quality-study.md",
+      "sha256": "520b7af3c5e92538fda5f7795204bc7d629b9bc5505c5399eb00a6b55774bb64",
+      "bytes": 8239
+    },
+    {
+      "path": "docs/native-release-acceptance.json",
+      "sha256": "e9f995205658cd6cd82f79d6b325fc420f4188a19e46c9f8b8b8afc0a8f1c881",
+      "bytes": 9588
+    },
+    {
+      "path": "docs/native-release-acceptance.md",
+      "sha256": "59385d777d4c357854870ede4fff4a93a36017957b1eb6d6e82f2500afe50388",
+      "bytes": 3270
+    }
+  ],
+  "images": [
+    {
+      "path": "docs/native-app-previews/real-native/lesson-1440.png",
+      "sha256": "321bc6553f20eb50444988233cf58096897f5938147ccff6282bd9b67582f2eb",
+      "bytes": 118486,
+      "provenance": "Viewed actual native synthetic-learning topic screenshot. Browser checked no visible email, blocked account/model commands and used an empty profile; no account identity in screenshot."
+    },
+    {
+      "path": "docs/native-app-previews/real-native/lesson-390.png",
+      "sha256": "4a47f3707b3264e7b2fc09597aafa4222b0f05a6f9db3b9ba30a74fa3c620c61",
+      "bytes": 59214,
+      "provenance": "Viewed actual native synthetic-learning topic screenshot. Browser checked no visible email, blocked account/model commands and used an empty profile; no account identity in screenshot."
+    }
+  ],
+  "dispositions": [
+    {
+      "path": "docs/ui-quality-study.md",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 22,
+      "reason": "First-party acceptance/study documentation, exact source/result hashes and reviewed fixed-origin operation metadata. URL/command-shaped text is evidence/reference, not executable code or authorization. No actual OAuth callback/code/state/token/account identity."
+    },
+    {
+      "path": "docs/native-sign-in-recovery.md",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 11,
+      "reason": "First-party acceptance/study documentation, exact source/result hashes and reviewed fixed-origin operation metadata. URL/command-shaped text is evidence/reference, not executable code or authorization. No actual OAuth callback/code/state/token/account identity."
+    }
+  ],
+  "runtime_source_hashes_unchanged": true,
+  "dependency_review": "native-sign-in-recovery-intake.json",
+  "normal_native_view_review": "Exact first-party controller, fixed preview origin, empty profile, no credential/home/account mounts, pipe debugging and browser request filter; host network namespace sharing is recorded explicitly. No model/account mutation by the browser.",
+  "assurance": "Scoped full-file triage, source/provenance and opaque-image review; not a safety certificate or privilege grant."
+}

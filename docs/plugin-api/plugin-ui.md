@@ -509,22 +509,30 @@ disabled?: boolean;
 
 Public SDK type, exported as `PluginMarkdownProps`. Import with `import type`; the SDK has no runtime exports.
 
-Built-in host Markdown rendering without auxiliary controls or plugin code-block widgets.
+Display-only host Markdown. Plugin fences require explicit opt-in.
 
 ```ts
 export interface PluginMarkdownProps {
     text: string;
+    allowPluginFences?: boolean;
 }
 ```
 
 **Member index** (including nested object members; inherited members are defined in the linked base types):
 
 - [text](#pluginmarkdownprops-text)
+- [allowPluginFences](#pluginmarkdownprops-allowpluginfences)
 
 ### PluginMarkdownProps text
 
 ```ts
 text: string;
+```
+
+### PluginMarkdownProps allowPluginFences
+
+```ts
+allowPluginFences?: boolean;
 ```
 
 ## PluginMenuItem
@@ -1255,7 +1263,8 @@ mountSettingsRows(container: HTMLElement, props: PluginSettingsSchema, options: 
 ### PluginUi mountMarkdown
 
 Mount complete Markdown through built-in host rendering, including math/code,
-without auxiliary controls or registered plugin fence renderers. Returns a
+without auxiliary controls. Registered plugin fences require allowPluginFences.
+Existing calls keep host-only rendering. Returns a
 text-update/dispose handle; no model, storage or worker work is started.
 
 ```ts

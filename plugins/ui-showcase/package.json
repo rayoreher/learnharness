@@ -16,7 +16,7 @@
     "esbuild": "0.28.2",
     "learnharness-plugin-api": "file:.sdk",
     "linkedom": "0.18.13",
-    "puppeteer-core": "25.8.0",
+    "puppeteer-core": "25.18.1",
     "tsx": "4.23.12",
     "typescript": "5.9.3"
   }

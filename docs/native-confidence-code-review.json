@@ -1,0 +1,824 @@
+{
+  "upstream_origin": "https://github.com/amosblomqvist/learnharness",
+  "upstream_commit": "cb25c8e49b85eed9e78315584731cad73a0118a6",
+  "base_commit_before_this_change": "e6ba85c146dc05a5a54ecc23083efe217cc79c51",
+  "lesson_version": "0.3.0",
+  "code_viewer_version": "0.1.0",
+  "checked_at_utc": "2026-11-16T07:03:25.278303+00:00",
+  "source_snapshots": {
+    "lesson-practice": [
+      {
+        "path": "CHANGELOG.md",
+        "sha256": "c57062d68c69a0c1717681564e704093690431cc4adfbe46d8fcac20277138a4",
+        "bytes": 2430
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+        "bytes": 34523
+      },
+      {
+        "path": "README.md",
+        "sha256": "f5052776352faf854ed4a142def7018ced9d94bc43435cb04f057c1b7416c9d8",
+        "bytes": 4989
+      },
+      {
+        "path": "manifest.json",
+        "sha256": "634dec1c7f5bc9b7578c58a043482a5c5234fa66d4bae7fc07dcd33b0f291f96",
+        "bytes": 356
+      },
+      {
+        "path": "package-lock.json",
+        "sha256": "aa2b7b57e137e69714eb6bd2609f4754b0725fba4bcd72a9d4cb05a56eedee34",
+        "bytes": 253
+      },
+      {
+        "path": "package.json",
+        "sha256": "3884835477138c18d05db5c19230096a046b6d86c0c785518bce3024bca9d39d",
+        "bytes": 238
+      },
+      {
+        "path": "scripts/build.mjs",
+        "sha256": "93ac8b9087021daba248e17c7d6e15c4c466732199b92116c3c7b3ef84f64afa",
+        "bytes": 1396
+      },
+      {
+        "path": "src/backend.cjs",
+        "sha256": "129037e8b0e534231898cee597231376a9b988514dd1545686fe3b87665c25aa",
+        "bytes": 17128
+      },
+      {
+        "path": "src/domain.cjs",
+        "sha256": "3e2404e61987c2ae1afac707ea843e1c8af2b455e5f271eb891419ba68586dd9",
+        "bytes": 16077
+      },
+      {
+        "path": "src/formats.cjs",
+        "sha256": "326c2832640eda80dd31437fd34c368ad65c6507af3596d18c8c66ef49c3477e",
+        "bytes": 1390
+      },
+      {
+        "path": "src/main.js",
+        "sha256": "a2b8a33262b5b4243e67a4cc6966647c2da54524c98d7731a294f68bf3e2b86a",
+        "bytes": 16035
+      },
+      {
+        "path": "src/schemas.cjs",
+        "sha256": "0c433bba75c00343b2d95278ff1b235821bac749f8f045db96825dadaf56979f",
+        "bytes": 1213
+      },
+      {
+        "path": "src/store.cjs",
+        "sha256": "6c62cb5746bef5aa5c37d233abb5a5f0e62491db4e97ec50b68f48e6b139739b",
+        "bytes": 1609
+      },
+      {
+        "path": "src/styles.css",
+        "sha256": "cf123ecbffcb02f4db9d566f620dec79159e9abdf7e75bf6d5ebc87b2519fa40",
+        "bytes": 406
+      },
+      {
+        "path": "tests/browser.mjs",
+        "sha256": "7cc9a563addca645752b7a238d7fb5c3329e97841aee76c6e680d045a21ac848",
+        "bytes": 17900
+      },
+      {
+        "path": "tests/host-contract.mjs",
+        "sha256": "e58a22a50588e0d9dd47aca6220ca811bfd846a684852d249015c31521c1d674",
+        "bytes": 7193
+      },
+      {
+        "path": "tests/host-lifecycle.mjs",
+        "sha256": "08716cd1d1a530d456f19e11a1669b1d14a73ab2f4c112ca111758998289e172",
+        "bytes": 9530
+      },
+      {
+        "path": "tests/native-setup.mjs",
+        "sha256": "54c81b4afbffba5e8197a606e2c5c406c61c33f1664281331848f872a29fb90f",
+        "bytes": 3419
+      },
+      {
+        "path": "tests/native.test.mjs",
+        "sha256": "179723e24039350541093a79b91327b622e9c72a922de4a7f58454efe4f3fdf6",
+        "bytes": 23376
+      }
+    ],
+    "code-viewer": [
+      {
+        "path": "LICENSE",
+        "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+        "bytes": 34523
+      },
+      {
+        "path": "README.md",
+        "sha256": "1af5f308c7da34a58e0076e3aa06c212c3ab5133ce94a8742f50810af555c0ea",
+        "bytes": 1328
+      },
+      {
+        "path": "manifest.json",
+        "sha256": "bafa35d7e1cdd3162c4126feddefee408d81588447aee8a9574e73f0bc781acf",
+        "bytes": 282
+      },
+      {
+        "path": "package-lock.json",
+        "sha256": "36222709a89ac42b18ad0c3a48c8f9cd0c619be2d428e4bc079fc66280747b3a",
+        "bytes": 223
+      },
+      {
+        "path": "package.json",
+        "sha256": "4dc0d00b027d5256e4cce57db662877c02d9d1a74c1bbfc5e73033c71d3bdee3",
+        "bytes": 224
+      },
+      {
+        "path": "scripts/build.mjs",
+        "sha256": "120252bbe1d1c65c5f614aaeecfe646e49f0fdb1b2e0fd42e790c0e0517693b6",
+        "bytes": 1197
+      },
+      {
+        "path": "src/main.js",
+        "sha256": "03500de20b410748a66c6d91852458c09925b75dd1c41736f9495fdb404253c8",
+        "bytes": 4627
+      },
+      {
+        "path": "src/styles.css",
+        "sha256": "fc7487f996b4a7b9c99950d9da6beb31151e28c462d1d149172074918648ae4d",
+        "bytes": 1399
+      },
+      {
+        "path": "tests/browser.mjs",
+        "sha256": "ba939635c814b34fcced17cfe50a4913a8857a321e691d3721e32ab0c44d5abc",
+        "bytes": 8427
+      },
+      {
+        "path": "tests/viewer.test.mjs",
+        "sha256": "2e7c747c03879f22546f5a9cceb00a4028291c5966ea08b36c24b0c5962f52e8",
+        "bytes": 1979
+      }
+    ]
+  },
+  "scans": {
+    "lesson-practice": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "a8407ddb7025e6cde4e2db1d4df5cf5efb0e4921740552090add1ad19f59c07c",
+      "files_recorded": 22,
+      "text_files_scanned": 19,
+      "bytes_read": 159461,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [
+        {
+          "path": "LICENSE",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "tests/native-setup.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 5
+        },
+        {
+          "path": "tests/native-setup.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 10
+        },
+        {
+          "path": "tests/host-lifecycle.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 9
+        },
+        {
+          "path": "tests/host-contract.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 9
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 41
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 5
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 7
+        }
+      ],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 1048576,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    },
+    "code-viewer": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "6be3037562ce0c20048bbac20db13b095baf2da452f18e271029b94285af631b",
+      "files_recorded": 13,
+      "text_files_scanned": 10,
+      "bytes_read": 54209,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [
+        {
+          "path": "src/main.js",
+          "rule": "dynamic-execution",
+          "severity": "review",
+          "message": "Dynamic execution or unsafe deserialization needs review.",
+          "line": 15
+        },
+        {
+          "path": "LICENSE",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 34
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 5
+        },
+        {
+          "path": "tests/browser.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 6
+        }
+      ],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 1048576,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    },
+    "native_host": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "1a5c28107ef48ac4b2bb232dafc2702bfa6010030f468b224404250f30494023",
+      "files_recorded": 1498,
+      "text_files_scanned": 1402,
+      "bytes_read": 1716751,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [
+        {
+          "path": "node_modules/typebox/build/system/hashing/hash.mjs",
+          "rule": "dynamic-execution",
+          "severity": "review",
+          "message": "Dynamic execution or unsafe deserialization needs review.",
+          "line": 44
+        },
+        {
+          "path": "node_modules/typebox/build/format/hostname.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/date.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/uri_template.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 5
+        },
+        {
+          "path": "node_modules/typebox/build/format/uri_template.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/json_pointer.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/iri.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 24
+        },
+        {
+          "path": "node_modules/typebox/build/format/date_time.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 5
+        },
+        {
+          "path": "node_modules/typebox/build/format/json_pointer.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/uri_reference.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/date_time.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/duration.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/ipv6.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/iri.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/idn_email.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/idn_hostname.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/iri_reference.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 8
+        },
+        {
+          "path": "node_modules/typebox/build/format/regex.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/ipv4.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/uuid.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/idn_email.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/email.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/uri.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/ipv6.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/email.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/url.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/uri.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/duration.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/json_pointer_uri_fragment.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/time.mjs",
+          "rule": "dynamic-execution",
+          "severity": "review",
+          "message": "Dynamic execution or unsafe deserialization needs review.",
+          "line": 7
+        },
+        {
+          "path": "node_modules/typebox/build/format/time.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/uuid.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/hostname.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/url.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/json_pointer_uri_fragment.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/idn_hostname.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/regex.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/relative_json_pointer.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/uri_reference.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/date.mjs",
+          "rule": "dynamic-execution",
+          "severity": "review",
+          "message": "Dynamic execution or unsafe deserialization needs review.",
+          "line": 12
+        },
+        {
+          "path": "node_modules/typebox/build/format/date.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 8
+        },
+        {
+          "path": "node_modules/typebox/build/format/time.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/iri_reference.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 3
+        },
+        {
+          "path": "node_modules/typebox/build/format/relative_json_pointer.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/format/ipv4.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 4
+        },
+        {
+          "path": "node_modules/typebox/build/schema/resolve/resolve.d.mts",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 2
+        },
+        {
+          "path": "node_modules/typebox/build/schema/resolve/resolve.mjs",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 5
+        },
+        {
+          "path": "node_modules/typebox/build/schema/engine/_stack.mjs",
+          "rule": "dynamic-execution",
+          "severity": "review",
+          "message": "Dynamic execution or unsafe deserialization needs review.",
+          "line": 2
+        },
+        {
+          "path": "node_modules/typebox/package.json",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 13
+        },
+        {
+          "path": "node_modules/typebox/readme.md",
+          "rule": "encoded-payload",
+          "severity": "review",
+          "message": "Encoded or concealed payload needs review.",
+          "line": 114
+        },
+        {
+          "path": "node_modules/typebox/readme.md",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 12
+        },
+        {
+          "path": "scripts/setup-plugins.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 3
+        },
+        {
+          "path": "scripts/setup-plugins.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 9
+        },
+        {
+          "path": "scripts/build-core-plugins.mjs",
+          "rule": "process-execution",
+          "severity": "review",
+          "message": "Child process execution needs review.",
+          "line": 5
+        },
+        {
+          "path": "scripts/build-core-plugins.mjs",
+          "rule": "environment-access",
+          "severity": "review",
+          "message": "Environment access may expose injected credentials.",
+          "line": 58
+        }
+      ],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 1048576,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    },
+    "test_driver": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "c052f63eb556a271745400132927120871c5967fa5787266372c533fb78365b4",
+      "files_recorded": 1,
+      "text_files_scanned": 1,
+      "bytes_read": 197,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 1048576,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    },
+    "example": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "1eac5d698a6dc534bcce0d0dfb13059e2779793203fdb312cc810d5018768d89",
+      "files_recorded": 3,
+      "text_files_scanned": 3,
+      "bytes_read": 9726,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [
+        {
+          "path": "main.js",
+          "rule": "network-operation",
+          "severity": "review",
+          "message": "Network destinations and transmitted data need review.",
+          "line": 35
+        }
+      ],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 1048576,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    }
+  },
+  "operation_review": {
+    "scanner_sha256": "2c620cf0352426760e0235644c5d7f901c1b6e1f46d07d6ef92035f92dac316e",
+    "dispositions": [
+      {
+        "scope": "Both LICENSE files",
+        "reason": "Existing AGPL text: URLs are legal references; no code or network call."
+      },
+      {
+        "scope": "code-viewer/src/main.js:15",
+        "reason": "RegExp.exec extracts a validated positive startLine integer from metadata. No eval, Function constructor, import, worker or code execution is used. Source is fenced for the original host-only Markdown widget; clipboard is original source only, on user click."
+      },
+      {
+        "scope": "Native helper tests",
+        "reason": "Explicit isolation/source-path environment variables only. Actual original setup helper runs real offline npm against empty dependency locks, with hooks/audit/fund/update checks disabled and distinct empty config files. Host source and pinned TypeBox require unchanged review/current advisories."
+      },
+      {
+        "scope": "Browser fixtures",
+        "reason": "Only an ephemeral loopback HTTP server/CDP connection inside an unshared network; spawn the existing Chromium with a fresh tmpfs profile, no home/runtime sockets/credentials. No external network or account/model operations."
+      }
+    ],
+    "intended_commands": [
+      "Node 24 --test /plugin/tests/native.test.mjs",
+      "Node 24 --test /viewer/tests/viewer.test.mjs",
+      "Node 24 /viewer/tests/browser.mjs",
+      "Node 24 --experimental-transform-types /plugin/tests/host-contract.mjs",
+      "Node 24 /setup.mjs for each plugin with reviewed /host"
+    ],
+    "isolation": "Existing bubblewrap --unshare-all --clearenv. Read-only source snapshots only, Node 24 and existing Chromium where required; /usr and system libraries. No checkout root, home, /run, account files, data directories or external network. Writes to fresh tmpfs only.",
+    "limits": "Widget fixture uses a controlled stand-in for the native Markdown widget. Actual host highlighting, React app, model transport and deployment are not verified by this scope.",
+    "packaging_environment_correction": "Initial packaging checks failed before npm setup because the credential-free namespace had no passwd entry for os.homedir(). Added only generated public numeric UID/GID entries pointing to a new tmpfs /tmp/native-profile; no real passwd, home, user config, credentials or HOME override is used. Empty explicit npm configs and offline/no-hooks arguments stay unchanged."
+  },
+  "additional_dispositions": [
+    "Actual native helper closure is the previously reviewed /tmp/learnharness-native-v02-intake/host, rescanned completely: unchanged pure question/manifest/schema helpers, original activation host/loader with inert model services, original setup/Core builder, pinned TypeBox 1.3.27. Prior exact source and Unicode value-preserving remediation evidence remains in native-lesson-intake.json. No framework, provider authentication or model services are run.",
+    "Native host scanner warning locations retain their earlier concrete dispositions: ordinary function declarations and RegExp.exec; format-reference URI text/local processing; badge-only encoded Markdown links; original npm setup/Core builder commands restricted to the reviewed empty-lock temporary projects. No generic allowlist or scanner change is used.",
+    "The optional example SVG namespace URI at main.js:35 is a DOM namespace identifier used by createElementNS, not a network destination.",
+    "The correction tool reads the accepted occurrence-bound reference and grade; it cannot replace the committed answer, regrade, clear review, or reveal a pending answer.",
+    "Code viewer nested host Markdown deliberately omits allowPluginFences to prevent renderer recursion. Only positive safe startLine and noLineNumbers metadata are forwarded. Fences exceed every backtick run in the source. Copying uses original source only on user action; no eval, code execution, provider access or storage is added."
+  ],
+  "dependency_advisories": {
+    "checked_at_utc": "2026-11-16T06:54:58.617932+00:00",
+    "package": "typebox",
+    "version": "1.3.27",
+    "result": {}
+  },
+  "dependency_changes": "None: the new code-viewer package has an empty lock. Root dependency versions are unchanged from e6ba85c. The two plugin locks contain only their root package. The earlier full-app advisory snapshot remains historical; no new full-app run is claimed.",
+  "tests": {
+    "backend": "18 native lesson tests passed, including committed correction, original confidence, delayed reinforcement, immutable grades/review, historical signal recovery and missing/invalid confidence.",
+    "viewer_unit": "3 code-viewer tests passed: lossless fences/metadata and large snippets, native language registration, rollback of partial activation on conflict.",
+    "native_contract": "Original pinned question-core produces native shuffled quiz/confidence and committed explain records; the plugin reads exact confidence/option count. Original question, tool, manifest and answer-schema validators pass.",
+    "native_host_lifecycle": "Actual backend host activation, contribution discovery, accepted custom-answer correction, missed-concept review/clearing, disable/stale-tool invalidation and restored settings pass; model/account services are inert.",
+    "lesson_browser": "Chromium widget fixture passes visible correct answer/explanation, original added editors, flashcard reveal, settings concurrency, intact slide fences, contributed slide/SVG rendering, and real video encoding/decoding.",
+    "viewer_browser": "Chromium widget fixture passes host-only Markdown contract, source preservation, expansion, exact clipboard source, denied-clipboard manual fallback, cancellation, late async completion and failed-widget cleanup.",
+    "native_packaging": "Both packages pass actual original setup and Core packaging helpers with real offline npm and empty locks in disposable isolation. Final lesson source was rechecked after the correction tool addition.",
+    "initial_packaging_failure": "Both first packaging attempts failed before setup because the isolated namespace lacked a passwd entry needed by os.homedir(). Fixed only the disposable environment with a generated UID/GID entry and fresh tmpfs profile. Reruns passed; no host profile or HOME override was used."
+  },
+  "limits": [
+    "No complete React/Next application, actual native syntax-highlighter rendering, real model/connection or deployed page was tested by these widget/helper checks.",
+    "Correction display and adaptive teaching use the original teacher continuation and registered tools; their complete model sequencing still needs full-app verification.",
+    "Portable SDK emission/API reference generation and inherited dependency review remain open.",
+    "The existing unanswered scanner-size decision and optional local Codex question are unchanged. Existing deployment, learner data and account files are untouched."
+  ]
+}

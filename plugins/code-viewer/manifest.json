@@ -1,0 +1,10 @@
+{
+  "apiVersion": 1,
+  "id": "code-viewer",
+  "name": "Code viewer",
+  "version": "0.1.2",
+  "minAppVersion": "0.6.1",
+  "description": "Editor-style code panels with native syntax highlighting, line numbers, copying and expansion.",
+  "main": "main.js",
+  "styles": "styles.css"
+}

@@ -32,6 +32,7 @@ The SDK is **type-only**. Call the contexts supplied by LearnHarness, not runtim
 - [native-messages](native-messages.md)
 - [phases](phases.md)
 - [plugin-agents](plugin-agents.md)
+- [plugin-lessons](plugin-lessons.md)
 - [plugin-problems](plugin-problems.md)
 - [plugin-questions](plugin-questions.md)
 - [plugin-shortcuts](plugin-shortcuts.md)
@@ -99,6 +100,8 @@ The SDK is **type-only**. Call the contexts supplied by LearnHarness, not runtim
 | [PluginInstructions](plugins.md#plugininstructions) | `plugins` |
 | [PluginKnowledgePickerProps](plugin-ui.md#pluginknowledgepickerprops) | `plugin-ui` |
 | [PluginLearningData](plugins.md#pluginlearningdata) | `plugins` |
+| [PluginLessonFormat](plugin-lessons.md#pluginlessonformat) | `plugin-lessons` |
+| [PluginLessonFormatInfo](plugin-lessons.md#pluginlessonformatinfo) | `plugin-lessons` |
 | [PluginManifest](plugins.md#pluginmanifest) | `plugins` |
 | [PluginMarkdownProps](plugin-ui.md#pluginmarkdownprops) | `plugin-ui` |
 | [PluginMenuItem](plugin-ui.md#pluginmenuitem) | `plugin-ui` |
@@ -256,4 +259,4 @@ These are reachable through public data, event, inheritance or helper-type relat
 
 Standard JavaScript/DOM types (`Promise`, `AbortSignal`, `File`, `HTMLElement`, and utility types) use their standard contracts. Pi model/messages/tools and TypeBox schemas use the exact peer versions declared by the bundled SDK's `package.json`. Supply those peers when typechecking; they are development types, not permission to import private LearnHarness runtime modules.
 
-Coverage: **140 public types**, **57 supporting declarations**, **894 declared member signatures/variants**. Generation contains no build timestamps or absolute source paths.
+Coverage: **142 public types**, **57 supporting declarations**, **911 declared member signatures/variants**. Generation contains no build timestamps or absolute source paths.

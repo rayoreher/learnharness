@@ -16,6 +16,7 @@ const AUTHORING_DOCS = [
 	"plugin-authoring.md", "plugin-architecture.md", "plugin-question-contract.md",
 	"plugin-problem-contract.md", "plugin-session-extension-contract.md", "plugin-tree-contract.md",
 	"plugin-view-context.md", "dialog-overlay-contract.md", "plugin-examples.md",
+	"plugin-lesson-contract.md",
 ];
 
 function withPayload(test: (fixture: {
@@ -53,7 +54,7 @@ function withPayload(test: (fixture: {
 		for (const file of AUTHORING_DOCS) {
 			write(path.join("docs", file), fs.readFileSync(new URL(`../docs/${file}`, import.meta.url), "utf8"));
 		}
-		for (const id of ["hello-plugin", "managed-agent", "teaching-extension"]) {
+		for (const id of ["hello-plugin", "managed-agent", "teaching-extension", "lesson-formats"]) {
 			write(`examples/plugins/${id}/README.md`, fs.readFileSync(new URL(`../examples/plugins/${id}/README.md`, import.meta.url), "utf8"));
 			write(`examples/plugins/${id}/dist/manifest.json`, JSON.stringify({ apiVersion: 1, id, name: id, version: "1.0.0", minAppVersion: "0.3.7", main: "main.js" }));
 			write(`examples/plugins/${id}/dist/main.js`, "export function activate() {};");
@@ -79,10 +80,10 @@ describe("desktop standalone payload", () => {
 		const root = fs.mkdtempSync(path.join(os.tmpdir(), "lh-example-layout-"));
 		const directory = path.join(root, "plugins");
 		fs.cpSync(path.resolve("examples/plugins"), directory, { recursive: true });
-		const host = createPluginHost({ directory, appVersion: "0.4.1", createServices() { throw Error("disabled examples must not create services"); } });
+		const host = createPluginHost({ directory, appVersion: "0.6.1", createServices() { throw Error("disabled examples must not create services"); } });
 		try {
 			await host.initialize();
-			assert.deepEqual(host.list().map(plugin => [plugin.id, plugin.status]), [["hello-plugin", "disabled"], ["managed-agent", "disabled"], ["teaching-extension", "disabled"]]);
+			assert.deepEqual(host.list().map(plugin => [plugin.id, plugin.status]), [["hello-plugin", "disabled"], ["lesson-formats", "disabled"], ["managed-agent", "disabled"], ["teaching-extension", "disabled"]]);
 			for (const plugin of host.list()) {
 				assert.ok(fs.existsSync(path.join(directory, plugin.id, "dist", "manifest.json")));
 				assert.equal(fs.existsSync(path.join(directory, plugin.id, "manifest.json")), false);
@@ -124,7 +125,7 @@ describe("desktop standalone payload", () => {
 			assert.equal(fs.existsSync(path.join(root, STANDALONE, "dist")), false);
 			assert.equal(fs.existsSync(path.join(root, STANDALONE, "plugins")), false);
 			assert.ok(fs.existsSync(path.join(root, "plugins", "rich-code-blocks", "tests", "browser.mjs")));
-			assert.deepEqual(fs.readdirSync(path.join(root, STANDALONE, "core-plugins")).sort(), ["coding-questions", "drawing-pad", "flashcards", "rich-code-blocks"]);
+			assert.deepEqual(fs.readdirSync(path.join(root, STANDALONE, "core-plugins")).sort(), ["code-viewer", "coding-questions", "drawing-pad", "flashcards", "lesson-practice", "rich-code-blocks"]);
 			assert.equal(fs.readFileSync(path.join(root, STANDALONE, "core-plugins", "flashcards", "assets", "font.woff"), "utf8"), "bundled-font");
 			assert.equal(fs.existsSync(path.join(root, STANDALONE, "node_modules", "electron")), false);
 			assert.ok(fs.existsSync(path.join(root, "dist", "old.app", "nested.dmg")));

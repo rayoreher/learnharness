@@ -4,6 +4,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
 import { createRequire } from "node:module";
+import { createHash } from "node:crypto";
+import { generateKeyPair, exportJWK, SignJWT } from "jose";
 import { createModels, type OAuthCredential, type ProviderAuthInteraction } from "@earendil-works/pi-ai";
 import { githubCopilotProvider } from "@earendil-works/pi-ai/providers/github-copilot";
 import { xaiProvider } from "@earendil-works/pi-ai/providers/xai";
@@ -73,6 +75,12 @@ test("HTTP controls reject cross-origin, simple-form and private credential oper
 	assert.equal((await subscriptionControlsResponse(noHeader)).status, 403);
 	const noOrigin = request({ providerId: "chatgpt", op: "cancel" }); noOrigin.headers.delete("origin");
 	assert.equal((await subscriptionControlsResponse(noOrigin)).status, 403);
+	const recovery = request({ providerId: "chatgpt", op: "complete-login", callbackUrl: "http://127.0.0.1:1/auth/callback?code=private-fixture" });
+	const invalidRecovery = await subscriptionControlsResponse(recovery);
+	assert.equal(invalidRecovery.status, 400); assert(!(await invalidRecovery.text()).includes("private-fixture"));
+	const crossSiteRecovery = request({ providerId: "chatgpt", op: "complete-login", callbackUrl: "http://127.0.0.1:1/auth/callback" });
+	crossSiteRecovery.headers.set("sec-fetch-site", "cross-site");
+	assert.equal((await subscriptionControlsResponse(crossSiteRecovery)).status, 403);
 	for (const op of ["lease", "models", "snapshot", "token", "openExternal"]) assert.equal((await subscriptionControlsResponse(request({ providerId: "chatgpt", op }))).status, 400);
 	const huge = request({ providerId: "chatgpt", op: "cancel", padding: "x".repeat(16384) });
 	assert.equal((await subscriptionControlsResponse(huge)).status, 413);
@@ -137,4 +145,63 @@ test("web ChatGPT login supplies only an opaque browser action; cancel/replaceme
 		assert.equal(callback.hostname, "127.0.0.1"); assert.equal(callback.pathname, "/auth/callback");
 		assert(target.searchParams.has("state")); assert(target.searchParams.has("code_challenge"));
 	} finally { owner.close(); await fs.rm(scratch, { recursive: true, force: true }); }
+});
+
+test("remote return recovery is origin/state/port/attempt bound and uses the native PKCE/identity/save path once", async () => {
+	const { privateKey, publicKey } = await generateKeyPair("RS256");
+	const jwk = { ...await exportJWK(publicKey), kid: "recovery-fixture", alg: "RS256", use: "sig" };
+	const previousFetch = globalThis.fetch;
+	let saved = { version: 1, hostId: "urn:uuid:recovery-fixture", activeId: null, registrations: [] } as any;
+	let authorization: URL, exchanged: URLSearchParams | undefined;
+	let localRequests = 0, sawPending = false, terminal!: () => void;
+	const done = new Promise<void>((resolve) => { terminal = resolve; });
+	globalThis.fetch = async (input, init) => {
+		const target = new URL(String(input));
+		if (target.origin.startsWith("http://127.0.0.1:")) {
+			localRequests++;
+			assert.equal(init?.redirect, "error"); assert.equal(init?.credentials, "omit");
+			assert.equal(target.origin + target.pathname, authorization.searchParams.get("redirect_uri"));
+			return originalFetch(input, init);
+		}
+		if (target.href === "https://auth.openai.com/api/accounts/oauth/token") {
+			exchanged = init!.body as URLSearchParams;
+			const idToken = await new SignJWT({ nonce: authorization.searchParams.get("nonce"), email: "recovery@example.invalid" }).setProtectedHeader({ alg: "RS256", kid: jwk.kid }).setIssuer("https://auth.openai.com").setSubject("recovery-fixture").setAudience(exchanged.get("client_id")!).setIssuedAt().setExpirationTime("1h").sign(privateKey);
+			return Response.json({ access_token: "fixture-recovery-access", refresh_token: "fixture-recovery-refresh", id_token: idToken, token_type: "Bearer", expires_in: 3600, scope: SCOPES.join(" ") });
+		}
+		if (target.href === "https://auth.openai.com/.well-known/jwks.json") return Response.json({ keys: [jwk] });
+		return previousFetch(input, init);
+	};
+	const scratch = await fs.mkdtemp(path.join(os.tmpdir(), "lh-web-recovery-"));
+	const origin = "http://localhost:3000";
+	const owner = createWebSubscriptionOwner({ directory: scratch, sdk: fakeSDK(async (id) => credentials(id)), chatgptStore: { read: async () => structuredClone(saved), write: async (value: any) => { saved = structuredClone(value); } }, onPacket: (_channel, packet: any) => {
+		if (packet.status?.pending) sawPending = true;
+		if (sawPending && packet.status?.pending === false) terminal();
+	} });
+	try {
+		await assert.rejects(owner.control("chatgpt", { op: "complete-login", callbackUrl: "http://127.0.0.1:1/auth/callback?code=fixture" }, origin));
+		const login = await owner.control("chatgpt", { op: "login" }, origin);
+		const actionId = new URL(login.browserAction!, origin).searchParams.get("id")!;
+		authorization = new URL((await owner.takeBrowserAction(actionId, origin))!);
+		const callback = new URL(authorization.searchParams.get("redirect_uri")!);
+		callback.search = new URLSearchParams({ state: authorization.searchParams.get("state")!, code: "fixture-recovery-code", client_id: "oaiapp_recovery_fixture" }).toString();
+		const invalid = [callback.href.replace("http:", "https:"), callback.href.replace("127.0.0.1", "localhost"), callback.href.replace(callback.port, "1"), callback.href.replace("/auth/callback", "/api/keys"), callback.href + "#fragment", callback.href + "&state=duplicate", callback.href + "&code=duplicate", callback.href.replace(authorization.searchParams.get("state")!, "wrong-state"), "http://unrelated.invalid/auth/callback?code=fixture", callback.href.replace("127.0.0.1", "user@127.0.0.1"), callback.href.replace("127.0.0.1", "2130706433"), "x".repeat(8193)];
+		for (const callbackUrl of invalid) await assert.rejects(owner.control("chatgpt", { op: "complete-login", callbackUrl }, origin));
+		await assert.rejects(owner.control("chatgpt", { op: "complete-login", callbackUrl: callback.href }, "http://different.invalid"));
+		assert.equal(localRequests, 0); assert.equal(exchanged, undefined); assert.equal((await owner.chatgpt.status()).pending, true);
+		const result = await owner.control("chatgpt", { op: "complete-login", callbackUrl: callback.href }, origin);
+		assert(!JSON.stringify(result).includes("fixture-recovery-code"));
+		await Promise.race([done, new Promise((_, reject) => { const timer = setTimeout(() => reject(new Error("Recovery did not settle")), 3000); timer.unref(); })]);
+		const status = await owner.chatgpt.status();
+		assert.equal(status.pending, false); assert.equal(status.error, null); assert(status.accounts.some((a: any) => a.connected));
+		assert.equal(saved.registrations.length, 1); assert.equal(saved.registrations[0].tokens.accessToken, "fixture-recovery-access");
+		assert.equal(exchanged!.get("redirect_uri"), authorization.searchParams.get("redirect_uri"));
+		assert.equal(createHash("sha256").update(exchanged!.get("code_verifier")!).digest("base64url"), authorization.searchParams.get("code_challenge"));
+		await assert.rejects(owner.control("chatgpt", { op: "complete-login", callbackUrl: callback.href }, origin));
+		assert.equal(localRequests, 1);
+		await owner.control("chatgpt", { op: "login" }, origin);
+		await assert.rejects(owner.control("chatgpt", { op: "complete-login", callbackUrl: callback.href }, origin));
+		await owner.control("chatgpt", { op: "cancel" }, origin);
+		await assert.rejects(owner.control("chatgpt", { op: "complete-login", callbackUrl: callback.href }, origin));
+		assert.equal(localRequests, 1);
+	} finally { owner.close(); globalThis.fetch = previousFetch; await fs.rm(scratch, { recursive: true, force: true }); }
 });

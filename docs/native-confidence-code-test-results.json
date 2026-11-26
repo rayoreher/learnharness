@@ -1,0 +1,72 @@
+{
+  "unit-final": {
+    "chunk_id": "e7ceae",
+    "wall_time_seconds": 0.000017072,
+    "exit_code": 0,
+    "original_token_count": 501,
+    "output": "✔ extension registers with the original host and creates no replacement engine or transport (11.389306ms)\n✔ grading observations cannot change review before native answer acceptance (7.477384ms)\n✔ forged text, raw tool results and incorrect occurrence bindings cannot create progress (1.415025ms)\n✔ open responses are assessed by ordinary teacher continuation against the accepted answer (2.64283ms)\n✔ first-pass completion permits mistakes and preserves their independent review queue (3.74038ms)\n✔ a copied immediate answer does not clear a recent mistake before retrieval delay (1.68354ms)\n✔ correct first-pass questions cannot clear a mistake before the missed concept returns (2.101695ms)\n✔ lesson settings reopen coverage when newly selected formats have not been attempted (1.676747ms)\n✔ native plan IDs and selected question types remain authoritative (1.244996ms)\n✔ canonical reconciliation is idempotent and survives plugin restart without regrading (2.06712ms)\n✔ single-step lessons can share a coarse native plan node without sharing coverage or mastery (2.035801ms)\n✔ contributed choices are validated, snapshotted and retained when their plugin is disabled (1.511357ms)\n✔ an already posed contributed quiz survives deselection and uses its committed reference for ordinary teacher feedback (2.000645ms)\n✔ native confidence is saved, backfilled from accepted evidence and retained through restart without regrading (1.470621ms)\n✔ a hesitant correct answer suggests one delayed reinforcement without becoming a mistake (1.856374ms)\n✔ confident mistakes lead due reviews without being erased by correct first-pass answers (1.994884ms)\n✔ missing, invalid and declined confidence never becomes an invented learning signal (1.213167ms)\n✔ visible correction reads the accepted committed answer without regrading or clearing review (1.5188ms)\nℹ tests 18\nℹ suites 0\nℹ pass 18\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 104.73877\n"
+  },
+  "contract-final": {
+    "chunk_id": "b82d8e",
+    "wall_time_seconds": 0.148682838,
+    "exit_code": 0,
+    "original_token_count": 118,
+    "output": "(node:2) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\nPASS original LearnHarness validation: lesson-fill-blank\nPASS original LearnHarness validation: lesson-flashcard\nPASS reuse of original native quiz shuffle/confidence/grading and explain commitment records.\nPASS native plugin manifest, tool schemas, saved question contracts and answer refinement.\n"
+  },
+  "lifecycle-final": {
+    "chunk_id": "5833c3",
+    "wall_time_seconds": 0.193697847,
+    "exit_code": 0,
+    "original_token_count": 164,
+    "output": "Built native lesson-practice plugin. No packages were downloaded or installed.\n(node:2) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\nPASS original host discovers the built Core package, enables it and admits its native teaching tools and question types\nPASS a separate native plugin contributes all four format categories; accepted numeric answers enter and clear the lesson review loop; disabled choices retain saved content\nPASS native disable aborts registrations and stale tools; re-enabling restores plugin-owned lesson settings\n"
+  },
+  "browser": {
+    "chunk_id": "88cc12",
+    "wall_time_seconds": 0.197965047,
+    "exit_code": 0,
+    "original_token_count": 74,
+    "output": "PASS editor-style code viewer uses native host-only Markdown, preserves source and expands accessibly\nPASS exact clipboard text, manual-copy fallback and idempotent abort cleanup\nPASS late clipboard completion cannot revive a disposed mount; failed native widgets clean up before host fallback\n"
+  },
+  "browser-final": {
+    "chunk_id": "d23d9e",
+    "wall_time_seconds": 1.001381082,
+    "session_id": 97582,
+    "original_token_count": 169,
+    "output": "PASS added fill-blank editor uses native controlled answer and cleanup contract\nPASS lesson correction visibly shows the committed answer and explanation without opening the native Why control\nPASS flashcard reveal alone cannot publish successful recall\nPASS native settings rows save lesson-output preference\nPASS any lesson can be selected; concurrent saves retain the target; a separate plugin supplies selectable quiz, structure, output and diagram choices\nPASS slides render in a native tool card without creating a replacement page\nPASS fenced diagrams stay intact in slides; custom output opts into native fences; contributed slide and SVG renderers mount and clean up\n"
+  },
+  "browser-completed": {
+    "chunk_id": "1ae438",
+    "wall_time_seconds": 0.000012353,
+    "exit_code": 0,
+    "original_token_count": 18,
+    "output": "PASS native lesson-card video encodes, decodes and exposes a download\n"
+  },
+  "setup-final": {
+    "chunk_id": "1909b4",
+    "wall_time_seconds": 0.429439131,
+    "exit_code": 0,
+    "original_token_count": 74,
+    "output": "[plugin-setup] lesson-practice\n[core-plugins] built lesson-practice into /tmp/lh-native-setup-eNqrRW/core-plugins\nPASS original plugin setup rejects a missing lockfile, then installs the empty lock offline; original Core builder stages the versioned package without source/dependency/data files\n"
+  },
+  "setup_code-viewer": {
+    "chunk_id": "d3cbd2",
+    "wall_time_seconds": 0.41832637,
+    "exit_code": 0,
+    "original_token_count": 72,
+    "output": "[plugin-setup] code-viewer\n[core-plugins] built code-viewer into /tmp/lh-native-setup-QIrJLy/core-plugins\nPASS original plugin setup rejects a missing lockfile, then installs the empty lock offline; original Core builder stages the versioned package without source/dependency/data files\n"
+  },
+  "setup_failed_lesson": {
+    "chunk_id": "516885",
+    "wall_time_seconds": 0.037642473,
+    "exit_code": 1,
+    "original_token_count": 368,
+    "output": "[plugin-setup] lesson-practice\nnode:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: /usr/share/nodejs/npm/lib/cli.js:48\n    throw err\n    ^\n\nSystemError [ERR_SYSTEM_ERROR]: A system error occurred: uv_os_homedir returned ENOENT (no such file or directory)\n    at Object.<anonymous> (/usr/share/nodejs/clean-stack/index.js:7:61)\n    at Module._compile (node:internal/modules/cjs/loader:1929:14)\n    at Object..js (node:internal/modules/cjs/loader:2060:10)\n    at Module.load (node:internal/modules/cjs/loader:1651:32)\n    at Module._load (node:internal/modules/cjs/loader:1443:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.require (node:internal/modules/cjs/loader:1674:12)\n    at require (node:internal/modules/helpers:157:16)\n    at Object.<anonymous> (/usr/share/nodejs/aggregate-error/index.js:3:20)\n    at Module._compile (node:internal/modules/cjs/loader:1929:14) {\n  code: 'ERR_SYSTEM_ERROR',\n  info: {\n    errno: -2,\n    code: 'ENOENT',\n    message: 'no such file or directory',\n    syscall: 'uv_os_homedir'\n  },\n  errno: [Getter/Setter],\n  syscall: [Getter/Setter]\n}\n\nNode.js v24.22.3\n\n\n7 !== 0\n\n    at run (file:///setup.mjs:38:12)\n    at setupPlugins (file:///host/scripts/setup-plugins.mjs:30:3)\n    at file:///setup.mjs:40:3 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 7,\n  expected: 0,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.22.3\n"
+  },
+  "setup_failed_viewer": {
+    "chunk_id": "add604",
+    "wall_time_seconds": 0.035317121,
+    "exit_code": 1,
+    "original_token_count": 367,
+    "output": "[plugin-setup] code-viewer\nnode:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: /usr/share/nodejs/npm/lib/cli.js:48\n    throw err\n    ^\n\nSystemError [ERR_SYSTEM_ERROR]: A system error occurred: uv_os_homedir returned ENOENT (no such file or directory)\n    at Object.<anonymous> (/usr/share/nodejs/clean-stack/index.js:7:61)\n    at Module._compile (node:internal/modules/cjs/loader:1929:14)\n    at Object..js (node:internal/modules/cjs/loader:2060:10)\n    at Module.load (node:internal/modules/cjs/loader:1651:32)\n    at Module._load (node:internal/modules/cjs/loader:1443:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.require (node:internal/modules/cjs/loader:1674:12)\n    at require (node:internal/modules/helpers:157:16)\n    at Object.<anonymous> (/usr/share/nodejs/aggregate-error/index.js:3:20)\n    at Module._compile (node:internal/modules/cjs/loader:1929:14) {\n  code: 'ERR_SYSTEM_ERROR',\n  info: {\n    errno: -2,\n    code: 'ENOENT',\n    message: 'no such file or directory',\n    syscall: 'uv_os_homedir'\n  },\n  errno: [Getter/Setter],\n  syscall: [Getter/Setter]\n}\n\nNode.js v24.22.3\n\n\n7 !== 0\n\n    at run (file:///setup.mjs:38:12)\n    at setupPlugins (file:///host/scripts/setup-plugins.mjs:30:3)\n    at file:///setup.mjs:40:3 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 7,\n  expected: 0,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.22.3\n"
+  }
+}

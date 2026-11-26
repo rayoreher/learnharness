@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type ComponentProps } from "react";
 import type { ExtraProps } from "streamdown";
 import { ToolContentResponse } from "@/components/ai-elements/message";
-import { MarkdownDisplayOnlyContext, mdComponents } from "@/components/md-blocks";
+import { MarkdownDisplayOnlyContext, MarkdownPluginFencesContext, mdComponents } from "@/components/md-blocks";
 import { cn } from "@/lib/utils";
 
 /** Streamdown's default image adds a download button independently of its
@@ -47,14 +47,16 @@ const linkSafety = { enabled: false };
 
 /** Complete, display-only Markdown snapshots through the actual host message
  * pipeline, including its presentation-only tool-math recovery. The local
- * profile never changes transcript controls or plugin renderers. A new snapshot
+ * profile never changes transcript controls. Plugin fences require opt-in. A new snapshot
  * retires the old async code/diagram subtree. */
-export function HostMarkdown({ text }: { text: string }) {
+export function HostMarkdown({ text, allowPluginFences = false }: { text: string; allowPluginFences?: boolean }) {
 	return (
 		<MarkdownDisplayOnlyContext.Provider value={true}>
-			<ToolContentResponse key={text} mode="static" isAnimating={false} controls={false} components={getComponents()} linkSafety={linkSafety}>
-				{text}
-			</ToolContentResponse>
+			<MarkdownPluginFencesContext.Provider value={allowPluginFences}>
+				<ToolContentResponse key={text} mode="static" isAnimating={false} controls={false} components={getComponents()} linkSafety={linkSafety}>
+					{text}
+				</ToolContentResponse>
+			</MarkdownPluginFencesContext.Provider>
 		</MarkdownDisplayOnlyContext.Provider>
 	);
 }

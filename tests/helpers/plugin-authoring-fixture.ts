@@ -27,15 +27,15 @@ export function markdownAnchors(text: string): Set<string> {
 
 export function seedAuthoringReferenceFixture(root: string) {
 	const source = path.resolve(import.meta.dirname, "../..");
-	for (const id of ["flashcards", "coding-questions", "drawing-pad", "rich-code-blocks", "ui-showcase"]) {
-		for (const name of [".gitignore", "README.md", "LICENSE", "THIRD-PARTY.md", "FSRS-LICENSE.txt", "manifest.json", "package.json", "package-lock.json", "tsconfig.json", "src", "scripts", "tests", "licenses"]) {
+	for (const id of ["flashcards", "coding-questions", "drawing-pad", "rich-code-blocks", "ui-showcase", "lesson-practice", "code-viewer"]) {
+		for (const name of [".gitignore", "README.md", "CHANGELOG.md", "LICENSE", "THIRD-PARTY.md", "FSRS-LICENSE.txt", "manifest.json", "package.json", "package-lock.json", "tsconfig.json", "src", "scripts", "tests", "licenses"]) {
 			const from = path.join(source, "plugins", id, name);
 			if (!fs.existsSync(from)) continue;
 			const to = path.join(root, "plugins", id, name);
 			fs.mkdirSync(path.dirname(to), { recursive: true }); fs.cpSync(from, to, { recursive: true });
 		}
 	}
-	for (const id of ["hello-plugin", "managed-agent", "teaching-extension"]) fs.cpSync(path.join(source, "examples/plugins", id, "dist"), path.join(root, "examples/plugins", id, "dist"), { recursive: true });
+	for (const id of ["hello-plugin", "managed-agent", "teaching-extension", "lesson-formats"]) fs.cpSync(path.join(source, "examples/plugins", id, "dist"), path.join(root, "examples/plugins", id, "dist"), { recursive: true });
 	fs.cpSync(path.join(source, "docs/plugin-api"), path.join(root, "docs/plugin-api"), { recursive: true });
 	fs.mkdirSync(path.join(root, "scripts"), { recursive: true });
 	// The real generator and compiler have independent coverage tests. Curator fixtures

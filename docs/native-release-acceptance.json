@@ -1,0 +1,239 @@
+{
+  "assessed_at_utc": "2026-11-26T02:13:21.443281+00:00",
+  "runtime_source_commit": "f55043c099db8b49d5c7dedf050bb97c6dc5707a",
+  "native_versions": {
+    "app_base": "0.6.1",
+    "lesson_practice": "0.4.4",
+    "code_viewer": "0.1.2"
+  },
+  "ui_acceptance": {
+    "score": 85,
+    "minimum": 80,
+    "unresolved_observed_p0": 0,
+    "areas": [
+      {
+        "area": "Lesson and assessment clarity",
+        "score": 22,
+        "weight": 25,
+        "evidence": "Real native diagnostic \u2192 master plan \u2192 two small lessons \u2192 all four formats per lesson \u2192 confident wrong answer/committed correction \u2192 delayed unassisted review \u2192 completion. Coverage and queued review remain distinct.",
+        "deduction": "The model sometimes waits for an ordinary learner continuation after feedback; this remains a conversation, and long code-option labels can be dense."
+      },
+      {
+        "area": "Accessibility",
+        "score": 16,
+        "weight": 20,
+        "evidence": "Native keyboard response controls accept seven scripted fixture answers across five formats; native modal focus/Tab/Escape/return and inert closed sidebar pass. Actual themes, 54 essential-text/eight syntax contrast observations, larger text and genuine 200% browser zoom are recorded.",
+        "deduction": "Setup/reveal used mixed input; no complete keyboard-only or WCAG conformance audit is claimed."
+      },
+      {
+        "area": "Navigation and orientation",
+        "score": 13,
+        "weight": 15,
+        "evidence": "Original home/sidebar/session/plan/graph retained. Mobile modal navigation, settings selection, per-lesson options/defaults and unfinished state/reload recovery verified.",
+        "deduction": "Some inherited navigation and Settings labels remain dense."
+      },
+      {
+        "area": "Visual consistency",
+        "score": 12,
+        "weight": 15,
+        "evidence": "Original real fonts/themes, readable prose measure, status/feedback hierarchy, native syntax/line-number/copy/expand panels, consistent controls and stable tool mounts. Real generated content viewed on desktop and phone.",
+        "deduction": "Inherited monospace Settings and code-heavy multiple-choice options still have room for refinement."
+      },
+      {
+        "area": "Responsive behavior and input",
+        "score": 13,
+        "weight": 15,
+        "evidence": "Actual 1440/820/390/320 layouts, original modal sidebar/Settings, scoped 44px controls, no observed page-level overflow, local code scrolling, larger text/zoom and reduced motion. New actual real-session 1440/390 render passes.",
+        "deduction": "Browser emulation and geometry are not physical-device usability studies; 44px coverage is scoped."
+      },
+      {
+        "area": "Loading, error and recovery",
+        "score": 9,
+        "weight": 10,
+        "evidence": "Real sign-in/plan/model generation, safe remote-return recovery, save/reload, Stop/Retry, plugin disable/re-enable, unchanged progress/account after restarts and enabled private native service. Real authoring error repaired without changing quiz mix.",
+        "deduction": "Cross-machine loopback returns may require manual recovery; deployment remains a private user-owned app."
+      }
+    ],
+    "boundary": "Agent assessment using the repository-defined rubric and scoped observations. Not an Apple benchmark, independent user study, full WCAG audit, guarantee of every model response or human-mastery measurement."
+  },
+  "real_native_acceptance": {
+    "checked_at_utc": "2026-11-26T02:11:35.916220+00:00",
+    "source_commit": "f55043c099db8b49d5c7dedf050bb97c6dc5707a",
+    "native_provider": "chatgpt/gpt-6.1-sol",
+    "topic": "Basic Python loops",
+    "plan_created": true,
+    "completed_lessons": 2,
+    "accepted_lesson_attempts": 9,
+    "first_pass_types_per_lesson": [
+      "multiple-choice",
+      "open",
+      "fill-blank",
+      "flashcard"
+    ],
+    "confident_wrong_answer": true,
+    "committed_correction": true,
+    "open_equivalent_code_accepted": true,
+    "later_unassisted_review_passed": true,
+    "remaining_reviews": 0,
+    "pending_feedback": 0,
+    "authoring_error_recovered": true,
+    "accepted_attempts": [
+      {
+        "quizType": "multiple-choice",
+        "result": "incorrect",
+        "provenance": "native-quiz",
+        "assisted": false,
+        "review": false,
+        "confidence": 100,
+        "sequence": 1
+      },
+      {
+        "quizType": "open",
+        "result": "correct",
+        "provenance": "teacher",
+        "assisted": false,
+        "review": false,
+        "confidence": null,
+        "sequence": 2
+      },
+      {
+        "quizType": "fill-blank",
+        "result": "correct",
+        "provenance": "answer-key",
+        "assisted": false,
+        "review": false,
+        "confidence": null,
+        "sequence": 3
+      },
+      {
+        "quizType": "flashcard",
+        "result": "correct",
+        "provenance": "self-assessment",
+        "assisted": false,
+        "review": false,
+        "confidence": null,
+        "sequence": 4
+      },
+      {
+        "quizType": "multiple-choice",
+        "result": "correct",
+        "provenance": "native-quiz",
+        "assisted": false,
+        "review": true,
+        "confidence": 100,
+        "sequence": 5
+      },
+      {
+        "quizType": "multiple-choice",
+        "result": "correct",
+        "provenance": "native-quiz",
+        "assisted": false,
+        "review": false,
+        "confidence": 100,
+        "sequence": 6
+      },
+      {
+        "quizType": "open",
+        "result": "correct",
+        "provenance": "teacher",
+        "assisted": false,
+        "review": false,
+        "confidence": null,
+        "sequence": 7
+      },
+      {
+        "quizType": "fill-blank",
+        "result": "correct",
+        "provenance": "answer-key",
+        "assisted": false,
+        "review": false,
+        "confidence": null,
+        "sequence": 8
+      },
+      {
+        "quizType": "flashcard",
+        "result": "correct",
+        "provenance": "self-assessment",
+        "assisted": false,
+        "review": false,
+        "confidence": null,
+        "sequence": 9
+      }
+    ],
+    "state_sha256": "d49cf4de3f1ebb8dc635a145153d7af8fd6cba6ecbda066497e87972f084dcfa",
+    "boundary": "Real native provider, normal native/occurrence-bound APIs and a simulated learner in a separate synthetic topic. No direct accepted-record writes, real OAuth browser automation, credential-file inspection or human mastery claim."
+  },
+  "persistent_runtime": {
+    "checked_at_utc": "2026-11-26T02:12:19.306398+00:00",
+    "source_commit": "f55043c099db8b49d5c7dedf050bb97c6dc5707a",
+    "native_unit_enabled": true,
+    "native_unit_active": true,
+    "linger": "yes",
+    "account_connected": true,
+    "accepted_attempts": 9,
+    "completed_lessons": 2,
+    "queued_reviews": 0,
+    "accepted_state_preserved": true,
+    "accepted_state_sha256": "d43146c06c0cd24d9a31bdee4885079b9f7fa4645dca26929e0cfcb653c1806a",
+    "original_deployment_unchanged": true,
+    "credentials_read_or_copied": false
+  },
+  "actual_real_session_browser": {
+    "results": [
+      {
+        "width": 1440,
+        "documentWidth": 1440,
+        "codePanels": 26,
+        "lessons": 1,
+        "identityVisible": false
+      },
+      {
+        "width": 390,
+        "documentWidth": 390,
+        "codePanels": 26,
+        "lessons": 1,
+        "identityVisible": false
+      }
+    ],
+    "errors": [],
+    "deniedRequests": 0,
+    "boundary": "Read-only browser visit to the real native synthetic-learning session. No OAuth, answer/model submission, account commands, credential/profile mount or account identity capture. Browser uses a fresh empty profile, a pipe for debugging, and blocks every other network origin."
+  },
+  "additional_evidence": [
+    {
+      "file": "/home/rayoreher/codex-workspace/learnharness-native-preview/operations/native-v044-replay.json",
+      "sha256": "4658001e16812605e409741fe2164c0e739394b0b2a8ec75134da750973e3836"
+    },
+    {
+      "file": "/home/rayoreher/codex-workspace/learnharness-native-preview/operations/native-live-final-acceptance.json",
+      "sha256": "e6fa1563a61e4f9acf0d78c9cf44c6275fd2a1aa597cbfb8c3829a04dda4cb7b"
+    },
+    {
+      "file": "/home/rayoreher/codex-workspace/learnharness-native-preview/operations/persistent-runtime-check.json",
+      "sha256": "abddbeb0b4abf5403f770b0b4fef52bdb186dee55601e6930fbec2ab6af61e92"
+    },
+    {
+      "file": "/tmp/learnharness-mixed-tools-20261123/native-real-view-result.json",
+      "sha256": "2c8bc753d587e03feabd287e0413aa42f2ad41930baf229096afafa077778e5f"
+    },
+    {
+      "file": "/tmp/learnharness-mixed-tools-20261123/native-real-view-result.txt",
+      "sha256": "a12afe8fdee2ff46a8385fe9dcc9df165dc4116cc9b729521daf6e8f0889010d"
+    },
+    {
+      "file": "/tmp/learnharness-mixed-tools-20261123/native-view-controller-review.json",
+      "sha256": "dcefc3b136f409ffad914cf3c7d1e6380e488f265ca87c0d19f50c49823735bb"
+    },
+    {
+      "file": "/home/rayoreher/codex-workspace/learnharness-native-preview/operations/persistent-operation-review.json",
+      "sha256": "9276283a5669a1941265d9e402b40798d9050f5719e2462464459b5b80b06f1b"
+    }
+  ],
+  "prior_scoped_checks": [
+    "native-sign-in-recovery.json",
+    "native-ui-final-checks.json",
+    "native-app-v043-verification.json",
+    "native-app-v042-verification.json"
+  ],
+  "privacy": "Only a separate synthetic Python topic appears in public screenshots. No OAuth callback/code/state, credentials, email or account IDs are published."
+}

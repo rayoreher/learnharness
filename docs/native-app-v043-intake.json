@@ -1,0 +1,198 @@
+{
+  "checked_at_utc": "2026-11-23T12:04:25.114526+00:00",
+  "scope": "Incremental 0.4.3 source publication and recorded credential-free app checks. Outside artifact closure unchanged from 0.4.2; only the empty own-package version metadata changed in dependency locks.",
+  "scan": {
+    "scanner_version": "1.0.0",
+    "disposition": "manual_review_required",
+    "complete": true,
+    "tree_sha256": "fc9e53996931e02e52cac2e672113df1e4f903dc3dc0acc23fe1f5ea25e116eb",
+    "files_recorded": 18,
+    "text_files_scanned": 11,
+    "bytes_read": 231707,
+    "findings_truncated": false,
+    "git_metadata_excluded": false,
+    "findings": [
+      {
+        "path": "components/chat.tsx",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 380
+      },
+      {
+        "path": "scripts/smoke-native-lessons.mjs",
+        "rule": "dynamic-execution",
+        "severity": "review",
+        "message": "Dynamic execution or unsafe deserialization needs review.",
+        "line": 107
+      },
+      {
+        "path": "scripts/smoke-native-lessons.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 14
+      },
+      {
+        "path": "scripts/smoke-native-lessons.mjs",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 7
+      },
+      {
+        "path": "scripts/smoke-native-lessons.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 12
+      }
+    ],
+    "limits": {
+      "files": 10000,
+      "file_bytes": 16777216,
+      "total_bytes": 16777216
+    },
+    "requires": [
+      "manual_source_and_provenance_review",
+      "dependency_and_advisory_review",
+      "isolated_execution_only"
+    ],
+    "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+  },
+  "raw_scan_sha256": "576bf9a5567048415eaf6bf439ef717a34ec62792599a795950a8ea35eeb27b0",
+  "source_files": [
+    {
+      "path": "components/chat.tsx",
+      "bytes": 159358,
+      "sha256": "fc3104598a8501f17a07f77060ecc27528453ddfc57357c2af691fd80217d62f"
+    },
+    {
+      "path": "docs/native-app-previews/README.md",
+      "bytes": 1601,
+      "sha256": "acefb9eb8f992e1ffdec33f7e975d0dedc750294963aef38c55cc01f91585872"
+    },
+    {
+      "path": "docs/native-app-v043-verification.json",
+      "bytes": 6389,
+      "sha256": "5398854aa04690d0627ed8e31520122f740e500028892f8ee53ab66c91f02558"
+    },
+    {
+      "path": "docs/native-app-v043-verification.md",
+      "bytes": 2065,
+      "sha256": "29b50d415ccd68543b03455a0e6eb2c85fdd1331772ea597766031d6f7f8d8dc"
+    },
+    {
+      "path": "docs/native-lesson-extension.md",
+      "bytes": 9988,
+      "sha256": "ca0e3e2e7ec572709c8285eccfcf1c46fa9b9d2301816cdd9727a09bc60069e2"
+    },
+    {
+      "path": "plugins/lesson-practice/CHANGELOG.md",
+      "bytes": 4395,
+      "sha256": "35c08d41e4be010232cd0f59dec717d7cd54eb3885935c28344dcc48f262594b"
+    },
+    {
+      "path": "plugins/lesson-practice/manifest.json",
+      "bytes": 356,
+      "sha256": "3552048a102989a899bb6bf78c71bf6cc046f08508df3ac6e1eed2903a7d33e7"
+    },
+    {
+      "path": "plugins/lesson-practice/package-lock.json",
+      "bytes": 253,
+      "sha256": "51bdd4611b5ae71097559982fbcc61cbec3f7eaaa95a9a7a16b4d11a87bfd7ef"
+    },
+    {
+      "path": "plugins/lesson-practice/package.json",
+      "bytes": 238,
+      "sha256": "389fd41ebf381837e87289c14d1a310ed66b55f832f8c1444f195c221a25385b"
+    },
+    {
+      "path": "plugins/lesson-practice/src/main.js",
+      "bytes": 19859,
+      "sha256": "635ca963c252c96836cd9f3304c7d1c7e03ac62f864bb5522d5ec3df0655f861"
+    },
+    {
+      "path": "scripts/smoke-native-lessons.mjs",
+      "bytes": 27205,
+      "sha256": "0b86ab406977ea394f1c886834e6d7fb4a69e72195b30bc32b954d66812c0022"
+    }
+  ],
+  "synthetic_images": [
+    {
+      "path": "docs/native-app-previews/v043/model-error-phone.png",
+      "bytes": 33357,
+      "sha256": "78d87435e07f25973850ebc6d1e41f953f423a8bcb5d8c84ee70eb9824b6ac22"
+    },
+    {
+      "path": "docs/native-app-previews/v043/model-error.png",
+      "bytes": 100776,
+      "sha256": "467744ab90bbd7876e2f0190fbe7bd911edb8462bdb8f5f3293ea37d21d09f37"
+    },
+    {
+      "path": "docs/native-app-previews/v043/per-lesson-options.png",
+      "bytes": 83468,
+      "sha256": "8f3553b226d7425b352a92cb34d1d23e6b08148864c675d215b4f914fc292169"
+    },
+    {
+      "path": "docs/native-app-previews/v043/settings-activation.png",
+      "bytes": 71862,
+      "sha256": "523d5970910122bfe65d5182aa33fcebad34bb0aff898396885f4de1f0fdf7a5"
+    }
+  ],
+  "dispositions": [
+    {
+      "path": "components/chat.tsx",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 380,
+      "file_sha256": "fc3104598a8501f17a07f77060ecc27528453ddfc57357c2af691fd80217d62f",
+      "reason": "Existing same-origin native chat requests. The change only presents model errors with an announced readable message, optional escaped diagnostic text and a 44px phone Retry control.",
+      "disposition": "reviewed_for_publication_and_recorded_isolated_checks"
+    },
+    {
+      "path": "scripts/smoke-native-lessons.mjs",
+      "rule": "dynamic-execution",
+      "severity": "review",
+      "message": "Dynamic execution or unsafe deserialization needs review.",
+      "line": 107,
+      "file_sha256": "0b86ab406977ea394f1c886834e6d7fb4a69e72195b30bc32b954d66812c0022",
+      "reason": "Reviewed first-party fixture uses only synthetic profiles and isolated loopback app/model endpoints. New actions use actual native Settings controls, read accepted state and inspect DOM/geometry; the child environment remains an allowlist and browser sandbox is disabled only by explicit existing-outer-isolation opt-in. No account files, installers or browser downloads.",
+      "disposition": "reviewed_for_publication_and_recorded_isolated_checks"
+    },
+    {
+      "path": "scripts/smoke-native-lessons.mjs",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 14,
+      "file_sha256": "0b86ab406977ea394f1c886834e6d7fb4a69e72195b30bc32b954d66812c0022",
+      "reason": "Reviewed first-party fixture uses only synthetic profiles and isolated loopback app/model endpoints. New actions use actual native Settings controls, read accepted state and inspect DOM/geometry; the child environment remains an allowlist and browser sandbox is disabled only by explicit existing-outer-isolation opt-in. No account files, installers or browser downloads.",
+      "disposition": "reviewed_for_publication_and_recorded_isolated_checks"
+    },
+    {
+      "path": "scripts/smoke-native-lessons.mjs",
+      "rule": "process-execution",
+      "severity": "review",
+      "message": "Child process execution needs review.",
+      "line": 7,
+      "file_sha256": "0b86ab406977ea394f1c886834e6d7fb4a69e72195b30bc32b954d66812c0022",
+      "reason": "Reviewed first-party fixture uses only synthetic profiles and isolated loopback app/model endpoints. New actions use actual native Settings controls, read accepted state and inspect DOM/geometry; the child environment remains an allowlist and browser sandbox is disabled only by explicit existing-outer-isolation opt-in. No account files, installers or browser downloads.",
+      "disposition": "reviewed_for_publication_and_recorded_isolated_checks"
+    },
+    {
+      "path": "scripts/smoke-native-lessons.mjs",
+      "rule": "environment-access",
+      "severity": "review",
+      "message": "Environment access may expose injected credentials.",
+      "line": 12,
+      "file_sha256": "0b86ab406977ea394f1c886834e6d7fb4a69e72195b30bc32b954d66812c0022",
+      "reason": "Reviewed first-party fixture uses only synthetic profiles and isolated loopback app/model endpoints. New actions use actual native Settings controls, read accepted state and inspect DOM/geometry; the child environment remains an allowlist and browser sandbox is disabled only by explicit existing-outer-isolation opt-in. No account files, installers or browser downloads.",
+      "disposition": "reviewed_for_publication_and_recorded_isolated_checks"
+    }
+  ],
+  "dependency_review": "native-app-v043-verification.json",
+  "account_boundary": "Actual native sign-in and account-connected operation remain separately reviewed; no real credential is present in this publication or isolated test profile.",
+  "assurance": "Complete scoped triage plus source/provenance review; no safety certificate or privilege grant."
+}

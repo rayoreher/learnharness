@@ -16,6 +16,10 @@ function deferred() {
 /** Production entry point, with only process/CDP transport mocked. No process,
  * browser, DNS lookup or socket is actually opened by this fixture. */
 function lifecycleFixture() {
+	// Exercise the packaged helper branch without requiring an installed
+	// development Electron binary; process creation and CDP stay mocked below.
+	const electron = Object.getOwnPropertyDescriptor(process.versions, "electron");
+	Object.defineProperty(process.versions, "electron", { configurable: true, value: "lifecycle-fixture" });
 	const killed: number[] = [];
 	const spawned = deferred(), heldLoad = deferred(), releaseLoad = deferred();
 	let pauseHandshake = false, connections = 0;
@@ -76,6 +80,8 @@ function lifecycleFixture() {
 			// this fixture's module-global helper, or start a real process.
 			for (const helper of helpers) { helper.owner.alive = false; helper.proc.exitCode = 0; }
 			mock.restoreAll(); syncBuiltinESMExports();
+			if (electron) Object.defineProperty(process.versions, "electron", electron);
+			else Reflect.deleteProperty(process.versions, "electron");
 		},
 	};
 }

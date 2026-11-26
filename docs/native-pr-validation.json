@@ -1,0 +1,337 @@
+{
+  "checked_at_utc": "2026-11-23T08:13:54.611924+00:00",
+  "pr": "https://github.com/rayoreher/learnharness/pull/7",
+  "source_commit": "2d7cb262bfc04983ddbccf4ddca5b5537718deff",
+  "scope": "Complete tracked source of lesson-practice and code-viewer only. No framework, data or installed dependencies.",
+  "source_files": [
+    {
+      "path": "plugins/code-viewer/LICENSE",
+      "bytes": 34523,
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+    },
+    {
+      "path": "plugins/code-viewer/README.md",
+      "bytes": 1328,
+      "sha256": "1af5f308c7da34a58e0076e3aa06c212c3ab5133ce94a8742f50810af555c0ea"
+    },
+    {
+      "path": "plugins/code-viewer/manifest.json",
+      "bytes": 282,
+      "sha256": "c5a984f19d5198f8220bc7cfbef26208fbf73007515008c720780818b754cdad"
+    },
+    {
+      "path": "plugins/code-viewer/package-lock.json",
+      "bytes": 245,
+      "sha256": "8883ce9dc83e6d2fa4632227f85541634e3a1d04eb7cfcfbc9bf6ee6f63f041e"
+    },
+    {
+      "path": "plugins/code-viewer/package.json",
+      "bytes": 234,
+      "sha256": "4d4f63b6a35723ed3ab33aba59cebf4bf0346b9ba0262dcb1c91b7780207a616"
+    },
+    {
+      "path": "plugins/code-viewer/scripts/build.mjs",
+      "bytes": 1197,
+      "sha256": "120252bbe1d1c65c5f614aaeecfe646e49f0fdb1b2e0fd42e790c0e0517693b6"
+    },
+    {
+      "path": "plugins/code-viewer/src/main.js",
+      "bytes": 4732,
+      "sha256": "533039638af5cd04a724ac1d137dedca8d0d9e0c437b2afb245e6c628b572be4"
+    },
+    {
+      "path": "plugins/code-viewer/src/styles.css",
+      "bytes": 1787,
+      "sha256": "1adee48e2d2f81614470e3a3dedd05ef573ba1ebaecc335624e5fea50e37df9c"
+    },
+    {
+      "path": "plugins/code-viewer/tests/browser.mjs",
+      "bytes": 8427,
+      "sha256": "ba939635c814b34fcced17cfe50a4913a8857a321e691d3721e32ab0c44d5abc"
+    },
+    {
+      "path": "plugins/code-viewer/tests/viewer.test.mjs",
+      "bytes": 1979,
+      "sha256": "2e7c747c03879f22546f5a9cceb00a4028291c5966ea08b36c24b0c5962f52e8"
+    },
+    {
+      "path": "plugins/lesson-practice/CHANGELOG.md",
+      "bytes": 3007,
+      "sha256": "7a16db178840bead4d02c33a1eae45fb992d8e95b589314ee7e7ea6eeac1fc35"
+    },
+    {
+      "path": "plugins/lesson-practice/LICENSE",
+      "bytes": 34523,
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+    },
+    {
+      "path": "plugins/lesson-practice/README.md",
+      "bytes": 4989,
+      "sha256": "f5052776352faf854ed4a142def7018ced9d94bc43435cb04f057c1b7416c9d8"
+    },
+    {
+      "path": "plugins/lesson-practice/manifest.json",
+      "bytes": 356,
+      "sha256": "587f6cbc2595403c67f4d8716eca29358ba253c7b917591eb844001b09355496"
+    },
+    {
+      "path": "plugins/lesson-practice/package-lock.json",
+      "bytes": 253,
+      "sha256": "4ed97d0c5a1edb33b4427ca8fc0b7cd1aa2f3d49f0b99aecf4ccb927b858d6c7"
+    },
+    {
+      "path": "plugins/lesson-practice/package.json",
+      "bytes": 238,
+      "sha256": "a28b4737a6461d7e60a54368546487456fda75d5af4f9a570aba831590cbbb15"
+    },
+    {
+      "path": "plugins/lesson-practice/scripts/build.mjs",
+      "bytes": 1396,
+      "sha256": "93ac8b9087021daba248e17c7d6e15c4c466732199b92116c3c7b3ef84f64afa"
+    },
+    {
+      "path": "plugins/lesson-practice/src/backend.cjs",
+      "bytes": 17128,
+      "sha256": "129037e8b0e534231898cee597231376a9b988514dd1545686fe3b87665c25aa"
+    },
+    {
+      "path": "plugins/lesson-practice/src/domain.cjs",
+      "bytes": 16077,
+      "sha256": "3e2404e61987c2ae1afac707ea843e1c8af2b455e5f271eb891419ba68586dd9"
+    },
+    {
+      "path": "plugins/lesson-practice/src/formats.cjs",
+      "bytes": 1390,
+      "sha256": "326c2832640eda80dd31437fd34c368ad65c6507af3596d18c8c66ef49c3477e"
+    },
+    {
+      "path": "plugins/lesson-practice/src/main.js",
+      "bytes": 17595,
+      "sha256": "f97a00da6a698e09b678c8f000c6ea5925158be0fb4d83aa5d6226e866c5431e"
+    },
+    {
+      "path": "plugins/lesson-practice/src/schemas.cjs",
+      "bytes": 1213,
+      "sha256": "0c433bba75c00343b2d95278ff1b235821bac749f8f045db96825dadaf56979f"
+    },
+    {
+      "path": "plugins/lesson-practice/src/store.cjs",
+      "bytes": 1609,
+      "sha256": "6c62cb5746bef5aa5c37d233abb5a5f0e62491db4e97ec50b68f48e6b139739b"
+    },
+    {
+      "path": "plugins/lesson-practice/src/styles.css",
+      "bytes": 3112,
+      "sha256": "38c1b7c8a7bde65c1b1412b69ab66fc7f9ef34ee03fbba5600f06363e0cd5e0e"
+    },
+    {
+      "path": "plugins/lesson-practice/tests/browser.mjs",
+      "bytes": 18435,
+      "sha256": "4a005732abe738d344ad982664a22305198d6ec27d33d72eab5510c6bac89e6a"
+    },
+    {
+      "path": "plugins/lesson-practice/tests/host-contract.mjs",
+      "bytes": 7193,
+      "sha256": "e58a22a50588e0d9dd47aca6220ca811bfd846a684852d249015c31521c1d674"
+    },
+    {
+      "path": "plugins/lesson-practice/tests/host-lifecycle.mjs",
+      "bytes": 9530,
+      "sha256": "08716cd1d1a530d456f19e11a1669b1d14a73ab2f4c112ca111758998289e172"
+    },
+    {
+      "path": "plugins/lesson-practice/tests/native-setup.mjs",
+      "bytes": 3419,
+      "sha256": "54c81b4afbffba5e8197a606e2c5c406c61c33f1664281331848f872a29fb90f"
+    },
+    {
+      "path": "plugins/lesson-practice/tests/native.test.mjs",
+      "bytes": 23376,
+      "sha256": "179723e24039350541093a79b91327b622e9c72a922de4a7f58454efe4f3fdf6"
+    }
+  ],
+  "source_bytes": 219573,
+  "manifest_sha256": "9170b074da4f798ae915496b03353dbc9ca2a3813d5c77d969afe1a90a22c1b3",
+  "runtime": {
+    "node": "v24.22.2",
+    "npm": "11.19.1",
+    "python": "3.11.2",
+    "environment": "Existing isolated server workshop, minimal environment, public source and synthetic data; no install, browser, model or account call."
+  },
+  "intake": {
+    "scanner_version": "1.0.0",
+    "scanner_sha256": "2c620cf0352426760e0235644c5d7f901c1b6e1f46d07d6ef92035f92dac316e",
+    "complete": true,
+    "text_files_scanned": 30,
+    "bytes_read": 225099,
+    "disposition": "manual_review_required",
+    "findings_truncated": false,
+    "findings": [
+      {
+        "path": "SOURCE.json",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 2
+      },
+      {
+        "path": "plugins/code-viewer/src/main.js",
+        "rule": "dynamic-execution",
+        "severity": "review",
+        "message": "Dynamic execution or unsafe deserialization needs review.",
+        "line": 15
+      },
+      {
+        "path": "plugins/code-viewer/tests/browser.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 34
+      },
+      {
+        "path": "plugins/code-viewer/tests/browser.mjs",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 5
+      },
+      {
+        "path": "plugins/code-viewer/tests/browser.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 6
+      },
+      {
+        "path": "plugins/code-viewer/LICENSE",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      },
+      {
+        "path": "plugins/lesson-practice/tests/host-lifecycle.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 9
+      },
+      {
+        "path": "plugins/lesson-practice/tests/host-contract.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 9
+      },
+      {
+        "path": "plugins/lesson-practice/tests/browser.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 41
+      },
+      {
+        "path": "plugins/lesson-practice/tests/browser.mjs",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 5
+      },
+      {
+        "path": "plugins/lesson-practice/tests/browser.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 7
+      },
+      {
+        "path": "plugins/lesson-practice/tests/native-setup.mjs",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 5
+      },
+      {
+        "path": "plugins/lesson-practice/tests/native-setup.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 10
+      },
+      {
+        "path": "plugins/lesson-practice/LICENSE",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 4
+      }
+    ],
+    "local_tree_sha256": "925df76ec52f038cf1424a1b2bd481c2706470e98f3c3cea304c21eb25ff1d7a",
+    "server_tree_sha256": "5a1c62060eb3eb2ff53277638a3609cc9892e58cd1050f9086453a568d9f2d27",
+    "tree_hash_difference": "Permissions are included in the scanner tree digest; workshop files/directories are private. All source file hashes were independently checked against the pinned manifest before scan and test. Findings match after ordering.",
+    "review": "No external dependencies in either package or selected import closure. Regular-expression exec is not string-to-code execution; URLs are provenance/license text; separately inventoried browser/setup/host harnesses are not imported by the selected tests. Registry access exists in the runner, but this reviewed import closure makes no network calls."
+  },
+  "tests": {
+    "command": [
+      "node",
+      "--test",
+      "plugins/lesson-practice/tests/native.test.mjs",
+      "plugins/code-viewer/tests/viewer.test.mjs"
+    ],
+    "exit_code": 0,
+    "passed": 21,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "elapsed_seconds": 0.272,
+    "names": [
+      "code survives its own closing-fence characters and untrusted metadata cannot escape the block",
+      "ordinary code languages register through native hooks and leave specialized renderers available",
+      "a conflicting registration releases every earlier claim",
+      "extension registers with the original host and creates no replacement engine or transport",
+      "grading observations cannot change review before native answer acceptance",
+      "forged text, raw tool results and incorrect occurrence bindings cannot create progress",
+      "open responses are assessed by ordinary teacher continuation against the accepted answer",
+      "first-pass completion permits mistakes and preserves their independent review queue",
+      "a copied immediate answer does not clear a recent mistake before retrieval delay",
+      "correct first-pass questions cannot clear a mistake before the missed concept returns",
+      "lesson settings reopen coverage when newly selected formats have not been attempted",
+      "native plan IDs and selected question types remain authoritative",
+      "canonical reconciliation is idempotent and survives plugin restart without regrading",
+      "single-step lessons can share a coarse native plan node without sharing coverage or mastery",
+      "contributed choices are validated, snapshotted and retained when their plugin is disabled",
+      "an already posed contributed quiz survives deselection and uses its committed reference for ordinary teacher feedback",
+      "native confidence is saved, backfilled from accepted evidence and retained through restart without regrading",
+      "a hesitant correct answer suggests one delayed reinforcement without becoming a mistake",
+      "confident mistakes lead due reviews without being erased by correct first-pass answers",
+      "missing, invalid and declined confidence never becomes an invented learning signal",
+      "visible correction reads the accepted committed answer without regrading or clearing review"
+    ]
+  },
+  "workshop": {
+    "project": "learnharness-native-pr7",
+    "source_commit": "875f35362642593168c1019bfc438b3b2b95956f",
+    "evidence_commit": "1463c9611ae45a3ad8499f95efc7071d2bbad350",
+    "saved_evidence_read_back": true
+  },
+  "github_at_source_commit": {
+    "actions_enabled": false,
+    "check_runs": 0,
+    "commit_statuses": 0,
+    "pr_workflow_runs": 0,
+    "submitted_reviews": 0,
+    "inline_review_threads": 0,
+    "mergeable": true,
+    "draft": true
+  },
+  "release_decision": "Keep draft. Component results do not cover real teacher tool availability or the full app.",
+  "open_gates": {
+    "mixed_quiz_tools": "https://github.com/rayoreher/learnharness/issues/10",
+    "native_app_verification": "https://github.com/rayoreher/learnharness/issues/6",
+    "dependency_review": "https://github.com/rayoreher/learnharness/issues/8",
+    "ui_quality": "https://github.com/rayoreher/learnharness/issues/9"
+  },
+  "score_80_point_ui": null,
+  "feature_version_changed": false,
+  "deployment_changed": false
+}

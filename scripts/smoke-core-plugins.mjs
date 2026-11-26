@@ -42,7 +42,9 @@ export async function verifyCorePlugins({ root, standalone, dataDirectory, url }
 		for (const id of ids) {
 			const catalog = await request(`/api/plugins/${id}`, { enabled: true });
 			const info = catalog.plugins.find(p => p.id === id); assert.equal(info.origin, "core"); assert.equal(info.status, "active", JSON.stringify(info));
-			assert.ok(fs.statSync(path.join(dataDirectory, "core-plugin-data", id)).isDirectory());
+			const storage = path.join(dataDirectory, "core-plugin-data", id);
+			if (info.manifest.backend) assert.ok(fs.statSync(storage).isDirectory());
+			else assert.equal(fs.existsSync(storage), false, "frontend-only core activation creates no backend storage");
 			for (const entry of [info.manifest.main, info.manifest.styles].filter(Boolean)) {
 				const response = await fetch(`${url}/api/plugins/${id}/assets/${entry}`);
 				const bytes = Buffer.from(await response.arrayBuffer()); assert.equal(response.status, 200, `${id}/${entry}`);
@@ -59,5 +61,5 @@ export async function verifyCorePlugins({ root, standalone, dataDirectory, url }
 		for (const id of ids) await request(`/api/plugins/${id}`, { enabled: false });
 		fs.rmSync(shadow, { recursive: true }); await request("/api/plugins", { action: "refresh" });
 	}
-	console.log("[smoke-core-plugins] four disabled defaults → direct core activation/assets/private-file refusal → separate data → reserved-ID collision → cooperative disable; code byte-identical");
+	console.log(`[smoke-core-plugins] ${ids.length} disabled defaults → direct core activation/assets/private-file refusal → separate backend data → reserved-ID collision → cooperative disable; code byte-identical`);
 }

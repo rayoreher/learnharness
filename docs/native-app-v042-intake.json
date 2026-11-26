@@ -1,0 +1,873 @@
+{
+  "checked_at_utc": "2026-11-23T11:38:48.564176+00:00",
+  "scope": "Exact 0.4.2 changed first-party source publication and already recorded credential-free checks. Not installation permission, a production credential review or a safety certificate.",
+  "scan": {
+    "scanner_version": "1.0.0",
+    "disposition": "blocked",
+    "complete": true,
+    "tree_sha256": "84d93c18b93dcf77a899cfbf25d181511d0a4e67dcba5b732a887f8abc760f1d",
+    "files_recorded": 60,
+    "text_files_scanned": 42,
+    "bytes_read": 1305593,
+    "findings_truncated": false,
+    "git_metadata_excluded": false,
+    "findings": [
+      {
+        "path": "examples/plugins/lesson-formats/dist/main.js",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 35
+      },
+      {
+        "path": "package-lock.json",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 91
+      },
+      {
+        "path": "package-lock.json",
+        "rule": "install-hook",
+        "severity": "high",
+        "message": "Package lifecycle hook can execute during dependency installation."
+      },
+      {
+        "path": "tests/plugin-renderers.test.tsx",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 44
+      },
+      {
+        "path": "tests/dependency-patches.test.ts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 49
+      },
+      {
+        "path": "tests/chatgpt-ui.test.tsx",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 20
+      },
+      {
+        "path": "tests/desktop-payload.test.ts",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 3
+      },
+      {
+        "path": "tests/headless-helper-lifecycle.test.ts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 65
+      },
+      {
+        "path": "tests/headless-helper-lifecycle.test.ts",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 2
+      },
+      {
+        "path": "components/sidebar.tsx",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 466
+      },
+      {
+        "path": "components/setup-dialog.tsx",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 20
+      },
+      {
+        "path": "components/settings/settings-dialog.tsx",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 270
+      },
+      {
+        "path": "package.json",
+        "rule": "destructive-operation",
+        "severity": "high",
+        "message": "Potentially destructive command needs review.",
+        "line": 27
+      },
+      {
+        "path": "package.json",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 9
+      },
+      {
+        "path": "plugins/ui-showcase/package-lock.json",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 33
+      },
+      {
+        "path": "plugins/ui-showcase/package-lock.json",
+        "rule": "install-hook",
+        "severity": "high",
+        "message": "Package lifecycle hook can execute during dependency installation."
+      },
+      {
+        "path": "docs/ui-quality-study.md",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 20
+      },
+      {
+        "path": "docs/native-app-review.md",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 80
+      },
+      {
+        "path": "docs/native-app-v042-verification.json",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 202
+      },
+      {
+        "path": "docs/plugin-authoring.md",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 609
+      },
+      {
+        "path": "docs/native-pr-validation.md",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 3
+      },
+      {
+        "path": "scripts/smoke-core-plugins.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 24
+      },
+      {
+        "path": "scripts/smoke-plugin-browser.mjs",
+        "rule": "dynamic-execution",
+        "severity": "review",
+        "message": "Dynamic execution or unsafe deserialization needs review.",
+        "line": 60
+      },
+      {
+        "path": "scripts/smoke-plugin-browser.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 755
+      },
+      {
+        "path": "scripts/smoke-plugin-browser.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 44
+      },
+      {
+        "path": "scripts/smoke-server.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 104
+      },
+      {
+        "path": "scripts/smoke-server.mjs",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 27
+      },
+      {
+        "path": "scripts/smoke-server.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 141
+      },
+      {
+        "path": "scripts/smoke-native-lessons.mjs",
+        "rule": "dynamic-execution",
+        "severity": "review",
+        "message": "Dynamic execution or unsafe deserialization needs review.",
+        "line": 119
+      },
+      {
+        "path": "scripts/smoke-native-lessons.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 14
+      },
+      {
+        "path": "scripts/smoke-native-lessons.mjs",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 7
+      },
+      {
+        "path": "scripts/smoke-native-lessons.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 12
+      },
+      {
+        "path": "scripts/build-plugin-authoring.mjs",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 5
+      },
+      {
+        "path": "scripts/smoke-plugin-runtime.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 193
+      }
+    ],
+    "limits": {
+      "files": 10000,
+      "file_bytes": 16777216,
+      "total_bytes": 16777216
+    },
+    "requires": [
+      "manual_source_and_provenance_review",
+      "dependency_and_advisory_review",
+      "isolated_execution_only"
+    ],
+    "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+  },
+  "raw_scan_sha256": "4ba69d28a480a9b1c006af9efc3fd82eb2e1a4261cffccd7d9bf7617700565c1",
+  "inventory": {
+    "source_files": [
+      {
+        "path": "app/globals.css",
+        "bytes": 24622,
+        "sha256": "3f42af204cfd21aa41d478fef2eaae0d00a74ba248aff3af809f639054bed777"
+      },
+      {
+        "path": "components/plugin-renderers.tsx",
+        "bytes": 8035,
+        "sha256": "7b47c364416b8053a421f99ca3fd51afc8965ad0910cd042ef54ec40ae00409b"
+      },
+      {
+        "path": "components/settings/settings-dialog.tsx",
+        "bytes": 22541,
+        "sha256": "bd9091f9ce66cdd0d5a131a5489ffd3906847f3a810f0abeba951f2aa0fd4df0"
+      },
+      {
+        "path": "components/setup-cta.tsx",
+        "bytes": 5908,
+        "sha256": "c22331353fd4153f0480529067bf4f53466e38369935a9639c988355136f4684"
+      },
+      {
+        "path": "components/setup-dialog.tsx",
+        "bytes": 28193,
+        "sha256": "488a45347c283a416f7510ba18c1aa811224b9080fe5d9ac3c4a481f364acb18"
+      },
+      {
+        "path": "components/sidebar.tsx",
+        "bytes": 44446,
+        "sha256": "dff720a152cb3671f305bfd0428d362eb76a08b4176e16c6446284998410f084"
+      },
+      {
+        "path": "docs/native-app-previews/README.md",
+        "bytes": 1386,
+        "sha256": "6ccefba3b9458d1f0d4f323f035295643e1d5ac0a3252d6e0051d61037284e67"
+      },
+      {
+        "path": "docs/native-app-review.md",
+        "bytes": 6155,
+        "sha256": "3c32bccb8f293396c4b9e8b2108f51d3b4d6cf6823ed80d9e807004e29362475"
+      },
+      {
+        "path": "docs/native-app-v042-verification.json",
+        "bytes": 16637,
+        "sha256": "d2d060bc8e83e6b02dccd490db42a8b85f584e5a1537b3c41bf047b4ea796359"
+      },
+      {
+        "path": "docs/native-app-v042-verification.md",
+        "bytes": 7786,
+        "sha256": "3075e80c5a993a46a0824ed3e02fc0a6fbc9f54937156be5b50c376b6f104316"
+      },
+      {
+        "path": "docs/native-lesson-extension.md",
+        "bytes": 9788,
+        "sha256": "3a205b900e940ddfd220c6ab5daa82181e846c56590bcbea3d45659c0dc3cd62"
+      },
+      {
+        "path": "docs/native-pr-validation.md",
+        "bytes": 5991,
+        "sha256": "24c91552cf3f0bf1920c87ed6982382ce37104390cc69556291ca03fc36a37df"
+      },
+      {
+        "path": "docs/plugin-authoring.md",
+        "bytes": 44085,
+        "sha256": "15e59eaebaf5c7907e9d9e64ae14dc18ede5d59c06e5e39f35c12763d64db1db"
+      },
+      {
+        "path": "docs/plugin-lesson-contract.md",
+        "bytes": 3079,
+        "sha256": "7b0115c9a55881eb4c962fbf11d6ec5657589e10fdb41442e713d6f3dd7929e6"
+      },
+      {
+        "path": "docs/ui-quality-study.md",
+        "bytes": 7882,
+        "sha256": "dc101cfc8f4847e1fcd32ae467e3b0ca67907967bb4e66f376781fcbec20c310"
+      },
+      {
+        "path": "examples/plugins/lesson-formats/dist/main.js",
+        "bytes": 6227,
+        "sha256": "76497dcb10ad3e3f859573c75b558cb380f92bebd1de0bc369ed2fb9c5ec316b"
+      },
+      {
+        "path": "package-lock.json",
+        "bytes": 599822,
+        "sha256": "23c1599207e95e831a0dc2c19bd57cdb3200f4d704d69b2b3fa48b12d24accb7"
+      },
+      {
+        "path": "package.json",
+        "bytes": 4144,
+        "sha256": "9c0eb7db87f0715f71177718ce3db8e51e64319cc999443b4e96c5f6d3763d86"
+      },
+      {
+        "path": "plugins/lesson-practice/CHANGELOG.md",
+        "bytes": 4197,
+        "sha256": "d126e4367dae2f5bb34c6f7e87c7fe294e0fc472c858ff92e8f8bb1dcbcfaa66"
+      },
+      {
+        "path": "plugins/lesson-practice/README.md",
+        "bytes": 5225,
+        "sha256": "647da5cc1ac26958066dc5f17b0c41bf31d8ded2891d5f5c1d91059a15d59eb1"
+      },
+      {
+        "path": "plugins/lesson-practice/manifest.json",
+        "bytes": 356,
+        "sha256": "b2ad51142cc52cac608e15a7075a1d78cc7ded538e9413f43a9f472ebaa7c624"
+      },
+      {
+        "path": "plugins/lesson-practice/package-lock.json",
+        "bytes": 253,
+        "sha256": "cda4b9c14736b569f7d805666ce188dab66e48b23ef2f9d625758e26305ab9cb"
+      },
+      {
+        "path": "plugins/lesson-practice/package.json",
+        "bytes": 238,
+        "sha256": "4e2aaeed26e26851491b7fdcf3338d367123047287b7995232b68449a8e96a12"
+      },
+      {
+        "path": "plugins/lesson-practice/src/main.js",
+        "bytes": 19351,
+        "sha256": "f81e6ec8b9ad712e213e11490ab88806de0179f3b1b23ae30d055c92bbbf0db5"
+      },
+      {
+        "path": "plugins/lesson-practice/src/styles.css",
+        "bytes": 3506,
+        "sha256": "e99747aeb8b9091698d2e56f3ead352fdc1c82f898e6366209b80b694c055c6b"
+      },
+      {
+        "path": "plugins/ui-showcase/package-lock.json",
+        "bytes": 85846,
+        "sha256": "f8863e043af5237221fb4d50936af36939b0278a633cf00b8664537dc4c4603c"
+      },
+      {
+        "path": "plugins/ui-showcase/package.json",
+        "bytes": 605,
+        "sha256": "2d08f935592cea185628c37b1e64de0075d5c9affa1fbf2c42c3caac0c746009"
+      },
+      {
+        "path": "scripts/build-plugin-authoring.mjs",
+        "bytes": 11547,
+        "sha256": "7a5020837d8e0f346ea1826af6ee4f0df0f028b1b4c7a3408de7808478d94446"
+      },
+      {
+        "path": "scripts/smoke-core-plugins.mjs",
+        "bytes": 4342,
+        "sha256": "76f0ac3804fa96e1320fc3542bccccc5f71af3264eb135a618a720fff1d93c93"
+      },
+      {
+        "path": "scripts/smoke-native-lessons.mjs",
+        "bytes": 23482,
+        "sha256": "ddd416ddf2a39492bac8ff7257aa24f7ae3a220cd14ff5fdd9b45dd3c86cf20e"
+      },
+      {
+        "path": "scripts/smoke-plugin-browser.mjs",
+        "bytes": 166377,
+        "sha256": "75e502fae73d30ef4ccd215845f2da303a37e7f60300a01e1500de6207d4a877"
+      },
+      {
+        "path": "scripts/smoke-plugin-runtime.mjs",
+        "bytes": 47557,
+        "sha256": "0afafabff4d69503da4052ba6160e31dfd3c8e9a30570dcd2384253cbc2df455"
+      },
+      {
+        "path": "scripts/smoke-server.mjs",
+        "bytes": 9350,
+        "sha256": "2e6706dce77a5319de2d03ddd1e6c85fcb7b49ea7d73dabc521aa331ad01c7f9"
+      },
+      {
+        "path": "src/core/plugin-view-context.ts",
+        "bytes": 4923,
+        "sha256": "250b5485107991530b6a02748be62b6d80d65dc358b0f9b7134b195998b85802"
+      },
+      {
+        "path": "tests/chatgpt-ui.test.tsx",
+        "bytes": 7671,
+        "sha256": "3aff83e074fb40c228d94b70a54142c2a645da65cc5ecc0cc45a242133c74297"
+      },
+      {
+        "path": "tests/dependency-patches.test.ts",
+        "bytes": 3171,
+        "sha256": "fa021c1491ccd55f20857ee262a5e0c9fc25dd5865d2c60125de6cdaef1ce4ed"
+      },
+      {
+        "path": "tests/desktop-payload.test.ts",
+        "bytes": 13653,
+        "sha256": "fec78c02fae22323064c0ae194f91c6b234c01a426d3c708f3aa93d5a89a65aa"
+      },
+      {
+        "path": "tests/headless-helper-lifecycle.test.ts",
+        "bytes": 7574,
+        "sha256": "005937f33c3bdcd16ff5dd4ce374c9d40485260ec733851e644188ffd671877d"
+      },
+      {
+        "path": "tests/helpers/plugin-authoring-fixture.ts",
+        "bytes": 2693,
+        "sha256": "423c8173ee12c7a656473d633be1e2b20dbd49d5793bb85ad0e1f26aa86e99fa"
+      },
+      {
+        "path": "tests/plugin-native-tools.test.ts",
+        "bytes": 5557,
+        "sha256": "af73ccc0c4ba6a5f85c29d85397f9f4c28d01e88bebbb789859bbd449a6b14af"
+      },
+      {
+        "path": "tests/plugin-renderers.test.tsx",
+        "bytes": 24332,
+        "sha256": "62ccc995cb37f942eaef96da176926408e47714c185d908a9bc47131c6ff692d"
+      },
+      {
+        "path": "tests/zero-keys.test.tsx",
+        "bytes": 7060,
+        "sha256": "816aa9066982bfee48454c40d70f5a1746b815aac7d126fb405fa17d6427a720"
+      }
+    ],
+    "assets": [
+      {
+        "path": "docs/native-app-previews/captioned-video.png",
+        "bytes": 114286,
+        "sha256": "6d04d537889e06c9085eb210db0faf27ffc07c60978d90e8546fd546983eb289"
+      },
+      {
+        "path": "docs/native-app-previews/contributed-formats.png",
+        "bytes": 76784,
+        "sha256": "d61aa1866c7147faceaa30b47b586a4876fd30da7a74f86bac9d12a379f5f1ce"
+      },
+      {
+        "path": "docs/native-app-previews/correction.png",
+        "bytes": 84570,
+        "sha256": "c77655d996536a09909ed6a26c4a80da76fc9d9ed74a37a7cfcafd1b442da832"
+      },
+      {
+        "path": "docs/native-app-previews/desktop-dark.png",
+        "bytes": 94801,
+        "sha256": "9606cc00e221421f8764acba68c4bb146973fe674b200b5485badede6cae3078"
+      },
+      {
+        "path": "docs/native-app-previews/desktop-light.png",
+        "bytes": 99779,
+        "sha256": "6679ad10a030227b065ba1232bc5e0a0685e1439b1b903d32effed79fe32b23f"
+      },
+      {
+        "path": "docs/native-app-previews/model-error.png",
+        "bytes": 88504,
+        "sha256": "9caf6edfe32f1e737965a229cd8a39920078998d6e54dc9b2cf53b3fe59783af"
+      },
+      {
+        "path": "docs/native-app-previews/model-recovered.png",
+        "bytes": 86723,
+        "sha256": "b954d86e501fbafece9a7223e64b99538caa386faea4324e2fb1dbb80ccb8aec"
+      },
+      {
+        "path": "docs/native-app-previews/phone-lesson.png",
+        "bytes": 51998,
+        "sha256": "38a3b889c44ed909440c07c6e011a093cd57c99de4a4d2d1bc394492ab2d499f"
+      },
+      {
+        "path": "docs/native-app-previews/phone-settings.png",
+        "bytes": 46477,
+        "sha256": "8b872ae89f419d02b908320512e6de34cab731d550dce3780c176dd30c3f8995"
+      }
+    ],
+    "scope": "Exact changed first-party source and final locked dependency metadata; prior full artifact review retained. Synthetic screenshots visually inspected."
+  },
+  "finding_dispositions": [
+    {
+      "path": "examples/plugins/lesson-formats/dist/main.js",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 35,
+      "file_sha256": "76497dcb10ad3e3f859573c75b558cb380f92bebd1de0bc369ed2fb9c5ec316b",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "The HTTP-shaped string is the fixed SVG XML namespace. Renderer creates DOM nodes and textContent, never fetches it or inserts HTML. Numeric field now has its own label."
+    },
+    {
+      "path": "package-lock.json",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 91,
+      "file_sha256": "23c1599207e95e831a0dc2c19bd57cdb3200f4d704d69b2b3fa48b12d24accb7",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Exact locked registry metadata, including hasInstallScript declarations. All Linux runtime artifacts have the retained exact archive/whole-file/disposition review; manual materialization ran no hook. Other-platform optional entries were queried as metadata but not installed/executed."
+    },
+    {
+      "path": "package-lock.json",
+      "rule": "install-hook",
+      "severity": "high",
+      "message": "Package lifecycle hook can execute during dependency installation.",
+      "file_sha256": "23c1599207e95e831a0dc2c19bd57cdb3200f4d704d69b2b3fa48b12d24accb7",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Exact locked registry metadata, including hasInstallScript declarations. All Linux runtime artifacts have the retained exact archive/whole-file/disposition review; manual materialization ran no hook. Other-platform optional entries were queried as metadata but not installed/executed."
+    },
+    {
+      "path": "tests/plugin-renderers.test.tsx",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 44,
+      "file_sha256": "62ccc995cb37f942eaef96da176926408e47714c185d908a9bc47131c6ff692d",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Real React/provider effects with an injected synthetic fetch; added regression proves local DOM state and signal survive identical records, with changed results still disposing old content."
+    },
+    {
+      "path": "tests/dependency-patches.test.ts",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 49,
+      "file_sha256": "fa021c1491ccd55f20857ee262a5e0c9fc25dd5865d2c60125de6cdaef1ce4ed",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Synthetic ANSI text deliberately includes ordinary URLs and a blocked javascript/script input. Actual original callers verify safe escaping and minimatch inclusion/exclusion behavior; no navigation or external request."
+    },
+    {
+      "path": "tests/chatgpt-ui.test.tsx",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 20,
+      "file_sha256": "3aff83e074fb40c228d94b70a54142c2a645da65cc5ecc0cc45a242133c74297",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Injected same-origin status/connection fixture uses synthetic data; added matchMedia support for the native root provider. No real OAuth or credential read."
+    },
+    {
+      "path": "tests/desktop-payload.test.ts",
+      "rule": "process-execution",
+      "severity": "review",
+      "message": "Child process execution needs review.",
+      "line": 3,
+      "file_sha256": "fec78c02fae22323064c0ae194f91c6b234c01a426d3c708f3aa93d5a89a65aa",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Original packaging tests spawn reviewed Node/compiler helpers only in temporary synthetic layouts inside isolation. Added expectations include both native additions and their authoring contract."
+    },
+    {
+      "path": "tests/headless-helper-lifecycle.test.ts",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 65,
+      "file_sha256": "005937f33c3bdcd16ff5dd4ce374c9d40485260ec733851e644188ffd671877d",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Only process/CDP transports are mocked. Fixture sets and restores the packaged Electron descriptor so no real development Electron is downloaded or started."
+    },
+    {
+      "path": "tests/headless-helper-lifecycle.test.ts",
+      "rule": "process-execution",
+      "severity": "review",
+      "message": "Child process execution needs review.",
+      "line": 2,
+      "file_sha256": "005937f33c3bdcd16ff5dd4ce374c9d40485260ec733851e644188ffd671877d",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Only process/CDP transports are mocked. Fixture sets and restores the packaged Electron descriptor so no real development Electron is downloaded or started."
+    },
+    {
+      "path": "components/sidebar.tsx",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 466,
+      "file_sha256": "dff720a152cb3671f305bfd0428d362eb76a08b4176e16c6446284998410f084",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Existing same-origin chat list/create/rename/delete requests remain in the original session navigation. Changes only add transient narrow-screen navigation and keyboard behavior."
+    },
+    {
+      "path": "components/setup-dialog.tsx",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 20,
+      "file_sha256": "488a45347c283a416f7510ba18c1aa811224b9080fe5d9ac3c4a481f364acb18",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Existing same-origin provider setup request; change is first-run wording only. No new destination or credential flow."
+    },
+    {
+      "path": "components/settings/settings-dialog.tsx",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 270,
+      "file_sha256": "bd9091f9ce66cdd0d5a131a5489ffd3906847f3a810f0abeba951f2aa0fd4df0",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Existing same-origin settings read/write; mobile section selection changes presentation only, with section IDs checked against the original catalog."
+    },
+    {
+      "path": "package.json",
+      "rule": "destructive-operation",
+      "severity": "high",
+      "message": "Potentially destructive command needs review.",
+      "line": 27,
+      "file_sha256": "9c0eb7db87f0715f71177718ce3db8e51e64319cc999443b4e96c5f6d3763d86",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "The flagged desktop:dist cleanup of dist and .next/standalone is inherited and unchanged. It was not run; this checkpoint uses the reviewed original build-server helper. The homepage is provenance metadata. Publishing does not authorize that desktop release command."
+    },
+    {
+      "path": "package.json",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 9,
+      "file_sha256": "9c0eb7db87f0715f71177718ce3db8e51e64319cc999443b4e96c5f6d3763d86",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "The flagged desktop:dist cleanup of dist and .next/standalone is inherited and unchanged. It was not run; this checkpoint uses the reviewed original build-server helper. The homepage is provenance metadata. Publishing does not authorize that desktop release command."
+    },
+    {
+      "path": "plugins/ui-showcase/package-lock.json",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 33,
+      "file_sha256": "f8863e043af5237221fb4d50936af36939b0278a633cf00b8664537dc4c4603c",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Exact locked registry metadata and lifecycle declarations. Puppeteer is pinned within the existing major; dependency acquisition and materialization ran no lifecycle hook. Optional non-Linux entries remain metadata only."
+    },
+    {
+      "path": "plugins/ui-showcase/package-lock.json",
+      "rule": "install-hook",
+      "severity": "high",
+      "message": "Package lifecycle hook can execute during dependency installation.",
+      "file_sha256": "f8863e043af5237221fb4d50936af36939b0278a633cf00b8664537dc4c4603c",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Exact locked registry metadata and lifecycle declarations. Puppeteer is pinned within the existing major; dependency acquisition and materialization ran no lifecycle hook. Optional non-Linux entries remain metadata only."
+    },
+    {
+      "path": "docs/ui-quality-study.md",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 20,
+      "file_sha256": "dc101cfc8f4847e1fcd32ae467e3b0ca67907967bb4e66f376781fcbec20c310",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Documentation references and hash-bound evidence only. URLs are provenance/primary-source/advisory references; no outside instruction is adopted or executed."
+    },
+    {
+      "path": "docs/native-app-review.md",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 80,
+      "file_sha256": "3c32bccb8f293396c4b9e8b2108f51d3b4d6cf6823ed80d9e807004e29362475",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Documentation references and hash-bound evidence only. URLs are provenance/primary-source/advisory references; no outside instruction is adopted or executed."
+    },
+    {
+      "path": "docs/native-app-v042-verification.json",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 202,
+      "file_sha256": "d2d060bc8e83e6b02dccd490db42a8b85f584e5a1537b3c41bf047b4ea796359",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Documentation references and hash-bound evidence only. URLs are provenance/primary-source/advisory references; no outside instruction is adopted or executed."
+    },
+    {
+      "path": "docs/plugin-authoring.md",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 609,
+      "file_sha256": "15e59eaebaf5c7907e9d9e64ae14dc18ede5d59c06e5e39f35c12763d64db1db",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Documentation references and hash-bound evidence only. URLs are provenance/primary-source/advisory references; no outside instruction is adopted or executed."
+    },
+    {
+      "path": "docs/native-pr-validation.md",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 3,
+      "file_sha256": "24c91552cf3f0bf1920c87ed6982382ce37104390cc69556291ca03fc36a37df",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Documentation references and hash-bound evidence only. URLs are provenance/primary-source/advisory references; no outside instruction is adopted or executed."
+    },
+    {
+      "path": "scripts/smoke-core-plugins.mjs",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 24,
+      "file_sha256": "76f0ac3804fa96e1320fc3542bccccc5f71af3264eb135a618a720fff1d93c93",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Original loopback HTTP activation/asset/private-file/data/disable fixture. Corrected frontend-only packages to expect no backend storage; no external service or credentials."
+    },
+    {
+      "path": "scripts/smoke-plugin-browser.mjs",
+      "rule": "dynamic-execution",
+      "severity": "review",
+      "message": "Dynamic execution or unsafe deserialization needs review.",
+      "line": 60,
+      "file_sha256": "75e502fae73d30ef4ccd215845f2da303a37e7f60300a01e1500de6207d4a877",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Original real browser fixture. Evaluate callbacks inspect synthetic DOM/state; existing browser locations and process.env checks do not read account files. Added request-input diagnostics contain only the synthetic fixture protocol."
+    },
+    {
+      "path": "scripts/smoke-plugin-browser.mjs",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 755,
+      "file_sha256": "75e502fae73d30ef4ccd215845f2da303a37e7f60300a01e1500de6207d4a877",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Original real browser fixture. Evaluate callbacks inspect synthetic DOM/state; existing browser locations and process.env checks do not read account files. Added request-input diagnostics contain only the synthetic fixture protocol."
+    },
+    {
+      "path": "scripts/smoke-plugin-browser.mjs",
+      "rule": "environment-access",
+      "severity": "review",
+      "message": "Environment access may expose injected credentials.",
+      "line": 44,
+      "file_sha256": "75e502fae73d30ef4ccd215845f2da303a37e7f60300a01e1500de6207d4a877",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Original real browser fixture. Evaluate callbacks inspect synthetic DOM/state; existing browser locations and process.env checks do not read account files. Added request-input diagnostics contain only the synthetic fixture protocol."
+    },
+    {
+      "path": "scripts/smoke-server.mjs",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 104,
+      "file_sha256": "2e6706dce77a5319de2d03ddd1e6c85fcb7b49ea7d73dabc521aa331ad01c7f9",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Original source-free package gate starts Node with synthetic data/auth paths and reuses installed CHROME_PATH. It was executed only inside the existing cleared-environment isolation."
+    },
+    {
+      "path": "scripts/smoke-server.mjs",
+      "rule": "process-execution",
+      "severity": "review",
+      "message": "Child process execution needs review.",
+      "line": 27,
+      "file_sha256": "2e6706dce77a5319de2d03ddd1e6c85fcb7b49ea7d73dabc521aa331ad01c7f9",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Original source-free package gate starts Node with synthetic data/auth paths and reuses installed CHROME_PATH. It was executed only inside the existing cleared-environment isolation."
+    },
+    {
+      "path": "scripts/smoke-server.mjs",
+      "rule": "environment-access",
+      "severity": "review",
+      "message": "Environment access may expose injected credentials.",
+      "line": 141,
+      "file_sha256": "2e6706dce77a5319de2d03ddd1e6c85fcb7b49ea7d73dabc521aa331ad01c7f9",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Original source-free package gate starts Node with synthetic data/auth paths and reuses installed CHROME_PATH. It was executed only inside the existing cleared-environment isolation."
+    },
+    {
+      "path": "scripts/smoke-native-lessons.mjs",
+      "rule": "dynamic-execution",
+      "severity": "review",
+      "message": "Dynamic execution or unsafe deserialization needs review.",
+      "line": 119,
+      "file_sha256": "ddd416ddf2a39492bac8ff7257aa24f7ae3a220cd14ff5fdd9b45dd3c86cf20e",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Reviewed first-party browser fixture: fresh synthetic profile, child env allowlist, loopback app and model server, Puppeteer browser evaluation of ordinary app controls/state. Explicit outer-isolation opt-in only; no real accounts, installations or browser download."
+    },
+    {
+      "path": "scripts/smoke-native-lessons.mjs",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 14,
+      "file_sha256": "ddd416ddf2a39492bac8ff7257aa24f7ae3a220cd14ff5fdd9b45dd3c86cf20e",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Reviewed first-party browser fixture: fresh synthetic profile, child env allowlist, loopback app and model server, Puppeteer browser evaluation of ordinary app controls/state. Explicit outer-isolation opt-in only; no real accounts, installations or browser download."
+    },
+    {
+      "path": "scripts/smoke-native-lessons.mjs",
+      "rule": "process-execution",
+      "severity": "review",
+      "message": "Child process execution needs review.",
+      "line": 7,
+      "file_sha256": "ddd416ddf2a39492bac8ff7257aa24f7ae3a220cd14ff5fdd9b45dd3c86cf20e",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Reviewed first-party browser fixture: fresh synthetic profile, child env allowlist, loopback app and model server, Puppeteer browser evaluation of ordinary app controls/state. Explicit outer-isolation opt-in only; no real accounts, installations or browser download."
+    },
+    {
+      "path": "scripts/smoke-native-lessons.mjs",
+      "rule": "environment-access",
+      "severity": "review",
+      "message": "Environment access may expose injected credentials.",
+      "line": 12,
+      "file_sha256": "ddd416ddf2a39492bac8ff7257aa24f7ae3a220cd14ff5fdd9b45dd3c86cf20e",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Reviewed first-party browser fixture: fresh synthetic profile, child env allowlist, loopback app and model server, Puppeteer browser evaluation of ordinary app controls/state. Explicit outer-isolation opt-in only; no real accounts, installations or browser download."
+    },
+    {
+      "path": "scripts/build-plugin-authoring.mjs",
+      "rule": "process-execution",
+      "severity": "review",
+      "message": "Child process execution needs review.",
+      "line": 5,
+      "file_sha256": "7a5020837d8e0f346ea1826af6ee4f0df0f028b1b4c7a3408de7808478d94446",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "Original SDK emitter/API generator/package helper, run with reviewed Node/compiler inside isolation. Adds existing source/example/docs to the portable archive; no installation or network."
+    },
+    {
+      "path": "scripts/smoke-plugin-runtime.mjs",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 193,
+      "file_sha256": "0afafabff4d69503da4052ba6160e31dfd3c8e9a30570dcd2384253cbc2df455",
+      "disposition": "reviewed_for_exact_publication_and_scoped_isolated_checks",
+      "reason": "First-party synthetic backend fixture binds only isolated loopback and holds scripted protocol streams. Custom multiline editor now claims Enter/Shift+Enter as required by its native plugin contract."
+    }
+  ],
+  "secret_pattern_hits": [],
+  "dependency_review": "native-app-v042-verification.json",
+  "isolation": "Existing bwrap; no home/account/production mounts; isolated loopback only. No dependency hooks run.",
+  "remaining": [
+    "Real native account and release acceptance remain separate."
+  ]
+}

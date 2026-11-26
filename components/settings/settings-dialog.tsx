@@ -348,7 +348,7 @@ export function SettingsDialogBody({
 			aria-modal="true"
 			aria-label="Settings"
 			data-testid="settings-dialog"
-			className="settings-dialog-pop flex h-[620px] max-h-[85vh] w-[920px] max-w-[90vw] flex-col overflow-hidden rounded-md border border-border bg-card shadow-xl"
+			className="settings-dialog-pop flex h-[620px] max-h-[85vh] w-[920px] max-w-[90vw] flex-col overflow-hidden rounded-md border border-border bg-card shadow-xl max-sm:h-[calc(100dvh-1rem)] max-sm:max-h-[calc(100dvh-1rem)] max-sm:w-[calc(100vw-1rem)] max-sm:max-w-none"
 			onClick={(e) => e.stopPropagation()}
 		>
 			{/* Header — the app's quiet CMU title language. */}
@@ -380,13 +380,23 @@ export function SettingsDialogBody({
 					</Hint>
 			</header>
 
-			<div className="flex min-h-0 flex-1">
+			<div className="flex min-h-0 flex-1 max-sm:flex-col">
+				<div className="shrink-0 border-b border-border px-4 py-3 sm:hidden">
+					<label htmlFor="settings-section-mobile" className="sr-only">Settings section</label>
+					<select id="settings-section-mobile" value={selected} onChange={event => {
+						const section = navSections.find(candidate => candidate.id === event.target.value);
+						if (section) setActive(section.id);
+					}}
+						className="h-11 w-full rounded-md border border-border bg-background px-3 font-ui text-sm text-foreground">
+						{navSections.map(section => <option key={section.id} value={section.id}>{section.label}</option>)}
+					</select>
+				</div>
 				{/* Left nav — mono labels and theme-inherited decorative icons,
 					    active = bg-accent. */}
 				<nav
 					aria-label="Settings sections"
 					data-testid="settings-nav"
-					className="flex min-h-0 w-48 shrink-0 flex-col gap-1 overflow-y-auto border-r border-border p-2"
+					className="flex min-h-0 w-48 shrink-0 flex-col gap-1 overflow-y-auto border-r border-border p-2 max-sm:hidden"
 				>
 					{navSections.map((s, index) => (
 						<div key={s.id} className="shrink-0">
@@ -418,7 +428,7 @@ export function SettingsDialogBody({
 				    nothing may shift when the lock engages. */}
 				<div
 					ref={contentRef}
-					className="min-w-0 flex-1 overflow-y-auto"
+					className="min-h-0 min-w-0 flex-1 overflow-y-auto"
 					data-testid="settings-content"
 				>
 					{error && !activePluginId && selected !== "plugins" && selected !== "core-plugins" && (

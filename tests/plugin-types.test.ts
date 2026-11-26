@@ -52,7 +52,7 @@ badge.update({ status: "correct" });
 frontend.ui.mountBadge(container, { text: "Missing lifetime" });
 const stop = backend.handle("test", async () => backend.learning.listSessions());
 backend.registerInstructions({ agents: ["teacher", "practice"], text: "Use the example tool when asked." });
-backend.registerTools({ agents: ["teacher"], create: context => [{
+backend.registerTools({ agents: ["teacher"], nativeQuestionTools: ["quiz", "explain"], create: context => [{
   name: "example_echo", label: "Echo", description: "Echo a fixture", parameters: {type:"object", properties:{}},
   execute: async () => ({content:[{type:"text", text:context.chatId}], details:{agent:context.agent}})
 }] });

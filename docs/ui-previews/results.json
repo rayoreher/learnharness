@@ -1,0 +1,46 @@
+{
+  "scope": "Component browser QA with real plugin modules/CSS and controlled host widget substitutes; native preset palettes. Not full React/model verification.",
+  "results": [
+    {
+      "width": 1440,
+      "theme": "default",
+      "overflow": false,
+      "minimum_scoped_text_contrast": 11.497305693257534
+    },
+    {
+      "width": 1440,
+      "theme": "catppuccin-latte",
+      "overflow": false,
+      "minimum_scoped_text_contrast": 5.979333644878896
+    },
+    {
+      "width": 768,
+      "theme": "default",
+      "overflow": false,
+      "minimum_scoped_text_contrast": 11.497305693257534
+    },
+    {
+      "width": 768,
+      "theme": "catppuccin-latte",
+      "overflow": false,
+      "minimum_scoped_text_contrast": 5.979333644878896
+    },
+    {
+      "width": 320,
+      "theme": "default",
+      "overflow": false,
+      "minimum_scoped_text_contrast": 11.497305693257534
+    },
+    {
+      "width": 320,
+      "theme": "catppuccin-latte",
+      "overflow": false,
+      "minimum_scoped_text_contrast": 5.979333644878896
+    }
+  ],
+  "touch_minimum_height": 44,
+  "larger_text": "passed at 320px with 32px root text",
+  "keyboard_focus": "passed",
+  "inert_focus": "passed",
+  "reduced_motion": "passed"
+}

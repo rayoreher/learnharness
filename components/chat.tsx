@@ -2007,10 +2007,17 @@ export function Chat({
 							)}
 							{openingError && <p role="alert" className="text-sm text-destructive">{OPENING_PROMPT_FAILURE}</p>}
 							{error && (
-								<div className="flex items-center justify-between gap-3 rounded-lg border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm">
-									<span>Something went wrong: {error.message}</span>
+								<div role="alert" className="flex items-center justify-between gap-3 rounded-lg border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm max-sm:flex-col max-sm:items-stretch">
+									<div className="min-w-0 space-y-1">
+										<p className="font-medium">The model couldn’t finish its reply.</p>
+										<p>Try again, or check your model connection in Settings.</p>
+										<details className="pt-1 text-xs">
+											<summary className="w-fit cursor-pointer rounded-sm">Show details</summary>
+											<p className="mt-2 whitespace-pre-wrap break-words font-mono">{error.message}</p>
+										</details>
+									</div>
 									{retryable && (
-										<Button variant="outline" size="xs" data-testid="retry-failed-turn" onClick={retryFailedTurn}>
+										<Button variant="outline" size="xs" className="shrink-0 max-sm:min-h-11" data-testid="retry-failed-turn" onClick={retryFailedTurn}>
 											Retry
 										</Button>
 									)}

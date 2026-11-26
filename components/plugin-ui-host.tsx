@@ -21,6 +21,9 @@ import { isInteractionElementVisible, useInteractionLayers, type CloseOutcome, t
 export { PluginSettingsRows } from "@/components/plugin-settings-rows";
 
 export interface PluginUiFactoryOptions { signal: AbortSignal; pluginId?: string; onError?: (error: unknown) => void }
+function validateMarkdown(props: import("@/src/core").PluginMarkdownProps) {
+	if (typeof props.text !== "string" || (props.allowPluginFences !== undefined && typeof props.allowPluginFences !== "boolean")) throw new Error("Markdown requires text and an optional boolean allowPluginFences");
+}
 interface Runtime {
 	signal: AbortSignal;
 	report(error: unknown): void;
@@ -205,7 +208,7 @@ export function createPluginUiStore() {
 				</Button>, undefined, false, validateButton),
 				mountBadge: (target, props, options) => mount(target, props, options, props => <StatusBadge {...props} />, undefined, false, validateBadge),
 				mountSettingsRows: (target, props, options) => mount(target, props, options, (schema, runtime) => <PluginSettingsRows schema={schema} onError={runtime.report} />),
-				mountMarkdown: (target, props, options) => mount(target, props, options, props => <HostMarkdown text={props.text} />),
+				mountMarkdown: (target, props, options) => mount(target, props, options, props => <HostMarkdown text={props.text} allowPluginFences={props.allowPluginFences} />, undefined, false, validateMarkdown),
 				mountTree: (target, tree, options) => mount(target, tree, options, (tree, runtime) => <PluginTree {...tree} signal={runtime.signal} onError={runtime.report}
 					renderContent={content => <PluginContent content={content} runtime={runtime} />} />, undefined, false, validatePluginTree, ["cells"]),
 				mountWorkerResult: (target, props, options) => mount(target, props, options, (props, runtime) => <PluginWorkerResultSurface label={props.label} status={props.status} text={props.text} presentation={props.presentation}>

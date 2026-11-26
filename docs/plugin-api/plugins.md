@@ -263,6 +263,8 @@ export interface PluginBackendContext {
     registerInstructions(contribution: PluginInstructions): () => void;
     registerTools(contribution: PluginTools): () => void;
     registerQuestionType<Q extends TSchema, A extends TSchema>(definition: PluginQuestionTypeDefinition<Q, A>): () => void;
+    registerLessonFormat?(format: PluginLessonFormat): () => void;
+    listLessonFormats?(): PluginLessonFormatInfo[];
     registerProblemType<Q extends TSchema, S extends TSchema>(definition: PluginProblemTypeDefinition<Q, S>): () => void;
     handle(name: string, handler: (input: unknown) => unknown | Promise<unknown>): () => void;
     events: {
@@ -272,7 +274,7 @@ export interface PluginBackendContext {
 }
 ```
 
-**Related types:** [PluginAgentService](plugin-agents.md#pluginagentservice), [PluginBackgroundTool](plugin-workers.md#pluginbackgroundtool), [PluginCleanup](plugins.md#plugincleanup), [PluginInference](plugins.md#plugininference), [PluginInstructions](plugins.md#plugininstructions), [PluginLearningData](plugins.md#pluginlearningdata), [PluginManifest](plugins.md#pluginmanifest), [PluginProblemTypeDefinition](plugin-problems.md#pluginproblemtypedefinition), [PluginQuestionTypeDefinition](plugin-questions.md#pluginquestiontypedefinition), [PluginToolContext](plugins.md#plugintoolcontext), [PluginTools](plugins.md#plugintools), [PluginWorkerService](plugin-workers.md#pluginworkerservice), [ServerEvent](events.md#serverevent).
+**Related types:** [PluginAgentService](plugin-agents.md#pluginagentservice), [PluginBackgroundTool](plugin-workers.md#pluginbackgroundtool), [PluginCleanup](plugins.md#plugincleanup), [PluginInference](plugins.md#plugininference), [PluginInstructions](plugins.md#plugininstructions), [PluginLearningData](plugins.md#pluginlearningdata), [PluginLessonFormat](plugin-lessons.md#pluginlessonformat), [PluginLessonFormatInfo](plugin-lessons.md#pluginlessonformatinfo), [PluginManifest](plugins.md#pluginmanifest), [PluginProblemTypeDefinition](plugin-problems.md#pluginproblemtypedefinition), [PluginQuestionTypeDefinition](plugin-questions.md#pluginquestiontypedefinition), [PluginToolContext](plugins.md#plugintoolcontext), [PluginTools](plugins.md#plugintools), [PluginWorkerService](plugin-workers.md#pluginworkerservice), [ServerEvent](events.md#serverevent).
 
 **Member index** (including nested object members; inherited members are defined in the linked base types):
 
@@ -289,6 +291,8 @@ export interface PluginBackendContext {
 - [registerInstructions](#pluginbackendcontext-registerinstructions)
 - [registerTools](#pluginbackendcontext-registertools)
 - [registerQuestionType](#pluginbackendcontext-registerquestiontype)
+- [registerLessonFormat](#pluginbackendcontext-registerlessonformat)
+- [listLessonFormats](#pluginbackendcontext-listlessonformats)
 - [registerProblemType](#pluginbackendcontext-registerproblemtype)
 - [handle](#pluginbackendcontext-handle)
 - [events](#pluginbackendcontext-events)
@@ -437,6 +441,33 @@ registerQuestionType<Q extends TSchema, A extends TSchema>(definition: PluginQue
 | `definition` | `PluginQuestionTypeDefinition<Q, A>` |
 
 **Returns:** `() => void`.
+
+### PluginBackendContext registerLessonFormat
+
+Add a selectable lesson choice. Quiz choices reference this activation's
+native question type; output/diagram choices use existing code-fence renderers.
+This registers metadata, not another loader or model service.
+
+```ts
+registerLessonFormat?(format: PluginLessonFormat): () => void;
+```
+
+| Parameter | Type |
+| --- | --- |
+| `format` | `PluginLessonFormat` |
+
+**Returns:** `() => void`.
+
+### PluginBackendContext listLessonFormats
+
+Fresh detached metadata from enabled, ready native plugin activations.
+Quiz formats without an available teaching question type are omitted.
+
+```ts
+listLessonFormats?(): PluginLessonFormatInfo[];
+```
+
+**Returns:** `PluginLessonFormatInfo[]`.
 
 ### PluginBackendContext registerProblemType
 
@@ -1988,6 +2019,7 @@ A fresh native Pi loadout per conversation turn; no private app imports.
 ```ts
 export interface PluginTools {
     agents: PluginAgentKind[];
+    nativeQuestionTools?: readonly ("quiz" | "explain")[];
     create(context: PluginToolContext): AgentTool<any>[];
 }
 ```
@@ -1997,12 +2029,24 @@ export interface PluginTools {
 **Member index** (including nested object members; inherited members are defined in the linked base types):
 
 - [agents](#plugintools-agents)
+- [nativeQuestionTools](#plugintools-nativequestiontools)
 - [create](#plugintools-create)
 
 ### PluginTools agents
 
 ```ts
 agents: PluginAgentKind[];
+```
+
+### PluginTools nativeQuestionTools
+
+Opt a teaching workflow into the original native quiz/explain tools.
+Requires a teacher target. Additive, teacher-only and activation-owned;
+omitted requests preserve the learner's original mechanics setting.
+These are host tools, never plugin replacements or custom question types.
+
+```ts
+nativeQuestionTools?: readonly ("quiz" | "explain")[];
 ```
 
 ### PluginTools create

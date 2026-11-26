@@ -103,8 +103,8 @@ export interface PluginBadgeProps {
 }
 /** Content stays plugin-owned; mount may return cleanup, including asynchronously. */
 export type PluginUiContent = HTMLElement | ((container: HTMLElement, signal: AbortSignal) => void | (() => void) | Promise<void | (() => void)>);
-/** Built-in host Markdown rendering without auxiliary controls or plugin code-block widgets. */
-export interface PluginMarkdownProps { text: string }
+/** Display-only host Markdown. Plugin fences require explicit opt-in. */
+export interface PluginMarkdownProps { text: string; allowPluginFences?: boolean }
 export interface PluginWorkerResultProps {
 	label: string;
 	status: "succeeded" | "failed" | "cancelled" | "interrupted";
@@ -200,7 +200,8 @@ export interface PluginUi {
 	 * pending async saves disable their row and failures are shown. */
 	mountSettingsRows(container: HTMLElement, props: PluginSettingsSchema, options: PluginWidgetOptions): PluginWidgetHandle<PluginSettingsSchema>;
 	/** Mount complete Markdown through built-in host rendering, including math/code,
-	 * without auxiliary controls or registered plugin fence renderers. Returns a
+	 * without auxiliary controls. Registered plugin fences require allowPluginFences.
+	 * Existing calls keep host-only rendering. Returns a
 	 * text-update/dispose handle; no model, storage or worker work is started. */
 	mountMarkdown(container: HTMLElement, props: PluginMarkdownProps, options: PluginWidgetOptions): PluginWidgetHandle<PluginMarkdownProps>;
 	/** Mount a controlled accessible hierarchy, not a file/deck controller. Returns
