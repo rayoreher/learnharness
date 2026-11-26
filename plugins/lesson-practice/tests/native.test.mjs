@@ -121,9 +121,22 @@ test('lesson settings reopen coverage when newly selected formats have not been 
   await f.call('lesson-settings', { chatId: f.native.id, lessonId: 'recall-step', settings: { quizTypes: ['multiple-choice', 'open'], output: 'slides' } });
   const s = await f.call('session', { chatId: f.native.id }); assert.equal(s.session.completed.length, 0); assert.equal(s.session.attempts.length, 1); assert.equal(s.session.lessons[0].settings.output, 'slides');
 });
+test('wrong native landmark reports its expected lesson node and corrected authoring succeeds without changing settings', async t => {
+  const f = await fixture(t); await f.begin('recall', ['fill-blank']);
+  const definition = f.questions.get('lesson-fill-blank');
+  const input = { type: 'check', nodeId: 'spacing', question: 'What should happen first?', payload: { quizType: 'fill-blank', lessonId: 'recall-step', conceptId: 'recall-step', reference: 'Recall', explanation: 'Try retrieval first.', options: [], review: false } };
+  const before = await f.call('session', { chatId: f.native.id });
+  const errors = definition.validateQuestion({ chatId: f.native.id, input });
+  assert.equal(errors.length, 1); assert.match(errors[0], /Micro-lesson "recall-step" uses nodeId "recall"/); assert.doesNotMatch(errors[0], /not selected/);
+  assert.deepEqual(definition.validateQuestion({ chatId: f.native.id, input: { ...input, nodeId: 'recall' } }), []);
+  assert.match(definition.validateQuestion({ chatId: f.native.id, input: { ...input, payload: { ...input.payload, lessonId: 'missing' } } })[0], /Start this micro-lesson/);
+  assert.deepEqual(await f.call('session', { chatId: f.native.id }), before);
+  await f.call('lesson-settings', { chatId: f.native.id, lessonId: 'recall-step', settings: { quizTypes: ['multiple-choice'] } });
+  assert.match(definition.validateQuestion({ chatId: f.native.id, input: { ...input, nodeId: 'recall' } })[0], /not selected/);
+});
 test('native plan IDs and selected question types remain authoritative', async t => {
   const f = await fixture(t); await assert.rejects(f.begin('invented'), /existing native plan/); await f.begin('recall', ['multiple-choice']);
-  const definition = f.questions.get('lesson-fill-blank'); assert.match(definition.validateQuestion({ chatId: f.native.id, input: { nodeId: 'recall', payload: {} } })[0], /not selected/);
+  const definition = f.questions.get('lesson-fill-blank'); assert.match(definition.validateQuestion({ chatId: f.native.id, input: { nodeId: 'recall', payload: {} } })[0], /Start this micro-lesson/);
   await assert.rejects(f.tool('lesson_finish', { lessonId: 'recall-step' }), /every selected quiz format/);
 });
 test('canonical reconciliation is idempotent and survives plugin restart without regrading', async t => {

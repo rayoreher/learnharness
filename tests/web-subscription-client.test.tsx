@@ -66,17 +66,31 @@ test("Electron dev uses its narrow external-browser bridge, without attempting a
 	await createWebChatGPTBridge(null).login(); assert.deepEqual(opened, [action]);
 });
 
-test("web notices identify the server machine and same-machine ChatGPT sign-in; desktop copy stays unchanged", async () => {
+test("web notices identify the server machine and return-address recovery; desktop copy stays unchanged", async () => {
 	const { CHATGPT_NOTICE, chatGPTNotice } = await import("../components/settings/chatgpt-connection.tsx");
 	const { subscriptionNotice, subscriptionDisconnectCopy } = await import("../components/settings/subscription-connections.tsx");
 	assert.equal(chatGPTNotice(), CHATGPT_NOTICE); assert(CHATGPT_NOTICE.includes("on this device"));
 	assert(chatGPTNotice(true).includes("on the machine running LearnHarness"));
-	assert(chatGPTNotice(true).endsWith("Complete ChatGPT sign-in in a browser on that same machine."));
+	assert(chatGPTNotice(true).includes("paste its return address into the recovery control below"));
 	for (const label of ["GitHub Copilot", "Grok"]) {
 		assert(subscriptionNotice(label).includes("stored locally")); assert(subscriptionDisconnectCopy(label).includes("from this device"));
 		assert(subscriptionNotice(label, true).includes("on the machine running LearnHarness"));
 		assert(subscriptionDisconnectCopy(label, true).includes("from the machine running LearnHarness"));
 	}
+});
+
+test("web callback recovery submits only through same-origin JSON without opening another tab", async () => {
+	window.open = () => assert.fail("Recovery must not launch another authorization");
+	const callbackUrl = "http://127.0.0.1:54321/auth/callback?code=fixture-code&state=fixture-state";
+	const safe = { available: true, pending: true, allowBackgroundUse: true, activeId: null, accounts: [], error: null };
+	globalThis.fetch = async (url, options) => {
+		assert.equal(url, "/api/subscriptions");
+		assert.equal(options?.method, "POST");
+		assert.equal(new Headers(options?.headers).get("x-learnharness-subscriptions"), "1");
+		assert.deepEqual(JSON.parse(String(options?.body)), { providerId: "chatgpt", op: "complete-login", callbackUrl });
+		return Response.json({ value: safe });
+	};
+	assert.deepEqual(await createWebChatGPTBridge(null).completeLogin!(callbackUrl), safe);
 });
 
 const require = createRequire(import.meta.url);

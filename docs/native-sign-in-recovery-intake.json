@@ -1,0 +1,294 @@
+{
+  "checked_at_utc": "2026-11-26T01:42:21.898764+00:00",
+  "scan": {
+    "scanner_version": "1.0.0",
+    "disposition": "manual_review_required",
+    "complete": true,
+    "tree_sha256": "8617cd740cb85e10437d7519cea8b0c360b5471f73a990625c91c545a880d23e",
+    "files_recorded": 27,
+    "text_files_scanned": 15,
+    "bytes_read": 184748,
+    "findings_truncated": false,
+    "git_metadata_excluded": false,
+    "findings": [
+      {
+        "path": "src/server/web-subscriptions.ts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 70
+      },
+      {
+        "path": "src/server/web-subscription-http.ts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 13
+      },
+      {
+        "path": "tests/web-subscriptions.test.ts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 27
+      },
+      {
+        "path": "tests/web-subscriptions.test.ts",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 14
+      },
+      {
+        "path": "tests/chatgpt-connection-ui.test.tsx",
+        "rule": "dynamic-execution",
+        "severity": "review",
+        "message": "Dynamic execution or unsafe deserialization needs review.",
+        "line": 387
+      },
+      {
+        "path": "tests/chatgpt-connection-ui.test.tsx",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 22
+      },
+      {
+        "path": "tests/web-subscription-client.test.tsx",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 10
+      },
+      {
+        "path": "components/settings/chatgpt-connection.tsx",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 302
+      },
+      {
+        "path": "components/settings/subscription-client.ts",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 13
+      },
+      {
+        "path": "scripts/smoke-subscription-recovery.mjs",
+        "rule": "dynamic-execution",
+        "severity": "review",
+        "message": "Dynamic execution or unsafe deserialization needs review.",
+        "line": 63
+      },
+      {
+        "path": "scripts/smoke-subscription-recovery.mjs",
+        "rule": "network-operation",
+        "severity": "review",
+        "message": "Network destinations and transmitted data need review.",
+        "line": 22
+      },
+      {
+        "path": "scripts/smoke-subscription-recovery.mjs",
+        "rule": "process-execution",
+        "severity": "review",
+        "message": "Child process execution needs review.",
+        "line": 7
+      },
+      {
+        "path": "scripts/smoke-subscription-recovery.mjs",
+        "rule": "environment-access",
+        "severity": "review",
+        "message": "Environment access may expose injected credentials.",
+        "line": 13
+      }
+    ],
+    "limits": {
+      "files": 10000,
+      "file_bytes": 16777216,
+      "total_bytes": 16777216
+    },
+    "requires": [
+      "manual_source_and_provenance_review",
+      "dependency_and_advisory_review",
+      "isolated_execution_only"
+    ],
+    "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+  },
+  "source_files": {
+    "tests/web-subscriptions.test.ts": "e8e4620e13577008293eba13c32d5d4276ccf0eb9d43901e48474a304bd78976",
+    "tests/chatgpt-connection-ui.test.tsx": "ee33f30edd5b12f7a77b677caff9269ec53765eefbf021d4feb9bf83e500c8fc",
+    "tests/web-subscription-client.test.tsx": "29b8776f6ca020053485c29329ec6c106018952ea812517cfacb1ed9f964ab4f",
+    "src/server/web-subscriptions.ts": "f747114351f0f1baa2924c84eb6d8a6cc415031045a75130e7d90ee71f1576d0",
+    "src/server/web-subscription-http.ts": "682d9178ad8e038439279227b790054c921c1db3df4e47d0aeca3ca1fa8717f0",
+    "src/core/contracts/chatgpt.ts": "5fa7987deb6212eb0b1d83f66d304ee9171afd2d6f875d0a2d50149a76749bb5",
+    "components/settings/chatgpt-connection.tsx": "010f5e9b6dc444729757036adef9c0fccb167507bfdb5b3167e8780c9d108dfc",
+    "components/settings/subscription-client.ts": "d897e1bd132647d253cb3eee0587d84ec37b47fa49554908619f8c1660b19a3d",
+    "scripts/smoke-subscription-recovery.mjs": "fbd74cdf6e9fa4acbc720a288bb3530c56bbb60e6dba0380a74ee9f350145688",
+    "plugins/lesson-practice/src/backend.cjs": "136979a20f142fb8fb23f1de55eebd8f7e7e5b0722c790bb30a351021ecd5809",
+    "plugins/lesson-practice/tests/native.test.mjs": "c78cb7b3f80081d859e961dd948284883e77a26a2e1ce5509fe82dad0613e505",
+    "plugins/lesson-practice/package.json": "685ce536ff9fbae8b3169fa6ce670fd8830d4c5ee0a3b30c8aacbd5555bb433a",
+    "plugins/lesson-practice/package-lock.json": "7ac95fd6696bbe3c5c6b407cab9af27583e4e5174002ada62d82198c23bc9970",
+    "plugins/lesson-practice/manifest.json": "730f25970b7361c673d72977aa1a41e6403918f1b6778b6dd6444921dbfff525",
+    "plugins/lesson-practice/CHANGELOG.md": "28b53aa6dfb01db47e579789e19aac89bf2db69cc1f026a8a83cf1fa5e3cad8d"
+  },
+  "dispositions": [
+    {
+      "path": "src/server/web-subscriptions.ts",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 70,
+      "reason": "Only explicit same-origin web recovery. Destination is the privately captured current native loopback redirect, never a user URL; exact origin/path/literal prefix/state/parameter multiplicity/current attempt checked before one-use forwarding. No redirects, cookies, referrer, persistence or URL logging. Native unchanged listener verifies PKCE/JWT and commits credentials."
+    },
+    {
+      "path": "src/server/web-subscription-http.ts",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 13,
+      "reason": "Existing same-origin header/origin/site gates, bounded JSON input and safe error envelope remain. Whitelist adds only complete-login. No private token/lease method is exposed."
+    },
+    {
+      "path": "tests/web-subscriptions.test.ts",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 27,
+      "reason": "Synthetic temporary stores/JWT/PKCE and fixed isolated-loopback callback; all provider requests stubbed, environment contains no credentials. Invalid origins, states, ports, paths, duplicates, replay and stale attempts are rejected before local request."
+    },
+    {
+      "path": "tests/web-subscriptions.test.ts",
+      "rule": "environment-access",
+      "severity": "review",
+      "message": "Environment access may expose injected credentials.",
+      "line": 14,
+      "reason": "Synthetic temporary stores/JWT/PKCE and fixed isolated-loopback callback; all provider requests stubbed, environment contains no credentials. Invalid origins, states, ports, paths, duplicates, replay and stale attempts are rejected before local request."
+    },
+    {
+      "path": "tests/chatgpt-connection-ui.test.tsx",
+      "rule": "dynamic-execution",
+      "severity": "review",
+      "message": "Dynamic execution or unsafe deserialization needs review.",
+      "line": 387,
+      "reason": "Existing synthetic DOM/helper code; new web controls use mocked same-origin requests and assert masked/cleared secrets, reload recovery, waiting for verified status and generic failures."
+    },
+    {
+      "path": "tests/chatgpt-connection-ui.test.tsx",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 22,
+      "reason": "Existing synthetic DOM/helper code; new web controls use mocked same-origin requests and assert masked/cleared secrets, reload recovery, waiting for verified status and generic failures."
+    },
+    {
+      "path": "tests/web-subscription-client.test.tsx",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 10,
+      "reason": "Mocked same-origin transport and first-party Electron opener fixture. New test asserts complete-login JSON and no popup. No actual account/provider call."
+    },
+    {
+      "path": "components/settings/chatgpt-connection.tsx",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 302,
+      "reason": "Existing OpenAI privacy/usage links unchanged. Web-only pending-state recovery masks input, clears it before submission and after unmount, never stores it in React state or echoes errors. Existing completion/consent ordering and sequence fence are retained; no Electron behavior change."
+    },
+    {
+      "path": "components/settings/subscription-client.ts",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 13,
+      "reason": "Existing same-origin JSON bridge gains optional callback submission. It opens no popup and returns only safe native status."
+    },
+    {
+      "path": "scripts/smoke-subscription-recovery.mjs",
+      "rule": "dynamic-execution",
+      "severity": "review",
+      "message": "Dynamic execution or unsafe deserialization needs review.",
+      "line": 63,
+      "reason": "First-party portable browser fixture launches only original Next/browser in existing outer credential-free isolation with a fresh synthetic profile; only status/control replies are intercepted. Allowlisted child environment, no installer/download/account/profile read. Assertions cover reload, masked/cleared input, error/connected-state recovery, 320/1440 geometry and 44px controls. Synthetic screenshots only."
+    },
+    {
+      "path": "scripts/smoke-subscription-recovery.mjs",
+      "rule": "network-operation",
+      "severity": "review",
+      "message": "Network destinations and transmitted data need review.",
+      "line": 22,
+      "reason": "First-party portable browser fixture launches only original Next/browser in existing outer credential-free isolation with a fresh synthetic profile; only status/control replies are intercepted. Allowlisted child environment, no installer/download/account/profile read. Assertions cover reload, masked/cleared input, error/connected-state recovery, 320/1440 geometry and 44px controls. Synthetic screenshots only."
+    },
+    {
+      "path": "scripts/smoke-subscription-recovery.mjs",
+      "rule": "process-execution",
+      "severity": "review",
+      "message": "Child process execution needs review.",
+      "line": 7,
+      "reason": "First-party portable browser fixture launches only original Next/browser in existing outer credential-free isolation with a fresh synthetic profile; only status/control replies are intercepted. Allowlisted child environment, no installer/download/account/profile read. Assertions cover reload, masked/cleared input, error/connected-state recovery, 320/1440 geometry and 44px controls. Synthetic screenshots only."
+    },
+    {
+      "path": "scripts/smoke-subscription-recovery.mjs",
+      "rule": "environment-access",
+      "severity": "review",
+      "message": "Environment access may expose injected credentials.",
+      "line": 13,
+      "reason": "First-party portable browser fixture launches only original Next/browser in existing outer credential-free isolation with a fresh synthetic profile; only status/control replies are intercepted. Allowlisted child environment, no installer/download/account/profile read. Assertions cover reload, masked/cleared input, error/connected-state recovery, 320/1440 geometry and 44px controls. Synthetic screenshots only."
+    }
+  ],
+  "advisories": {
+    "checked_at_utc": "2026-11-26T01:36:32.822137+00:00",
+    "sha256": "5a1d952f4e6cc78b5a538356a008acab067192b823d1524ee672b3532d9caa09",
+    "registry_pairs": 1412,
+    "hits": 0,
+    "dependency_change": false
+  },
+  "intended_operation": "Affected native/web subscription/auth regressions and original build/type/lint/Core/package checks only in existing credential-free run-offline.py. No real profile mounts, provider calls, installer or dependency changes.",
+  "type_fix": "Injection store type is ReturnType<typeof fileStore>; fixes original CJS parameter inference exposed by new full store test. Runtime unchanged.",
+  "browser_command": [
+    "/usr/bin/env",
+    "LH_QA_EXTERNAL_ISOLATION=1",
+    "/node/bin/node",
+    "scripts/smoke-subscription-recovery.mjs",
+    "/qa/v044-recovery"
+  ],
+  "browser_fixture_correction": "At phone width open the original modal sidebar before Settings. Desktop case had passed; prior phone action incorrectly targeted its inert closed sidebar. No app requirement changed. Providers is the original first/default Settings section; the phone uses a native section selector, so do not target the hidden desktop navigation button.",
+  "node_mismatch_before": {
+    "scan": {
+      "scanner_version": "1.0.0",
+      "disposition": "manual_review_required",
+      "complete": true,
+      "tree_sha256": "7dbd89638b82c96315a2675ebb9f56afc701cd0967b4bdc515eed73b3872a746",
+      "files_recorded": 10,
+      "text_files_scanned": 8,
+      "bytes_read": 85754,
+      "findings_truncated": false,
+      "git_metadata_excluded": false,
+      "findings": [],
+      "limits": {
+        "files": 10000,
+        "file_bytes": 16777216,
+        "total_bytes": 16777216
+      },
+      "requires": [
+        "manual_source_and_provenance_review",
+        "dependency_and_advisory_review",
+        "isolated_execution_only"
+      ],
+      "assurance": "Heuristic triage of supplied bytes only. No safety certificate, sanitization, dependency closure, or execution authorization."
+    },
+    "source": "eb603fd original backend + own new focused synthetic regression",
+    "command": [
+      "/node/bin/node",
+      "--test",
+      "--test-name-pattern",
+      "wrong native landmark",
+      "/qa/node-mismatch-before/plugin/tests/native.test.mjs"
+    ],
+    "purpose": "Expected failing regression only in existing credential-free isolation. No outside dependency or command added."
+  },
+  "scope": "Exact incremental native 0.4.4 source, credential-free browser/build operations and retained expected failing regression. Account-connected preview runtime has a separate concrete review.",
+  "assurance": "Scoped complete full-file heuristic triage plus source/provenance/dependency/current-advisory/intended-command review; no safety certificate or privilege grant."
+}

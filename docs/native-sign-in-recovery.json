@@ -1,0 +1,328 @@
+{
+  "checked_at_utc": "2026-11-26T01:58:17.056298+00:00",
+  "base_commit": "eb603fd7e59f61891422fb0b17b87e1c2867553c",
+  "checkpoint": "Native 0.4.4 checkpoint: Lesson practice 0.4.4 / Code viewer 0.1.2; original app 0.6.1 retained.",
+  "source_files": {
+    "tests/web-subscriptions.test.ts": "e8e4620e13577008293eba13c32d5d4276ccf0eb9d43901e48474a304bd78976",
+    "tests/chatgpt-connection-ui.test.tsx": "ee33f30edd5b12f7a77b677caff9269ec53765eefbf021d4feb9bf83e500c8fc",
+    "tests/web-subscription-client.test.tsx": "29b8776f6ca020053485c29329ec6c106018952ea812517cfacb1ed9f964ab4f",
+    "src/server/web-subscriptions.ts": "f747114351f0f1baa2924c84eb6d8a6cc415031045a75130e7d90ee71f1576d0",
+    "src/server/web-subscription-http.ts": "682d9178ad8e038439279227b790054c921c1db3df4e47d0aeca3ca1fa8717f0",
+    "src/core/contracts/chatgpt.ts": "5fa7987deb6212eb0b1d83f66d304ee9171afd2d6f875d0a2d50149a76749bb5",
+    "components/settings/chatgpt-connection.tsx": "010f5e9b6dc444729757036adef9c0fccb167507bfdb5b3167e8780c9d108dfc",
+    "components/settings/subscription-client.ts": "d897e1bd132647d253cb3eee0587d84ec37b47fa49554908619f8c1660b19a3d",
+    "scripts/smoke-subscription-recovery.mjs": "fbd74cdf6e9fa4acbc720a288bb3530c56bbb60e6dba0380a74ee9f350145688",
+    "plugins/lesson-practice/src/backend.cjs": "136979a20f142fb8fb23f1de55eebd8f7e7e5b0722c790bb30a351021ecd5809",
+    "plugins/lesson-practice/tests/native.test.mjs": "c78cb7b3f80081d859e961dd948284883e77a26a2e1ce5509fe82dad0613e505",
+    "plugins/lesson-practice/package.json": "685ce536ff9fbae8b3169fa6ce670fd8830d4c5ee0a3b30c8aacbd5555bb433a",
+    "plugins/lesson-practice/package-lock.json": "7ac95fd6696bbe3c5c6b407cab9af27583e4e5174002ada62d82198c23bc9970",
+    "plugins/lesson-practice/manifest.json": "730f25970b7361c673d72977aa1a41e6403918f1b6778b6dd6444921dbfff525",
+    "plugins/lesson-practice/CHANGELOG.md": "28b53aa6dfb01db47e579789e19aac89bf2db69cc1f026a8a83cf1fa5e3cad8d"
+  },
+  "checks": [
+    {
+      "label": "v044-recovery-acceptance-tests",
+      "command": [
+        "/usr/bin/env",
+        "NODE_ENV=test",
+        "/node/bin/node",
+        "--import",
+        "tsx",
+        "--test",
+        "tests/web-subscriptions.test.ts",
+        "tests/web-subscription-client.test.tsx",
+        "tests/chatgpt-connection-ui.test.tsx",
+        "tests/chatgpt-ui.test.tsx",
+        "tests/chatgpt-auth.test.ts",
+        "tests/chatgpt-file-store.test.ts",
+        "tests/chatgpt-dev-ipc.test.ts",
+        "tests/desktop-access.test.ts"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-recovery-acceptance-tests-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "20b93bd982509171ac8a44d9c367a2a766caae63ef218adcf6db55818c42e59f",
+      "log_sha256": "f70bfdb66ae6a9b1ae0bb7e0aa8028f2a09c76a399b827356d4e6053bda02035"
+    },
+    {
+      "label": "v044-recovery-typed-build",
+      "command": [
+        "/node/bin/node",
+        "/review/build-with-font-cache.mjs"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-recovery-typed-build-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "2a20d9c0eabc6b32b47da41d57499869392ceaf4e5e9a649eb6ddd9525d93dd8",
+      "log_sha256": "b6d3cadeeed8de912f85196a9a76c4cb1a8f61be2735465af8599d6523bf9703"
+    },
+    {
+      "label": "v044-recovery-final-types",
+      "command": [
+        "/node/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-recovery-final-types-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "94b2dcb9711cff913af60bcc1c6937170a8fa9d6aa4e2cf104ec3acbe5a11656",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "v044-recovery-final-eslint",
+      "command": [
+        "/node/bin/node",
+        "node_modules/eslint/bin/eslint.js",
+        "components/settings/chatgpt-connection.tsx",
+        "components/settings/subscription-client.ts",
+        "src/core/contracts/chatgpt.ts",
+        "src/server/web-subscription-http.ts",
+        "src/server/web-subscriptions.ts",
+        "tests/chatgpt-connection-ui.test.tsx",
+        "tests/web-subscription-client.test.tsx",
+        "tests/web-subscriptions.test.ts",
+        "scripts/smoke-subscription-recovery.mjs"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-recovery-final-eslint-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "3551d5a3d6cdbbb96838fe36b14544f2f38cc3fb40d134cc70fb535e60c71546",
+      "log_sha256": "43a92ab152d3ee9440efea33bb3e1a4fef0e1788d26639f037305f064931fc72"
+    },
+    {
+      "label": "v044-recovery-core",
+      "command": [
+        "/node/bin/node",
+        "/review/refresh-qa-build.mjs"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-recovery-core-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "417a244e6a5c756db15aeb93ad783afcb5aee9305b4f4871334d0ce1f8db6738",
+      "log_sha256": "4af15bdb905b202ecbf21f659a7a8c4ba8dc09cafaf93c04bb6fea90a1e3e627"
+    },
+    {
+      "label": "v044-recovery-package",
+      "command": [
+        "/node/bin/node",
+        "scripts/build-server.mjs"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-recovery-package-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "24c575cbef83ddf84a6c957994603bccb18dcbf1fdc716b3cd5252c95784f831",
+      "log_sha256": "c9996219117db30bbc3d5f101525e4b4379c98ab6e1651c4537c31ced941320b"
+    },
+    {
+      "label": "v044-recovery-packaged-browser",
+      "command": [
+        "/usr/bin/env",
+        "TMPDIR=/qa/standalone",
+        "CHROME_PATH=/review/chrome-outer-isolated",
+        "/node/bin/node",
+        "scripts/smoke-server.mjs",
+        "--isolated",
+        "--browser"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-recovery-packaged-browser-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "92e442c3e0de89c624c70a3399162841455b2c95a8fd6dbcc44468019a5f341a",
+      "log_sha256": "eeb989a52a751ed8631e79cfa186abc8e58da4664dc1a8752e20646dd455e284"
+    },
+    {
+      "label": "v044-recovery-responsive-browser",
+      "command": [
+        "/usr/bin/env",
+        "LH_QA_EXTERNAL_ISOLATION=1",
+        "/node/bin/node",
+        "scripts/smoke-subscription-recovery.mjs",
+        "/qa/v044-recovery-responsive"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-recovery-responsive-browser-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "edd687eafcf9ff99d70cce7735e7bcb7b3e17b463da4f678a3472f8ac2aa4562",
+      "log_sha256": "ff0e457ce9a0c1a9167c58ca573ca92dddf3fadc0e658471726f32c55a8a5ade"
+    },
+    {
+      "label": "v044-final-plugin-tests",
+      "command": [
+        "/node/bin/node",
+        "--test",
+        "plugins/lesson-practice/tests/native.test.mjs",
+        "plugins/code-viewer/tests/viewer.test.mjs"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-final-plugin-tests-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "b8f309fdb797017546d19e8381968d1dffc64353d63b4d828ac18bed2c151b9e",
+      "log_sha256": "70621819eaa8f56a6f7169cca5e24d1685f9555f20a10b850f78be29d6ee6b34"
+    },
+    {
+      "label": "v044-final-core",
+      "command": [
+        "/node/bin/node",
+        "/review/refresh-qa-build.mjs"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-final-core-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "0a7b9f2dcd83a82eb71d736cf4423bf90ef1665ccbc250dedcf710810369c6d5",
+      "log_sha256": "123d01b5f64718263366fd3d3f439cb0f914fdbb72a9da2b205b6aa43527cf8d"
+    },
+    {
+      "label": "v044-final-package",
+      "command": [
+        "/node/bin/node",
+        "scripts/build-server.mjs"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-final-package-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "c4daa552a5726dc6308ecf42578cc18bb357f661e8eac29a0e37fedd1279e286",
+      "log_sha256": "f341eb74f4cf9ae73b108f1d0aea7c14964408aac5142e90886aa6caf7e231e2"
+    },
+    {
+      "label": "v044-final-native-browser",
+      "command": [
+        "/usr/bin/env",
+        "LH_QA_EXTERNAL_ISOLATION=1",
+        "/node/bin/node",
+        "scripts/smoke-native-lessons.mjs",
+        "/qa/v044-final-native"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-final-native-browser-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "f99e6cde4a479d5a32b09dd71cab6013920b6e6a86d9fa09a49e05f5f957ac8f",
+      "log_sha256": "778c7a5690ad7a2ac53c50ba56a8fe188912ad6be07d4dcf192314a9b58e098f"
+    },
+    {
+      "label": "v044-final-packaged-browser",
+      "command": [
+        "/usr/bin/env",
+        "TMPDIR=/qa/standalone",
+        "CHROME_PATH=/review/chrome-outer-isolated",
+        "/node/bin/node",
+        "scripts/smoke-server.mjs",
+        "--isolated",
+        "--browser"
+      ],
+      "exit_code": 0,
+      "log": "/tmp/learnharness-mixed-tools-20261123/v044-final-packaged-browser-result.txt",
+      "network": "isolated loopback only",
+      "profile": "synthetic only",
+      "result_sha256": "c12af891a7a86b58cc82289d3dce5b7cefa1773da7f31214145252e53949a976",
+      "log_sha256": "6a27a2248e557a1c940ea20af3acd08379acae450f5a8035f96c0e2b7df9662a"
+    }
+  ],
+  "tests_passed": 115,
+  "browser": {
+    "cases": [
+      {
+        "width": 1440,
+        "geometry": {
+          "viewport": 1440,
+          "documentWidth": 1440,
+          "dialogLeft": 464,
+          "dialogRight": 976,
+          "inputHeight": 44,
+          "buttonHeight": 44
+        },
+        "resumedAfterReload": true,
+        "maskedInput": true,
+        "clearedBeforeError": true,
+        "genericError": true,
+        "completedOnlyOnConnectedStatus": true
+      },
+      {
+        "width": 320,
+        "geometry": {
+          "viewport": 320,
+          "documentWidth": 320,
+          "dialogLeft": 16,
+          "dialogRight": 304,
+          "inputHeight": 44,
+          "buttonHeight": 44
+        },
+        "resumedAfterReload": true,
+        "maskedInput": true,
+        "clearedBeforeError": true,
+        "genericError": true,
+        "completedOnlyOnConnectedStatus": true
+      }
+    ],
+    "errors": [],
+    "boundary": "Actual native Next/React/Settings/browser; subscription status/control replies are synthetic. Native listener/PKCE/identity/save behavior is covered separately by the isolated web-owner regression. No actual account credentials or provider calls."
+  },
+  "dependencies": {
+    "checked_at_utc": "2026-11-26T01:36:32.822137+00:00",
+    "sha256": "5a1d952f4e6cc78b5a538356a008acab067192b823d1524ee672b3532d9caa09",
+    "registry_pairs": 1412,
+    "hits": 0,
+    "dependency_change": false
+  },
+  "live_native_acceptance": {
+    "connection": true,
+    "plan_permission": true,
+    "native_catalog_models": 7,
+    "model": "chatgpt/gpt-6.1-sol",
+    "method": "Ordinary native app HTTP/answer APIs, one separate synthetic Python-loops learning session, real native provider transport. No direct accepted-record/lesson injection.",
+    "observed": [
+      "User-supplied callback accepted by the still-pending original native listener; validated connection and plan permission.",
+      "Actual model produced three diagnostic questions, a master plan and a native lesson_begin with attached quiz.",
+      "A deliberately incorrect lesson answer with confidence 100 was accepted natively, classified possible-misconception and retained in delayed review.",
+      "Actual model invoked lesson_correction with its committed reference and brief explanation.",
+      "Normal continuation reached an open-response code question."
+    ],
+    "boundaries": [
+      "Live account check is native API/record acceptance, not an automated browser OAuth login.",
+      "New recovery UI browser replies are synthetic; native PKCE/JWT/save path is exercised by the isolated web-owner test.",
+      "Real first-pass course completion, delayed-review clearance, final UI rubric score and release decision are not yet claimed.",
+      "Real model fill-blank authoring used a different valid plan node; accurate rejection/repair is implemented and verified offline, but live replay remains pending #11."
+    ]
+  },
+  "retained_failed_checks": [
+    "Initial build exposed the original CJS store injection type inference; ReturnType<typeof fileStore> fixes its type without a runtime change.",
+    "Initial lint command named an unavailable unrelated tool; existing ESLint was used successfully. The new browser script is ignored by the original lint configuration and was reviewed/executed in isolation.",
+    "Initial browser phone actions targeted the inert sidebar and hidden desktop navigation. The final fixture uses Open sidebar and the original default Providers section; no product behavior or assertions were weakened."
+  ],
+  "privacy": "No actual OAuth callback URL/code/state, tokens, email or account IDs are saved in this publication. New UI input is masked, never held in React state, cleared before submission and omitted from diagnostics.",
+  "expected_failing_regression": {
+    "label": "v044-node-mismatch-before",
+    "command": [
+      "/node/bin/node",
+      "--test",
+      "--test-name-pattern",
+      "wrong native landmark",
+      "/qa/node-mismatch-before/plugin/tests/native.test.mjs"
+    ],
+    "exit_code": 1,
+    "log": "/tmp/learnharness-mixed-tools-20261123/v044-node-mismatch-before-result.txt",
+    "network": "isolated loopback only",
+    "profile": "synthetic only",
+    "result_sha256": "12c24272d5844fbd7a30b89328113194971abae0cf6b21fecadb138bac7dfd28",
+    "reason": "New expected-node regression fails against prior eb603fd backend with the misleading format-disabled error; passes after fix."
+  },
+  "node_validation": {
+    "issue": 11,
+    "rejection_preserved": true,
+    "settings_unchanged": true,
+    "corrected_input_accepted": true,
+    "live_replay_pending": true
+  }
+}

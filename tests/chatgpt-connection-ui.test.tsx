@@ -72,6 +72,66 @@ async function begin() { await click(byTest("chatgpt-login")); await click(byTes
 async function confirmDisconnect() { await click(byTest("chatgpt-disconnect")); await click(byTest("chatgpt-confirm-disconnect")); }
 afterEach(async () => { await act(async () => root?.unmount()); host?.remove(); root = undefined; host = undefined; delete window.lh; globalThis.fetch = originalFetch; });
 
+test("web reload can resume a pending sign-in; recovery masks and clears input and waits for verified status", async () => {
+ let status = { ...disconnected(), pending: true };
+ const recovery = deferred<ChatGPTStatus>();
+ const submitted: string[] = [];
+ delete window.lh;
+ globalThis.fetch = async (url, init) => {
+  assert.equal(url, "/api/subscriptions");
+  if (!init?.method) return Response.json({ chatgpt: status, native: [] });
+  const command = JSON.parse(String(init.body));
+  assert.equal(command.op, "complete-login"); submitted.push(command.callbackUrl);
+  return Response.json({ value: await recovery.promise });
+ };
+ await mount();
+ assert.equal(byTest("chatgpt-login").textContent, "Finish sign-in…");
+ assert(!(byTest("chatgpt-login") as HTMLButtonElement).disabled);
+ await click(byTest("chatgpt-login"));
+ const field = byTest("chatgpt-return-recovery").querySelector<HTMLInputElement>("input")!;
+ assert.equal(field.type, "password"); assert.equal(field.getAttribute("autocomplete"), "off");
+ field.value = "http://127.0.0.1:54321/auth/callback?code=private-fixture&state=fixture";
+ await act(async () => { button("Finish sign-in").click(); });
+ assert.equal(submitted.length, 1); assert.equal(field.value, "");
+ assert(document.querySelector('[data-testid="chatgpt-account-dialog"]'), "HTTP submission alone must not close the connection dialog");
+ assert(document.body.textContent?.includes("Waiting for browser sign-in"));
+ assert(!document.body.innerHTML.includes("private-fixture"));
+ status = connected();
+ await act(async () => { recovery.resolve(status); });
+ assert(!document.querySelector('[data-testid="chatgpt-account-dialog"]'));
+ assert(!document.body.innerHTML.includes("private-fixture"));
+});
+
+test("web recovery errors retain the pending attempt and never display the pasted address", async () => {
+ delete window.lh;
+ globalThis.fetch = async (_url, init) => init?.method ? new Response(null, { status: 400 }) : Response.json({ chatgpt: { ...disconnected(), pending: true }, native: [] });
+ await mount(); await click(byTest("chatgpt-login"));
+ const field = byTest("chatgpt-return-recovery").querySelector<HTMLInputElement>("input")!;
+ field.value = "http://127.0.0.1:1/auth/callback?code=private-invalid-fixture";
+ await click(button("Finish sign-in"));
+ assert.equal(field.value, ""); assert(!document.body.innerHTML.includes("private-invalid-fixture"));
+ assert(document.querySelector('[role="alert"]')?.textContent?.includes("could not finish sign-in"));
+ assert(document.body.textContent?.includes("Waiting for browser sign-in"));
+});
+
+test("accepted recovery stays disabled while native identity verification is still pending", async () => {
+ delete window.lh;
+ let submissions = 0;
+ const status = { ...disconnected(), pending: true };
+ globalThis.fetch = async (_url, init) => {
+  if (!init?.method) return Response.json({ chatgpt: status, native: [] });
+  submissions++; return Response.json({ value: status });
+ };
+ await mount(); await click(byTest("chatgpt-login"));
+ const field = byTest("chatgpt-return-recovery").querySelector<HTMLInputElement>("input")!;
+ field.value = "http://127.0.0.1:54321/auth/callback?code=private-pending-fixture";
+ await click(button("Finish sign-in"));
+ assert.equal(field.value, ""); assert(field.disabled);
+ const finishing = button("Finishing sign-in…"); assert(finishing.disabled);
+ await click(finishing); assert.equal(submissions, 1);
+ assert(document.querySelector('[data-testid="chatgpt-account-dialog"]'));
+});
+
 test("Providers is the first/default page; General closes the native group before Core/Community plugins", () => {
  const html = renderToStaticMarkup(<SettingsDialogBody onClose={() => {}} />);
  const ids = [...html.matchAll(/data-testid="settings-nav-([^"]+)"/g)].map((m) => m[1]);

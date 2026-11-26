@@ -1,3 +1,10 @@
+# 0.4.4
+
+- Report missing lesson, unselected format and mismatched native node separately.
+  Give the teacher the expected node so it can repair a question without asking
+  the learner to change valid settings. Preserve rejection and accepted progress.
+- Add native web sign-in return recovery for browsers on another computer.
+
 # 0.4.3
 
 - Use a clear model-failure message with optional diagnostic details and the

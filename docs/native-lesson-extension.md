@@ -4,13 +4,18 @@ This change extends the original LearnHarness application. Its home, teaching
 sessions, sidebar, plan, graph, settings, provider connections and native answer
 flow remain the base. MindSpark supplies examples of quiz mechanics only.
 
-Development version 0.4.3 adds clearer model-error recovery, comfortable phone
+Development version 0.4.4 adds pending sign-in return recovery for browsers on
+another computer and accurate question-node validation errors. The real native
+ChatGPT connection, master plan, first lesson, confidence and committed correction
+have been exercised. [Recovery checks and live acceptance boundaries](native-sign-in-recovery.md).
+
+Version 0.4.3 adds clearer model-error recovery, comfortable phone
 Retry, labeled options/defaults and actual native Settings acceptance. See the
-[latest follow-up](native-app-v043-verification.md).
+[0.4.3 follow-up](native-app-v043-verification.md).
 
 Version 0.4.2 adds full-app verification, responsive navigation and
 Settings, readable lesson progress and complete authoring packaging. See the
-[current verification](native-app-v042-verification.md) for exact checks and
+[0.4.2 verification](native-app-v042-verification.md) for exact checks and
 remaining real-model/release acceptance.
 
 Version 0.4.1 adds an opt-in request for both original teaching

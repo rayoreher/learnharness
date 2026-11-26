@@ -9,7 +9,7 @@ import { useChatGPTBridge } from "./subscription-client";
 import type { CloseOutcome } from "@/components/interaction-layers";
 
 export const CHATGPT_NOTICE = "LearnHarness stores your ChatGPT account details and credentials in an unencrypted local file on this device. When this connection is used, relevant conversation context, learning material, and tool results are sent directly to OpenAI. ChatGPT plan limits apply; any additional credits are authorized and managed in ChatGPT, not LearnHarness.";
-export function chatGPTNotice(web = false): string { return web ? `${CHATGPT_NOTICE.replace("on this device", "on the machine running LearnHarness")} Complete ChatGPT sign-in in a browser on that same machine.` : CHATGPT_NOTICE; }
+export function chatGPTNotice(web = false): string { return web ? `${CHATGPT_NOTICE.replace("on this device", "on the machine running LearnHarness")} If the sign-in page cannot connect on return, paste its return address into the recovery control below.` : CHATGPT_NOTICE; }
 export const CHATGPT_BACKGROUND_HINT = "Background work counts toward your ChatGPT plan usage.";
 const BACKGROUND_LABEL = "Allow background use for all ChatGPT accounts";
 const REVOCATION_WARNING = "Account disconnected locally. Remote revocation could not be confirmed.";
@@ -32,6 +32,7 @@ function replyError(value: unknown): string {
 const Context = createContext({
 	status: empty,
 	busy: false,
+	canResumeSignIn: false,
 	error: null as string | null,
 	inlineError: null as string | null,
 	warning: null as string | null,
@@ -148,7 +149,13 @@ export function ChatGPTUIProvider({ children }: { children: React.ReactNode }) {
 		setRegistration(accountId);
 		setError(null);
 		setDismissedError(status.error);
-		showDialog({ kind: "connect" });
+		const owner = { kind: "connect" } as const;
+		showDialog(owner);
+		if (web && bridge?.completeLogin && statusRef.current.pending) {
+			// A page reload must not leave a pending server-owned attempt stranded.
+			loginAttempt.current = { generation: ++generation.current, dialog: owner, registration: "", background: statusRef.current.allowBackgroundUse, backgroundDirty: false, pending: true, phase: "pending" };
+			operation.current = "login"; setBusy(true);
+		}
 	}
 	function close(): CloseOutcome {
 		if (operation.current === "disconnect" || operation.current === "change" || operation.current === "cancel") return "blocked";
@@ -248,6 +255,7 @@ export function ChatGPTUIProvider({ children }: { children: React.ReactNode }) {
 	}
 	const context = {
 		status, busy, error: warning ? null : visibleError, inlineError: dialog || warning ? null : visibleError, warning: dialog?.kind === "warning" ? null : warning,
+		canResumeSignIn: web && !!bridge?.completeLogin && status.pending,
 		connect: openConnect,
 		manage: (id: string) => {
 			const account = statusRef.current.accounts.find((a) => a.id === id);
@@ -296,6 +304,11 @@ export function ChatGPTUIProvider({ children }: { children: React.ReactNode }) {
 				</div>
 				{!status.available && <p className="mt-3 text-xs text-muted-foreground">ChatGPT sign-in is available only in the desktop app. API-key connections remain available here.</p>}
 				{status.pending && <p role="status" className="mt-3 text-xs text-muted-foreground">Waiting for browser sign-in…</p>}
+				{status.pending && web && bridge?.completeLogin && <ChatGPTReturnRecovery complete={async (callbackUrl) => {
+					const request = ++statusSequence.current;
+					const next = await bridge.completeLogin!(callbackUrl);
+					if (mounted.current && request === statusSequence.current) receive.current(next);
+				}} />}
 				{context.error && <p role="alert" className="mt-3 text-xs text-error">{context.error}</p>}
 				{dialog.kind === "manage" && managed && <div className="mt-4 flex flex-wrap items-center justify-between gap-3" data-testid="chatgpt-account-strip">
 					<div data-testid="chatgpt-managed-identity" className="flex min-w-0 items-center gap-2 text-xs text-foreground">
@@ -317,6 +330,36 @@ export function ChatGPTUIProvider({ children }: { children: React.ReactNode }) {
 	</Context.Provider>;
 }
 
+function ChatGPTReturnRecovery({ complete }: { complete: (callbackUrl: string) => Promise<void> }) {
+	const input = useRef<HTMLInputElement>(null);
+	const sending = useRef(false);
+	const mounted = useRef(true);
+	const [busy, setBusy] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+	useEffect(() => { mounted.current = true; return () => { mounted.current = false; if (input.current) input.current.value = ""; }; }, []);
+	async function submit() {
+		if (sending.current || !input.current?.value.trim()) return;
+		const callbackUrl = input.current.value.trim();
+		input.current.value = "";
+		sending.current = true; setBusy(true); setError(null);
+		try { await complete(callbackUrl); } // Accepted is still pending until native identity verification settles.
+		catch {
+			sending.current = false;
+			if (mounted.current) { setBusy(false); setError("That address could not finish sign-in. Copy the full return address from the sign-in tab and try again, or cancel and start a new sign-in."); }
+		}
+	}
+	return <details className="mt-3 rounded-sm border border-border p-3 text-sm" data-testid="chatgpt-return-recovery">
+		<summary className="cursor-pointer rounded-sm">Sign-in page can’t connect?</summary>
+		<p className="mt-2 text-muted-foreground">If LearnHarness runs on another computer, the browser may be unable to return to it. Copy the full address of that error page and paste it here.</p>
+		<label className="mt-3 block">Sign-in return address
+			<input ref={input} type="password" autoComplete="off" autoCapitalize="none" spellCheck={false} maxLength={8192} disabled={busy} className="mt-1 min-h-11 w-full min-w-0 rounded-sm border border-border bg-background px-3 py-2" onKeyDown={(event) => { if (event.key === "Enter") { event.preventDefault(); void submit(); } }} />
+		</label>
+		<p className="mt-2 text-xs text-muted-foreground">Used once to finish this sign-in, then cleared from this form.</p>
+		<Button type="button" variant="outline" size="sm" className="mt-3 min-h-11" disabled={busy} onClick={() => void submit()}>{busy ? "Finishing sign-in…" : "Finish sign-in"}</Button>
+		{error && <p role="alert" className="mt-2 text-error">{error}</p>}
+	</details>;
+}
+
 function ContinueButton({ onClick, disabled, testid = "chatgpt-login" }: { onClick: () => void; disabled: boolean; testid?: string }) {
 	return <Button type="button" variant="outline" size="sm" data-testid={testid} onClick={onClick} disabled={disabled} className="cursor-pointer disabled:cursor-not-allowed">
 		{/* Official unmodified mark; existing secondary button hover/focus treatment. */}
@@ -336,7 +379,7 @@ export function ChatGPTConnection({ labelClassName }: { setup?: boolean; labelCl
 	const active = ui.status.accounts.find((a) => a.id === ui.status.activeId && a.connected);
 	const accounts = ui.status.accounts.filter((a) => a.connected);
 	return <div className="flex flex-col gap-2" data-testid="chatgpt-connection">
-		<ConnectionRow label="ChatGPT" labelClassName={labelClassName} actionTestid={active ? undefined : "chatgpt-login"} action={active ? "Manage…" : "Connect"} disabled={!ui.status.available || ui.busy || ui.status.pending} onAction={() => active ? ui.manage(active.id) : ui.connect()}>
+		<ConnectionRow label="ChatGPT" labelClassName={labelClassName} actionTestid={active ? undefined : "chatgpt-login"} action={ui.canResumeSignIn ? "Finish sign-in…" : active ? "Manage…" : "Connect"} disabled={!ui.status.available || ui.busy || (ui.status.pending && !ui.canResumeSignIn)} onAction={() => ui.canResumeSignIn ? ui.connect() : active ? ui.manage(active.id) : ui.connect()}>
 			{active && <select aria-label="ChatGPT account" value={active.id} disabled={ui.busy || ui.status.pending} onChange={(event) => ui.select(event.target.value)} className="min-w-0 rounded-sm border border-border bg-background px-2 py-1 text-xs text-foreground">
 				{accounts.map((a) => <option key={a.id} value={a.id}>{a.email || "ChatGPT account"}</option>)}
 			</select>}
